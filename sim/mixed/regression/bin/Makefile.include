@@ -1,0 +1,158 @@
+###################################################################################
+##                                            __ _      _     _                  ##
+##                                           / _(_)    | |   | |                 ##
+##                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |                 ##
+##               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |                 ##
+##              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |                 ##
+##               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|                 ##
+##                  | |                                                          ##
+##                  |_|                                                          ##
+##                                                                               ##
+##                                                                               ##
+##              MPSoC-RV64 CPU                                                   ##
+##              Simulator Include File                                           ##
+##                                                                               ##
+###################################################################################
+
+###################################################################################
+##                                                                               ##
+## Copyright (c) 2019-2020 by the author(s)                                      ##
+##                                                                               ##
+## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
+## of this software and associated documentation files (the "Software"), to deal ##
+## in the Software without restriction, including without limitation the rights  ##
+## to use, copy, modify, merge, publish, distribute, sublicense, and/or sell     ##
+## copies of the Software, and to permit persons to whom the Software is         ##
+## furnished to do so, subject to the following conditions:                      ##
+##                                                                               ##
+## The above copyright notice and this permission notice shall be included in    ##
+## all copies or substantial portions of the Software.                           ##
+##                                                                               ##
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR    ##
+## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,      ##
+## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE   ##
+## AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER        ##
+## LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, ##
+## OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN     ##
+## THE SOFTWARE.                                                                 ##
+##                                                                               ##
+## ============================================================================= ##
+## Author(s):                                                                    ##
+##   Francisco Javier Reina Campo <frareicam@gmail.com>                          ##
+##                                                                               ##
+###################################################################################
+
+#####################################################################
+# Design Sources
+#####################################################################
+RTL_TOP  = riscv_mpsoc
+DUT_SRC_DIR=$(ROOT_DIR)/rtl
+RTL_VLOG = $(DUT_SRC_DIR)/verilog/soc/riscv_misd.sv \
+           $(DUT_SRC_DIR)/verilog/soc/riscv_simd.sv \
+           $(DUT_SRC_DIR)/verilog/soc/riscv_soc.sv \
+           $(DUT_SRC_DIR)/verilog/mpsoc/riscv_mpsoc.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/core/mpsoc_msi_interface.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/core/mpsoc_msi_master_port.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/core/mpsoc_msi_slave_port.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/ram/mpsoc_mpram.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/ram/mpsoc_spram.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/uart/mpsoc_uart.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/uart/mpsoc_uart_fifo.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/uart/mpsoc_uart_interrupt.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/uart/mpsoc_uart_rx.sv \
+           $(ROOT_DIR)/msi/rtl/verilog/uart/mpsoc_uart_tx.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/core/mpsoc_noc_buffer.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/core/mpsoc_noc_demux.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/core/mpsoc_noc_mux.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/router/mpsoc_noc_router_input.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/router/mpsoc_noc_router_output.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/router/mpsoc_noc_router.sv \
+           $(ROOT_DIR)/noc/rtl/verilog/topology/mpsoc_noc_mesh.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/cache/riscv_dext.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/cache/riscv_dcache_core.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/cache/riscv_icache_core.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/execution/riscv_alu.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/execution/riscv_bu.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/execution/riscv_div.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/execution/riscv_lsu.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/execution/riscv_mul.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_dmem_ctrl.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_imem_ctrl.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_membuf.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_memmisaligned.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_mmu.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_mux.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_pmachk.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/memory/riscv_pmpchk.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_bp.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_core.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_du.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_execution.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_id.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_if.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_memory.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_rf.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_state.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/core/riscv_wb.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/memory/riscv_ram_1r1w_generic.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/memory/riscv_ram_1r1w.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/memory/riscv_ram_1rw_generic.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/memory/riscv_ram_1rw.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/memory/riscv_ram_queue.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/pu/riscv_biu.sv \
+           $(ROOT_DIR)/pu/rtl/verilog/pu/riscv_pu.sv
+
+RTL_VHDL = $(DUT_SRC_DIR)/vhdl/pkg/riscv_mpsoc_pkg.vhd \
+           $(DUT_SRC_DIR)/vhdl/pkg/mpsoc_pkg.vhd \
+           $(DUT_SRC_DIR)/vhdl/pkg/mpsoc_dbg_pkg.vhd \
+           $(DUT_SRC_DIR)/vhdl/pkg/mpsoc_dma_pkg.vhd \
+           $(DUT_SRC_DIR)/vhdl/pkg/mpsoc_noc_pkg.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_bus_module_core.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_bytefifo.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_crc32.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_jsp_module_core.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_or1k_biu.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_or1k_module.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_or1k_status_reg.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_syncflop.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/core/mpsoc_dbg_syncreg.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_biu.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_module.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_biu.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_module.vhd \
+           $(ROOT_DIR)/dbg/rtl/vhdl/ahb3/mpsoc_dbg_top_ahb3.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/core/mpsoc_dma_arbitrer_rr.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/core/mpsoc_dma_initiator_nocreq.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/core/mpsoc_dma_packet_buffer.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/core/mpsoc_dma_request_table.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator_nocres.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator_req.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_target.vhd \
+           $(ROOT_DIR)/dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_top.vhd \
+           $(ROOT_DIR)/msi/rtl/vhdl/gpio/mpsoc_peripheral_bridge.vhd \
+           $(ROOT_DIR)/msi/rtl/vhdl/gpio/mpsoc_gpio.vhd \
+           $(ROOT_DIR)/msi/rtl/vhdl/ram/mpsoc_ram_1r1w.vhd \
+           $(ROOT_DIR)/msi/rtl/vhdl/ram/mpsoc_ram_1r1w_generic.vhd \
+           $(ROOT_DIR)/noc/rtl/vhdl/core/mpsoc_noc_arbitrer_rr.vhd \
+           $(ROOT_DIR)/noc/rtl/vhdl/core/mpsoc_noc_vchannel_mux.vhd \
+           $(ROOT_DIR)/noc/rtl/vhdl/router/mpsoc_noc_router_lookup_slice.vhd \
+           $(ROOT_DIR)/noc/rtl/vhdl/router/mpsoc_noc_router_lookup.vhd
+
+#####################################################################
+# Testbench Sources
+#####################################################################
+TB_TOP=riscv_testbench
+TB_SRC_DIR=$(ROOT_DIR)/bench
+TB_VLOG = $(TB_SRC_DIR)/verilog/regression/riscv_testbench.sv \
+          $(TB_SRC_DIR)/verilog/regression/riscv_memory_model.sv \
+          $(TB_SRC_DIR)/verilog/regression/riscv_dbg_bfm.sv
+
+TB_VHDL = $(DUT_SRC_DIR)/vhdl/pkg/riscv_mpsoc_pkg.vhd
+
+
+#####################################################################
+# Include Sources
+#####################################################################
+INCDIRS = $(DUT_SRC_DIR)/verilog/pkg

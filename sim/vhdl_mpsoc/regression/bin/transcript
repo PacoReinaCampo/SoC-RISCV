@@ -1,0 +1,52 @@
+# vsim -c -do "run.do" work.riscv_misd 
+# Start time: 00:06:14 on Dec 03,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.math_real(body)
+# Loading work.riscv_mpsoc_pkg
+# Loading work.mpsoc_msi_pkg
+# Loading work.riscv_misd(rtl)
+# Loading work.riscv_pu(rtl)
+# Loading work.riscv_core(rtl)
+# Loading work.riscv_if(rtl)
+# Loading work.riscv_id(rtl)
+# Loading work.riscv_execution(rtl)
+# Loading work.riscv_alu(rtl)
+# Loading work.riscv_lsu(rtl)
+# Loading work.riscv_bu(rtl)
+# Loading work.riscv_mul(rtl)
+# Loading work.riscv_div(rtl)
+# Loading work.riscv_memory(rtl)
+# Loading work.riscv_wb(rtl)
+# Loading work.riscv_state(rtl)
+# Loading work.riscv_rf(rtl)
+# Loading work.riscv_bp(rtl)
+# Loading work.riscv_ram_1r1w(rtl)
+# Loading work.riscv_ram_1r1w_generic(rtl)
+# Loading work.riscv_du(rtl)
+# Loading work.riscv_imem_ctrl(rtl)
+# Loading work.riscv_membuf(rtl)
+# Loading work.riscv_ram_queue(rtl)
+# Loading work.riscv_memmisaligned(rtl)
+# Loading work.riscv_mmu(rtl)
+# Loading work.riscv_pmachk(rtl)
+# Loading work.riscv_pmpchk(rtl)
+# Loading work.riscv_dext(rtl)
+# Loading work.riscv_mux(rtl)
+# Loading work.riscv_dmem_ctrl(rtl)
+# Loading work.riscv_biu(rtl)
+# Loading work.mpsoc_msi_interface(rtl)
+# Loading work.mpsoc_pkg
+# Loading work.mpsoc_msi_master_port(rtl)
+# Loading work.mpsoc_msi_slave_port(rtl)
+# Loading work.mpsoc_dma_pkg
+# Loading work.mpsoc_dma_ahb3_top(rtl)
+# Loading work.mpsoc_dma_ahb3_interface(rtl)
+# ** Fatal: (vsim-3348) Port length (32) does not match actual length (64) for port "/riscv_misd/generating_0(0)/ahb3_top/ahb3_interface/ahb3_if_haddr".
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_top/ahb3_interface File: ../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd Line: 64
+# FATAL ERROR while loading design
+# Error loading design
+# End time: 00:06:15 on Dec 03,2019, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0

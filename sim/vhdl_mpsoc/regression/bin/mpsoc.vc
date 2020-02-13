@@ -1,0 +1,173 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              MPSoC-RV64 CPU                                                //
+//              Network on Chip Makefile                                      //
+//              Mesh Topology                                                 //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2019-2020 by the author(s)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * =============================================================================
+ * Author(s):
+ *   Francisco Javier Reina Campo <frareicam@gmail.com>
+ */
+
+../../../../rtl/vhdl/pkg/riscv_mpsoc_pkg.vhd
+../../../../rtl/vhdl/pkg/mpsoc_pkg.vhd
+../../../../rtl/vhdl/pkg/mpsoc_dbg_pkg.vhd
+../../../../rtl/vhdl/pkg/mpsoc_dma_pkg.vhd
+../../../../rtl/vhdl/pkg/mpsoc_msi_pkg.vhd
+../../../../rtl/vhdl/pkg/mpsoc_noc_pkg.vhd
+
+../../../../pu/rtl/vhdl/core/cache/riscv_dcache_core.vhd
+../../../../pu/rtl/vhdl/core/cache/riscv_dext.vhd
+../../../../pu/rtl/vhdl/core/cache/riscv_icache_core.vhd
+../../../../pu/rtl/vhdl/core/cache/riscv_noicache_core.vhd
+../../../../pu/rtl/vhdl/core/execution/riscv_alu.vhd
+../../../../pu/rtl/vhdl/core/execution/riscv_bu.vhd
+../../../../pu/rtl/vhdl/core/execution/riscv_div.vhd
+../../../../pu/rtl/vhdl/core/execution/riscv_lsu.vhd
+../../../../pu/rtl/vhdl/core/execution/riscv_mul.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_dmem_ctrl.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_imem_ctrl.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_membuf.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_memmisaligned.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_mmu.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_mux.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_pmachk.vhd
+../../../../pu/rtl/vhdl/core/memory/riscv_pmpchk.vhd
+../../../../pu/rtl/vhdl/core/riscv_bp.vhd
+../../../../pu/rtl/vhdl/core/riscv_core.vhd
+../../../../pu/rtl/vhdl/core/riscv_du.vhd
+../../../../pu/rtl/vhdl/core/riscv_execution.vhd
+../../../../pu/rtl/vhdl/core/riscv_id.vhd
+../../../../pu/rtl/vhdl/core/riscv_if.vhd
+../../../../pu/rtl/vhdl/core/riscv_memory.vhd
+../../../../pu/rtl/vhdl/core/riscv_rf.vhd
+../../../../pu/rtl/vhdl/core/riscv_state.vhd
+../../../../pu/rtl/vhdl/core/riscv_wb.vhd
+
+../../../../pu/rtl/vhdl/memory/riscv_ram_1r1w.vhd
+../../../../pu/rtl/vhdl/memory/riscv_ram_1r1w_generic.vhd
+../../../../pu/rtl/vhdl/memory/riscv_ram_1rw.vhd
+../../../../pu/rtl/vhdl/memory/riscv_ram_1rw_generic.vhd
+../../../../pu/rtl/vhdl/memory/riscv_ram_queue.vhd
+
+../../../../pu/rtl/vhdl/pu/riscv_biu.vhd
+../../../../pu/rtl/vhdl/pu/riscv_pu.vhd
+
+
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_bus_module_core.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_bytefifo.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_crc32.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_jsp_module_core.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_or1k_biu.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_or1k_module.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_or1k_status_reg.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_syncflop.vhd
+../../../../dbg/rtl/vhdl/core/mpsoc_dbg_syncreg.vhd
+
+../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_biu.vhd
+../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_module.vhd
+../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_biu.vhd
+../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_module.vhd
+../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_top_ahb3.vhd
+
+../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_jsp_wb_biu.vhd
+../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_jsp_wb_module.vhd
+../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_top_wb.vhd
+../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_wb_biu.vhd
+../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_wb_module.vhd
+
+
+../../../../dma/rtl/vhdl/core/mpsoc_dma_arbitrer_rr.vhd
+../../../../dma/rtl/vhdl/core/mpsoc_dma_initiator_nocreq.vhd
+../../../../dma/rtl/vhdl/core/mpsoc_dma_packet_buffer.vhd
+../../../../dma/rtl/vhdl/core/mpsoc_dma_request_table.vhd
+
+../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator_nocres.vhd
+../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator_req.vhd
+../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator.vhd
+../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd
+../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_target.vhd
+../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_top.vhd
+
+../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_initiator_nocres.vhd
+../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_initiator_req.vhd
+../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_initiator.vhd
+../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_interface.vhd
+../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_target.vhd
+../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_top.vhd
+
+
+../../../../msi/rtl/vhdl/gpio/mpsoc_peripheral_bridge.vhd
+../../../../msi/rtl/vhdl/gpio/mpsoc_gpio.vhd
+
+../../../../msi/rtl/vhdl/core/generic/mpsoc_msi_interface.vhd
+../../../../msi/rtl/vhdl/core/generic/mpsoc_msi_master_port.vhd
+../../../../msi/rtl/vhdl/core/generic/mpsoc_msi_slave_port.vhd
+
+../../../../msi/rtl/vhdl/core/misd/mpsoc_misd_memory_interface.vhd
+../../../../msi/rtl/vhdl/core/misd/mpsoc_misd_memory_master_port.vhd
+../../../../msi/rtl/vhdl/core/misd/mpsoc_misd_memory_slave_port.vhd
+
+../../../../msi/rtl/vhdl/core/simd/mpsoc_simd_memory_interface.vhd
+../../../../msi/rtl/vhdl/core/simd/mpsoc_simd_memory_master_port.vhd
+../../../../msi/rtl/vhdl/core/simd/mpsoc_simd_memory_slave_port.vhd
+
+../../../../msi/rtl/vhdl/ram/mpsoc_misd_mpram.vhd
+../../../../msi/rtl/vhdl/ram/mpsoc_simd_mpram.vhd
+../../../../msi/rtl/vhdl/ram/mpsoc_spram.vhd
+../../../../msi/rtl/vhdl/ram/mpsoc_ram_1r1w.vhd
+../../../../msi/rtl/vhdl/ram/mpsoc_ram_1r1w_generic.vhd
+
+
+../../../../noc/rtl/vhdl/core/mpsoc_noc_arbitrer_rr.vhd
+../../../../noc/rtl/vhdl/core/mpsoc_noc_buffer.vhd
+../../../../noc/rtl/vhdl/core/mpsoc_noc_demux.vhd
+../../../../noc/rtl/vhdl/core/mpsoc_noc_mux.vhd
+../../../../noc/rtl/vhdl/core/mpsoc_noc_vchannel_mux.vhd
+
+../../../../noc/rtl/vhdl/router/mpsoc_noc_router_input.vhd
+../../../../noc/rtl/vhdl/router/mpsoc_noc_router_lookup_slice.vhd
+../../../../noc/rtl/vhdl/router/mpsoc_noc_router_lookup.vhd
+../../../../noc/rtl/vhdl/router/mpsoc_noc_router_output.vhd
+../../../../noc/rtl/vhdl/router/mpsoc_noc_router.vhd
+
+../../../../noc/rtl/vhdl/topology/mpsoc_noc_mesh.vhd
+
+
+../../../../rtl/vhdl/soc/riscv_misd.vhd
+../../../../rtl/vhdl/soc/riscv_simd.vhd
+
+../../../../rtl/vhdl/soc/riscv_soc.vhd
+
+../../../../rtl/vhdl/mpsoc/riscv_mpsoc.vhd

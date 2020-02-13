@@ -1,0 +1,67 @@
+rm -rf sim/mixed/regression/run
+rm -rf sim/verilog/regression/run
+rm -rf sim/vhdl/regression/run
+
+rm -rf sim/mixed_mpsoc/regression/bin/work
+rm -rf sim/verilog_mpsoc/regression/bin/work
+rm -rf sim/vhdl_mpsoc/regression/bin/work
+
+rm -rf pu/sim/mixed/regression/run
+rm -rf pu/sim/verilog/regression/run
+rm -rf pu/sim/vhdl/regression/run
+
+rm -rf pu/sim/mixed_pu/regression/bin/work
+rm -rf pu/sim/verilog_pu/regression/bin/work
+rm -rf pu/sim/vhdl_pu/regression/bin/work
+
+rm -rf dbg/sim/mixed/regression/bin/work
+rm -rf dbg/sim/verilog/regression/bin/work
+rm -rf dbg/sim/vhdl/regression/bin/work
+
+rm -rf dma/sim/mixed/regression/bin/work
+rm -rf dma/sim/verilog/regression/bin/work
+rm -rf dma/sim/vhdl/regression/bin/work
+
+rm -rf msi/sim/mixed/regression/bin/work
+rm -rf msi/sim/verilog/regression/bin/work
+rm -rf msi/sim/vhdl/regression/bin/work
+
+rm -rf noc/sim/mixed/regression/bin/work
+rm -rf noc/sim/verilog/regression/bin/work
+rm -rf noc/sim/vhdl/regression/bin/work
+
+rm -rf dbg/synthesis
+rm -rf dma/synthesis
+rm -rf msi/synthesis
+rm -rf noc/synthesis
+rm -rf pu/synthesis
+rm -rf synthesis
+
+rm -rf dbg/work-obj93.cf
+rm -rf dma/work-obj93.cf
+rm -rf msi/work-obj93.cf
+rm -rf noc/work-obj93.cf
+rm -rf pu/work-obj93.cf
+rm -rf work-obj93.cf
+
+rm -rf dbg/system.vvp
+rm -rf dma/system.vvp
+rm -rf msi/system.vvp
+rm -rf noc/system.vvp
+rm -rf pu/system.vvp
+rm -rf system.vvp
+
+rm -rf dbg/obj_dir
+rm -rf dma/obj_dir
+rm -rf msi/obj_dir
+rm -rf noc/obj_dir
+rm -rf pu/obj_dir
+rm -rf obj_dir
+
+rm -rf dbg/riscv_dbg_testbench.tree
+rm -rf dma/riscv_dma_testbench.tree
+rm -rf msi/riscv_msi_testbench.tree
+rm -rf noc/riscv_noc_testbench.tree
+rm -rf pu/riscv_pu_testbench.tree
+
+rm -rf riscv_mpsoc.tree

@@ -1,0 +1,872 @@
+A Multi-Processor System on Chip (MPSoC) is a System on Chip (SoC) which includes 
+multiple Processing Units (PU). As such, it is a multi-core System-on-Chip. All PUs 
+are linked to each other by a Network on Chip (NoC). These architectures meet the 
+performance needs of multimedia applications, telecommunication architectures or 
+network security.
+
+
+    MPSoC
+  ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+  ║  SoC [0x0]                                                SoC [0x1]                                            ║
+  ║╔═════════════════════════════════════════════════════╗  ╔═════════════════════════════════════════════════════╗║
+  ║║  MISD                                               ║  ║  MISD                                               ║║
+  ║║╔═══════════════════════════════════════════════════╗║  ║╔═══════════════════════════════════════════════════╗║║
+  ║║║  [IM0] [IM1] [IM2] [IM3] [IM4] [IM5] [IM6] [IM7]  ║║  ║║  [IM0] [IM1] [IM2] [IM3] [IM4] [IM5] [IM6] [IM7]  ║║║
+  ║║║    |     |     |     |     |     |     |     |    ║║  ║║    |     |     |     |     |     |     |     |    ║║║
+  ║║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║  ║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║║
+  ║║║                         |                         ║║  ║║                         |                         ║║║
+  ║║║  [                     DM0                     ]  ║║  ║║  [                     DM0                     ]  ║║║
+  ║║╚═══════════════════════════════════════════════════╝║  ║╚═══════════════════════════════════════════════════╝║║
+  ║║                                                     ║  ║                                                     ║║
+  ║║  SIMD                                               ║  ║  SIMD                                               ║║
+  ║║╔═══════════════════════════════════════════════════╗║  ║╔═══════════════════════════════════════════════════╗║║
+  ║║║  [DM0] [DM1] [DM2] [DM3] [DM4] [DM5] [DM6] [DM7]  ║║  ║║  [DM0] [DM1] [DM2] [DM3] [DM4] [DM5] [DM6] [DM7]  ║║║
+  ║║║    |     |     |     |     |     |     |     |    ║║  ║║    |     |     |     |     |     |     |     |    ║║║
+  ║║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║  ║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║║
+  ║║║                         |                         ║║  ║║                         |                         ║║║
+  ║║║  [                     IM0                     ]  ║║  ║║  [                     IM0                     ]  ║║║
+  ║║╚═══════════════════════════════════════════════════╝║  ║╚═══════════════════════════════════════════════════╝║║
+  ║╚═════════════════════════════════════════════════════╝  ╚═════════════════════════════════════════════════════╝║
+  ║                                                                                                                ║
+  ║  SoC [1x0]                                                SoC [1x1]                                            ║
+  ║╔═════════════════════════════════════════════════════╗  ╔═════════════════════════════════════════════════════╗║
+  ║║  MISD                                               ║  ║  MISD                                               ║║
+  ║║╔═══════════════════════════════════════════════════╗║  ║╔═══════════════════════════════════════════════════╗║║
+  ║║║  [IM0] [IM1] [IM2] [IM3] [IM4] [IM5] [IM6] [IM7]  ║║  ║║  [IM0] [IM1] [IM2] [IM3] [IM4] [IM5] [IM6] [IM7]  ║║║
+  ║║║    |     |     |     |     |     |     |     |    ║║  ║║    |     |     |     |     |     |     |     |    ║║║
+  ║║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║  ║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║║
+  ║║║                         |                         ║║  ║║                         |                         ║║║
+  ║║║    [                   DM0                     ]  ║║  ║║  [                     DM0                     ]  ║║║
+  ║║╚═══════════════════════════════════════════════════╝║  ║╚═══════════════════════════════════════════════════╝║║
+  ║║                                                     ║  ║                                                     ║║
+  ║║  SIMD                                               ║  ║  SIMD                                               ║║
+  ║║╔═══════════════════════════════════════════════════╗║  ║╔═══════════════════════════════════════════════════╗║║
+  ║║║  [DM0] [DM1] [DM2] [DM3] [DM4] [DM5] [DM6] [DM7]  ║║  ║║  [DM0] [DM1] [DM2] [DM3] [DM4] [DM5] [DM6] [DM7]  ║║║
+  ║║║    |     |     |     |     |     |     |     |    ║║  ║║    |     |     |     |     |     |     |     |    ║║║
+  ║║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║  ║║ =[PU0]=[PU1]=[PU2]=[PU3]=[PU4]=[PU5]=[PU6]=[PU7]= ║║║
+  ║║║                         |                         ║║  ║║                         |                         ║║║
+  ║║║  [                     IM0                     ]  ║║  ║║  [                     IM0                     ]  ║║║
+  ║║╚═══════════════════════════════════════════════════╝║  ║╚═══════════════════════════════════════════════════╝║║
+  ║╚═════════════════════════════════════════════════════╝  ╚═════════════════════════════════════════════════════╝║
+  ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+
+  ---------------------------------------------------------------------------------------------------------------
+  Parameter             |Type    |Default       |Description
+  ---------------------------------------------------------------------------------------------------------------
+  JEDEC_BANK            |Integer |0x0A          |JEDEC Bank
+  ---------------------------------------------------------------------------------------------------------------
+  JEDEC_MANUFACTURER_ID |Integer |0x6E          |JEDEC Manufacturer ID
+  ---------------------------------------------------------------------------------------------------------------
+  XLEN                  |Integer |64            |Data Path Width
+  ---------------------------------------------------------------------------------------------------------------
+  PLEN                  |Integer |64            |Physical Memory Address Size
+  ---------------------------------------------------------------------------------------------------------------
+  PMP_CNT               |Integer |16            |Number of Physical Memory Protection Entries
+  ---------------------------------------------------------------------------------------------------------------
+  PMA_CNT               |Integer |16            |Number of Physical Menory Attribute Entries
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_USER              |Integer |1             |User Mode Enable
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_SUPER             |Integer |1             |Supervisor Mode Enable
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_HYPER             |Integer |1             |Hypervisor Mode Enable
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_RVM               |Integer |1             |"M" Extension Enable
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_RVA               |Integer |1             |"A" Extension Enable
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_RVC               |Integer |1             |"C" Extension Enable
+  ---------------------------------------------------------------------------------------------------------------
+  HAS_BPU               |Integer |1             |Branch Prediction Unit Control Enable
+  ---------------------------------------------------------------------------------------------------------------
+  IS_RV32E              |Integer |0             |RV32E Base Integer Instruction Set Enable
+  ---------------------------------------------------------------------------------------------------------------
+  MULT_LATENCY          |Integer |1             |Hardware Multiplier Latency (if "M" Extension enabled)
+  ---------------------------------------------------------------------------------------------------------------
+  ICACHE_SIZE           |Integer |16            |Instruction Cache size in Kbytes
+  ---------------------------------------------------------------------------------------------------------------
+  ICACHE_BLOCK_SIZE     |Integer |64            |Instruction Cache block length in bytes
+  ---------------------------------------------------------------------------------------------------------------
+  ICACHE_WAYS           |Integer |2             |Instruction Cache associativity
+  ---------------------------------------------------------------------------------------------------------------
+  ICACHE_REPLACE_ALG    |Integer |0             |Instruction Cache replacement algorithm 0: Random 1: FIFO 2: LRU
+  ---------------------------------------------------------------------------------------------------------------
+  DCACHE_SIZE           |Integer |16            |Data Cache size in Kbytes
+  ---------------------------------------------------------------------------------------------------------------
+  DCACHE_BLOCK_SIZE     |Integer |64            |Data Cache block length in bytes
+  ---------------------------------------------------------------------------------------------------------------
+  DCACHE_WAYS           |Integer |2             |Data Cache associativity
+  ---------------------------------------------------------------------------------------------------------------
+  DCACHE_REPLACE_ALG    |Integer |0             |Data Cache replacement algorithm 0: Random 1: FIFO 2: LRU
+  ---------------------------------------------------------------------------------------------------------------
+  HARTID                |Integer |0             |Hart Identifier
+  ---------------------------------------------------------------------------------------------------------------
+  PC_INIT               |Address |h200          |Program Counter Initialisation Vector
+  ---------------------------------------------------------------------------------------------------------------
+  MNMIVEC_DEFAULT       |Address |PC_INIT-'h004 |Machine Mode Non-Maskable Interrupt vector address
+  ---------------------------------------------------------------------------------------------------------------
+  MTVEC_DEFAULT         |Address |PC_INIT-'h040 |Machine Mode Interrupt vector address
+  ---------------------------------------------------------------------------------------------------------------
+  HTVEC_DEFAULT         |Address |PC_INIT-'h080 |Hypervisor Mode Interrupt vector address
+  ---------------------------------------------------------------------------------------------------------------
+  STVEC_DEFAULT         |Address |PC_INIT-'h0C0 |Supervisor Mode Interrupt vector address
+  ---------------------------------------------------------------------------------------------------------------
+  UTVEC_DEFAULT         |Address |PC_INIT-'h100 |User Mode Interrupt vector address
+  ---------------------------------------------------------------------------------------------------------------
+  BP_LOCAL_BITS         |Integer |10            |Number of local predictor bits
+  ---------------------------------------------------------------------------------------------------------------
+  BP_GLOBAL_BITS        |Integer |2             |Number of global predictor bits
+  ---------------------------------------------------------------------------------------------------------------
+  BREAKPOINTS           |Integer |3             |Number of hardware breakpoints
+  ---------------------------------------------------------------------------------------------------------------
+  TECHNOLOGY            |String  |GENERIC       |Target Silicon Technology
+  ---------------------------------------------------------------------------------------------------------------
+
+
+  ---------------------------------------------------------------------------------------------------------------
+  Parameter             |Type    |Default                         |Description
+  ---------------------------------------------------------------------------------------------------------------
+  X                     |Integer |4                               |
+  ---------------------------------------------------------------------------------------------------------------
+  Y                     |Integer |4                               |
+  ---------------------------------------------------------------------------------------------------------------
+  Z                     |Integer |4                               |
+  ---------------------------------------------------------------------------------------------------------------
+  CORES_PER_MISD        |Integer |8                               |
+  ---------------------------------------------------------------------------------------------------------------
+  CORES_PER_SIMD        |Integer |8                               |
+  ---------------------------------------------------------------------------------------------------------------
+  CORES_PER_TILE        |Integer |CORES_PER_SIMD + CORES_PER_MISD |
+  ---------------------------------------------------------------------------------------------------------------
+  NODES                 |Integer |X*Y*Z                           |
+  ---------------------------------------------------------------------------------------------------------------
+  CORES                 |Integer |NODES*CORES_PER_TILE            |
+  ---------------------------------------------------------------------------------------------------------------
+
+
+  -----------------------------------------------------------------------------------
+  Language                         files          blank        comment           code
+  -----------------------------------------------------------------------------------
+  VHDL                               128           5423          10085          31428
+  Verilog-SystemVerilog              120           4480           8742          21689
+  make                                20             76            158            322
+  Go                                   2             16             99             88
+  C                                    1              3             40              5
+  Markdown                             3             12              0             54
+  -----------------------------------------------------------------------------------
+  SUM:                               274          10010          19124          53586
+  -----------------------------------------------------------------------------------
+
+
+/MPSoC-RISCV
+├── bench
+│   ├── tests
+│   │   └── regression
+│   │       ├── rv32mi-p-breakpoint.hex
+│   │       ├── ...
+│   │       └── rv64um-v-remw.hex
+│   ├── verilog
+│   │   └── regression
+│   │       ├── riscv_dbg_bfm.sv
+│   │       ├── riscv_glip_tcp.sv
+│   │       ├── riscv_memory_model.sv
+│   │       ├── riscv_r3_checker.sv
+│   │       ├── riscv_testbench.sv
+│   │       └── riscv_trace_monitor.sv
+│   └── vhdl
+│       └── regression
+│           ├── riscv_dbg_bfm.vhd
+│           ├── riscv_glip_tcp.vhd
+│           ├── riscv_memory_model.vhd
+│           ├── riscv_r3_checker.vhd
+│           ├── riscv_testbench.vhd
+│           └── riscv_trace_monitor.vhd
+├── dbg
+│   ├── bench
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── riscv_dbg_testbench.sv
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── riscv_dbg_testbench.vhd
+│   ├── doc
+│   │   └── MPSoC-DBG.txt
+│   ├── rtl
+│   │   ├── verilog
+│   │   │   ├── blocks
+│   │   │   │   ├── buffer
+│   │   │   │   │   ├── riscv_dii_buffer.sv
+│   │   │   │   │   └── riscv_osd_fifo.sv
+│   │   │   │   ├── eventpacket
+│   │   │   │   │   ├── riscv_osd_event_packetization_fixedwidth.sv
+│   │   │   │   │   └── riscv_osd_event_packetization.sv
+│   │   │   │   ├── regaccess
+│   │   │   │   │   ├── riscv_osd_regaccess_demux.sv
+│   │   │   │   │   ├── riscv_osd_regaccess_layer.sv
+│   │   │   │   │   └── riscv_osd_regaccess.sv
+│   │   │   │   └── tracesample
+│   │   │   │       └── riscv_osd_tracesample.sv
+│   │   │   ├── interconnect
+│   │   │   │   ├── riscv_debug_ring_expand.sv
+│   │   │   │   ├── riscv_debug_ring.sv
+│   │   │   │   ├── riscv_ring_router_demux.sv
+│   │   │   │   ├── riscv_ring_router_gateway_demux.sv
+│   │   │   │   ├── riscv_ring_router_gateway_mux.sv
+│   │   │   │   ├── riscv_ring_router_gateway.sv
+│   │   │   │   ├── riscv_ring_router_mux_rr.sv
+│   │   │   │   ├── riscv_ring_router_mux.sv
+│   │   │   │   └── riscv_ring_router.sv
+│   │   │   ├── modules
+│   │   │   │   ├── common
+│   │   │   │   │   ├── riscv_osd_ctm.sv
+│   │   │   │   │   ├── riscv_osd_him.sv
+│   │   │   │   │   ├── riscv_osd_scm.sv
+│   │   │   │   │   └── riscv_osd_stm.sv
+│   │   │   │   └── template
+│   │   │   │       ├── riscv_osd_ctm_template.sv
+│   │   │   │       └── riscv_osd_stm_template.sv
+│   │   │   ├── pkg
+│   │   │   │   ├── riscv_dbg_pkg.sv
+│   │   │   │   └── riscv_mpsoc_pkg.sv
+│   │   │   └── riscv_debug_interface.sv
+│   │   └── vhdl
+│   │       ├── blocks
+│   │       │   ├── buffer
+│   │       │   │   ├── riscv_dii_buffer.vhd
+│   │       │   │   └── riscv_osd_fifo.vhd
+│   │       │   ├── eventpacket
+│   │       │   │   ├── riscv_osd_event_packetization_fixedwidth.vhd
+│   │       │   │   └── riscv_osd_event_packetization.vhd
+│   │       │   ├── regaccess
+│   │       │   │   ├── riscv_osd_regaccess_demux.vhd
+│   │       │   │   ├── riscv_osd_regaccess_layer.vhd
+│   │       │   │   └── riscv_osd_regaccess.vhd
+│   │       │   └── tracesample
+│   │       │       └── riscv_osd_tracesample.vhd
+│   │       ├── interconnect
+│   │       │   ├── riscv_debug_ring_expand.vhd
+│   │       │   ├── riscv_debug_ring.vhd
+│   │       │   ├── riscv_ring_router_demux.vhd
+│   │       │   ├── riscv_ring_router_gateway_demux.vhd
+│   │       │   ├── riscv_ring_router_gateway_mux.vhd
+│   │       │   ├── riscv_ring_router_gateway.vhd
+│   │       │   ├── riscv_ring_router_mux_rr.vhd
+│   │       │   ├── riscv_ring_router_mux.vhd
+│   │       │   └── riscv_ring_router.vhd
+│   │       ├── modules
+│   │       │   ├── common
+│   │       │   │   ├── riscv_osd_ctm.vhd
+│   │       │   │   ├── riscv_osd_him.vhd
+│   │       │   │   ├── riscv_osd_scm.vhd
+│   │       │   │   └── riscv_osd_stm.vhd
+│   │       │   └── template
+│   │       │       ├── riscv_osd_ctm_template.vhd
+│   │       │       └── riscv_osd_stm_template.vhd
+│   │       ├── pkg
+│   │       │   ├── riscv_dbg_pkg.vhd
+│   │       │   └── riscv_mpsoc_pkg.vhd
+│   │       └── riscv_debug_interface.vhd
+│   ├── sim
+│   │   ├── mixed
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── dbg_verilog.vc
+│   │   │           ├── dbg_vhdl.vc
+│   │   │           ├── Makefile
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── dbg.vc
+│   │   │           ├── Makefile
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── bin
+│   │               ├── dbg.vc
+│   │               ├── Makefile
+│   │               ├── run.do
+│   │               └── transcript
+│   ├── README.md
+│   ├── CLEAN-IT
+│   ├── EXECUTE-IT
+│   ├── SIMULATE-MIXED-MS-IT
+│   ├── SIMULATE-VHDL-GHDL-IT
+│   ├── SIMULATE-VHDL-MS-IT
+│   ├── SIMULATE-VLOG-IV-IT
+│   ├── SIMULATE-VLOG-MS-IT
+│   ├── SYNTHESIZE-VLOG-YS-IT
+│   ├── FLOW-VLOG-YS-IT
+│   ├── system.iv
+│   ├── system.qf
+│   ├── system.ys
+│   └── UPLOAD-IT
+├── dma
+│   ├── bench
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── riscv_dma_testbench.sv
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── riscv_dma_testbench.vhd
+│   ├── doc
+│   │   └── MPSoC-DMA.txt
+│   ├── rtl
+│   │   ├── verilog
+│   │   │   ├── modules
+│   │   │   │   ├── riscv_dma_initiator_interface.sv
+│   │   │   │   ├── riscv_dma_initiator_request.sv
+│   │   │   │   ├── riscv_dma_initiator_response.sv
+│   │   │   │   ├── riscv_dma_initiator.sv
+│   │   │   │   ├── riscv_dma_interface.sv
+│   │   │   │   ├── riscv_dma_transfer_table.sv
+│   │   │   │   └── riscv_dma_transfer_target.sv
+│   │   │   ├── mpb
+│   │   │   │   ├── riscv_mpb_endpoint.sv
+│   │   │   │   └── riscv_mpb.sv
+│   │   │   ├── noc
+│   │   │   │   ├── riscv_dma_arb_rr.sv
+│   │   │   │   └── riscv_dma_buffer.sv
+│   │   │   ├── pkg
+│   │   │   │   ├── riscv_dma_pkg.sv
+│   │   │   │   ├── riscv_mpsoc_pkg.sv
+│   │   │   │   └── riscv_noc_pkg.sv
+│   │   │   └── riscv_dma.sv
+│   │   └── vhdl
+│   │       ├── modules
+│   │       │   ├── riscv_dma_initiator_interface.vhd
+│   │       │   ├── riscv_dma_initiator_request.vhd
+│   │       │   ├── riscv_dma_initiator_response.vhd
+│   │       │   ├── riscv_dma_initiator.vhd
+│   │       │   ├── riscv_dma_interface.vhd
+│   │       │   ├── riscv_dma_transfer_table.vhd
+│   │       │   └── riscv_dma_transfer_target.vhd
+│   │       ├── mpb
+│   │       │   ├── riscv_mpb_endpoint.vhd
+│   │       │   └── riscv_mpb.vhd
+│   │       ├── noc
+│   │       │   ├── riscv_dma_arb_rr.vhd
+│   │       │   └── riscv_dma_buffer.vhd
+│   │       ├── pkg
+│   │       │   ├── riscv_dma_pkg.vhd
+│   │       │   ├── riscv_mpsoc_pkg.vhd
+│   │       │   └── riscv_noc_pkg.vhd
+│   │       └── riscv_dma.vhd
+│   ├── sim
+│   │   ├── mixed
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── dma_verilog.vc
+│   │   │           ├── dma_vhdl.vc
+│   │   │           ├── Makefile
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── dma.vc
+│   │   │           ├── Makefile
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── bin
+│   │               ├── dma.vc
+│   │               ├── Makefile
+│   │               ├── run.do
+│   │               └── transcript
+│   ├── README.md
+│   ├── CLEAN-IT
+│   ├── EXECUTE-IT
+│   ├── SIMULATE-MIXED-MS-IT
+│   ├── SIMULATE-VHDL-GHDL-IT
+│   ├── SIMULATE-VHDL-MS-IT
+│   ├── SIMULATE-VLOG-IV-IT
+│   ├── SIMULATE-VLOG-MS-IT
+│   ├── SYNTHESIZE-VLOG-YS-IT
+│   ├── FLOW-VLOG-YS-IT
+│   ├── system.iv
+│   ├── system.qf
+│   ├── system.ys
+│   └── UPLOAD-IT
+├── doc
+│   └── MPSoC-RISCV.txt
+├── msi
+│   ├── bench
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── riscv_msi_testbench.sv
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── riscv_msi_testbench.vhd
+│   ├── doc
+│   │   └── MPSoC-MSI.txt
+│   ├── rtl
+│   │   ├── verilog
+│   │   │   ├── gpio
+│   │   │   │   ├── riscv_bridge.sv
+│   │   │   │   └── riscv_gpio.sv
+│   │   │   ├── memory
+│   │   │   │   ├── riscv_ram_1r1w_generic.sv
+│   │   │   │   └── riscv_ram_1r1w.sv
+│   │   │   ├── modules
+│   │   │   │   ├── riscv_interconnect.sv
+│   │   │   │   ├── riscv_master_port.sv
+│   │   │   │   └── riscv_slave_port.sv
+│   │   │   ├── pkg
+│   │   │   │   └── riscv_mpsoc_pkg.sv
+│   │   │   └── ram
+│   │   │       ├── riscv_mpram.sv
+│   │   │       └── riscv_spram.sv
+│   │   └── vhdl
+│   │       ├── gpio
+│   │       │   ├── riscv_bridge.vhd
+│   │       │   └── riscv_gpio.vhd
+│   │       ├── memory
+│   │       │   ├── riscv_ram_1r1w_generic.vhd
+│   │       │   └── riscv_ram_1r1w.vhd
+│   │       ├── misd
+│   │       │   ├── riscv_misd_memory_interconnect.vhd
+│   │       │   ├── riscv_misd_memory_master_port.vhd
+│   │       │   ├── riscv_misd_memory_slave_port.vhd
+│   │       │   ├── riscv_misd_peripheral_interconnect.vhd
+│   │       │   ├── riscv_misd_peripheral_master_port.vhd
+│   │       │   └── riscv_misd_peripheral_slave_port.vhd
+│   │       ├── modules
+│   │       │   ├── riscv_interconnect.vhd
+│   │       │   ├── riscv_master_port.vhd
+│   │       │   └── riscv_slave_port.vhd
+│   │       ├── pkg
+│   │       │   ├── riscv_mpsoc_pkg.vhd
+│   │       │   └── riscv_msi_pkg.vhd
+│   │       ├── ram
+│   │       │   ├── riscv_misd_mpram.vhd
+│   │       │   ├── riscv_simd_mpram.vhd
+│   │       │   └── riscv_spram.vhd
+│   │       └── simd
+│   │           ├── riscv_simd_memory_interconnect.vhd
+│   │           ├── riscv_simd_memory_master_port.vhd
+│   │           ├── riscv_simd_memory_slave_port.vhd
+│   │           ├── riscv_simd_peripheral_interconnect.vhd
+│   │           ├── riscv_simd_peripheral_master_port.vhd
+│   │           └── riscv_simd_peripheral_slave_port.vhd
+│   ├── sim
+│   │   ├── mixed
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── msi_verilog.vc
+│   │   │           ├── msi_vhdl.vc
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── msi.vc
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── bin
+│   │               ├── Makefile
+│   │               ├── msi.vc
+│   │               ├── run.do
+│   │               └── transcript
+│   ├── README.md
+│   ├── CLEAN-IT
+│   ├── EXECUTE-IT
+│   ├── SIMULATE-MIXED-MS-IT
+│   ├── SIMULATE-VHDL-GHDL-IT
+│   ├── SIMULATE-VHDL-MS-IT
+│   ├── SIMULATE-VLOG-IV-IT
+│   ├── SIMULATE-VLOG-MS-IT
+│   ├── SYNTHESIZE-VLOG-YS-IT
+│   ├── FLOW-VLOG-YS-IT
+│   ├── system.iv
+│   ├── system.qf
+│   ├── system.ys
+│   └── UPLOAD-IT
+├── noc
+│   ├── bench
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── riscv_noc_testbench.sv
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── riscv_noc_testbench.vhd
+│   ├── doc
+│   │   └── MPSoC-NoC.txt
+│   ├── rtl
+│   │   ├── verilog
+│   │   │   ├── arbiter
+│   │   │   │   └── riscv_arb_rr.sv
+│   │   │   ├── blocks
+│   │   │   │   ├── riscv_noc_buffer.sv
+│   │   │   │   ├── riscv_noc_channel_mux.sv
+│   │   │   │   ├── riscv_noc_demux.sv
+│   │   │   │   ├── riscv_noc_inputs_mux.sv
+│   │   │   │   └── riscv_noc_vchannel_mux.sv
+│   │   │   ├── pkg
+│   │   │   │   ├── riscv_mpsoc_pkg.sv
+│   │   │   │   └── riscv_noc_pkg.sv
+│   │   │   ├── router
+│   │   │   │   ├── riscv_noc_router_input.sv
+│   │   │   │   ├── riscv_noc_router_lookup_slice.sv
+│   │   │   │   ├── riscv_noc_router_lookup.sv
+│   │   │   │   ├── riscv_noc_router_output.sv
+│   │   │   │   └── riscv_noc_router.sv
+│   │   │   └── topology
+│   │   │       └── riscv_noc.sv
+│   │   └── vhdl
+│   │       ├── arbiter
+│   │       │   └── riscv_arb_rr.vhd
+│   │       ├── blocks
+│   │       │   ├── riscv_noc_buffer.vhd
+│   │       │   ├── riscv_noc_channel_mux.vhd
+│   │       │   ├── riscv_noc_demux.vhd
+│   │       │   ├── riscv_noc_inputs_mux.vhd
+│   │       │   └── riscv_noc_vchannel_mux.vhd
+│   │       ├── pkg
+│   │       │   ├── riscv_mpsoc_pkg.vhd
+│   │       │   └── riscv_noc_pkg.vhd
+│   │       ├── router
+│   │       │   ├── riscv_noc_router_input.vhd
+│   │       │   ├── riscv_noc_router_lookup_slice.vhd
+│   │       │   ├── riscv_noc_router_lookup.vhd
+│   │       │   ├── riscv_noc_router_output.vhd
+│   │       │   └── riscv_noc_router.vhd
+│   │       └── topology
+│   │           └── riscv_noc.vhd
+│   ├── sim
+│   │   ├── mixed
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── noc_verilog.vc
+│   │   │           ├── noc_vhdl.vc
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── noc.vc
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── bin
+│   │               ├── Makefile
+│   │               ├── noc.vc
+│   │               ├── run.do
+│   │               └── transcript
+│   ├── README.md
+│   ├── CLEAN-IT
+│   ├── EXECUTE-IT
+│   ├── SIMULATE-MIXED-MS-IT
+│   ├── SIMULATE-VHDL-GHDL-IT
+│   ├── SIMULATE-VHDL-MS-IT
+│   ├── SIMULATE-VLOG-IV-IT
+│   ├── SIMULATE-VLOG-MS-IT
+│   ├── SYNTHESIZE-VLOG-YS-IT
+│   ├── FLOW-VLOG-YS-IT
+│   ├── system.iv
+│   ├── system.qf
+│   ├── system.ys
+│   └── UPLOAD-IT
+├── pu
+│   ├── bench
+│   │   ├── tests
+│   │   │   └── regression
+│   │   │       ├── rv32mi-p-breakpoint.hex
+│   │   │       ├── ...
+│   │   │       └── rv64um-v-remw.hex
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       ├── riscv_dbg_bfm.sv
+│   │   │       ├── riscv_memory_model.sv
+│   │   │       └── riscv_testbench.sv
+│   │   └── vhdl
+│   │       └── regression
+│   │           └── riscv_r3_checker.vhd
+│   ├── doc
+│   │   └── PU-RISCV.txt
+│   ├── rtl
+│   │   ├── verilog
+│   │   │   ├── core
+│   │   │   │   ├── cache
+│   │   │   │   │   ├── riscv_dcache_core.sv
+│   │   │   │   │   ├── riscv_dext.sv
+│   │   │   │   │   ├── riscv_icache_core.sv
+│   │   │   │   │   └── riscv_noicache_core.sv
+│   │   │   │   ├── execution
+│   │   │   │   │   ├── riscv_alu.sv
+│   │   │   │   │   ├── riscv_bu.sv
+│   │   │   │   │   ├── riscv_div.sv
+│   │   │   │   │   ├── riscv_lsu.sv
+│   │   │   │   │   └── riscv_mul.sv
+│   │   │   │   ├── memory
+│   │   │   │   │   ├── riscv_dmem_ctrl.sv
+│   │   │   │   │   ├── riscv_imem_ctrl.sv
+│   │   │   │   │   ├── riscv_membuf.sv
+│   │   │   │   │   ├── riscv_memmisaligned.sv
+│   │   │   │   │   ├── riscv_mmu.sv
+│   │   │   │   │   ├── riscv_mux.sv
+│   │   │   │   │   ├── riscv_pmachk.sv
+│   │   │   │   │   └── riscv_pmpchk.sv
+│   │   │   │   ├── riscv_bp.sv
+│   │   │   │   ├── riscv_core.sv
+│   │   │   │   ├── riscv_du.sv
+│   │   │   │   ├── riscv_execution.sv
+│   │   │   │   ├── riscv_id.sv
+│   │   │   │   ├── riscv_if.sv
+│   │   │   │   ├── riscv_memory.sv
+│   │   │   │   ├── riscv_rf.sv
+│   │   │   │   ├── riscv_state.sv
+│   │   │   │   └── riscv_wb.sv
+│   │   │   ├── memory
+│   │   │   │   ├── riscv_ram_1r1w_generic.sv
+│   │   │   │   ├── riscv_ram_1r1w.sv
+│   │   │   │   ├── riscv_ram_1rw_generic.sv
+│   │   │   │   ├── riscv_ram_1rw.sv
+│   │   │   │   └── riscv_ram_queue.sv
+│   │   │   ├── pkg
+│   │   │   │   └── riscv_mpsoc_pkg.sv
+│   │   │   └── pu
+│   │   │       ├── riscv_biu.sv
+│   │   │       └── riscv_pu.sv
+│   │   └── vhdl
+│   │       ├── core
+│   │       │   ├── cache
+│   │       │   │   ├── riscv_dcache_core.vhd
+│   │       │   │   ├── riscv_dext.vhd
+│   │       │   │   ├── riscv_icache_core.vhd
+│   │       │   │   └── riscv_noicache_core.vhd
+│   │       │   ├── execution
+│   │       │   │   ├── riscv_alu.vhd
+│   │       │   │   ├── riscv_bu.vhd
+│   │       │   │   ├── riscv_div.vhd
+│   │       │   │   ├── riscv_lsu.vhd
+│   │       │   │   └── riscv_mul.vhd
+│   │       │   ├── memory
+│   │       │   │   ├── riscv_dmem_ctrl.vhd
+│   │       │   │   ├── riscv_imem_ctrl.vhd
+│   │       │   │   ├── riscv_membuf.vhd
+│   │       │   │   ├── riscv_memmisaligned.vhd
+│   │       │   │   ├── riscv_mmu.vhd
+│   │       │   │   ├── riscv_mux.vhd
+│   │       │   │   ├── riscv_pmachk.vhd
+│   │       │   │   └── riscv_pmpchk.vhd
+│   │       │   ├── riscv_bp.vhd
+│   │       │   ├── riscv_core.vhd
+│   │       │   ├── riscv_du.vhd
+│   │       │   ├── riscv_execution.vhd
+│   │       │   ├── riscv_id.vhd
+│   │       │   ├── riscv_if.vhd
+│   │       │   ├── riscv_memory.vhd
+│   │       │   ├── riscv_rf.vhd
+│   │       │   ├── riscv_state.vhd
+│   │       │   └── riscv_wb.vhd
+│   │       ├── memory
+│   │       │   ├── riscv_ram_1r1w_generic.vhd
+│   │       │   ├── riscv_ram_1r1w.vhd
+│   │       │   ├── riscv_ram_1rw_generic.vhd
+│   │       │   ├── riscv_ram_1rw.vhd
+│   │       │   └── riscv_ram_queue.vhd
+│   │       ├── pkg
+│   │       │   └── riscv_mpsoc_pkg.vhd
+│   │       └── pu
+│   │           ├── riscv_biu.vhd
+│   │           └── riscv_pu.vhd
+│   ├── sim
+│   │   ├── mixed
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── Makefile.include
+│   │   │           └── sims
+│   │   │               └── Makefile.msim
+│   │   ├── mixed_pu
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── pu_verilog.vc
+│   │   │           ├── pu_vhdl.vc
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   ├── verilog
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── Makefile.include
+│   │   │           └── sims
+│   │   │               └── Makefile.msim
+│   │   ├── verilog_pu
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── pu.vc
+│   │   │           ├── run.do
+│   │   │           └── transcript
+│   │   ├── vhdl
+│   │   │   └── regression
+│   │   │       └── bin
+│   │   │           ├── Makefile
+│   │   │           ├── Makefile.include
+│   │   │           └── sims
+│   │   │               └── Makefile.msim
+│   │   └── vhdl_pu
+│   │       └── regression
+│   │           └── bin
+│   │               ├── Makefile
+│   │               ├── pu.vc
+│   │               ├── run.do
+│   │               └── transcript
+│   ├── software
+│   │   ├── c2elf2hex
+│   │   ├── go2bin
+│   │   ├── hello
+│   │   ├── hello.c
+│   │   ├── hello.elf
+│   │   ├── hello.go
+│   │   ├── hello.hex
+│   │   ├── INSTALL-IT
+│   │   ├── life
+│   │   └── life.go
+│   ├── README.md
+│   ├── icon.jpg
+│   ├── CLEAN-IT
+│   ├── EXECUTE-IT
+│   ├── SIMULATE-MIXED-MS-IT
+│   ├── SIMULATE-MIXED-MS-PU-IT
+│   ├── SIMULATE-VHDL-GHDL-IT
+│   ├── SIMULATE-VHDL-GHDL-PU-IT
+│   ├── SIMULATE-VHDL-MS-IT
+│   ├── SIMULATE-VHDL-MS-PU-IT
+│   ├── SIMULATE-VLOG-IV-IT
+│   ├── SIMULATE-VLOG-IV-PU-IT
+│   ├── SIMULATE-VLOG-MS-IT
+│   ├── SIMULATE-VLOG-MS-PU-IT
+│   ├── SIMULATE-VLOG-YS-IT
+│   ├── SYNTHESIZE-VLOG-YS-IT
+│   ├── FLOW-VLOG-QF-IT
+│   ├── system.iv
+│   ├── system.qf
+│   ├── system.ys
+│   └── UPLOAD-IT
+├── rtl
+│   ├── verilog
+│   │   ├── adapter
+│   │   │   ├── riscv_noc_adapter.sv
+│   │   │   └── riscv_noc_channels_mux.sv
+│   │   ├── mpsoc
+│   │   │   └── riscv_mpsoc.sv
+│   │   ├── pkg
+│   │   │   ├── riscv_dbg_pkg.sv
+│   │   │   ├── riscv_dma_pkg.sv
+│   │   │   ├── riscv_mpsoc_pkg.sv
+│   │   │   └── riscv_noc_pkg.sv
+│   │   └── soc
+│   │       ├── riscv_debug_misd_expand.sv
+│   │       ├── riscv_debug_simd_expand.sv
+│   │       ├── riscv_misd.sv
+│   │       ├── riscv_simd.sv
+│   │       └── riscv_soc.sv
+│   └── vhdl
+│       ├── adapter
+│       │   ├── riscv_noc_adapter.vhd
+│       │   └── riscv_noc_channels_mux.vhd
+│       ├── mpsoc
+│       │   └── riscv_mpsoc.vhd
+│       ├── pkg
+│       │   ├── riscv_dbg_pkg.vhd
+│       │   ├── riscv_dma_pkg.vhd
+│       │   ├── riscv_mpsoc_pkg.vhd
+│       │   ├── riscv_msi_misd_pkg.vhd
+│       │   ├── riscv_msi_pkg.vhd
+│       │   ├── riscv_msi_simd_pkg.vhd
+│       │   └── riscv_noc_pkg.vhd
+│       └── soc
+│           ├── riscv_misd.vhd
+│           ├── riscv_simd.vhd
+│           └── riscv_soc.vhd
+├── sim
+│   ├── mixed
+│   │   └── regression
+│   │       └── bin
+│   │           ├── Makefile
+│   │           ├── Makefile.include
+│   │           └── sims
+│   │               └── Makefile.msim
+│   ├── mixed_mpsoc
+│   │   └── regression
+│   │       └── bin
+│   │           ├── Makefile
+│   │           ├── mpsoc_verilog.vc
+│   │           ├── mpsoc_vhdl.vc
+│   │           ├── run.do
+│   │           └── transcript
+│   ├── verilog
+│   │   └── regression
+│   │       └── bin
+│   │           ├── Makefile
+│   │           ├── Makefile.include
+│   │           └── sims
+│   │               └── Makefile.msim
+│   ├── verilog_mpsoc
+│   │   └── regression
+│   │       └── bin
+│   │           ├── Makefile
+│   │           ├── mpsoc.vc
+│   │           ├── run.do
+│   │           └── transcript
+│   ├── vhdl
+│   │   └── regression
+│   │       └── bin
+│   │           ├── Makefile
+│   │           ├── Makefile.include
+│   │           └── sims
+│   │               └── Makefile.msim
+│   └── vhdl_mpsoc
+│       └── regression
+│           └── bin
+│               ├── Makefile
+│               ├── mpsoc.vc
+│               ├── run.do
+│               └── transcript
+├── software
+│   ├── c2elf2hex
+│   ├── go2bin
+│   ├── hello
+│   ├── hello.c
+│   ├── hello.elf
+│   ├── hello.go
+│   ├── hello.hex
+│   ├── INSTALL-IT
+│   ├── life
+│   └── life.go
+├── README.md
+├── icon.jpg
+├── CLEAN-IT
+├── EXECUTE-IT
+├── SIMULATE-MIXED-MS-IT
+├── SIMULATE-MIXED-MS-MPSoC-IT
+├── SIMULATE-VHDL-GHDL-IT
+├── SIMULATE-VHDL-GHDL-MPSoC-IT
+├── SIMULATE-VHDL-MS-IT
+├── SIMULATE-VHDL-MS-MPSoC-IT
+├── SIMULATE-VLOG-IV-IT
+├── SIMULATE-VLOG-IV-MPSoC-IT
+├── SIMULATE-VLOG-MS-IT
+├── SIMULATE-VLOG-MS-MPSoC-IT
+├── SIMULATE-VLOG-YS-IT
+├── SYNTHESIZE-VLOG-YS-IT
+├── FLOW-VLOG-QF-IT
+├── system.iv
+├── system.qf
+├── system.ys
+└── UPLOAD-IT

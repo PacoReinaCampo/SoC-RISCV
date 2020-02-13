@@ -1,0 +1,135 @@
+ghdl -i rtl/vhdl/pkg/riscv_mpsoc_pkg.vhd
+ghdl -i rtl/vhdl/pkg/mpsoc_pkg.vhd
+ghdl -i rtl/vhdl/pkg/mpsoc_dbg_pkg.vhd
+ghdl -i rtl/vhdl/pkg/mpsoc_dma_pkg.vhd
+ghdl -i rtl/vhdl/pkg/mpsoc_msi_pkg.vhd
+ghdl -i rtl/vhdl/pkg/mpsoc_noc_pkg.vhd
+
+ghdl -i pu/rtl/vhdl/core/cache/riscv_dcache_core.vhd
+ghdl -i pu/rtl/vhdl/core/cache/riscv_dext.vhd
+ghdl -i pu/rtl/vhdl/core/cache/riscv_icache_core.vhd
+ghdl -i pu/rtl/vhdl/core/cache/riscv_noicache_core.vhd
+ghdl -i pu/rtl/vhdl/core/execution/riscv_alu.vhd
+ghdl -i pu/rtl/vhdl/core/execution/riscv_bu.vhd
+ghdl -i pu/rtl/vhdl/core/execution/riscv_div.vhd
+ghdl -i pu/rtl/vhdl/core/execution/riscv_lsu.vhd
+ghdl -i pu/rtl/vhdl/core/execution/riscv_mul.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_dmem_ctrl.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_imem_ctrl.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_membuf.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_memmisaligned.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_mmu.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_mux.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_pmachk.vhd
+ghdl -i pu/rtl/vhdl/core/memory/riscv_pmpchk.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_bp.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_core.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_du.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_execution.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_id.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_if.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_memory.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_rf.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_state.vhd
+ghdl -i pu/rtl/vhdl/core/riscv_wb.vhd
+
+ghdl -i pu/rtl/vhdl/memory/riscv_ram_1r1w.vhd
+ghdl -i pu/rtl/vhdl/memory/riscv_ram_1r1w_generic.vhd
+ghdl -i pu/rtl/vhdl/memory/riscv_ram_1rw.vhd
+ghdl -i pu/rtl/vhdl/memory/riscv_ram_1rw_generic.vhd
+ghdl -i pu/rtl/vhdl/memory/riscv_ram_queue.vhd
+
+ghdl -i pu/rtl/vhdl/pu/riscv_biu.vhd
+ghdl -i pu/rtl/vhdl/pu/riscv_pu.vhd
+
+
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_bus_module_core.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_bytefifo.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_crc32.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_jsp_module_core.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_or1k_biu.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_or1k_module.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_or1k_status_reg.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_syncflop.vhd
+ghdl -i dbg/rtl/vhdl/core/mpsoc_dbg_syncreg.vhd
+
+ghdl -i dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_biu.vhd
+ghdl -i dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_module.vhd
+ghdl -i dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_biu.vhd
+ghdl -i dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_module.vhd
+ghdl -i dbg/rtl/vhdl/ahb3/mpsoc_dbg_top_ahb3.vhd
+
+ghdl -i dbg/rtl/vhdl/wb/mpsoc_dbg_jsp_wb_biu.vhd
+ghdl -i dbg/rtl/vhdl/wb/mpsoc_dbg_jsp_wb_module.vhd
+ghdl -i dbg/rtl/vhdl/wb/mpsoc_dbg_top_wb.vhd
+ghdl -i dbg/rtl/vhdl/wb/mpsoc_dbg_wb_biu.vhd
+ghdl -i dbg/rtl/vhdl/wb/mpsoc_dbg_wb_module.vhd
+
+
+ghdl -i dma/rtl/vhdl/core/mpsoc_dma_arbitrer_rr.vhd
+ghdl -i dma/rtl/vhdl/core/mpsoc_dma_initiator_nocreq.vhd
+ghdl -i dma/rtl/vhdl/core/mpsoc_dma_packet_buffer.vhd
+ghdl -i dma/rtl/vhdl/core/mpsoc_dma_request_table.vhd
+
+ghdl -i dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator_nocres.vhd
+ghdl -i dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator_req.vhd
+ghdl -i dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_initiator.vhd
+ghdl -i dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd
+ghdl -i dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_target.vhd
+ghdl -i dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_top.vhd
+
+ghdl -i dma/rtl/vhdl/wb/mpsoc_dma_wb_initiator_nocres.vhd
+ghdl -i dma/rtl/vhdl/wb/mpsoc_dma_wb_initiator_req.vhd
+ghdl -i dma/rtl/vhdl/wb/mpsoc_dma_wb_initiator.vhd
+ghdl -i dma/rtl/vhdl/wb/mpsoc_dma_wb_interface.vhd
+ghdl -i dma/rtl/vhdl/wb/mpsoc_dma_wb_target.vhd
+ghdl -i dma/rtl/vhdl/wb/mpsoc_dma_wb_top.vhd
+
+
+ghdl -i msi/rtl/vhdl/gpio/mpsoc_peripheral_bridge.vhd
+ghdl -i msi/rtl/vhdl/gpio/mpsoc_gpio.vhd
+
+ghdl -i msi/rtl/vhdl/core/generic/mpsoc_msi_interface.vhd
+ghdl -i msi/rtl/vhdl/core/generic/mpsoc_msi_master_port.vhd
+ghdl -i msi/rtl/vhdl/core/generic/mpsoc_msi_slave_port.vhd
+
+ghdl -i msi/rtl/vhdl/core/misd/mpsoc_misd_memory_interface.vhd
+ghdl -i msi/rtl/vhdl/core/misd/mpsoc_misd_memory_master_port.vhd
+ghdl -i msi/rtl/vhdl/core/misd/mpsoc_misd_memory_slave_port.vhd
+
+ghdl -i msi/rtl/vhdl/core/simd/mpsoc_simd_memory_interface.vhd
+ghdl -i msi/rtl/vhdl/core/simd/mpsoc_simd_memory_master_port.vhd
+ghdl -i msi/rtl/vhdl/core/simd/mpsoc_simd_memory_slave_port.vhd
+
+ghdl -i msi/rtl/vhdl/ram/mpsoc_misd_mpram.vhd
+ghdl -i msi/rtl/vhdl/ram/mpsoc_simd_mpram.vhd
+ghdl -i msi/rtl/vhdl/ram/mpsoc_spram.vhd
+ghdl -i msi/rtl/vhdl/ram/mpsoc_ram_1r1w.vhd
+ghdl -i msi/rtl/vhdl/ram/mpsoc_ram_1r1w_generic.vhd
+
+
+ghdl -i noc/rtl/vhdl/core/mpsoc_noc_arbitrer_rr.vhd
+ghdl -i noc/rtl/vhdl/core/mpsoc_noc_buffer.vhd
+ghdl -i noc/rtl/vhdl/core/mpsoc_noc_demux.vhd
+ghdl -i noc/rtl/vhdl/core/mpsoc_noc_mux.vhd
+ghdl -i noc/rtl/vhdl/core/mpsoc_noc_vchannel_mux.vhd
+
+ghdl -i noc/rtl/vhdl/router/mpsoc_noc_router_input.vhd
+ghdl -i noc/rtl/vhdl/router/mpsoc_noc_router_lookup_slice.vhd
+ghdl -i noc/rtl/vhdl/router/mpsoc_noc_router_lookup.vhd
+ghdl -i noc/rtl/vhdl/router/mpsoc_noc_router_output.vhd
+ghdl -i noc/rtl/vhdl/router/mpsoc_noc_router.vhd
+
+ghdl -i noc/rtl/vhdl/topology/mpsoc_noc_mesh.vhd
+
+
+ghdl -i rtl/vhdl/soc/riscv_misd.vhd
+ghdl -i rtl/vhdl/soc/riscv_simd.vhd
+
+ghdl -i rtl/vhdl/soc/riscv_soc.vhd
+
+ghdl -i rtl/vhdl/mpsoc/riscv_mpsoc.vhd
+
+ghdl -m riscv_soc
+
+ghdl -r riscv_soc --ieee-asserts=disable-at-0 --disp-tree=inst > riscv_soc.tree

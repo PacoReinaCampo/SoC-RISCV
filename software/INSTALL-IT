@@ -1,0 +1,16 @@
+git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
+
+cd riscv-gnu-toolchain
+
+./configure --prefix=/opt/riscv
+sudo make
+
+./configure --prefix=/opt/riscv
+sudo make linux
+
+./configure --prefix=/opt/riscv --enable-multilib
+sudo make linux
+
+./configure --prefix=$RISCV
+sudo make linux
+sudo make report-linux

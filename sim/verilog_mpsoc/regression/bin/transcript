@@ -1,0 +1,76 @@
+# vsim -c -do "run.do" work.riscv_mpsoc 
+# Start time: 19:58:37 on Dec 27,2019
+# Loading sv_std.std
+# Loading work.riscv_mpsoc
+# Loading work.mpsoc_noc_mesh
+# Loading work.riscv_soc
+# Loading work.mpsoc_noc_vchannel_mux
+# Loading work.mpsoc_noc_arbitrer_rr
+# Loading work.mpsoc_noc_router
+# Loading work.riscv_misd
+# Loading work.mpsoc_mpram
+# Loading work.mpsoc_noc_mux
+# Loading work.mpsoc_noc_demux
+# Loading work.riscv_simd
+# Loading work.mpsoc_noc_router_input
+# Loading work.mpsoc_noc_router_output
+# Loading work.mpsoc_ram_1r1w
+# Loading work.riscv_pu
+# Loading work.riscv_core
+# Loading work.riscv_if
+# Loading work.riscv_id
+# Loading work.riscv_execution
+# Loading work.riscv_alu
+# Loading work.riscv_lsu
+# Loading work.riscv_bu
+# Loading work.riscv_memory
+# Loading work.riscv_wb
+# Loading work.riscv_state
+# Loading work.riscv_rf
+# Loading work.riscv_du
+# Loading work.riscv_imem_ctrl
+# Loading work.riscv_membuf
+# Loading work.riscv_ram_queue
+# Loading work.riscv_memmisaligned
+# Loading work.riscv_mmu
+# Loading work.riscv_pmachk
+# Loading work.riscv_pmpchk
+# Loading work.riscv_dext
+# Loading work.riscv_mux
+# Loading work.riscv_dmem_ctrl
+# Loading work.riscv_biu
+# Loading work.mpsoc_msi_interface
+# Loading work.mpsoc_dma_ahb3_top
+# Loading work.mpsoc_dma_ahb3_interface
+# Loading work.mpsoc_dma_request_table
+# Loading work.mpsoc_dma_ahb3_initiator
+# Loading work.mpsoc_dma_ahb3_initiator_req
+# Loading work.mpsoc_dma_initiator_nocreq
+# Loading work.mpsoc_dma_arbitrer_rr
+# Loading work.mpsoc_dma_ahb3_initiator_nocres
+# Loading work.mpsoc_dma_packet_buffer
+# Loading work.mpsoc_dma_ahb3_target
+# Loading work.mpsoc_noc_buffer
+# Loading work.mpsoc_peripheral_bridge
+# Loading work.mpsoc_gpio
+# Loading work.mpsoc_spram
+# Loading work.mpsoc_uart
+# Loading work.mpsoc_uart_rx
+# Loading work.mpsoc_uart_tx
+# Loading work.mpsoc_uart_fifo
+# Loading work.mpsoc_uart_interrupt
+# Loading work.mpsoc_noc_router_lookup
+# Loading work.mpsoc_noc_router_lookup_slice
+# Loading work.mpsoc_ram_1r1w_generic
+# Loading work.riscv_mul
+# Loading work.riscv_div
+# Loading work.riscv_bp
+# Loading work.riscv_ram_1r1w
+# Loading work.mpsoc_msi_master_port
+# Loading work.mpsoc_msi_slave_port
+# Loading work.riscv_ram_1r1w_generic
+# ** Warning: Design size of 10316 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# do run.do
+# End time: 19:58:44 on Dec 27,2019, Elapsed time: 0:00:07
+# Errors: 0, Warnings: 1

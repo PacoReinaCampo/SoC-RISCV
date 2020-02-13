@@ -1,0 +1,134 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              MPSoC-RV64 CPU                                                //
+//              Network on Chip Makefile                                      //
+//              Mesh Topology                                                 //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2019-2020 by the author(s)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * =============================================================================
+ * Author(s):
+ *   Francisco Javier Reina Campo <frareicam@gmail.com>
+ */
+
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_bus_module_core.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_bytefifo.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_crc32.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_jsp_module_core.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_or1k_biu.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_or1k_module.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_or1k_status_reg.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_syncflop.sv
+../../../../dbg/rtl/verilog/core/mpsoc_dbg_syncreg.sv
+../../../../dbg/rtl/verilog/ahb3/mpsoc_dbg_ahb3_biu.sv
+../../../../dbg/rtl/verilog/ahb3/mpsoc_dbg_ahb3_module.sv
+../../../../dbg/rtl/verilog/ahb3/mpsoc_dbg_jsp_apb_biu.sv
+../../../../dbg/rtl/verilog/ahb3/mpsoc_dbg_jsp_apb_module.sv
+../../../../dbg/rtl/verilog/ahb3/mpsoc_dbg_top_ahb3.sv
+
+../../../../dma/rtl/verilog/core/mpsoc_dma_arbitrer_rr.sv
+../../../../dma/rtl/verilog/core/mpsoc_dma_initiator_nocreq.sv
+../../../../dma/rtl/verilog/core/mpsoc_dma_packet_buffer.sv
+../../../../dma/rtl/verilog/core/mpsoc_dma_request_table.sv
+../../../../dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_initiator_nocres.sv
+../../../../dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_initiator_req.sv
+../../../../dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_initiator.sv
+../../../../dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_interface.sv
+../../../../dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_target.sv
+../../../../dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_top.sv
+
+../../../../msi/rtl/verilog/gpio/mpsoc_peripheral_bridge.sv
+../../../../msi/rtl/verilog/gpio/mpsoc_gpio.sv
+../../../../msi/rtl/verilog/core/mpsoc_msi_interface.sv
+../../../../msi/rtl/verilog/core/mpsoc_msi_master_port.sv
+../../../../msi/rtl/verilog/core/mpsoc_msi_slave_port.sv
+../../../../msi/rtl/verilog/ram/mpsoc_mpram.sv
+../../../../msi/rtl/verilog/ram/mpsoc_spram.sv
+../../../../msi/rtl/verilog/ram/mpsoc_ram_1r1w.sv
+../../../../msi/rtl/verilog/ram/mpsoc_ram_1r1w_generic.sv
+../../../../msi/rtl/verilog/uart/mpsoc_uart.sv
+../../../../msi/rtl/verilog/uart/mpsoc_uart_fifo.sv
+../../../../msi/rtl/verilog/uart/mpsoc_uart_interrupt.sv
+../../../../msi/rtl/verilog/uart/mpsoc_uart_rx.sv
+../../../../msi/rtl/verilog/uart/mpsoc_uart_tx.sv
+
+../../../../noc/rtl/verilog/core/mpsoc_noc_arbitrer_rr.sv
+../../../../noc/rtl/verilog/core/mpsoc_noc_buffer.sv
+../../../../noc/rtl/verilog/core/mpsoc_noc_demux.sv
+../../../../noc/rtl/verilog/core/mpsoc_noc_mux.sv
+../../../../noc/rtl/verilog/core/mpsoc_noc_vchannel_mux.sv
+../../../../noc/rtl/verilog/router/mpsoc_noc_router_input.sv
+../../../../noc/rtl/verilog/router/mpsoc_noc_router_lookup_slice.sv
+../../../../noc/rtl/verilog/router/mpsoc_noc_router_lookup.sv
+../../../../noc/rtl/verilog/router/mpsoc_noc_router_output.sv
+../../../../noc/rtl/verilog/router/mpsoc_noc_router.sv
+../../../../noc/rtl/verilog/topology/mpsoc_noc_mesh.sv
+
+../../../../pu/rtl/verilog/core/cache/riscv_dcache_core.sv
+../../../../pu/rtl/verilog/core/cache/riscv_dext.sv
+../../../../pu/rtl/verilog/core/cache/riscv_icache_core.sv
+../../../../pu/rtl/verilog/core/execution/riscv_alu.sv
+../../../../pu/rtl/verilog/core/execution/riscv_bu.sv
+../../../../pu/rtl/verilog/core/execution/riscv_div.sv
+../../../../pu/rtl/verilog/core/execution/riscv_lsu.sv
+../../../../pu/rtl/verilog/core/execution/riscv_mul.sv
+../../../../pu/rtl/verilog/core/memory/riscv_dmem_ctrl.sv
+../../../../pu/rtl/verilog/core/memory/riscv_imem_ctrl.sv
+../../../../pu/rtl/verilog/core/memory/riscv_membuf.sv
+../../../../pu/rtl/verilog/core/memory/riscv_memmisaligned.sv
+../../../../pu/rtl/verilog/core/memory/riscv_mmu.sv
+../../../../pu/rtl/verilog/core/memory/riscv_mux.sv
+../../../../pu/rtl/verilog/core/memory/riscv_pmachk.sv
+../../../../pu/rtl/verilog/core/memory/riscv_pmpchk.sv
+../../../../pu/rtl/verilog/core/riscv_bp.sv
+../../../../pu/rtl/verilog/core/riscv_core.sv
+../../../../pu/rtl/verilog/core/riscv_du.sv
+../../../../pu/rtl/verilog/core/riscv_execution.sv
+../../../../pu/rtl/verilog/core/riscv_id.sv
+../../../../pu/rtl/verilog/core/riscv_if.sv
+../../../../pu/rtl/verilog/core/riscv_memory.sv
+../../../../pu/rtl/verilog/core/riscv_rf.sv
+../../../../pu/rtl/verilog/core/riscv_state.sv
+../../../../pu/rtl/verilog/core/riscv_wb.sv
+../../../../pu/rtl/verilog/memory/riscv_ram_1r1w_generic.sv
+../../../../pu/rtl/verilog/memory/riscv_ram_1r1w.sv
+../../../../pu/rtl/verilog/memory/riscv_ram_1rw_generic.sv
+../../../../pu/rtl/verilog/memory/riscv_ram_1rw.sv
+../../../../pu/rtl/verilog/memory/riscv_ram_queue.sv
+../../../../pu/rtl/verilog/pu/riscv_biu.sv
+../../../../pu/rtl/verilog/pu/riscv_pu.sv
+
+../../../../rtl/verilog/soc/riscv_misd.sv
+../../../../rtl/verilog/soc/riscv_simd.sv
+../../../../rtl/verilog/soc/riscv_soc.sv
+
+../../../../rtl/verilog/mpsoc/riscv_mpsoc.sv

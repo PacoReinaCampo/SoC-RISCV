@@ -1,0 +1,141 @@
+# vsim -c -do "run.do" work.riscv_soc 
+# Start time: 18:22:38 on Nov 26,2019
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.math_real(body)
+# Loading work.riscv_mpsoc_pkg
+# Loading work.riscv_soc(rtl)
+# Loading sv_std.std
+# Loading work.riscv_misd
+# Loading work.mpsoc_mpram
+# Loading work.mpsoc_noc_mux
+# Loading work.mpsoc_noc_demux
+# Loading work.riscv_pu
+# Loading work.riscv_core
+# Loading work.riscv_if
+# Loading work.riscv_id
+# Loading work.riscv_execution
+# Loading work.riscv_alu
+# Loading work.riscv_lsu
+# Loading work.riscv_bu
+# Loading work.riscv_memory
+# Loading work.riscv_wb
+# Loading work.riscv_state
+# Loading work.riscv_rf
+# Loading work.riscv_du
+# Loading work.riscv_imem_ctrl
+# Loading work.riscv_membuf
+# Loading work.riscv_ram_queue
+# Loading work.riscv_memmisaligned
+# Loading work.riscv_mmu
+# Loading work.riscv_pmachk
+# Loading work.riscv_pmpchk
+# Loading work.riscv_dext
+# Loading work.riscv_mux
+# Loading work.riscv_dmem_ctrl
+# Loading work.riscv_biu
+# Loading work.mpsoc_msi_interface
+# Loading work.mpsoc_noc_buffer
+# Loading work.mpsoc_spram
+# Loading work.riscv_mul
+# Loading work.riscv_div
+# Loading work.riscv_bp
+# Loading work.riscv_ram_1r1w
+# Loading work.mpsoc_msi_master_port
+# Loading work.mpsoc_msi_slave_port
+# Loading work.riscv_ram_1r1w_generic
+# Loading work.mpsoc_dma_pkg
+# Loading work.mpsoc_dma_ahb3_top(rtl)
+# Loading work.mpsoc_dma_ahb3_interface(rtl)
+# Loading work.mpsoc_dma_request_table(rtl)
+# Loading work.mpsoc_dma_ahb3_initiator(rtl)
+# Loading work.mpsoc_dma_ahb3_initiator_req(rtl)
+# Loading work.mpsoc_dma_initiator_nocreq(rtl)
+# Loading work.mpsoc_dma_arbitrer_rr(rtl)
+# Loading work.mpsoc_dma_ahb3_initiator_nocres(rtl)
+# Loading work.mpsoc_dma_packet_buffer(rtl)
+# Loading work.mpsoc_dma_ahb3_target(rtl)
+# Loading work.mpsoc_noc_arbitrer_rr(rtl)
+# Loading work.mpsoc_pkg
+# Loading work.mpsoc_peripheral_bridge(rtl)
+# Loading work.mpsoc_gpio(rtl)
+# Loading work.mpsoc_ram_1r1w(rtl)
+# Loading work.mpsoc_ram_1r1w_generic(rtl)
+# Loading work.riscv_simd
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'pma_cfg_i'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'pma_adr_i'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'ins_HADDR' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'ins_HWDATA' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'ins_HRDATA' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (12) of Verilog port 'ins_HSIZE' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (12) of Verilog port 'ins_HBURST' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (16) of Verilog port 'ins_HPROT' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (8) of Verilog port 'ins_HTRANS' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (16) of Verilog port 'ext_int' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dbg_addr' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dbg_dati' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dbg_dato' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'gpio_i' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'gpio_o'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'gpio_oe'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (238) of Verilog port 'noc_in_flit' does not match the array length (7) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error (suppressible): (vsim-3058) The width (238) of Verilog port 'noc_out_flit' does not match the array length (7) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_0/misd_soc File: ../../../../rtl/verilog/soc/riscv_misd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'pma_cfg_i'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'pma_adr_i'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dat_HADDR' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dat_HWDATA' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dat_HRDATA' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (12) of Verilog port 'dat_HSIZE' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (12) of Verilog port 'dat_HBURST' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (16) of Verilog port 'dat_HPROT' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (8) of Verilog port 'dat_HTRANS' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (16) of Verilog port 'ext_int' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dbg_addr' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dbg_dati' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'dbg_dato' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (256) of Verilog port 'gpio_i' does not match the array length (4) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'gpio_o'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error: (vsim-8428) Cannot connect a VHDL array signal to Verilog multi dimensional array port 'gpio_oe'.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (238) of Verilog port 'noc_in_flit' does not match the array length (7) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# ** Error (suppressible): (vsim-3058) The width (238) of Verilog port 'noc_out_flit' does not match the array length (7) of its VHDL connection.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_soc/generating_1/simd_soc File: ../../../../rtl/verilog/soc/riscv_simd.sv
+# Error loading design
+# End time: 18:22:38 on Nov 26,2019, Elapsed time: 0:00:00
+# Errors: 36, Warnings: 0

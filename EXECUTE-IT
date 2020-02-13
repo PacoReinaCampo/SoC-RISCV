@@ -1,0 +1,8 @@
+mkdir sim/mixed/regression/run
+mkdir sim/verilog/regression/run
+
+ln -s $PWD/sim/mixed/regression/bin/Makefile         $PWD/sim/mixed/regression/run
+ln -s $PWD/sim/mixed/regression/bin/Makefile.include $PWD/sim/mixed/regression/run
+
+ln -s $PWD/sim/verilog/regression/bin/Makefile         $PWD/sim/verilog/regression/run
+ln -s $PWD/sim/verilog/regression/bin/Makefile.include $PWD/sim/verilog/regression/run
