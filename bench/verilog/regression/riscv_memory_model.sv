@@ -183,7 +183,7 @@ module riscv_memory_model #(
       case (record_type)
         8'h00  : begin
           for (m=0; m<byte_cnt; m++) begin
-          //mem_array[ base_addr + address + (m & ~(XLEN/8 -1)) ][ (m%(XLEN/8))*8+:8 ] = data[m];
+            //mem_array[ base_addr + address + (m & ~(XLEN/8 -1)) ][ (m%(XLEN/8))*8+:8 ] = data[m];
             mem_array[ (base_addr + address + m) & ~(XLEN/8 -1) ][ ((base_addr + address + m) % (XLEN/8))*8+:8 ] = data[m];
             //$display ("write %2h to %8h (base_addr=%8h, address=%4h, m=%2h)", data[m], base_addr+address+ (m & ~(XLEN/8 -1)), base_addr, address, m);
             //$display ("(%8h)=%8h",base_addr+address+4*(m/4), mem_array[ base_addr+address+4*(m/4) ]);
@@ -251,73 +251,73 @@ module riscv_memory_model #(
 
   generate
     for (u=0; u < 2; u++) begin
-            for (p=0; p < CORES_PER_TILE; p++) begin
+      for (p=0; p < CORES_PER_TILE; p++) begin
 
-              //Generate ACK
+        //Generate ACK
 
-              if (MEM_LATENCY > 0) begin
-                always @(posedge HCLK,negedge HRESETn) begin
-                  if      (!HRESETn             )                      ack_latency[u][p] <= {MEM_LATENCY{1'b1}};
-                  else if (HREADY[u][p]) begin
-                    if      ( HTRANS[u][p] == `HTRANS_IDLE  ) ack_latency[u][p] <= {MEM_LATENCY{1'b1}};
-                    else if ( HTRANS[u][p] == `HTRANS_NONSEQ) ack_latency[u][p] <= 'h0;
-                  end
-                  else                                                 ack_latency[u][p] <= {ack_latency[u][p],1'b1};
-                end
+        if (MEM_LATENCY > 0) begin
+          always @(posedge HCLK,negedge HRESETn) begin
+            if      (!HRESETn             )             ack_latency[u][p] <= {MEM_LATENCY{1'b1}};
+            else if (HREADY[u][p]) begin
+              if      ( HTRANS[u][p] == `HTRANS_IDLE  ) ack_latency[u][p] <= {MEM_LATENCY{1'b1}};
+              else if ( HTRANS[u][p] == `HTRANS_NONSEQ) ack_latency[u][p] <= 'h0;
+            end
+            else                                        ack_latency[u][p] <= {ack_latency[u][p],1'b1};
+          end
 
-                assign HREADY[u][p] = ack_latency[u][p][MEM_LATENCY];
-              end
-              else
-                assign HREADY[u][p] = 1'b1;
+          assign HREADY[u][p] = ack_latency[u][p][MEM_LATENCY];
+        end
+        else
+          assign HREADY[u][p] = 1'b1;
 
-              assign HRESP[u][p] = `HRESP_OKAY;
+        assign HRESP[u][p] = `HRESP_OKAY;
 
-              //Write Section
+        //Write Section
 
-              //delay control signals
-              always @(posedge HCLK)
-                if (HREADY[u][p]) begin
-                  dHTRANS[u][p] <= HTRANS[u][p];
-                  dHWRITE[u][p] <= HWRITE[u][p];
-                  dHSIZE [u][p] <= HSIZE [u][p];
-                  dHBURST[u][p] <= HBURST[u][p];
-                end
+        //delay control signals
+        always @(posedge HCLK)
+          if (HREADY[u][p]) begin
+            dHTRANS[u][p] <= HTRANS[u][p];
+            dHWRITE[u][p] <= HWRITE[u][p];
+            dHSIZE [u][p] <= HSIZE [u][p];
+            dHBURST[u][p] <= HBURST[u][p];
+          end
 
-              always @(posedge HCLK)
-                if (HREADY[u][p] && HTRANS[u][p] != `HTRANS_BUSY) begin
-                  waddr[u][p] <= HADDR[u][p] & ( {XLEN{1'b1}} << $clog2(XLEN/8) );
+        always @(posedge HCLK)
+          if (HREADY[u][p] && HTRANS[u][p] != `HTRANS_BUSY) begin
+            waddr[u][p] <= HADDR[u][p] & ( {XLEN{1'b1}} << $clog2(XLEN/8) );
 
-                  case (HSIZE[u][p])
-                    `HSIZE_BYTE : dbe[u][p] <= 1'h1  << HADDR[u][p][$clog2(XLEN/8)-1:0];
-                    `HSIZE_HWORD: dbe[u][p] <= 2'h3  << HADDR[u][p][$clog2(XLEN/8)-1:0];
-                    `HSIZE_WORD : dbe[u][p] <= 4'hf  << HADDR[u][p][$clog2(XLEN/8)-1:0];
-                    `HSIZE_DWORD: dbe[u][p] <= 8'hff << HADDR[u][p][$clog2(XLEN/8)-1:0];
-                  endcase
-                end
+            case (HSIZE[u][p])
+              `HSIZE_BYTE : dbe[u][p] <= 1'h1  << HADDR[u][p][$clog2(XLEN/8)-1:0];
+              `HSIZE_HWORD: dbe[u][p] <= 2'h3  << HADDR[u][p][$clog2(XLEN/8)-1:0];
+              `HSIZE_WORD : dbe[u][p] <= 4'hf  << HADDR[u][p][$clog2(XLEN/8)-1:0];
+              `HSIZE_DWORD: dbe[u][p] <= 8'hff << HADDR[u][p][$clog2(XLEN/8)-1:0];
+            endcase
+          end
 
-              always @(posedge HCLK)
-                if (HREADY[u][p]) wreq[u][p] <= (HTRANS[u][p] != `HTRANS_IDLE & HTRANS[u][p] != `HTRANS_BUSY) & HWRITE[u][p];
+        always @(posedge HCLK)
+          if (HREADY[u][p]) wreq[u][p] <= (HTRANS[u][p] != `HTRANS_IDLE & HTRANS[u][p] != `HTRANS_BUSY) & HWRITE[u][p];
 
-              always @(posedge HCLK)
-                if (HREADY[u][p] && wreq[u][p])
-                  for (m=0; m<XLEN/8; m++)
-                    if (dbe[u][p][m]) mem_array[waddr[u][p]][m*8+:8] = HWDATA[u][p][m*8+:8];
+        always @(posedge HCLK)
+          if (HREADY[u][p] && wreq[u][p])
+            for (m=0; m<XLEN/8; m++)
+              if (dbe[u][p][m]) mem_array[waddr[u][p]][m*8+:8] = HWDATA[u][p][m*8+:8];
 
-              //Read Section
-              assign iaddr[u][p] = HADDR[u][p] & ( {XLEN{1'b1}} << $clog2(XLEN/8) );
+        //Read Section
+        assign iaddr[u][p] = HADDR[u][p] & ( {XLEN{1'b1}} << $clog2(XLEN/8) );
 
-              always @(posedge HCLK)
-                if (HREADY[u][p] && (HTRANS[u][p] != `HTRANS_IDLE) && (HTRANS[u][p] != `HTRANS_BUSY) && !HWRITE[u][p])
-                  if (iaddr[u][p] == waddr[u][p] && wreq[u][p]) begin
-                    for (n=0; n<XLEN/8; n++) begin
-                      if (dbe[u][p]) HRDATA[u][p][n*8+:8] <= HWDATA[u][p][n*8+:8];
-                      else           HRDATA[u][p][n*8+:8] <= mem_array[ iaddr[u][p] ][n*8+:8];
-                    end
-                  end
-              else begin
-                HRDATA[u][p] <= mem_array[ iaddr[u][p] ];
+        always @(posedge HCLK)
+          if (HREADY[u][p] && (HTRANS[u][p] != `HTRANS_IDLE) && (HTRANS[u][p] != `HTRANS_BUSY) && !HWRITE[u][p])
+            if (iaddr[u][p] == waddr[u][p] && wreq[u][p]) begin
+              for (n=0; n<XLEN/8; n++) begin
+                if (dbe[u][p]) HRDATA[u][p][n*8+:8] <= HWDATA[u][p][n*8+:8];
+                else           HRDATA[u][p][n*8+:8] <= mem_array[ iaddr[u][p] ][n*8+:8];
               end
             end
-          end
+        else begin
+          HRDATA[u][p] <= mem_array[ iaddr[u][p] ];
+        end
+      end
+    end
   endgenerate
 endmodule

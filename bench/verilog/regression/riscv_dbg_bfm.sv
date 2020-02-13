@@ -49,8 +49,8 @@ module riscv_dbg_bfm #(
   parameter CORES_PER_TILE = 16
 )
   (
-    input                  rstn,
-    input                  clk,
+    input                                      rstn,
+    input                                      clk,
 
     input      [CORES_PER_TILE-1:0]            cpu_bp_i,
 
@@ -78,16 +78,16 @@ module riscv_dbg_bfm #(
   function is_stalled;
     integer p;
 
-          for (p=0; p < CORES_PER_TILE; p++)
-            is_stalled = stall_cpu[p];
+    for (p=0; p < CORES_PER_TILE; p++)
+      is_stalled = stall_cpu[p];
   endfunction
 
   //Stall CPU
   task stall;
     integer p;
 
-          for (p=0; p < CORES_PER_TILE; p++)
-            @(posedge clk);
+    for (p=0; p < CORES_PER_TILE; p++)
+      @(posedge clk);
     stall_cpu[p] <= 1'b1;
   endtask
 
@@ -95,9 +95,9 @@ module riscv_dbg_bfm #(
   task unstall;
     integer p;
 
-          for (p=0; p < CORES_PER_TILE; p++)
-            @(posedge clk)
-            stall_cpu[p] <= 1'b0;
+    for (p=0; p < CORES_PER_TILE; p++)
+      @(posedge clk)
+      stall_cpu[p] <= 1'b0;
   endtask
 
   //Write to CPU (via DBG interface)
@@ -107,9 +107,9 @@ module riscv_dbg_bfm #(
 
     integer p;
 
-          for (p=0; p < CORES_PER_TILE; p++)
-            //setup DBG bus
-            @(posedge clk);
+    for (p=0; p < CORES_PER_TILE; p++)
+      //setup DBG bus
+      @(posedge clk);
     cpu_stb_o [p] <= 1'b1;
     cpu_we_o  [p] <= 1'b1;
     cpu_dat_o [p] <= data;
@@ -130,9 +130,9 @@ module riscv_dbg_bfm #(
 
     integer p;
 
-          for (p=0; p < CORES_PER_TILE; p++)
-            //setup DBG bus
-            @(posedge clk);
+    for (p=0; p < CORES_PER_TILE; p++)
+      //setup DBG bus
+      @(posedge clk);
     cpu_stb_o [p] <= 1'b1;
     cpu_we_o  [p] <= 1'b0;
     cpu_adr_o [p] <= addr;
@@ -151,15 +151,15 @@ module riscv_dbg_bfm #(
   // Module body
   //
   generate
-          for (p=0; p < CORES_PER_TILE; p++) begin
-            initial cpu_stb_o  [p] = 1'b0;
+    for (p=0; p < CORES_PER_TILE; p++) begin
+      initial cpu_stb_o  [p] = 1'b0;
 
-            assign cpu_stall_o [p] = cpu_bp_i[p] | stall_cpu[p];
+      assign cpu_stall_o [p] = cpu_bp_i[p] | stall_cpu[p];
 
-            always @(posedge clk,negedge rstn) begin
-              if      ( !rstn       ) stall_cpu[p] <= 1'b0;
-              else if ( cpu_bp_i[p] ) stall_cpu[p] <= 1'b1; //gets cleared by task unstall_cpu
-            end
-          end
+      always @(posedge clk,negedge rstn) begin
+        if      ( !rstn       ) stall_cpu[p] <= 1'b0;
+        else if ( cpu_bp_i[p] ) stall_cpu[p] <= 1'b1; //gets cleared by task unstall_cpu
+      end
+    end
   endgenerate
 endmodule
