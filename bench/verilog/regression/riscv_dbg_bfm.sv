@@ -46,71 +46,58 @@ module riscv_dbg_bfm #(
   parameter XLEN = 64,
   parameter PLEN = 64,
 
-  parameter X = 4,
-  parameter Y = 4,
-  parameter Z = 4,
-
   parameter CORES_PER_TILE = 16
 )
   (
     input                  rstn,
     input                  clk,
 
-    input      [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]            cpu_bp_i,
+    input      [CORES_PER_TILE-1:0]            cpu_bp_i,
 
-    output     [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]            cpu_stall_o,
-    output reg [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]            cpu_stb_o,
-    output reg [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]            cpu_we_o,
-    output reg [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][PLEN -1:0] cpu_adr_o,
-    output reg [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][XLEN -1:0] cpu_dat_o,
-    input      [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][XLEN -1:0] cpu_dat_i,
-    input      [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]            cpu_ack_i
+    output     [CORES_PER_TILE-1:0]            cpu_stall_o,
+    output reg [CORES_PER_TILE-1:0]            cpu_stb_o,
+    output reg [CORES_PER_TILE-1:0]            cpu_we_o,
+    output reg [CORES_PER_TILE-1:0][PLEN -1:0] cpu_adr_o,
+    output reg [CORES_PER_TILE-1:0][XLEN -1:0] cpu_dat_o,
+    input      [CORES_PER_TILE-1:0][XLEN -1:0] cpu_dat_i,
+    input      [CORES_PER_TILE-1:0]            cpu_ack_i
   );
 
   ////////////////////////////////////////////////////////////////
   //
   // Variables
   //
-  genvar i, j, k, p;
+  genvar p;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0] stall_cpu;
+  logic [CORES_PER_TILE-1:0] stall_cpu;
 
   ////////////////////////////////////////////////////////////////
   //
   // Tasks
   //
   function is_stalled;
-    integer i, j, k, p;
+    integer p;
 
-    for (i=0; i < X; i++)
-      for (j=0; j < Y; j++)
-        for (k=0; k < Z; k++)
           for (p=0; p < CORES_PER_TILE; p++)
-            is_stalled = stall_cpu[i][j][k][p];
+            is_stalled = stall_cpu[p];
   endfunction
 
   //Stall CPU
   task stall;
-    integer i, j, k, p;
+    integer p;
 
-    for (i=0; i < X; i++)
-      for (j=0; j < Y; j++)
-        for (k=0; k < Z; k++)
           for (p=0; p < CORES_PER_TILE; p++)
             @(posedge clk);
-    stall_cpu[i][j][k][p] <= 1'b1;
+    stall_cpu[p] <= 1'b1;
   endtask
 
   //Unstall CPU
   task unstall;
-    integer i, j, k, p;
+    integer p;
 
-    for (i=0; i < X; i++)
-      for (j=0; j < Y; j++)
-        for (k=0; k < Z; k++)
           for (p=0; p < CORES_PER_TILE; p++)
             @(posedge clk)
-            stall_cpu[i][j][k][p] <= 1'b0;
+            stall_cpu[p] <= 1'b0;
   endtask
 
   //Write to CPU (via DBG interface)
@@ -118,51 +105,45 @@ module riscv_dbg_bfm #(
     input [PLEN-1:0] addr; //address to write to
     input [XLEN-1:0] data; //data to write
 
-    integer i, j, k, p;
+    integer p;
 
-    for (i=0; i < X; i++)
-      for (j=0; j < Y; j++)
-        for (k=0; k < Z; k++)
           for (p=0; p < CORES_PER_TILE; p++)
             //setup DBG bus
             @(posedge clk);
-    cpu_stb_o [i][j][k][p] <= 1'b1;
-    cpu_we_o  [i][j][k][p] <= 1'b1;
-    cpu_dat_o [i][j][k][p] <= data;
-    cpu_adr_o [i][j][k][p] <= addr;
+    cpu_stb_o [p] <= 1'b1;
+    cpu_we_o  [p] <= 1'b1;
+    cpu_dat_o [p] <= data;
+    cpu_adr_o [p] <= addr;
 
     //wait for ack
-    while (!cpu_ack_i[i][j][k][p]) @(posedge clk);
+    while (!cpu_ack_i[p]) @(posedge clk);
 
     //clear DBG bus
-    cpu_stb_o [i][j][k][p] <= 1'b0;
-    cpu_we_o  [i][j][k][p] <= 1'b0;
+    cpu_stb_o [p] <= 1'b0;
+    cpu_we_o  [p] <= 1'b0;
   endtask;
 
   //Read from CPU (via DBG interface)
   task read;
     input  [PLEN-1:0] addr; //address to read from
-    output [XLEN-1:0] data [X][Y][Z][CORES_PER_TILE]; //data read from CPU
+    output [XLEN-1:0] data [CORES_PER_TILE]; //data read from CPU
 
-    integer i, j, k, p;
+    integer p;
 
-    for (i=0; i < X; i++)
-      for (j=0; j < Y; j++)
-        for (k=0; k < Z; k++)
           for (p=0; p < CORES_PER_TILE; p++)
             //setup DBG bus
             @(posedge clk);
-    cpu_stb_o [i][j][k][p] <= 1'b1;
-    cpu_we_o  [i][j][k][p] <= 1'b0;
-    cpu_adr_o [i][j][k][p] <= addr;
+    cpu_stb_o [p] <= 1'b1;
+    cpu_we_o  [p] <= 1'b0;
+    cpu_adr_o [p] <= addr;
 
     //wait for ack
-    while (!cpu_ack_i[i][j][k][p]) @(posedge clk);
-    data[i][j][k][p] = cpu_dat_i[i][j][k][p];
+    while (!cpu_ack_i[p]) @(posedge clk);
+    data[p] = cpu_dat_i[p];
 
     //clear DBG bus
-    cpu_stb_o [i][j][k][p] <= 1'b0;
-    cpu_we_o  [i][j][k][p] <= 1'b0;
+    cpu_stb_o [p] <= 1'b0;
+    cpu_we_o  [p] <= 1'b0;
   endtask;
 
   ////////////////////////////////////////////////////////////////
@@ -170,21 +151,15 @@ module riscv_dbg_bfm #(
   // Module body
   //
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (p=0; p < CORES_PER_TILE; p++) begin
-            initial cpu_stb_o  [i][j][k][p] = 1'b0;
+            initial cpu_stb_o  [p] = 1'b0;
 
-            assign cpu_stall_o [i][j][k][p] = cpu_bp_i[i][j][k][p] | stall_cpu[i][j][k][p];
+            assign cpu_stall_o [p] = cpu_bp_i[p] | stall_cpu[p];
 
             always @(posedge clk,negedge rstn) begin
-              if      ( !rstn                ) stall_cpu[i][j][k][p] <= 1'b0;
-              else if ( cpu_bp_i[i][j][k][p] ) stall_cpu[i][j][k][p] <= 1'b1; //gets cleared by task unstall_cpu
+              if      ( !rstn       ) stall_cpu[p] <= 1'b0;
+              else if ( cpu_bp_i[p] ) stall_cpu[p] <= 1'b1; //gets cleared by task unstall_cpu
             end
           end
-        end
-      end
-    end
   endgenerate
 endmodule

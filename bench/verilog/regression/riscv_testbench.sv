@@ -92,6 +92,8 @@ module riscv_testbench;
   parameter PADDR_SIZE         = PLEN;
   parameter PDATA_SIZE         = XLEN;
 
+  parameter FLIT_WIDTH         = 34;
+
   parameter ADDR_WIDTH     = 32;
   parameter DATA_WIDTH     = 32;
   parameter CPU_ADDR_WIDTH = 32;
@@ -217,7 +219,7 @@ module riscv_testbench;
   //
   // Variables
   //
-  genvar                      i, j, k, t;
+  genvar                      t;
 
   logic                       HCLK,
                               HRESETn;
@@ -227,148 +229,148 @@ module riscv_testbench;
   logic [PMA_CNT-1:0][PLEN-1:0] pma_adr;
 
   //AHB instruction - Single Port
-  logic [X-1:0][Y-1:0][Z-1:0]                      sins_simd_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][PLEN           -1:0] sins_simd_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][XLEN           -1:0] sins_simd_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][XLEN           -1:0] sins_simd_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sins_simd_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][                2:0] sins_simd_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][                2:0] sins_simd_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][                3:0] sins_simd_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][                1:0] sins_simd_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sins_simd_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sins_simd_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sins_simd_HRESP;
+  logic                       sins_simd_HSEL;
+  logic [PLEN           -1:0] sins_simd_HADDR;
+  logic [XLEN           -1:0] sins_simd_HWDATA;
+  logic [XLEN           -1:0] sins_simd_HRDATA;
+  logic                       sins_simd_HWRITE;
+  logic [                2:0] sins_simd_HSIZE;
+  logic [                2:0] sins_simd_HBURST;
+  logic [                3:0] sins_simd_HPROT;
+  logic [                1:0] sins_simd_HTRANS;
+  logic                       sins_simd_HMASTLOCK;
+  logic                       sins_simd_HREADY;
+  logic                       sins_simd_HRESP;
 
   //AHB data - Single Port
-  logic [X-1:0][Y-1:0][Z-1:0]                      sdat_misd_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][PLEN           -1:0] sdat_misd_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][XLEN           -1:0] sdat_misd_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][XLEN           -1:0] sdat_misd_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sdat_misd_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][                2:0] sdat_misd_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][                2:0] sdat_misd_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][                3:0] sdat_misd_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][                1:0] sdat_misd_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sdat_misd_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sdat_misd_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0]                      sdat_misd_HRESP;
+  logic                       sdat_misd_HSEL;
+  logic [PLEN           -1:0] sdat_misd_HADDR;
+  logic [XLEN           -1:0] sdat_misd_HWDATA;
+  logic [XLEN           -1:0] sdat_misd_HRDATA;
+  logic                       sdat_misd_HWRITE;
+  logic [                2:0] sdat_misd_HSIZE;
+  logic [                2:0] sdat_misd_HBURST;
+  logic [                3:0] sdat_misd_HPROT;
+  logic [                1:0] sdat_misd_HTRANS;
+  logic                       sdat_misd_HMASTLOCK;
+  logic                       sdat_misd_HREADY;
+  logic                       sdat_misd_HRESP;
 
   //AHB instruction - Multi Port
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mins_misd_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PLEN           -1:0] mins_misd_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][XLEN           -1:0] mins_misd_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][XLEN           -1:0] mins_misd_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mins_misd_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                2:0] mins_misd_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                2:0] mins_misd_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                3:0] mins_misd_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                1:0] mins_misd_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mins_misd_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mins_misd_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mins_misd_HRESP;
+  logic [CORES_PER_MISD-1:0]                      mins_misd_HSEL;
+  logic [CORES_PER_MISD-1:0][PLEN           -1:0] mins_misd_HADDR;
+  logic [CORES_PER_MISD-1:0][XLEN           -1:0] mins_misd_HWDATA;
+  logic [CORES_PER_MISD-1:0][XLEN           -1:0] mins_misd_HRDATA;
+  logic [CORES_PER_MISD-1:0]                      mins_misd_HWRITE;
+  logic [CORES_PER_MISD-1:0][                2:0] mins_misd_HSIZE;
+  logic [CORES_PER_MISD-1:0][                2:0] mins_misd_HBURST;
+  logic [CORES_PER_MISD-1:0][                3:0] mins_misd_HPROT;
+  logic [CORES_PER_MISD-1:0][                1:0] mins_misd_HTRANS;
+  logic [CORES_PER_MISD-1:0]                      mins_misd_HMASTLOCK;
+  logic [CORES_PER_MISD-1:0]                      mins_misd_HREADY;
+  logic [CORES_PER_MISD-1:0]                      mins_misd_HRESP;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mins_simd_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][PLEN           -1:0] mins_simd_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][XLEN           -1:0] mins_simd_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][XLEN           -1:0] mins_simd_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mins_simd_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                2:0] mins_simd_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                2:0] mins_simd_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                3:0] mins_simd_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                1:0] mins_simd_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mins_simd_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mins_simd_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mins_simd_HRESP;
+  logic [CORES_PER_SIMD-1:0]                      mins_simd_HSEL;
+  logic [CORES_PER_SIMD-1:0][PLEN           -1:0] mins_simd_HADDR;
+  logic [CORES_PER_SIMD-1:0][XLEN           -1:0] mins_simd_HWDATA;
+  logic [CORES_PER_SIMD-1:0][XLEN           -1:0] mins_simd_HRDATA;
+  logic [CORES_PER_SIMD-1:0]                      mins_simd_HWRITE;
+  logic [CORES_PER_SIMD-1:0][                2:0] mins_simd_HSIZE;
+  logic [CORES_PER_SIMD-1:0][                2:0] mins_simd_HBURST;
+  logic [CORES_PER_SIMD-1:0][                3:0] mins_simd_HPROT;
+  logic [CORES_PER_SIMD-1:0][                1:0] mins_simd_HTRANS;
+  logic [CORES_PER_SIMD-1:0]                      mins_simd_HMASTLOCK;
+  logic [CORES_PER_SIMD-1:0]                      mins_simd_HREADY;
+  logic [CORES_PER_SIMD-1:0]                      mins_simd_HRESP;
 
   //AHB data - Multi Port
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mdat_misd_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PLEN           -1:0] mdat_misd_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][XLEN           -1:0] mdat_misd_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][XLEN           -1:0] mdat_misd_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mdat_misd_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                2:0] mdat_misd_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                2:0] mdat_misd_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                3:0] mdat_misd_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                1:0] mdat_misd_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mdat_misd_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mdat_misd_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      mdat_misd_HRESP;
+  logic [CORES_PER_MISD-1:0]                      mdat_misd_HSEL;
+  logic [CORES_PER_MISD-1:0][PLEN           -1:0] mdat_misd_HADDR;
+  logic [CORES_PER_MISD-1:0][XLEN           -1:0] mdat_misd_HWDATA;
+  logic [CORES_PER_MISD-1:0][XLEN           -1:0] mdat_misd_HRDATA;
+  logic [CORES_PER_MISD-1:0]                      mdat_misd_HWRITE;
+  logic [CORES_PER_MISD-1:0][                2:0] mdat_misd_HSIZE;
+  logic [CORES_PER_MISD-1:0][                2:0] mdat_misd_HBURST;
+  logic [CORES_PER_MISD-1:0][                3:0] mdat_misd_HPROT;
+  logic [CORES_PER_MISD-1:0][                1:0] mdat_misd_HTRANS;
+  logic [CORES_PER_MISD-1:0]                      mdat_misd_HMASTLOCK;
+  logic [CORES_PER_MISD-1:0]                      mdat_misd_HREADY;
+  logic [CORES_PER_MISD-1:0]                      mdat_misd_HRESP;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mdat_simd_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][PLEN           -1:0] mdat_simd_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][XLEN           -1:0] mdat_simd_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][XLEN           -1:0] mdat_simd_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mdat_simd_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                2:0] mdat_simd_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                2:0] mdat_simd_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                3:0] mdat_simd_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                1:0] mdat_simd_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mdat_simd_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mdat_simd_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      mdat_simd_HRESP;
+  logic [CORES_PER_SIMD-1:0]                      mdat_simd_HSEL;
+  logic [CORES_PER_SIMD-1:0][PLEN           -1:0] mdat_simd_HADDR;
+  logic [CORES_PER_SIMD-1:0][XLEN           -1:0] mdat_simd_HWDATA;
+  logic [CORES_PER_SIMD-1:0][XLEN           -1:0] mdat_simd_HRDATA;
+  logic [CORES_PER_SIMD-1:0]                      mdat_simd_HWRITE;
+  logic [CORES_PER_SIMD-1:0][                2:0] mdat_simd_HSIZE;
+  logic [CORES_PER_SIMD-1:0][                2:0] mdat_simd_HBURST;
+  logic [CORES_PER_SIMD-1:0][                3:0] mdat_simd_HPROT;
+  logic [CORES_PER_SIMD-1:0][                1:0] mdat_simd_HTRANS;
+  logic [CORES_PER_SIMD-1:0]                      mdat_simd_HMASTLOCK;
+  logic [CORES_PER_SIMD-1:0]                      mdat_simd_HREADY;
+  logic [CORES_PER_SIMD-1:0]                      mdat_simd_HRESP;
 
   //Data Model Memory
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      dat_HSEL;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][PLEN           -1:0] dat_HADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][XLEN           -1:0] dat_HWDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][XLEN           -1:0] dat_HRDATA;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      dat_HWRITE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                2:0] dat_HSIZE;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                2:0] dat_HBURST;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                3:0] dat_HPROT;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                1:0] dat_HTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      dat_HMASTLOCK;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      dat_HREADY;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      dat_HRESP;
+  logic [CORES_PER_TILE-1:0]                      dat_HSEL;
+  logic [CORES_PER_TILE-1:0][PLEN           -1:0] dat_HADDR;
+  logic [CORES_PER_TILE-1:0][XLEN           -1:0] dat_HWDATA;
+  logic [CORES_PER_TILE-1:0][XLEN           -1:0] dat_HRDATA;
+  logic [CORES_PER_TILE-1:0]                      dat_HWRITE;
+  logic [CORES_PER_TILE-1:0][                2:0] dat_HSIZE;
+  logic [CORES_PER_TILE-1:0][                2:0] dat_HBURST;
+  logic [CORES_PER_TILE-1:0][                3:0] dat_HPROT;
+  logic [CORES_PER_TILE-1:0][                1:0] dat_HTRANS;
+  logic [CORES_PER_TILE-1:0]                      dat_HMASTLOCK;
+  logic [CORES_PER_TILE-1:0]                      dat_HREADY;
+  logic [CORES_PER_TILE-1:0]                      dat_HRESP;
 
   //Debug Interface
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      dbg_bp,
+  logic [CORES_PER_TILE-1:0]                      dbg_bp,
                                                                        dbg_stall,
                                                                        dbg_strb,
                                                                        dbg_ack,
                                                                        dbg_we;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][PLEN           -1:0] dbg_addr;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][XLEN           -1:0] dbg_dati,
+  logic [CORES_PER_TILE-1:0][PLEN           -1:0] dbg_addr;
+  logic [CORES_PER_TILE-1:0][XLEN           -1:0] dbg_dati,
                                                                        dbg_dato;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      dbg_misd_bp,
+  logic [CORES_PER_MISD-1:0]                      dbg_misd_bp,
                                                                        dbg_misd_stall,
                                                                        dbg_misd_strb,
                                                                        dbg_misd_ack,
                                                                        dbg_misd_we;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PLEN           -1:0] dbg_misd_addr;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][XLEN           -1:0] dbg_misd_dati,
+  logic [CORES_PER_MISD-1:0][PLEN           -1:0] dbg_misd_addr;
+  logic [CORES_PER_MISD-1:0][XLEN           -1:0] dbg_misd_dati,
                                                                        dbg_misd_dato;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      dbg_simd_bp,
+  logic [CORES_PER_SIMD-1:0]                      dbg_simd_bp,
                                                                        dbg_simd_stall,
                                                                        dbg_simd_strb,
                                                                        dbg_simd_ack,
                                                                        dbg_simd_we;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][PLEN           -1:0] dbg_simd_addr;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][XLEN           -1:0] dbg_simd_dati,
+  logic [CORES_PER_SIMD-1:0][PLEN           -1:0] dbg_simd_addr;
+  logic [CORES_PER_SIMD-1:0][XLEN           -1:0] dbg_simd_dati,
                                                                        dbg_simd_dato;
 
   //Interrupts
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      ext_misd_nmi;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      ext_misd_tint;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0]                      ext_misd_sint;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][                3:0] ext_misd_int;
+  logic [CORES_PER_MISD-1:0]                      ext_misd_nmi;
+  logic [CORES_PER_MISD-1:0]                      ext_misd_tint;
+  logic [CORES_PER_MISD-1:0]                      ext_misd_sint;
+  logic [CORES_PER_MISD-1:0][                3:0] ext_misd_int;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      ext_simd_nmi;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      ext_simd_tint;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                      ext_simd_sint;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][                3:0] ext_simd_int;
+  logic [CORES_PER_SIMD-1:0]                      ext_simd_nmi;
+  logic [CORES_PER_SIMD-1:0]                      ext_simd_tint;
+  logic [CORES_PER_SIMD-1:0]                      ext_simd_sint;
+  logic [CORES_PER_SIMD-1:0][                3:0] ext_simd_int;
 
   //GPIO
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_misd_i;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_misd_o;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_misd_oe;
+  logic [CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_misd_i;
+  logic [CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_misd_o;
+  logic [CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_misd_oe;
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0][PDATA_SIZE     -1:0] gpio_simd_i;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_simd_o;
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_simd_oe;
+  logic [CORES_PER_SIMD-1:0][PDATA_SIZE     -1:0] gpio_simd_i;
+  logic [CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_simd_o;
+  logic [CORES_PER_MISD-1:0][PDATA_SIZE     -1:0] gpio_simd_oe;
 
   //Host Interface
   logic                       host_csr_req,
@@ -478,44 +480,62 @@ module riscv_testbench;
   logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_SIMD-1:0]                     ahb3_simd_cpu_ack_i;
 
   //Unified memory interface
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                1:0] mem_htrans;
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                2:0] mem_hburst;
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      mem_hready,
-                                                                            mem_hresp;
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][PLEN           -1:0] mem_haddr;
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][XLEN           -1:0] mem_hwdata,
-                                                                            mem_hrdata;
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0][                2:0] mem_hsize;
-  logic [1:0][X-1:0][Y-1:0][Z-1:0][CORES_PER_TILE-1:0]                      mem_hwrite;
+  logic [1:0][CORES_PER_TILE-1:0][                1:0] mem_htrans;
+  logic [1:0][CORES_PER_TILE-1:0][                2:0] mem_hburst;
+  logic [1:0][CORES_PER_TILE-1:0]                      mem_hready,
+                                                       mem_hresp;
+  logic [1:0][CORES_PER_TILE-1:0][PLEN           -1:0] mem_haddr;
+  logic [1:0][CORES_PER_TILE-1:0][XLEN           -1:0] mem_hwdata,
+                                                       mem_hrdata;
+  logic [1:0][CORES_PER_TILE-1:0][                2:0] mem_hsize;
+  logic [1:0][CORES_PER_TILE-1:0]                      mem_hwrite;
 
   //MISD mux
-  logic [X-1:0][Y-1:0][Z-1:0][                2:0] requested_misd_priority_lvl;  //requested priority level
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD -1:0] priority_misd_masters;        //all masters at this priority level
+  logic [                2:0] requested_misd_priority_lvl;  //requested priority level
+  logic [CORES_PER_MISD -1:0] priority_misd_masters;        //all masters at this priority level
 
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD -1:0] pending_misd_master,            //next master waiting to be served
-                                                   last_granted_misd_master;       //for requested priority level
-  logic [X-1:0][Y-1:0][Z-1:0][CORES_PER_MISD -1:0] last_granted_misd_masters [3];  //per priority level, for round-robin
+  logic [CORES_PER_MISD -1:0] pending_misd_master,            //next master waiting to be served
+                              last_granted_misd_master;       //for requested priority level
+  logic [CORES_PER_MISD -1:0] last_granted_misd_masters [3];  //per priority level, for round-robin
 
 
-  logic [MISD_BITS      -1:0] granted_misd_master_idx     [X][Y][Z],    //granted master as index
-                              granted_misd_master_idx_dly [X][Y][Z];    //deleayed granted master index (for HWDATA)
+  logic [MISD_BITS      -1:0] granted_misd_master_idx     ,    //granted master as index
+                              granted_misd_master_idx_dly ;    //deleayed granted master index (for HWDATA)
 
-  logic [CORES_PER_MISD -1:0] granted_misd_master         [X][Y][Z];
+  logic [CORES_PER_MISD -1:0] granted_misd_master         ;
 
   //SIMD mux
-  logic [                2:0] requested_simd_priority_lvl [X][Y][Z];    //requested priority level
-  logic [CORES_PER_SIMD -1:0] priority_simd_masters       [X][Y][Z];    //all masters at this priority level
+  logic [                2:0] requested_simd_priority_lvl ;    //requested priority level
+  logic [CORES_PER_SIMD -1:0] priority_simd_masters       ;    //all masters at this priority level
 
-  logic [CORES_PER_SIMD -1:0] pending_simd_master         [X][Y][Z],    //next master waiting to be served
-                              last_granted_simd_master    [X][Y][Z];    //for requested priority level
-  logic [CORES_PER_SIMD -1:0] last_granted_simd_masters   [X][Y][Z][3]; //per priority level, for round-robin
+  logic [CORES_PER_SIMD -1:0] pending_simd_master         ,    //next master waiting to be served
+                              last_granted_simd_master    ;    //for requested priority level
+  logic [CORES_PER_SIMD -1:0] last_granted_simd_masters   [3]; //per priority level, for round-robin
 
 
-  logic [SIMD_BITS      -1:0] granted_simd_master_idx     [X][Y][Z],    //granted master as index
-                              granted_simd_master_idx_dly [X][Y][Z];    //deleayed granted master index (for HWDATA)
+  logic [SIMD_BITS      -1:0] granted_simd_master_idx     ,    //granted master as index
+                              granted_simd_master_idx_dly ;    //deleayed granted master index (for HWDATA)
 
-  logic [CORES_PER_SIMD -1:0] granted_simd_master         [X][Y][Z];
+  logic [CORES_PER_SIMD -1:0] granted_simd_master         ;
 
+    //NoC Interface
+    logic [CHANNELS -1:0][FLIT_WIDTH-1:0] noc_misd_in_flit;
+    logic [CHANNELS -1:0]                 noc_misd_in_last;
+    logic [CHANNELS -1:0]                 noc_misd_in_valid;
+    logic [CHANNELS -1:0]                 noc_misd_in_ready;
+    logic [CHANNELS -1:0][FLIT_WIDTH-1:0] noc_misd_out_flit;
+    logic [CHANNELS -1:0]                 noc_misd_out_last;
+    logic [CHANNELS -1:0]                 noc_misd_out_valid;
+    logic [CHANNELS -1:0]                 noc_misd_out_ready;
+
+    logic [CHANNELS -1:0][FLIT_WIDTH-1:0] noc_simd_in_flit;
+    logic [CHANNELS -1:0]                 noc_simd_in_last;
+    logic [CHANNELS -1:0]                 noc_simd_in_valid;
+    logic [CHANNELS -1:0]                 noc_simd_in_ready;
+    logic [CHANNELS -1:0][FLIT_WIDTH-1:0] noc_simd_out_flit;
+    logic [CHANNELS -1:0]                 noc_simd_out_last;
+    logic [CHANNELS -1:0]                 noc_simd_out_valid;
+    logic [CHANNELS -1:0]                 noc_simd_out_ready;
 
   ////////////////////////////////////////////////////////////////
   //
@@ -541,42 +561,28 @@ module riscv_testbench;
   assign pma_cfg[3] = {`MEM_TYPE_MAIN, 8'b1111_0000, `AMO_TYPE_NONE, `TOR};
 
   //Interrupts
-  generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
-          assign gpio_misd_i [i][j][k] = 'b0;
-          assign gpio_simd_i [i][j][k] = 'b0;
-        end
-      end
-    end
-  endgenerate
+          assign gpio_misd_i  = 'b0;
+          assign gpio_simd_i  = 'b0;
 
   //GPIO inputs
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_MISD; t++) begin
-            assign ext_misd_nmi  [i][j][k][t]= 1'b0;
-            assign ext_misd_tint [i][j][k][t]= 1'b0;
-            assign ext_misd_sint [i][j][k][t]= 1'b0;
-            assign ext_misd_int  [i][j][k][t]= 1'b0;
+            assign ext_misd_nmi  [t] = 1'b0;
+            assign ext_misd_tint [t] = 1'b0;
+            assign ext_misd_sint [t] = 1'b0;
+            assign ext_misd_int  [t] = 1'b0;
           end
 
           for (t=0; t < CORES_PER_SIMD; t++) begin
-            assign ext_simd_nmi  [i][j][k][t]= 1'b0;
-            assign ext_simd_tint [i][j][k][t]= 1'b0;
-            assign ext_simd_sint [i][j][k][t]= 1'b0;
-            assign ext_simd_int  [i][j][k][t]= 1'b0;
+            assign ext_simd_nmi  [t] = 1'b0;
+            assign ext_simd_tint [t] = 1'b0;
+            assign ext_simd_sint [t] = 1'b0;
+            assign ext_simd_int  [t] = 1'b0;
           end
-        end
-      end
-    end
   endgenerate
 
   //Hookup Device Under Test
-  riscv_mpsoc #(
+  riscv_soc #(
     .XLEN             ( XLEN             ),
     .PLEN             ( PLEN             ), //31bit address bus
     .PC_INIT          ( PC_INIT          ),
@@ -599,9 +605,7 @@ module riscv_testbench;
     .CORES_PER_SIMD   ( CORES_PER_SIMD   ),
     .CORES_PER_MISD   ( CORES_PER_MISD   ),
 
-    .X                ( X                ),
-    .Y                ( Y                ),
-    .Z                ( Z                )
+    .CHANNELS         ( CHANNELS         )
   )
   dut (
     .HRESETn   ( HRESETn ),
@@ -617,10 +621,6 @@ module riscv_testbench;
   riscv_dbg_bfm #(
     .XLEN ( XLEN ),
     .PLEN ( PLEN ),
-
-    .X ( X ),
-    .Y ( Y ),
-    .Z ( Z ),
 
     .CORES_PER_TILE ( CORES_PER_TILE )
   )
@@ -781,303 +781,223 @@ module riscv_testbench;
   );
 
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_MISD; t++) begin
-            assign dbg_bp    [i][j][k][t] = dbg_misd_bp    [i][j][k][t];
-            assign dbg_dato  [i][j][k][t] = dbg_misd_dato  [i][j][k][t];
-            assign dbg_ack   [i][j][k][t] = dbg_misd_ack   [i][j][k][t];
+            assign dbg_bp    [t] = dbg_misd_bp    [t];
+            assign dbg_dato  [t] = dbg_misd_dato  [t];
+            assign dbg_ack   [t] = dbg_misd_ack   [t];
 
-            assign dbg_misd_stall [i][j][k][t] = dbg_stall [i][j][k][t];
-            assign dbg_misd_strb  [i][j][k][t] = dbg_strb  [i][j][k][t];
-            assign dbg_misd_we    [i][j][k][t] = dbg_we    [i][j][k][t];
-            assign dbg_misd_addr  [i][j][k][t] = dbg_addr  [i][j][k][t];
-            assign dbg_misd_dati  [i][j][k][t] = dbg_dati  [i][j][k][t];
+            assign dbg_misd_stall [t] = dbg_stall [t];
+            assign dbg_misd_strb  [t] = dbg_strb  [t];
+            assign dbg_misd_we    [t] = dbg_we    [t];
+            assign dbg_misd_addr  [t] = dbg_addr  [t];
+            assign dbg_misd_dati  [t] = dbg_dati  [t];
           end
 
           for (t=0; t < CORES_PER_SIMD; t++) begin
-            assign dbg_bp    [i][j][k][t+CORES_PER_MISD] = dbg_simd_bp    [i][j][k][t];
-            assign dbg_dato  [i][j][k][t+CORES_PER_MISD] = dbg_simd_dato  [i][j][k][t];
-            assign dbg_ack   [i][j][k][t+CORES_PER_MISD] = dbg_simd_ack   [i][j][k][t];
+            assign dbg_bp    [t+CORES_PER_MISD] = dbg_simd_bp    [t];
+            assign dbg_dato  [t+CORES_PER_MISD] = dbg_simd_dato  [t];
+            assign dbg_ack   [t+CORES_PER_MISD] = dbg_simd_ack   [t];
 
-            assign dbg_simd_stall [i][j][k][t+CORES_PER_MISD] = dbg_stall [i][j][k][t];
-            assign dbg_simd_strb  [i][j][k][t+CORES_PER_MISD] = dbg_strb  [i][j][k][t];
-            assign dbg_simd_we    [i][j][k][t+CORES_PER_MISD] = dbg_we    [i][j][k][t];
-            assign dbg_simd_addr  [i][j][k][t+CORES_PER_MISD] = dbg_addr  [i][j][k][t];
-            assign dbg_simd_dati  [i][j][k][t+CORES_PER_MISD] = dbg_dati  [i][j][k][t];
+            assign dbg_simd_stall [t+CORES_PER_MISD] = dbg_stall [t];
+            assign dbg_simd_strb  [t+CORES_PER_MISD] = dbg_strb  [t];
+            assign dbg_simd_we    [t+CORES_PER_MISD] = dbg_we    [t];
+            assign dbg_simd_addr  [t+CORES_PER_MISD] = dbg_addr  [t];
+            assign dbg_simd_dati  [t+CORES_PER_MISD] = dbg_dati  [t];
           end
-        end
-      end
-    end
   endgenerate
 
   //bus MISD <-> memory model connections
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_MISD; t++) begin
-            assign mem_htrans [0][i][j][k][t] = mins_misd_HTRANS [i][j][k][t];
-            assign mem_hburst [0][i][j][k][t] = mins_misd_HBURST [i][j][k][t];
-            assign mem_haddr  [0][i][j][k][t] = mins_misd_HADDR  [i][j][k][t];
-            assign mem_hwrite [0][i][j][k][t] = mins_misd_HWRITE [i][j][k][t];
-            assign mem_hsize  [0][i][j][k][t] = 'b0;
-            assign mem_hwdata [0][i][j][k][t] = 'b0;
+            assign mem_htrans [0][t] = mins_misd_HTRANS [t];
+            assign mem_hburst [0][t] = mins_misd_HBURST [t];
+            assign mem_haddr  [0][t] = mins_misd_HADDR  [t];
+            assign mem_hwrite [0][t] = mins_misd_HWRITE [t];
+            assign mem_hsize  [0][t] = 'b0;
+            assign mem_hwdata [0][t] = 'b0;
 
-            assign mem_htrans [1][i][j][k][t] = mdat_misd_HTRANS [i][j][k][t];
-            assign mem_hburst [1][i][j][k][t] = mdat_misd_HBURST [i][j][k][t];
-            assign mem_haddr  [1][i][j][k][t] = mdat_misd_HADDR  [i][j][k][t];
-            assign mem_hwrite [1][i][j][k][t] = mdat_misd_HWRITE [i][j][k][t];
-            assign mem_hsize  [1][i][j][k][t] = mdat_misd_HSIZE  [i][j][k][t];
-            assign mem_hwdata [1][i][j][k][t] = mdat_misd_HWDATA [i][j][k][t];
+            assign mem_htrans [1][t] = mdat_misd_HTRANS [t];
+            assign mem_hburst [1][t] = mdat_misd_HBURST [t];
+            assign mem_haddr  [1][t] = mdat_misd_HADDR  [t];
+            assign mem_hwrite [1][t] = mdat_misd_HWRITE [t];
+            assign mem_hsize  [1][t] = mdat_misd_HSIZE  [t];
+            assign mem_hwdata [1][t] = mdat_misd_HWDATA [t];
           end
-        end
-      end
-    end
   endgenerate
 
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_MISD; t++) begin
-            assign mins_misd_HRDATA [i][j][k][t] = mem_hrdata [0][i][j][k][t];
-            assign mins_misd_HREADY [i][j][k][t] = mem_hready [0][i][j][k][t];
-            assign mins_misd_HRESP  [i][j][k][t] = mem_hresp  [0][i][j][k][t];
+            assign mins_misd_HRDATA [t] = mem_hrdata [0][t];
+            assign mins_misd_HREADY [t] = mem_hready [0][t];
+            assign mins_misd_HRESP  [t] = mem_hresp  [0][t];
 
-            assign mdat_misd_HRDATA [i][j][k][t] = mem_hrdata [1][i][j][k][t];
-            assign mdat_misd_HREADY [i][j][k][t] = mem_hready [1][i][j][k][t];
-            assign mdat_misd_HRESP  [i][j][k][t] = mem_hresp  [1][i][j][k][t];
+            assign mdat_misd_HRDATA [t] = mem_hrdata [1][t];
+            assign mdat_misd_HREADY [t] = mem_hready [1][t];
+            assign mdat_misd_HRESP  [t] = mem_hresp  [1][t];
           end
-        end
-      end
-    end
   endgenerate
 
   //bus SIMD <-> memory model connections
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_SIMD; t++) begin
-            assign mem_htrans [0][i][j][k][t+CORES_PER_MISD] = mins_simd_HTRANS [i][j][k][t];
-            assign mem_hburst [0][i][j][k][t+CORES_PER_MISD] = mins_simd_HBURST [i][j][k][t];
-            assign mem_haddr  [0][i][j][k][t+CORES_PER_MISD] = mins_simd_HADDR  [i][j][k][t];
-            assign mem_hwrite [0][i][j][k][t+CORES_PER_MISD] = mins_simd_HWRITE [i][j][k][t];
-            assign mem_hsize  [0][i][j][k][t+CORES_PER_MISD] = 'b0;
-            assign mem_hwdata [0][i][j][k][t+CORES_PER_MISD] = 'b0;
+            assign mem_htrans [0][t+CORES_PER_MISD] = mins_simd_HTRANS [t];
+            assign mem_hburst [0][t+CORES_PER_MISD] = mins_simd_HBURST [t];
+            assign mem_haddr  [0][t+CORES_PER_MISD] = mins_simd_HADDR  [t];
+            assign mem_hwrite [0][t+CORES_PER_MISD] = mins_simd_HWRITE [t];
+            assign mem_hsize  [0][t+CORES_PER_MISD] = 'b0;
+            assign mem_hwdata [0][t+CORES_PER_MISD] = 'b0;
 
-            assign mem_htrans [1][i][j][k][t+CORES_PER_MISD] = mdat_simd_HTRANS [i][j][k][t];
-            assign mem_hburst [1][i][j][k][t+CORES_PER_MISD] = mdat_simd_HBURST [i][j][k][t];
-            assign mem_haddr  [1][i][j][k][t+CORES_PER_MISD] = mdat_simd_HADDR  [i][j][k][t];
-            assign mem_hwrite [1][i][j][k][t+CORES_PER_MISD] = mdat_simd_HWRITE [i][j][k][t];
-            assign mem_hsize  [1][i][j][k][t+CORES_PER_MISD] = mdat_simd_HSIZE  [i][j][k][t];
-            assign mem_hwdata [1][i][j][k][t+CORES_PER_MISD] = mdat_simd_HWDATA [i][j][k][t];
+            assign mem_htrans [1][t+CORES_PER_MISD] = mdat_simd_HTRANS [t];
+            assign mem_hburst [1][t+CORES_PER_MISD] = mdat_simd_HBURST [t];
+            assign mem_haddr  [1][t+CORES_PER_MISD] = mdat_simd_HADDR  [t];
+            assign mem_hwrite [1][t+CORES_PER_MISD] = mdat_simd_HWRITE [t];
+            assign mem_hsize  [1][t+CORES_PER_MISD] = mdat_simd_HSIZE  [t];
+            assign mem_hwdata [1][t+CORES_PER_MISD] = mdat_simd_HWDATA [t];
           end
-        end
-      end
-    end
   endgenerate
 
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_SIMD; t++) begin
-            assign mins_simd_HRDATA [i][j][k][t] = mem_hrdata [0][i][j][k][t+CORES_PER_MISD];
-            assign mins_simd_HREADY [i][j][k][t] = mem_hready [0][i][j][k][t+CORES_PER_MISD];
-            assign mins_simd_HRESP  [i][j][k][t] = mem_hresp  [0][i][j][k][t+CORES_PER_MISD];
+            assign mins_simd_HRDATA [t] = mem_hrdata [0][t+CORES_PER_MISD];
+            assign mins_simd_HREADY [t] = mem_hready [0][t+CORES_PER_MISD];
+            assign mins_simd_HRESP  [t] = mem_hresp  [0][t+CORES_PER_MISD];
 
-            assign mdat_simd_HRDATA [i][j][k][t] = mem_hrdata [1][i][j][k][t+CORES_PER_MISD];
-            assign mdat_simd_HREADY [i][j][k][t] = mem_hready [1][i][j][k][t+CORES_PER_MISD];
-            assign mdat_simd_HRESP  [i][j][k][t] = mem_hresp  [1][i][j][k][t+CORES_PER_MISD];
+            assign mdat_simd_HRDATA [t] = mem_hrdata [1][t+CORES_PER_MISD];
+            assign mdat_simd_HREADY [t] = mem_hready [1][t+CORES_PER_MISD];
+            assign mdat_simd_HRESP  [t] = mem_hresp  [1][t+CORES_PER_MISD];
           end
-        end
-      end
-    end
   endgenerate
 
   //Data Model Memory
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_MISD; t++) begin
-            assign dat_HSEL      [i][j][k][t] = mdat_misd_HSEL      [i][j][k][t];
-            assign dat_HADDR     [i][j][k][t] = mdat_misd_HADDR     [i][j][k][t];
-            assign dat_HWDATA    [i][j][k][t] = mdat_misd_HWDATA    [i][j][k][t];
-            assign dat_HRDATA    [i][j][k][t] = mdat_misd_HRDATA    [i][j][k][t];
-            assign dat_HWRITE    [i][j][k][t] = mdat_misd_HWRITE    [i][j][k][t];
-            assign dat_HSIZE     [i][j][k][t] = mdat_misd_HSIZE     [i][j][k][t];
-            assign dat_HBURST    [i][j][k][t] = mdat_misd_HBURST    [i][j][k][t];
-            assign dat_HPROT     [i][j][k][t] = mdat_misd_HPROT     [i][j][k][t];
-            assign dat_HTRANS    [i][j][k][t] = mdat_misd_HTRANS    [i][j][k][t];
-            assign dat_HMASTLOCK [i][j][k][t] = mdat_misd_HMASTLOCK [i][j][k][t];
-            assign dat_HREADY    [i][j][k][t] = mdat_misd_HREADY    [i][j][k][t];
-            assign dat_HRESP     [i][j][k][t] = mdat_misd_HRESP     [i][j][k][t];
+            assign dat_HSEL      [t] = mdat_misd_HSEL      [t];
+            assign dat_HADDR     [t] = mdat_misd_HADDR     [t];
+            assign dat_HWDATA    [t] = mdat_misd_HWDATA    [t];
+            assign dat_HRDATA    [t] = mdat_misd_HRDATA    [t];
+            assign dat_HWRITE    [t] = mdat_misd_HWRITE    [t];
+            assign dat_HSIZE     [t] = mdat_misd_HSIZE     [t];
+            assign dat_HBURST    [t] = mdat_misd_HBURST    [t];
+            assign dat_HPROT     [t] = mdat_misd_HPROT     [t];
+            assign dat_HTRANS    [t] = mdat_misd_HTRANS    [t];
+            assign dat_HMASTLOCK [t] = mdat_misd_HMASTLOCK [t];
+            assign dat_HREADY    [t] = mdat_misd_HREADY    [t];
+            assign dat_HRESP     [t] = mdat_misd_HRESP     [t];
           end
 
           for (t=0; t < CORES_PER_SIMD; t++) begin
-            assign dat_HSEL      [i][j][k][t+CORES_PER_MISD] = mdat_simd_HSEL      [i][j][k][t];
-            assign dat_HADDR     [i][j][k][t+CORES_PER_MISD] = mdat_simd_HADDR     [i][j][k][t];
-            assign dat_HWDATA    [i][j][k][t+CORES_PER_MISD] = mdat_simd_HWDATA    [i][j][k][t];
-            assign dat_HRDATA    [i][j][k][t+CORES_PER_MISD] = mdat_simd_HRDATA    [i][j][k][t];
-            assign dat_HWRITE    [i][j][k][t+CORES_PER_MISD] = mdat_simd_HWRITE    [i][j][k][t];
-            assign dat_HSIZE     [i][j][k][t+CORES_PER_MISD] = mdat_simd_HSIZE     [i][j][k][t];
-            assign dat_HBURST    [i][j][k][t+CORES_PER_MISD] = mdat_simd_HBURST    [i][j][k][t];
-            assign dat_HPROT     [i][j][k][t+CORES_PER_MISD] = mdat_simd_HPROT     [i][j][k][t];
-            assign dat_HTRANS    [i][j][k][t+CORES_PER_MISD] = mdat_simd_HTRANS    [i][j][k][t];
-            assign dat_HMASTLOCK [i][j][k][t+CORES_PER_MISD] = mdat_simd_HMASTLOCK [i][j][k][t];
-            assign dat_HREADY    [i][j][k][t+CORES_PER_MISD] = mdat_simd_HREADY    [i][j][k][t];
-            assign dat_HRESP     [i][j][k][t+CORES_PER_MISD] = mdat_simd_HRESP     [i][j][k][t];
+            assign dat_HSEL      [t+CORES_PER_MISD] = mdat_simd_HSEL      [t];
+            assign dat_HADDR     [t+CORES_PER_MISD] = mdat_simd_HADDR     [t];
+            assign dat_HWDATA    [t+CORES_PER_MISD] = mdat_simd_HWDATA    [t];
+            assign dat_HRDATA    [t+CORES_PER_MISD] = mdat_simd_HRDATA    [t];
+            assign dat_HWRITE    [t+CORES_PER_MISD] = mdat_simd_HWRITE    [t];
+            assign dat_HSIZE     [t+CORES_PER_MISD] = mdat_simd_HSIZE     [t];
+            assign dat_HBURST    [t+CORES_PER_MISD] = mdat_simd_HBURST    [t];
+            assign dat_HPROT     [t+CORES_PER_MISD] = mdat_simd_HPROT     [t];
+            assign dat_HTRANS    [t+CORES_PER_MISD] = mdat_simd_HTRANS    [t];
+            assign dat_HMASTLOCK [t+CORES_PER_MISD] = mdat_simd_HMASTLOCK [t];
+            assign dat_HREADY    [t+CORES_PER_MISD] = mdat_simd_HREADY    [t];
+            assign dat_HRESP     [t+CORES_PER_MISD] = mdat_simd_HRESP     [t];
           end
-        end
-      end
-    end
   endgenerate
 
   //bus MISD <-> mux
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_MISD; t++) begin
-            assign mdat_misd_HSEL      [i][j][k][t] = sdat_misd_HSEL      [i][j][k];
-            assign mdat_misd_HADDR     [i][j][k][t] = sdat_misd_HADDR     [i][j][k];
-            assign mdat_misd_HWDATA    [i][j][k][t] = sdat_misd_HWDATA    [i][j][k];
-            assign mdat_misd_HWRITE    [i][j][k][t] = sdat_misd_HWRITE    [i][j][k];
-            assign mdat_misd_HSIZE     [i][j][k][t] = sdat_misd_HSIZE     [i][j][k];
-            assign mdat_misd_HBURST    [i][j][k][t] = sdat_misd_HBURST    [i][j][k];
-            assign mdat_misd_HPROT     [i][j][k][t] = sdat_misd_HPROT     [i][j][k];
-            assign mdat_misd_HTRANS    [i][j][k][t] = sdat_misd_HTRANS    [i][j][k];
-            assign mdat_misd_HMASTLOCK [i][j][k][t] = sdat_misd_HMASTLOCK [i][j][k];
+            assign mdat_misd_HSEL      [t] = sdat_misd_HSEL      ;
+            assign mdat_misd_HADDR     [t] = sdat_misd_HADDR     ;
+            assign mdat_misd_HWDATA    [t] = sdat_misd_HWDATA    ;
+            assign mdat_misd_HWRITE    [t] = sdat_misd_HWRITE    ;
+            assign mdat_misd_HSIZE     [t] = sdat_misd_HSIZE     ;
+            assign mdat_misd_HBURST    [t] = sdat_misd_HBURST    ;
+            assign mdat_misd_HPROT     [t] = sdat_misd_HPROT     ;
+            assign mdat_misd_HTRANS    [t] = sdat_misd_HTRANS    ;
+            assign mdat_misd_HMASTLOCK [t] = sdat_misd_HMASTLOCK ;
           end
-        end
-      end
-    end
   endgenerate
 
-  generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
-          assign sdat_misd_HRDATA [i][j][k] = mdat_misd_HRDATA [i][j][k][granted_simd_master_idx[i][j][k]];
-          assign sdat_misd_HREADY [i][j][k] = mdat_misd_HREADY [i][j][k][granted_simd_master_idx[i][j][k]];
-          assign sdat_misd_HRESP  [i][j][k] = mdat_misd_HRESP  [i][j][k][granted_simd_master_idx[i][j][k]];
-        end
-      end
-    end
-  endgenerate
+          assign sdat_misd_HRDATA  = mdat_misd_HRDATA [granted_simd_master_idx];
+          assign sdat_misd_HREADY  = mdat_misd_HREADY [granted_simd_master_idx];
+          assign sdat_misd_HRESP   = mdat_misd_HRESP  [granted_simd_master_idx];
 
-  generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           //get highest priority from selected masters
-          assign requested_misd_priority_lvl[i][j][k] = highest_misd_requested_priority(mdat_misd_HSEL[i][j][k]);
+          assign requested_misd_priority_lvl = highest_misd_requested_priority(mdat_misd_HSEL);
 
           //get pending masters for the highest priority requested
-          assign priority_misd_masters[i][j][k] = requesters_misd(mdat_misd_HSEL[i][j][k], requested_misd_priority_lvl[i][j][k]);
+          assign priority_misd_masters = requesters_misd(mdat_misd_HSEL, requested_misd_priority_lvl);
 
           //get last granted master for the priority requested
-          assign last_granted_misd_master[i][j][k] = last_granted_misd_masters[i][j][k][requested_misd_priority_lvl[i][j][k]];
+          assign last_granted_misd_master = last_granted_misd_masters[requested_misd_priority_lvl];
 
           //get next master to serve
-          assign pending_misd_master[i][j][k] = nxt_misd_master(priority_misd_masters[i][j][k], last_granted_misd_master[i][j][k], granted_misd_master[i][j][k]);
+          assign pending_misd_master = nxt_misd_master(priority_misd_masters, last_granted_misd_master, granted_misd_master);
 
           //select new master
           always @(posedge HCLK, negedge HRESETn) begin
-            if      ( !HRESETn                 ) granted_misd_master[i][j][k] <= 'h1;
-            else if ( !sdat_misd_HSEL[i][j][k] ) granted_misd_master[i][j][k] <= pending_misd_master[i][j][k];
+            if      ( !HRESETn                 ) granted_misd_master <= 'h1;
+            else if ( !sdat_misd_HSEL ) granted_misd_master <= pending_misd_master;
           end
 
           //store current master (for this priority level)
           always @(posedge HCLK, negedge HRESETn) begin
-            if      ( !HRESETn                 ) last_granted_misd_masters[i][j][k][requested_misd_priority_lvl[i][j][k]] <= 'h1;
-            else if ( !sdat_misd_HSEL[i][j][k] ) last_granted_misd_masters[i][j][k][requested_misd_priority_lvl[i][j][k]] <= pending_misd_master[i][j][k];
+            if      ( !HRESETn                 ) last_granted_misd_masters[requested_misd_priority_lvl] <= 'h1;
+            else if ( !sdat_misd_HSEL ) last_granted_misd_masters[requested_misd_priority_lvl] <= pending_misd_master;
           end
 
           //get signals from current requester
           always @(posedge HCLK, negedge HRESETn) begin
-            if      ( !HRESETn                 ) granted_misd_master_idx[i][j][k] <= 'h0;
-            else if ( !sdat_misd_HSEL[i][j][k] ) granted_misd_master_idx[i][j][k] <= onehot2int_misd(pending_misd_master[i][j][k]);
+            if      ( !HRESETn                 ) granted_misd_master_idx <= 'h0;
+            else if ( !sdat_misd_HSEL ) granted_misd_master_idx <= onehot2int_misd(pending_misd_master);
           end
-        end
-      end
-    end
-  endgenerate
 
   //bus SIMD <-> mux
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_SIMD; t++) begin
-            assign mins_simd_HSEL      [i][j][k][t] = sins_simd_HSEL      [i][j][k];
-            assign mins_simd_HADDR     [i][j][k][t] = sins_simd_HADDR     [i][j][k];
-            assign mins_simd_HWDATA    [i][j][k][t] = sins_simd_HWDATA    [i][j][k];
-            assign mins_simd_HWRITE    [i][j][k][t] = sins_simd_HWRITE    [i][j][k];
-            assign mins_simd_HSIZE     [i][j][k][t] = sins_simd_HSIZE     [i][j][k];
-            assign mins_simd_HBURST    [i][j][k][t] = sins_simd_HBURST    [i][j][k];
-            assign mins_simd_HPROT     [i][j][k][t] = sins_simd_HPROT     [i][j][k];
-            assign mins_simd_HTRANS    [i][j][k][t] = sins_simd_HTRANS    [i][j][k];
-            assign mins_simd_HMASTLOCK [i][j][k][t] = sins_simd_HMASTLOCK [i][j][k];
+            assign mins_simd_HSEL      [t] = sins_simd_HSEL      ;
+            assign mins_simd_HADDR     [t] = sins_simd_HADDR     ;
+            assign mins_simd_HWDATA    [t] = sins_simd_HWDATA    ;
+            assign mins_simd_HWRITE    [t] = sins_simd_HWRITE    ;
+            assign mins_simd_HSIZE     [t] = sins_simd_HSIZE     ;
+            assign mins_simd_HBURST    [t] = sins_simd_HBURST    ;
+            assign mins_simd_HPROT     [t] = sins_simd_HPROT     ;
+            assign mins_simd_HTRANS    [t] = sins_simd_HTRANS    ;
+            assign mins_simd_HMASTLOCK [t] = sins_simd_HMASTLOCK ;
           end
-        end
-      end
-    end
   endgenerate
 
-  generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
-          assign sins_simd_HRDATA [i][j][k] = mins_simd_HRDATA [i][j][k][granted_simd_master_idx[i][j][k]];
-          assign sins_simd_HREADY [i][j][k] = mins_simd_HREADY [i][j][k][granted_simd_master_idx[i][j][k]];
-          assign sins_simd_HRESP  [i][j][k] = mins_simd_HRESP  [i][j][k][granted_simd_master_idx[i][j][k]];
-        end
-      end
-    end
-  endgenerate
+          assign sins_simd_HRDATA  = mins_simd_HRDATA [granted_simd_master_idx];
+          assign sins_simd_HREADY  = mins_simd_HREADY [granted_simd_master_idx];
+          assign sins_simd_HRESP   = mins_simd_HRESP  [granted_simd_master_idx];
 
-  generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           //get highest priority from selected masters
-          assign requested_simd_priority_lvl[i][j][k] = highest_simd_requested_priority(mins_simd_HSEL[i][j][k]);
+          assign requested_simd_priority_lvl = highest_simd_requested_priority(mins_simd_HSEL);
 
           //get pending masters for the highest priority requested
-          assign priority_simd_masters[i][j][k] = requesters_simd(mins_simd_HSEL[i][j][k], requested_simd_priority_lvl[i][j][k]);
+          assign priority_simd_masters = requesters_simd(mins_simd_HSEL, requested_simd_priority_lvl);
 
           //get last granted master for the priority requested
-          assign last_granted_simd_master[i][j][k] = last_granted_simd_masters[i][j][k][requested_simd_priority_lvl[i][j][k]];
+          assign last_granted_simd_master = last_granted_simd_masters[requested_simd_priority_lvl];
 
           //get next master to serve
-          assign pending_simd_master[i][j][k] = nxt_simd_master(priority_simd_masters[i][j][k], last_granted_simd_master[i][j][k], granted_simd_master[i][j][k]);
+          assign pending_simd_master = nxt_simd_master(priority_simd_masters, last_granted_simd_master, granted_simd_master);
 
           //select new master
           always @(posedge HCLK, negedge HRESETn) begin
-            if      ( !HRESETn                 ) granted_simd_master[i][j][k] <= 'h1;
-            else if ( !sins_simd_HSEL[i][j][k] ) granted_simd_master[i][j][k] <= pending_simd_master[i][j][k];
+            if      ( !HRESETn                 ) granted_simd_master <= 'h1;
+            else if ( !sins_simd_HSEL ) granted_simd_master <= pending_simd_master;
           end
 
           //store current master (for this priority level)
           always @(posedge HCLK, negedge HRESETn) begin
-            if      ( !HRESETn                 ) last_granted_simd_masters[i][j][k][requested_simd_priority_lvl[i][j][k]] <= 'h1;
-            else if ( !sins_simd_HSEL[i][j][k] ) last_granted_simd_masters[i][j][k][requested_simd_priority_lvl[i][j][k]] <= pending_simd_master[i][j][k];
+            if      ( !HRESETn                 ) last_granted_simd_masters[requested_simd_priority_lvl] <= 'h1;
+            else if ( !sins_simd_HSEL ) last_granted_simd_masters[requested_simd_priority_lvl] <= pending_simd_master;
           end
 
           //get signals from current requester
           always @(posedge HCLK, negedge HRESETn) begin
-            if      ( !HRESETn                 ) granted_simd_master_idx[i][j][k] <= 'h0;
-            else if ( !sins_simd_HSEL[i][j][k] ) granted_simd_master_idx[i][j][k] <= onehot2int_simd(pending_simd_master[i][j][k]);
+            if      ( !HRESETn                 ) granted_simd_master_idx <= 'h0;
+            else if ( !sins_simd_HSEL ) granted_simd_master_idx <= onehot2int_simd(pending_simd_master);
           end
-        end
-      end
-    end
-  endgenerate
 
   //hookup memory model
   riscv_memory_model #(
@@ -1092,10 +1012,6 @@ module riscv_testbench;
     .BURST   ( 8 ),
 
     .INIT_FILE ( INIT_FILE ),
-
-    .X ( X ),
-    .Y ( Y ),
-    .Z ( Z ),
 
     .CORES_PER_TILE ( CORES_PER_TILE )
   )
@@ -1131,7 +1047,7 @@ module riscv_testbench;
     else begin
       //New MMIO interface
       riscv_mmio_if #(
-        XLEN, PLEN, TOHOST, UART_TX, X, Y, Z, CORES_PER_TILE
+        XLEN, PLEN, TOHOST, UART_TX, CORES_PER_TILE
       )
       mmio_if (
         .HRESETn   ( HRESETn    ),
@@ -1191,9 +1107,6 @@ module riscv_testbench;
   end
 
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (t=0; t < CORES_PER_TILE; t++) begin
             initial begin
 
@@ -1227,7 +1140,7 @@ module riscv_testbench;
 
               //single step through 10 instructions
               repeat (100) begin
-                while (!dbg_ctrl.stall_cpu[i][j][k][t]) @(posedge HCLK);
+                while (!dbg_ctrl.stall_cpu[t]) @(posedge HCLK);
                 repeat(15) @(posedge HCLK);
                 dbg_ctrl.write('h0001,'h0000); //clear single-step-hit
                 dbg_ctrl.unstall;
@@ -1235,16 +1148,13 @@ module riscv_testbench;
 
               //last time ...
               @(posedge HCLK);
-              while (!dbg_ctrl.stall_cpu[i][j][k][t]) @(posedge HCLK);
+              while (!dbg_ctrl.stall_cpu[t]) @(posedge HCLK);
               //disable Single Stepping
               dbg_ctrl.write('h0000,'h0000);
               dbg_ctrl.write('h0001,'h0000);
               dbg_ctrl.unstall;
             end
           end
-        end
-      end
-    end
   endgenerate
 endmodule
 
@@ -1263,26 +1173,26 @@ module riscv_mmio_if #(
     input                       HRESETn,
     input                       HCLK,
 
-    input      [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][           1:0] HTRANS,
-    input      [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][HADDR_SIZE-1:0] HADDR,
-    input      [X-1:0][Y-1:0][Z-1:0][PORTS-1:0]                 HWRITE,
-    input      [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][           2:0] HSIZE,
-    input      [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][           2:0] HBURST,
-    input      [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][HDATA_SIZE-1:0] HWDATA,
-    output reg [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][HDATA_SIZE-1:0] HRDATA,
+    input      [PORTS-1:0][           1:0] HTRANS,
+    input      [PORTS-1:0][HADDR_SIZE-1:0] HADDR,
+    input      [PORTS-1:0]                 HWRITE,
+    input      [PORTS-1:0][           2:0] HSIZE,
+    input      [PORTS-1:0][           2:0] HBURST,
+    input      [PORTS-1:0][HDATA_SIZE-1:0] HWDATA,
+    output reg [PORTS-1:0][HDATA_SIZE-1:0] HRDATA,
 
-    output reg [X-1:0][Y-1:0][Z-1:0][PORTS-1:0]                 HREADYOUT,
-    output     [X-1:0][Y-1:0][Z-1:0][PORTS-1:0]                 HRESP
+    output reg [PORTS-1:0]                 HREADYOUT,
+    output     [PORTS-1:0]                 HRESP
   );
 
   // Variables
-  logic [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][HDATA_SIZE-1:0] data_reg;
-  logic [X-1:0][Y-1:0][Z-1:0][PORTS-1:0]                 catch_test,
-                                                         catch_uart_tx;
+  logic [PORTS-1:0][HDATA_SIZE-1:0] data_reg;
+  logic [PORTS-1:0]                 catch_test,
+                                    catch_uart_tx;
 
-  logic [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][           1:0] dHTRANS;
-  logic [X-1:0][Y-1:0][Z-1:0][PORTS-1:0][HADDR_SIZE-1:0] dHADDR;
-  logic [X-1:0][Y-1:0][Z-1:0][PORTS-1:0]                 dHWRITE;
+  logic [PORTS-1:0][           1:0] dHTRANS;
+  logic [PORTS-1:0][HADDR_SIZE-1:0] dHADDR;
+  logic [PORTS-1:0]                 dHWRITE;
 
   // Functions
   function string hostcode_to_string;
@@ -1294,7 +1204,7 @@ module riscv_mmio_if #(
   endfunction
 
   // Module body
-  genvar i, j, k, p;
+  genvar p;
   //Generate watchdog counter
   integer watchdog_cnt;
   always @(posedge HCLK,negedge HRESETn) begin
@@ -1303,12 +1213,9 @@ module riscv_mmio_if #(
   end
 
   generate
-    for (i=0; i < X; i++) begin
-      for (j=0; j < Y; j++) begin
-        for (k=0; k < Z; k++) begin
           for (p=0; p < PORTS; p++) begin
             //Catch write to host address
-            assign HRESP[i][j][k][p] = `HRESP_OKAY;
+            assign HRESP[p] = `HRESP_OKAY;
 
             always @(posedge HCLK) begin
               dHTRANS <= HTRANS;
@@ -1318,40 +1225,40 @@ module riscv_mmio_if #(
 
             always @(posedge HCLK,negedge HRESETn) begin
               if (!HRESETn) begin
-                HREADYOUT[i][j][k][p] <= 1'b1;
+                HREADYOUT[p] <= 1'b1;
               end
-              else if (HTRANS[i][j][k][p] == `HTRANS_IDLE) begin
+              else if (HTRANS[p] == `HTRANS_IDLE) begin
               end
             end
 
             always @(posedge HCLK,negedge HRESETn) begin
               if (!HRESETn) begin
-                catch_test    [i][j][k][p] <= 1'b0;
-                catch_uart_tx [i][j][k][p] <= 1'b0;
+                catch_test    [p] <= 1'b0;
+                catch_uart_tx [p] <= 1'b0;
               end
               else begin
-                catch_test    [i][j][k][p] <= dHTRANS[i][j][k][p] == `HTRANS_NONSEQ && dHWRITE[i][j][k][p] && dHADDR[i][j][k][p] == CATCH_TEST;
-                catch_uart_tx [i][j][k][p] <= dHTRANS[i][j][k][p] == `HTRANS_NONSEQ && dHWRITE[i][j][k][p] && dHADDR[i][j][k][p] == CATCH_UART_TX;
-                data_reg      [i][j][k][p] <= HWDATA [i][j][k][p];
+                catch_test    [p] <= dHTRANS[p] == `HTRANS_NONSEQ && dHWRITE[p] && dHADDR[p] == CATCH_TEST;
+                catch_uart_tx [p] <= dHTRANS[p] == `HTRANS_NONSEQ && dHWRITE[p] && dHADDR[p] == CATCH_UART_TX;
+                data_reg      [p] <= HWDATA [p];
               end
             end
             //Generate output
 
             //Simulated UART Tx (prints characters on screen)
             always @(posedge HCLK) begin
-              if (catch_uart_tx[i][j][k][p]) $write ("%0c", data_reg[i][j][k][p]);
+              if (catch_uart_tx[p]) $write ("%0c", data_reg[p]);
             end
             //Tests ...
             always @(posedge HCLK) begin
-              if (watchdog_cnt > 1000_000 || catch_test[i][j][k][p]) begin
+              if (watchdog_cnt > 1000_000 || catch_test[p]) begin
                 $display("\n");
                 $display("-------------------------------------------------------------");
                 $display("* RISC-V test bench finished");
-                if (data_reg[i][j][k][p][0] == 1'b1) begin
-                  if (~|data_reg[i][j][k][p][HDATA_SIZE-1:1])
-                    $display("* PASSED %0d", data_reg[i][j][k][p]);
+                if (data_reg[p][0] == 1'b1) begin
+                  if (~|data_reg[p][HDATA_SIZE-1:1])
+                    $display("* PASSED %0d", data_reg[p]);
                   else
-                    $display ("* FAILED: code: 0x%h (%0d: %s)", data_reg[i][j][k][p] >> 1, data_reg[i][j][k][p] >> 1, hostcode_to_string(data_reg[i][j][k][p] >> 1) );
+                    $display ("* FAILED: code: 0x%h (%0d: %s)", data_reg[p] >> 1, data_reg[p] >> 1, hostcode_to_string(data_reg[p] >> 1) );
                 end
                 else
                   $display ("* FAILED: watchdog count reached (%0d) @%0t", watchdog_cnt, $time);
@@ -1362,9 +1269,6 @@ module riscv_mmio_if #(
               end
             end
           end
-        end
-      end
-    end
   endgenerate
 endmodule
 
