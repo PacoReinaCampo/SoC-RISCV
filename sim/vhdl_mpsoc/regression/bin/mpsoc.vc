@@ -85,29 +85,6 @@
 ../../../../pu/rtl/vhdl/pu/riscv_pu.vhd
 
 
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_bus_module_core.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_bytefifo.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_crc32.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_jsp_module_core.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_or1k_biu.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_or1k_module.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_or1k_status_reg.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_syncflop.vhd
-../../../../dbg/rtl/vhdl/core/mpsoc_dbg_syncreg.vhd
-
-../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_biu.vhd
-../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_ahb3_module.vhd
-../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_biu.vhd
-../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_jsp_apb_module.vhd
-../../../../dbg/rtl/vhdl/ahb3/mpsoc_dbg_top_ahb3.vhd
-
-../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_jsp_wb_biu.vhd
-../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_jsp_wb_module.vhd
-../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_top_wb.vhd
-../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_wb_biu.vhd
-../../../../dbg/rtl/vhdl/wb/mpsoc_dbg_wb_module.vhd
-
-
 ../../../../dma/rtl/vhdl/core/mpsoc_dma_arbitrer_rr.vhd
 ../../../../dma/rtl/vhdl/core/mpsoc_dma_initiator_nocreq.vhd
 ../../../../dma/rtl/vhdl/core/mpsoc_dma_packet_buffer.vhd
@@ -128,26 +105,26 @@
 ../../../../dma/rtl/vhdl/wb/mpsoc_dma_wb_top.vhd
 
 
-../../../../msi/rtl/vhdl/gpio/mpsoc_peripheral_bridge.vhd
-../../../../msi/rtl/vhdl/gpio/mpsoc_gpio.vhd
+../../../../gpio/rtl/vhdl/ahb3/mpsoc_ahb3_peripheral_bridge.vhd
+../../../../gpio/rtl/vhdl/core/mpsoc_apb_gpio.vhd
 
-../../../../msi/rtl/vhdl/core/generic/mpsoc_msi_interface.vhd
-../../../../msi/rtl/vhdl/core/generic/mpsoc_msi_master_port.vhd
-../../../../msi/rtl/vhdl/core/generic/mpsoc_msi_slave_port.vhd
+../../../../msi/rtl/vhdl/generic/ahb3/mpsoc_msi_ahb3_interface.vhd
+../../../../msi/rtl/vhdl/generic/ahb3/mpsoc_msi_ahb3_master_port.vhd
+../../../../msi/rtl/vhdl/generic/ahb3/mpsoc_msi_ahb3_slave_port.vhd
 
-../../../../msi/rtl/vhdl/core/misd/mpsoc_misd_memory_interface.vhd
-../../../../msi/rtl/vhdl/core/misd/mpsoc_misd_memory_master_port.vhd
-../../../../msi/rtl/vhdl/core/misd/mpsoc_misd_memory_slave_port.vhd
+../../../../msi/rtl/vhdl/misd/ahb3/mpsoc_misd_memory_ahb3_interface.vhd
+../../../../msi/rtl/vhdl/misd/ahb3/mpsoc_misd_memory_ahb3_master_port.vhd
+../../../../msi/rtl/vhdl/misd/ahb3/mpsoc_misd_memory_ahb3_slave_port.vhd
 
-../../../../msi/rtl/vhdl/core/simd/mpsoc_simd_memory_interface.vhd
-../../../../msi/rtl/vhdl/core/simd/mpsoc_simd_memory_master_port.vhd
-../../../../msi/rtl/vhdl/core/simd/mpsoc_simd_memory_slave_port.vhd
+../../../../msi/rtl/vhdl/simd/ahb3/mpsoc_simd_memory_ahb3_interface.vhd
+../../../../msi/rtl/vhdl/simd/ahb3/mpsoc_simd_memory_ahb3_master_port.vhd
+../../../../msi/rtl/vhdl/simd/ahb3/mpsoc_simd_memory_ahb3_slave_port.vhd
 
-../../../../msi/rtl/vhdl/ram/mpsoc_misd_mpram.vhd
-../../../../msi/rtl/vhdl/ram/mpsoc_simd_mpram.vhd
-../../../../msi/rtl/vhdl/ram/mpsoc_spram.vhd
-../../../../msi/rtl/vhdl/ram/mpsoc_ram_1r1w.vhd
-../../../../msi/rtl/vhdl/ram/mpsoc_ram_1r1w_generic.vhd
+../../../../mpram/rtl/vhdl/ahb3/mpsoc_misd_ahb3_mpram.vhd
+../../../../mpram/rtl/vhdl/ahb3/mpsoc_simd_ahb3_mpram.vhd
+../../../../spram/rtl/vhdl/ahb3/mpsoc_ahb3_spram.vhd
+../../../../spram/rtl/vhdl/core/mpsoc_ram_1r1w.vhd
+../../../../spram/rtl/vhdl/core/mpsoc_ram_1r1w_generic.vhd
 
 
 ../../../../noc/rtl/vhdl/core/mpsoc_noc_arbitrer_rr.vhd
@@ -169,5 +146,3 @@
 ../../../../rtl/vhdl/soc/riscv_simd.vhd
 
 ../../../../rtl/vhdl/soc/riscv_soc.vhd
-
-../../../../rtl/vhdl/mpsoc/riscv_mpsoc.vhd

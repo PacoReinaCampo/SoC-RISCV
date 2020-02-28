@@ -1,5 +1,5 @@
 # vsim -c -do "run.do" work.riscv_misd 
-# Start time: 00:06:14 on Dec 03,2019
+# Start time: 00:16:18 on Feb 29,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -37,10 +37,10 @@
 # Loading work.riscv_mux(rtl)
 # Loading work.riscv_dmem_ctrl(rtl)
 # Loading work.riscv_biu(rtl)
-# Loading work.mpsoc_msi_interface(rtl)
+# Loading work.mpsoc_msi_ahb3_interface(rtl)
 # Loading work.mpsoc_pkg
-# Loading work.mpsoc_msi_master_port(rtl)
-# Loading work.mpsoc_msi_slave_port(rtl)
+# Loading work.mpsoc_msi_ahb3_master_port(rtl)
+# Loading work.mpsoc_msi_ahb3_slave_port(rtl)
 # Loading work.mpsoc_dma_pkg
 # Loading work.mpsoc_dma_ahb3_top(rtl)
 # Loading work.mpsoc_dma_ahb3_interface(rtl)
@@ -48,5 +48,5 @@
 #    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_top/ahb3_interface File: ../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd Line: 64
 # FATAL ERROR while loading design
 # Error loading design
-# End time: 00:06:15 on Dec 03,2019, Elapsed time: 0:00:01
+# End time: 00:16:18 on Feb 29,2020, Elapsed time: 0:00:00
 # Errors: 1, Warnings: 0

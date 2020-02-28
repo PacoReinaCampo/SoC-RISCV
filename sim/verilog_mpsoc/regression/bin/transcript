@@ -1,19 +1,13 @@
-# vsim -c -do "run.do" work.riscv_mpsoc 
-# Start time: 19:58:37 on Dec 27,2019
+# vsim -c -do "run.do" work.riscv_soc 
+# Start time: 00:14:35 on Feb 29,2020
 # Loading sv_std.std
-# Loading work.riscv_mpsoc
-# Loading work.mpsoc_noc_mesh
 # Loading work.riscv_soc
-# Loading work.mpsoc_noc_vchannel_mux
-# Loading work.mpsoc_noc_arbitrer_rr
-# Loading work.mpsoc_noc_router
 # Loading work.riscv_misd
-# Loading work.mpsoc_mpram
+# Loading work.mpsoc_ahb3_mpram
 # Loading work.mpsoc_noc_mux
+# Loading work.mpsoc_noc_arbitrer_rr
 # Loading work.mpsoc_noc_demux
 # Loading work.riscv_simd
-# Loading work.mpsoc_noc_router_input
-# Loading work.mpsoc_noc_router_output
 # Loading work.mpsoc_ram_1r1w
 # Loading work.riscv_pu
 # Loading work.riscv_core
@@ -39,7 +33,7 @@
 # Loading work.riscv_mux
 # Loading work.riscv_dmem_ctrl
 # Loading work.riscv_biu
-# Loading work.mpsoc_msi_interface
+# Loading work.mpsoc_msi_ahb3_interface
 # Loading work.mpsoc_dma_ahb3_top
 # Loading work.mpsoc_dma_ahb3_interface
 # Loading work.mpsoc_dma_request_table
@@ -51,26 +45,20 @@
 # Loading work.mpsoc_dma_packet_buffer
 # Loading work.mpsoc_dma_ahb3_target
 # Loading work.mpsoc_noc_buffer
-# Loading work.mpsoc_peripheral_bridge
-# Loading work.mpsoc_gpio
-# Loading work.mpsoc_spram
-# Loading work.mpsoc_uart
+# Loading work.mpsoc_ahb3_peripheral_bridge
+# Loading work.mpsoc_apb_gpio
+# Loading work.mpsoc_ahb3_spram
+# Loading work.mpsoc_ahb3_uart
 # Loading work.mpsoc_uart_rx
 # Loading work.mpsoc_uart_tx
 # Loading work.mpsoc_uart_fifo
 # Loading work.mpsoc_uart_interrupt
-# Loading work.mpsoc_noc_router_lookup
-# Loading work.mpsoc_noc_router_lookup_slice
 # Loading work.mpsoc_ram_1r1w_generic
-# Loading work.riscv_mul
-# Loading work.riscv_div
 # Loading work.riscv_bp
 # Loading work.riscv_ram_1r1w
-# Loading work.mpsoc_msi_master_port
-# Loading work.mpsoc_msi_slave_port
+# Loading work.mpsoc_msi_ahb3_master_port
+# Loading work.mpsoc_msi_ahb3_slave_port
 # Loading work.riscv_ram_1r1w_generic
-# ** Warning: Design size of 10316 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
 # do run.do
-# End time: 19:58:44 on Dec 27,2019, Elapsed time: 0:00:07
-# Errors: 0, Warnings: 1
+# End time: 00:14:36 on Feb 29,2020, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

@@ -579,7 +579,7 @@ module riscv_simd #(
         .dbg_bp        ( dbg_bp            [t] )
       );
 
-      mpsoc_msi_interface #(
+      mpsoc_msi_ahb3_interface #(
         .PLEN    ( PLEN    ),
         .XLEN    ( XLEN    ),
         .MASTERS ( MASTERS ),
@@ -788,7 +788,7 @@ module riscv_simd #(
       assign noc_ahb3_out_res_ready [t] = noc_ahb3_out_ready [t][1];
 
       //Instantiate RISC-V GPIO
-      mpsoc_peripheral_bridge #(
+      mpsoc_ahb3_peripheral_bridge #(
         .HADDR_SIZE ( PLEN ),
         .HDATA_SIZE ( XLEN ),
         .PADDR_SIZE ( PLEN ),
@@ -831,11 +831,11 @@ module riscv_simd #(
         .PSLVERR ( gpio_PSLVERR [t] )
       );
 
-      mpsoc_gpio #(
+      mpsoc_apb_gpio #(
         .PADDR_SIZE ( PLEN ),
         .PDATA_SIZE ( XLEN )
       )
-      gpio (
+      apb_gpio (
         .PRESETn ( HRESETn ),
         .PCLK    ( HCLK    ),
 
@@ -854,7 +854,7 @@ module riscv_simd #(
         .gpio_oe ( gpio_oe      [t] )
       );
 
-      mpsoc_spram #(
+      mpsoc_ahb3_spram #(
         .MEM_SIZE          ( 0 ),
         .MEM_DEPTH         ( 256 ),
         .HADDR_SIZE        ( PLEN ),
@@ -862,7 +862,7 @@ module riscv_simd #(
         .TECHNOLOGY        ( TECHNOLOGY ),
         .REGISTERED_OUTPUT ( "NO" )
       )
-      spram (
+      ahb3_spram (
         //AHB Slave Interface
         .HRESETn   ( HRESETn ),
         .HCLK      ( HCLK    ),
@@ -883,11 +883,11 @@ module riscv_simd #(
       );
 
       //Instantiate RISC-V UART
-      mpsoc_uart #(
+      mpsoc_ahb3_uart #(
         .APB_ADDR_WIDTH ( APB_ADDR_WIDTH ),
         .APB_DATA_WIDTH ( APB_DATA_WIDTH )
       )
-      uart (
+      ahb3_uart (
         .RSTN ( HRESETn ),
         .CLK  ( HCLK    ),
 
@@ -1054,7 +1054,7 @@ module riscv_simd #(
   endgenerate
 
   //Instantiate RISC-V RAM
-  mpsoc_mpram #(
+  mpsoc_ahb3_mpram #(
     .MEM_SIZE          ( 0 ),
     .MEM_DEPTH         ( 256 ),
     .HADDR_SIZE        ( PLEN ),
@@ -1063,7 +1063,7 @@ module riscv_simd #(
     .TECHNOLOGY        ( TECHNOLOGY ),
     .REGISTERED_OUTPUT ( "NO" )
   )
-  mpram (
+  ahb3_mpram (
     //AHB Slave Interface
     .HRESETn   ( HRESETn ),
     .HCLK      ( HCLK    ),

@@ -307,7 +307,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_msi_interface
+  component mpsoc_msi_ahb3_interface
     generic (
       PLEN    : integer := 64;
       XLEN    : integer := 64;
@@ -484,7 +484,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_peripheral_bridge
+  component mpsoc_ahb3_peripheral_bridge
     generic (
       HADDR_SIZE : integer := 32;
       HDATA_SIZE : integer := 32;
@@ -526,7 +526,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_gpio
+  component mpsoc_apb_gpio
     generic (
       PADDR_SIZE : integer := 64;
       PDATA_SIZE : integer := 64
@@ -551,7 +551,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_spram
+  component mpsoc_ahb3_spram
     generic (
       MEM_SIZE          : integer := 0;  --Memory in Bytes
       MEM_DEPTH         : integer := 256;  --Memory depth
@@ -1042,7 +1042,7 @@ begin
         dbg_bp    => dbg_bp(t)
       );
 
-    peripheral_interface : mpsoc_msi_interface
+    peripheral_interface : mpsoc_msi_ahb3_interface
       generic map (
         PLEN    => PLEN,
         XLEN    => XLEN,
@@ -1259,7 +1259,7 @@ begin
     noc_ahb3_out_res_ready(t) <= noc_ahb3_out_ready(t)(1);
 
     --Instantiate RISC-V GPIO
-    gpio_bridge : mpsoc_peripheral_bridge
+    gpio_bridge : mpsoc_ahb3_peripheral_bridge
       generic map (
         HADDR_SIZE => PLEN,
         HDATA_SIZE => XLEN,
@@ -1303,7 +1303,7 @@ begin
         PSLVERR => gpio_PSLVERR(t)
       );
 
-    gpio : mpsoc_gpio
+    apb_gpio : mpsoc_apb_gpio
       generic map (
         PADDR_SIZE => PLEN,
         PDATA_SIZE => XLEN
@@ -1327,7 +1327,7 @@ begin
         gpio_oe => gpio_oe(t)
       );
 
-    spram : mpsoc_spram
+    ahb3_spram : mpsoc_ahb3_spram
       generic map (
         MEM_SIZE          => 0,
         MEM_DEPTH         => 256,
