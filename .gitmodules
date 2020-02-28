@@ -22,3 +22,6 @@
 [submodule "mpi"]
 	path = mpi
 	url = https://github.com/PacoReinaCampo/MPSoC-MPI.git
+[submodule "noc"]
+	path = noc
+	url = https://github.com/PacoReinaCampo/MPSoC-NoC.git
