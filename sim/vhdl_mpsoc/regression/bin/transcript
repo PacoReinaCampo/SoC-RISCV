@@ -1,5 +1,5 @@
 # vsim -c -do "run.do" work.riscv_misd 
-# Start time: 00:16:18 on Feb 29,2020
+# Start time: 21:12:03 on Mar 10,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -48,5 +48,5 @@
 #    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_top/ahb3_interface File: ../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd Line: 64
 # FATAL ERROR while loading design
 # Error loading design
-# End time: 00:16:18 on Feb 29,2020, Elapsed time: 0:00:00
+# End time: 21:12:03 on Mar 10,2020, Elapsed time: 0:00:00
 # Errors: 1, Warnings: 0

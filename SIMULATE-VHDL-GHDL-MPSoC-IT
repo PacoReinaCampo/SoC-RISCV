@@ -81,8 +81,8 @@ ghdl -i msi/rtl/vhdl/simd/ahb3/mpsoc_simd_memory_ahb3_slave_port.vhd
 ghdl -i mpram/rtl/vhdl/ahb3/mpsoc_misd_ahb3_mpram.vhd
 ghdl -i mpram/rtl/vhdl/ahb3/mpsoc_simd_ahb3_mpram.vhd
 ghdl -i spram/rtl/vhdl/ahb3/mpsoc_ahb3_spram.vhd
-ghdl -i spram/rtl/vhdl/core/mpsoc_ram_1r1w.vhd
-ghdl -i spram/rtl/vhdl/core/mpsoc_ram_1r1w_generic.vhd
+ghdl -i spram/rtl/vhdl/ahb3/mpsoc_ram_1r1w.vhd
+ghdl -i spram/rtl/vhdl/ahb3/mpsoc_ram_1r1w_generic.vhd
 
 
 ghdl -i noc/rtl/vhdl/core/mpsoc_noc_arbitrer_rr.vhd

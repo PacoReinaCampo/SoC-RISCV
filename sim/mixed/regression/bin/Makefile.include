@@ -117,8 +117,8 @@ RTL_VHDL = $(DUT_SRC_DIR)/vhdl/pkg/riscv_mpsoc_pkg.vhd \
            $(ROOT_DIR)/pu/rtl/vhdl/core/riscv_wb.vhd \
            $(ROOT_DIR)/pu/rtl/vhdl/memory/riscv_ram_1r1w.vhd \
            $(ROOT_DIR)/pu/rtl/vhdl/memory/riscv_ram_1rw.vhd \
-           $(ROOT_DIR)/spram/rtl/vhdl/core/mpsoc_ram_1r1w_generic.vhd \
-           $(ROOT_DIR)/spram/rtl/vhdl/core/mpsoc_ram_1r1w.vhd \
+           $(ROOT_DIR)/spram/rtl/vhdl/ahb3/mpsoc_ram_1r1w_generic.vhd \
+           $(ROOT_DIR)/spram/rtl/vhdl/ahb3/mpsoc_ram_1r1w.vhd \
            $(ROOT_DIR)/uart/rtl/vhdl/ahb3/mpsoc_ahb3_uart.vhd \
            $(ROOT_DIR)/uart/rtl/vhdl/core/mpsoc_uart_fifo.vhd \
            $(ROOT_DIR)/uart/rtl/vhdl/core/mpsoc_uart_interrupt.vhd \
