@@ -1,5 +1,5 @@
 # vsim -c -do "run.do" work.riscv_soc 
-# Start time: 00:14:35 on Feb 29,2020
+# Start time: 01:39:07 on Apr 03,2020
 # Loading sv_std.std
 # Loading work.riscv_soc
 # Loading work.riscv_misd
@@ -60,5 +60,5 @@
 # Loading work.mpsoc_msi_ahb3_slave_port
 # Loading work.riscv_ram_1r1w_generic
 # do run.do
-# End time: 00:14:36 on Feb 29,2020, Elapsed time: 0:00:01
+# End time: 01:39:07 on Apr 03,2020, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0

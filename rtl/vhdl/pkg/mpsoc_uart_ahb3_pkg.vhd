@@ -1,4 +1,4 @@
--- Converted from pkg/riscv_mpsoc_pkg.sv
+-- Converted from pkg/mpsoc_uart_ahb3_pkg.sv
 -- by verilog2vhdl - QueenField
 
 --//////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-package riscv_mpsoc_pkg is
+package mpsoc_uart_ahb3_pkg is
 
   --core parameters
   constant XLEN                   : integer := 64;
@@ -132,8 +132,6 @@ package riscv_mpsoc_pkg is
   constant PADDR_SIZE             : integer := PLEN;
   constant PDATA_SIZE             : integer := XLEN;
 
-  constant FLIT_WIDTH             : integer := 34;
-
   constant SYNC_DEPTH             : integer := 3;
 
   constant BUFFER_DEPTH           : integer := 4;
@@ -144,23 +142,23 @@ package riscv_mpsoc_pkg is
   constant AR_BITS                : integer := 5;
 
   --mpsoc parameters
-  constant CORES_PER_SIMD         : integer := 1;
-  constant CORES_PER_MISD         : integer := 1;
+  constant CORES_PER_SIMD         : integer := 3;
+  constant CORES_PER_MISD         : integer := 2;
 
   constant CORES_PER_TILE         : integer := CORES_PER_SIMD + CORES_PER_MISD;
 
   --soc parameters
-  constant X                      : integer := 1;
+  constant X                      : integer := 2;
   constant Y                      : integer := 1;
-  constant Z                      : integer := 1;
+  constant Z                      : integer := 2;
 
   constant NODES                  : integer := X*Y*Z;
   constant CORES                  : integer := NODES*CORES_PER_TILE;
 
   --noc parameters
-  constant CHANNELS               : integer := 7;
-  constant PCHANNELS              : integer := 1;
-  constant VCHANNELS              : integer := 7;
+  constant CHANNELS               : integer := 2;
+  constant PCHANNELS              : integer := 2;
+  constant VCHANNELS              : integer := 2;
 
   constant INPUTS                 : integer := 7;
   constant OUTPUTS                : integer := 7;
@@ -181,8 +179,7 @@ package riscv_mpsoc_pkg is
 
   constant TABLE_ENTRIES_PTRWIDTH : integer := integer(log2(real(TABLE_ENTRIES)));
 
-  constant ADDR_WIDTH             : integer := 64;
-  constant DATA_WIDTH             : integer := 64;
+  constant MUX_PORTS : integer := 2;
 
   --debug parameters
   constant STDOUT_FILENAME        : integer := 4;
@@ -674,15 +671,15 @@ package riscv_mpsoc_pkg is
   constant CAUSE_HEINT : integer := 10;
   constant CAUSE_MEINT : integer := 11;
 
-  constant MEM_TYPE_EMPTY : std_logic_vector(1 downto 0) := "00";
-  constant MEM_TYPE_MAIN  : std_logic_vector(1 downto 0) := "01";
-  constant MEM_TYPE_IO    : std_logic_vector(1 downto 0) := "10";
-  constant MEM_TYPE_TCM   : std_logic_vector(1 downto 0) := "11";
+  constant MEM_TYPE_EMPTY : std_logic_vector(3 downto 0) := X"0";
+  constant MEM_TYPE_MAIN  : std_logic_vector(3 downto 0) := X"1";
+  constant MEM_TYPE_IO    : std_logic_vector(3 downto 0) := X"2";
+  constant MEM_TYPE_TCM   : std_logic_vector(3 downto 0) := X"3";
 
-  constant AMO_TYPE_NONE       : std_logic_vector(1 downto 0) := "00";
-  constant AMO_TYPE_SWAP       : std_logic_vector(1 downto 0) := "01";
-  constant AMO_TYPE_LOGICAL    : std_logic_vector(1 downto 0) := "10";
-  constant AMO_TYPE_ARITHMETIC : std_logic_vector(1 downto 0) := "11";
+  constant AMO_TYPE_NONE       : std_logic_vector(3 downto 0) := X"0";
+  constant AMO_TYPE_SWAP       : std_logic_vector(3 downto 0) := X"1";
+  constant AMO_TYPE_LOGICAL    : std_logic_vector(3 downto 0) := X"2";
+  constant AMO_TYPE_ARITHMETIC : std_logic_vector(3 downto 0) := X"3";
 
   --AHB3 Lite Package
 
@@ -766,15 +763,12 @@ package riscv_mpsoc_pkg is
   type xyz_std_logic_9array is array (natural range <>, natural range <>, natural range <>) of std_logic_9array;
 
   function to_stdlogic (input : boolean) return std_logic;
-  function reduce_and (reduce_and_in : std_logic_vector) return std_logic;
-  function reduce_nand (reduce_nand_in : std_logic_vector) return std_logic;
-  function reduce_nor (reduce_nor_in : std_logic_vector) return std_logic;
   function reduce_or (reduce_or_in : std_logic_vector) return std_logic;
+  function reduce_nor (reduce_nor_in : std_logic_vector) return std_logic;
   function reduce_xor (reduce_xor_in : std_logic_vector) return std_logic;
+end mpsoc_uart_ahb3_pkg;
 
-end riscv_mpsoc_pkg;
-
-package body riscv_mpsoc_pkg is
+package body mpsoc_uart_ahb3_pkg is
   --////////////////////////////////////////////////////////////////
   --
   -- Functions
@@ -790,27 +784,16 @@ package body riscv_mpsoc_pkg is
     end if;
   end function to_stdlogic;
 
-  function reduce_and (
-    reduce_and_in : std_logic_vector
+  function reduce_or (
+    reduce_or_in : std_logic_vector
     ) return std_logic is
-    variable reduce_and_out : std_logic := '0';
+    variable reduce_or_out : std_logic := '0';
   begin
-    for i in reduce_and_in'range loop
-      reduce_and_out := reduce_and_out and reduce_and_in(i);
+    for i in reduce_or_in'range loop
+      reduce_or_out := reduce_or_out or reduce_or_in(i);
     end loop;
-    return reduce_and_out;
-  end reduce_and;
-
-  function reduce_nand (
-    reduce_nand_in : std_logic_vector
-  ) return std_logic is
-    variable reduce_nand_out : std_logic := '0';
-  begin
-    for i in reduce_nand_in'range loop
-      reduce_nand_out := reduce_nand_out nand reduce_nand_in(i);
-    end loop;
-    return reduce_nand_out;
-  end reduce_nand;
+    return reduce_or_out;
+  end reduce_or;
 
   function reduce_nor (
     reduce_nor_in : std_logic_vector
@@ -823,17 +806,6 @@ package body riscv_mpsoc_pkg is
     return reduce_nor_out;
   end reduce_nor;
 
-  function reduce_or (
-    reduce_or_in : std_logic_vector
-    ) return std_logic is
-    variable reduce_or_out : std_logic := '0';
-  begin
-    for i in reduce_or_in'range loop
-      reduce_or_out := reduce_or_out or reduce_or_in(i);
-    end loop;
-    return reduce_or_out;
-  end reduce_or;
-
   function reduce_xor (
     reduce_xor_in : std_logic_vector
     ) return std_logic is
@@ -844,5 +816,4 @@ package body riscv_mpsoc_pkg is
     end loop;
     return reduce_xor_out;
   end reduce_xor;
-
-end riscv_mpsoc_pkg;
+end mpsoc_uart_ahb3_pkg;

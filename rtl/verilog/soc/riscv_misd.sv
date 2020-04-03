@@ -857,8 +857,8 @@ module riscv_misd #(
       mpsoc_ahb3_spram #(
         .MEM_SIZE          ( 0 ),
         .MEM_DEPTH         ( 256 ),
-        .HADDR_SIZE        ( PLEN ),
-        .HDATA_SIZE        ( XLEN ),
+        .PLEN              ( PLEN ),
+        .XLEN              ( XLEN ),
         .TECHNOLOGY        ( TECHNOLOGY ),
         .REGISTERED_OUTPUT ( "NO" )
       )
@@ -1055,10 +1055,10 @@ module riscv_misd #(
 
   //Instantiate RISC-V RAM
   mpsoc_ahb3_mpram #(
-    .MEM_SIZE          ( 0 ),
+    .MEM_SIZE          ( 256 ),
     .MEM_DEPTH         ( 256 ),
-    .HADDR_SIZE        ( PLEN ),
-    .HDATA_SIZE        ( XLEN ),
+    .PLEN              ( PLEN ),
+    .XLEN              ( XLEN ),
     .CORES_PER_TILE    ( CORES_PER_MISD ),
     .TECHNOLOGY        ( TECHNOLOGY ),
     .REGISTERED_OUTPUT ( "NO" )

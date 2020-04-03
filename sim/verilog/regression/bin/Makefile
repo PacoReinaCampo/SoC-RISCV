@@ -50,7 +50,7 @@ SIM        = msim
 MS     = -s
 
 ROOT_DIR=../../../..
-TST_SRC_DIR=$(ROOT_DIR)/../bench/tests/regression
+TST_SRC_DIR=$(ROOT_DIR)/../software/tests/regression
 
 
 ##########################################################################

@@ -1,12 +1,11 @@
 # vsim -c -do "run.do" work.riscv_misd 
-# Start time: 21:12:03 on Mar 10,2020
+# Start time: 02:24:09 on Apr 03,2020
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
 # Loading ieee.numeric_std(body)
 # Loading ieee.math_real(body)
-# Loading work.riscv_mpsoc_pkg
-# Loading work.mpsoc_msi_pkg
+# Loading work.riscv_mpsoc_pkg(body)
 # Loading work.riscv_misd(rtl)
 # Loading work.riscv_pu(rtl)
 # Loading work.riscv_core(rtl)
@@ -37,16 +36,32 @@
 # Loading work.riscv_mux(rtl)
 # Loading work.riscv_dmem_ctrl(rtl)
 # Loading work.riscv_biu(rtl)
-# Loading work.mpsoc_msi_ahb3_interface(rtl)
-# Loading work.mpsoc_pkg
-# Loading work.mpsoc_msi_ahb3_master_port(rtl)
-# Loading work.mpsoc_msi_ahb3_slave_port(rtl)
 # Loading work.mpsoc_dma_pkg
 # Loading work.mpsoc_dma_ahb3_top(rtl)
 # Loading work.mpsoc_dma_ahb3_interface(rtl)
-# ** Fatal: (vsim-3348) Port length (32) does not match actual length (64) for port "/riscv_misd/generating_0(0)/ahb3_top/ahb3_interface/ahb3_if_haddr".
-#    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_top/ahb3_interface File: ../../../../dma/rtl/vhdl/ahb3/mpsoc_dma_ahb3_interface.vhd Line: 64
+# Loading work.mpsoc_dma_request_table(rtl)
+# Loading work.mpsoc_dma_ahb3_initiator(rtl)
+# Loading work.mpsoc_dma_ahb3_initiator_req(rtl)
+# Loading work.mpsoc_dma_initiator_nocreq(rtl)
+# Loading work.mpsoc_dma_arbitrer_rr(rtl)
+# Loading work.mpsoc_dma_ahb3_initiator_nocres(rtl)
+# Loading work.mpsoc_dma_packet_buffer(rtl)
+# Loading work.mpsoc_dma_ahb3_target(rtl)
+# Loading work.mpsoc_noc_pkg(body)
+# Loading work.mpsoc_noc_buffer(rtl)
+# Loading work.mpsoc_gpio_ahb3_pkg
+# Loading work.mpsoc_ahb3_peripheral_bridge(rtl)
+# Loading work.mpsoc_apb_gpio(rtl)
+# Loading work.mpsoc_spram_ahb3_pkg(body)
+# Loading work.mpsoc_ahb3_spram(rtl)
+# ** Error: X <= 0.0 in LOG2(X)
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_spram File: ../../../../spram/rtl/vhdl/ahb3/mpsoc_ahb3_spram.vhd
+# ** Error (suppressible): (vsim-3706) Floating point value -1e+308 cannot be represented as a 32-bit integer.  Result truncated to -2147483648.
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_spram File: ../../../../spram/rtl/vhdl/ahb3/mpsoc_ahb3_spram.vhd
+# Loading work.mpsoc_ram_1r1w(rtl)
+# ** Fatal: (vsim-3348) Port length (-2147483648) does not match actual length (0) for port "/riscv_misd/generating_0(0)/ahb3_spram/ram_1r1w/waddr_i".
+#    Time: 0 ps  Iteration: 0  Instance: /riscv_misd/generating_0(0)/ahb3_spram/ram_1r1w File: ../../../../spram/rtl/vhdl/ahb3/mpsoc_ram_1r1w.vhd Line: 61
 # FATAL ERROR while loading design
 # Error loading design
-# End time: 21:12:03 on Mar 10,2020, Elapsed time: 0:00:00
-# Errors: 1, Warnings: 0
+# End time: 02:24:10 on Apr 03,2020, Elapsed time: 0:00:01
+# Errors: 3, Warnings: 0

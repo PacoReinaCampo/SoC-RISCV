@@ -10,7 +10,7 @@ dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_target.sv
 dma/rtl/verilog/ahb3/mpsoc_dma_ahb3_top.sv
 
 gpio/rtl/verilog/ahb3/mpsoc_ahb3_peripheral_bridge.sv
-gpio/rtl/verilog/core/mpsoc_apb_gpio.sv
+gpio/rtl/verilog/ahb3/mpsoc_apb_gpio.sv
 
 msi/rtl/verilog/ahb3/mpsoc_msi_ahb3_interface.sv
 msi/rtl/verilog/ahb3/mpsoc_msi_ahb3_master_port.sv

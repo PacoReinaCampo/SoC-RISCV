@@ -49,7 +49,6 @@ use ieee.numeric_std.all;
 use ieee.math_real.all;
 
 use work.riscv_mpsoc_pkg.all;
-use work.mpsoc_msi_pkg.all;
 
 entity riscv_misd is
   generic (
@@ -129,19 +128,19 @@ entity riscv_misd is
     HCLK    : in std_logic;
 
     --PMA configuration
-    pma_cfg_i : in M_PMA_CNT_13;
-    pma_adr_i : in M_PMA_CNT_PLEN;
+    pma_cfg_i : in std_logic_matrix(PMA_CNT-1 downto 0)(13 downto 0);
+    pma_adr_i : in std_logic_matrix(PMA_CNT-1 downto 0)(PLEN-1 downto 0);
 
     --AHB instruction
     ins_HSEL      : out std_logic_vector(CORES_PER_MISD-1 downto 0);
-    ins_HADDR     : out M_CORES_PER_MISD_PLEN;
-    ins_HWDATA    : out M_CORES_PER_MISD_XLEN;
-    ins_HRDATA    : in  M_CORES_PER_MISD_XLEN;
+    ins_HADDR     : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+    ins_HWDATA    : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+    ins_HRDATA    : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
     ins_HWRITE    : out std_logic_vector(CORES_PER_MISD-1 downto 0);
-    ins_HSIZE     : out M_CORES_PER_MISD_2;
-    ins_HBURST    : out M_CORES_PER_MISD_2;
-    ins_HPROT     : out M_CORES_PER_MISD_3;
-    ins_HTRANS    : out M_CORES_PER_MISD_1;
+    ins_HSIZE     : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+    ins_HBURST    : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+    ins_HPROT     : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+    ins_HTRANS    : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
     ins_HMASTLOCK : out std_logic_vector(CORES_PER_MISD-1 downto 0);
     ins_HREADY    : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
     ins_HRESP     : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
@@ -164,30 +163,30 @@ entity riscv_misd is
     ext_nmi  : in std_logic_vector(CORES_PER_MISD-1 downto 0);
     ext_tint : in std_logic_vector(CORES_PER_MISD-1 downto 0);
     ext_sint : in std_logic_vector(CORES_PER_MISD-1 downto 0);
-    ext_int  : in M_CORES_PER_MISD_3;
+    ext_int  : in std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
 
     --Debug Interface
     dbg_stall : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
     dbg_strb  : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
     dbg_we    : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
-    dbg_addr  : in  M_CORES_PER_MISD_PLEN;
-    dbg_dati  : in  M_CORES_PER_MISD_XLEN;
-    dbg_dato  : out M_CORES_PER_MISD_XLEN;
+    dbg_addr  : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+    dbg_dati  : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+    dbg_dato  : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
     dbg_ack   : out std_logic_vector(CORES_PER_MISD-1 downto 0);
     dbg_bp    : out std_logic_vector(CORES_PER_MISD-1 downto 0);
 
     --GPIO Interface
-    gpio_i  : in  M_CORES_PER_MISD_PDATA_SIZE;
-    gpio_o  : out M_CORES_PER_MISD_PDATA_SIZE;
-    gpio_oe : out M_CORES_PER_MISD_PDATA_SIZE;
+    gpio_i  : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(PDATA_SIZE-1 downto 0);
+    gpio_o  : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(PDATA_SIZE-1 downto 0);
+    gpio_oe : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(PDATA_SIZE-1 downto 0);
 
     --NoC Interface
-    noc_in_flit  : in  M_CHANNELS_FLIT_WIDTH;
+    noc_in_flit  : in  std_logic_matrix(CHANNELS-1 downto 0)(FLIT_WIDTH-1 downto 0);
     noc_in_last  : in  std_logic_vector(CHANNELS-1 downto 0);
     noc_in_valid : in  std_logic_vector(CHANNELS-1 downto 0);
     noc_in_ready : out std_logic_vector(CHANNELS-1 downto 0);
 
-    noc_out_flit  : out M_CHANNELS_FLIT_WIDTH;
+    noc_out_flit  : out std_logic_matrix(CHANNELS-1 downto 0)(FLIT_WIDTH-1 downto 0);
     noc_out_last  : out std_logic_vector(CHANNELS-1 downto 0);
     noc_out_valid : out std_logic_vector(CHANNELS-1 downto 0);
     noc_out_ready : in  std_logic_vector(CHANNELS-1 downto 0)
@@ -260,8 +259,8 @@ architecture RTL of riscv_misd is
       HRESETn : in std_logic;
       HCLK    : in std_logic;
 
-      pma_cfg_i : M_PMA_CNT_13;
-      pma_adr_i : M_PMA_CNT_PLEN;
+      pma_cfg_i : std_logic_matrix(PMA_CNT-1 downto 0)(13 downto 0);
+      pma_adr_i : std_logic_matrix(PMA_CNT-1 downto 0)(PLEN-1 downto 0);
 
       ins_HSEL      : out std_logic;
       ins_HADDR     : out std_logic_vector(PLEN-1 downto 0);
@@ -321,17 +320,17 @@ architecture RTL of riscv_misd is
 
       --Master Ports; AHB masters connect to these
       -- thus these are actually AHB Slave Interfaces
-      mst_priority : in M_MASTERS_2;
+      mst_priority : in std_logic_matrix(MASTERS-1 downto 0)(2 downto 0);
 
       mst_HSEL      : in  std_logic_vector(MASTERS-1 downto 0);
-      mst_HADDR     : in  M_MASTERS_PLEN;
-      mst_HWDATA    : in  M_MASTERS_XLEN;
-      mst_HRDATA    : out M_MASTERS_XLEN;
+      mst_HADDR     : in  std_logic_matrix(MASTERS-1 downto 0)(PLEN-1 downto 0);
+      mst_HWDATA    : in  std_logic_matrix(MASTERS-1 downto 0)(XLEN-1 downto 0);
+      mst_HRDATA    : out std_logic_matrix(MASTERS-1 downto 0)(XLEN-1 downto 0);
       mst_HWRITE    : in  std_logic_vector(MASTERS-1 downto 0);
-      mst_HSIZE     : in  M_MASTERS_2;
-      mst_HBURST    : in  M_MASTERS_2;
-      mst_HPROT     : in  M_MASTERS_3;
-      mst_HTRANS    : in  M_MASTERS_1;
+      mst_HSIZE     : in  std_logic_matrix(MASTERS-1 downto 0)(2 downto 0);
+      mst_HBURST    : in  std_logic_matrix(MASTERS-1 downto 0)(2 downto 0);
+      mst_HPROT     : in  std_logic_matrix(MASTERS-1 downto 0)(3 downto 0);
+      mst_HTRANS    : in  std_logic_matrix(MASTERS-1 downto 0)(1 downto 0);
       mst_HMASTLOCK : in  std_logic_vector(MASTERS-1 downto 0);
       mst_HREADYOUT : out std_logic_vector(MASTERS-1 downto 0);
       mst_HREADY    : in  std_logic_vector(MASTERS-1 downto 0);
@@ -339,18 +338,18 @@ architecture RTL of riscv_misd is
 
       --Slave Ports; AHB Slaves connect to these
       --  thus these are actually AHB Master Interfaces
-      slv_addr_mask : in M_SLAVES_PLEN;
-      slv_addr_base : in M_SLAVES_PLEN;
+      slv_addr_mask : in std_logic_matrix(SLAVES-1 downto 0)(PLEN-1 downto 0);
+      slv_addr_base : in std_logic_matrix(SLAVES-1 downto 0)(PLEN-1 downto 0);
 
       slv_HSEL      : out std_logic_vector(SLAVES-1 downto 0);
-      slv_HADDR     : out M_SLAVES_PLEN;
-      slv_HWDATA    : out M_SLAVES_XLEN;
-      slv_HRDATA    : in  M_SLAVES_XLEN;
+      slv_HADDR     : out std_logic_matrix(SLAVES-1 downto 0)(PLEN-1 downto 0);
+      slv_HWDATA    : out std_logic_matrix(SLAVES-1 downto 0)(XLEN-1 downto 0);
+      slv_HRDATA    : in  std_logic_matrix(SLAVES-1 downto 0)(XLEN-1 downto 0);
       slv_HWRITE    : out std_logic_vector(SLAVES-1 downto 0);
-      slv_HSIZE     : out M_SLAVES_2;
-      slv_HBURST    : out M_SLAVES_2;
-      slv_HPROT     : out M_SLAVES_3;
-      slv_HTRANS    : out M_SLAVES_1;
+      slv_HSIZE     : out std_logic_matrix(SLAVES-1 downto 0)(2 downto 0);
+      slv_HBURST    : out std_logic_matrix(SLAVES-1 downto 0)(2 downto 0);
+      slv_HPROT     : out std_logic_matrix(SLAVES-1 downto 0)(3 downto 0);
+      slv_HTRANS    : out std_logic_matrix(SLAVES-1 downto 0)(1 downto 0);
       slv_HMASTLOCK : out std_logic_vector(SLAVES-1 downto 0);
       slv_HREADYOUT : out std_logic_vector(SLAVES-1 downto 0);  --HREADYOUT to slave-decoder; generates HREADY to all connected slaves
       slv_HREADY    : in  std_logic_vector(SLAVES-1 downto 0);  --combinatorial HREADY from all connected slaves
@@ -449,7 +448,7 @@ architecture RTL of riscv_misd is
       clk : in std_logic;
       rst : in std_logic;
 
-      in_flit  : in  M_CHANNELS_FLIT_WIDTH;
+      in_flit  : in  std_logic_matrix(CHANNELS-1 downto 0)(FLIT_WIDTH-1 downto 0);
       in_last  : in  std_logic_vector(CHANNELS-1 downto 0);
       in_valid : in  std_logic_vector(CHANNELS-1 downto 0);
       in_ready : out std_logic_vector(CHANNELS-1 downto 0);
@@ -477,7 +476,7 @@ architecture RTL of riscv_misd is
       in_valid : in  std_logic;
       in_ready : out std_logic;
 
-      out_flit  : out M_CHANNELS_FLIT_WIDTH;
+      out_flit  : out std_logic_matrix(CHANNELS-1 downto 0)(FLIT_WIDTH-1 downto 0);
       out_last  : out std_logic_vector(CHANNELS-1 downto 0);
       out_valid : out std_logic_vector(CHANNELS-1 downto 0);
       out_ready : in  std_logic_vector(CHANNELS-1 downto 0)
@@ -598,14 +597,14 @@ architecture RTL of riscv_misd is
       --AHB Slave Interfaces (receive data from AHB Masters)
       --AHB Masters connect to these ports
       HSEL      : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
-      HADDR     : in  M_CORES_PER_MISD_PLEN;
-      HWDATA    : in  M_CORES_PER_MISD_XLEN;
-      HRDATA    : out M_CORES_PER_MISD_XLEN;
+      HADDR     : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+      HWDATA    : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+      HRDATA    : out std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
       HWRITE    : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
-      HSIZE     : in  M_CORES_PER_MISD_2;
-      HBURST    : in  M_CORES_PER_MISD_2;
-      HPROT     : in  M_CORES_PER_MISD_3;
-      HTRANS    : in  M_CORES_PER_MISD_1;
+      HSIZE     : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+      HBURST    : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+      HPROT     : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+      HTRANS    : in  std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
       HMASTLOCK : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
       HREADYOUT : out std_logic_vector(CORES_PER_MISD-1 downto 0);
       HREADY    : in  std_logic_vector(CORES_PER_MISD-1 downto 0);
@@ -637,28 +636,6 @@ architecture RTL of riscv_misd is
   --
   -- Functions
   --
-  function to_stdlogic (
-    input : boolean
-  ) return std_logic is
-  begin
-    if input then
-      return('1');
-    else
-      return('0');
-    end if;
-  end function to_stdlogic;
-
-  function reduce_or (
-    reduce_or_in : std_logic_vector
-  ) return std_logic is
-    variable reduce_or_out : std_logic := '0';
-  begin
-    for i in reduce_or_in'range loop
-      reduce_or_out := reduce_or_out or reduce_or_in(i);
-    end loop;
-    return reduce_or_out;
-  end reduce_or;
-
   function onehot2int (
     onehot : std_logic_vector(CORES_PER_MISD-1 downto 0)
   ) return integer is
@@ -676,7 +653,7 @@ architecture RTL of riscv_misd is
   function highest_requested_priority (
     hsel : std_logic_vector(CORES_PER_MISD-1 downto 0)
   ) return std_logic_vector is
-    variable priorities                        : M_CORES_PER_MISD_2;
+    variable priorities                        : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
     variable highest_requested_priority_return : std_logic_vector (2 downto 0);
   begin
     highest_requested_priority_return := (others => '0');
@@ -693,7 +670,7 @@ architecture RTL of riscv_misd is
     priority_select : std_logic_vector(2 downto 0)
 
   ) return std_logic_vector is
-    variable priorities        : M_CORES_PER_MISD_2;
+    variable priorities        : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
     variable requesters_return : std_logic_vector (CORES_PER_MISD-1 downto 0);
   begin
     for n in 0 to CORES_PER_MISD - 1 loop
@@ -732,71 +709,71 @@ architecture RTL of riscv_misd is
   --
 
   -- DMA
-  signal noc_ahb3_in_req_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal noc_ahb3_in_req_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal noc_ahb3_in_req_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_ahb3_in_req_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
-  signal noc_ahb3_in_res_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal noc_ahb3_in_res_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal noc_ahb3_in_res_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_ahb3_in_res_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
-  signal noc_ahb3_out_req_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal noc_ahb3_out_req_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal noc_ahb3_out_req_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_ahb3_out_req_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
-  signal noc_ahb3_out_res_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal noc_ahb3_out_res_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal noc_ahb3_out_res_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_ahb3_out_res_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
   signal ahb3_if_hsel      : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal ahb3_if_haddr     : M_CORES_PER_MISD_ADDR_WIDTH;
-  signal ahb3_if_hrdata    : M_CORES_PER_MISD_DATA_WIDTH;
-  signal ahb3_if_hwdata    : M_CORES_PER_MISD_DATA_WIDTH;
+  signal ahb3_if_haddr     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(ADDR_WIDTH-1 downto 0);
+  signal ahb3_if_hrdata    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(DATA_WIDTH-1 downto 0);
+  signal ahb3_if_hwdata    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(DATA_WIDTH-1 downto 0);
   signal ahb3_if_hwrite    : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal ahb3_if_hmastlock : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal ahb3_if_hready    : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal ahb3_if_hresp     : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
   signal ahb3_hsel      : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal ahb3_haddr     : M_CORES_PER_MISD_ADDR_WIDTH;
-  signal ahb3_hwdata    : M_CORES_PER_MISD_DATA_WIDTH;
-  signal ahb3_hrdata    : M_CORES_PER_MISD_DATA_WIDTH;
+  signal ahb3_haddr     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(ADDR_WIDTH-1 downto 0);
+  signal ahb3_hwdata    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(DATA_WIDTH-1 downto 0);
+  signal ahb3_hrdata    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(DATA_WIDTH-1 downto 0);
   signal ahb3_hwrite    : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal ahb3_hsize     : M_CORES_PER_MISD_2;
-  signal ahb3_hburst    : M_CORES_PER_MISD_2;
-  signal ahb3_hprot     : M_CORES_PER_MISD_3;
-  signal ahb3_htrans    : M_CORES_PER_MISD_1;
+  signal ahb3_hsize     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal ahb3_hburst    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal ahb3_hprot     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+  signal ahb3_htrans    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
   signal ahb3_hmastlock : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal ahb3_hready    : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
-  signal irq_ahb3 : M_CORES_PER_MISD_TABLE_ENTRIES;
+  signal irq_ahb3 : std_logic_matrix(CORES_PER_MISD-1 downto 0)(TABLE_ENTRIES-1 downto 0);
 
-  signal mux_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal mux_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal mux_last  : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mux_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mux_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
-  signal demux_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal demux_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal demux_last  : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal demux_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal demux_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
   -- Connections DMA
-  signal noc_ahb3_in_flit  : M_CORES_PER_MISD_CHANNELS_FLIT_WIDTH;
-  signal noc_ahb3_in_valid : M_CORES_PER_MISD_CHANNELS;
-  signal noc_ahb3_in_ready : M_CORES_PER_MISD_CHANNELS;
+  signal noc_ahb3_in_flit  : std_logic_3array(CORES_PER_MISD-1 downto 0)(CHANNELS-1 downto 0)(FLIT_WIDTH-1 downto 0);
+  signal noc_ahb3_in_valid : std_logic_matrix(CORES_PER_MISD-1 downto 0)(CHANNELS-1 downto 0);
+  signal noc_ahb3_in_ready : std_logic_matrix(CORES_PER_MISD-1 downto 0)(CHANNELS-1 downto 0);
 
-  signal noc_ahb3_out_flit  : M_CORES_PER_MISD_CHANNELS_FLIT_WIDTH;
-  signal noc_ahb3_out_valid : M_CORES_PER_MISD_CHANNELS;
-  signal noc_ahb3_out_ready : M_CORES_PER_MISD_CHANNELS;
+  signal noc_ahb3_out_flit  : std_logic_3array(CORES_PER_MISD-1 downto 0)(CHANNELS-1 downto 0)(FLIT_WIDTH-1 downto 0);
+  signal noc_ahb3_out_valid : std_logic_matrix(CORES_PER_MISD-1 downto 0)(CHANNELS-1 downto 0);
+  signal noc_ahb3_out_ready : std_logic_matrix(CORES_PER_MISD-1 downto 0)(CHANNELS-1 downto 0);
 
   -- Connections MISD
-  signal noc_input_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal noc_input_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal noc_input_last  : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_input_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_input_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
-  signal noc_output_flit  : M_CORES_PER_MISD_FLIT_WIDTH;
+  signal noc_output_flit  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(FLIT_WIDTH-1 downto 0);
   signal noc_output_last  : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_output_valid : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal noc_output_ready : std_logic_vector(CORES_PER_MISD-1 downto 0);
@@ -813,43 +790,43 @@ architecture RTL of riscv_misd is
   signal linked1_ready : std_logic;
 
   -- MSI
-  signal mst_HSEL      : M_CORES_PER_MISD_MASTERS;
-  signal mst_HADDR     : M_CORES_PER_MISD_MASTERS_PLEN;
-  signal mst_HWDATA    : M_CORES_PER_MISD_MASTERS_XLEN;
-  signal mst_HRDATA    : M_CORES_PER_MISD_MASTERS_XLEN;
-  signal mst_HWRITE    : M_CORES_PER_MISD_MASTERS;
-  signal mst_HSIZE     : M_CORES_PER_MISD_MASTERS_2;
-  signal mst_HBURST    : M_CORES_PER_MISD_MASTERS_2;
-  signal mst_HPROT     : M_CORES_PER_MISD_MASTERS_3;
-  signal mst_HTRANS    : M_CORES_PER_MISD_MASTERS_1;
-  signal mst_HMASTLOCK : M_CORES_PER_MISD_MASTERS;
-  signal mst_HREADY    : M_CORES_PER_MISD_MASTERS;
-  signal mst_HREADYOUT : M_CORES_PER_MISD_MASTERS;
-  signal mst_HRESP     : M_CORES_PER_MISD_MASTERS;
+  signal mst_HSEL      : std_logic_matrix(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0);
+  signal mst_HADDR     : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(PLEN-1 downto 0);
+  signal mst_HWDATA    : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(XLEN-1 downto 0);
+  signal mst_HRDATA    : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(XLEN-1 downto 0);
+  signal mst_HWRITE    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0);
+  signal mst_HSIZE     : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(2 downto 0);
+  signal mst_HBURST    : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(2 downto 0);
+  signal mst_HPROT     : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(3 downto 0);
+  signal mst_HTRANS    : std_logic_3array(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0)(1 downto 0);
+  signal mst_HMASTLOCK : std_logic_matrix(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0);
+  signal mst_HREADY    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0);
+  signal mst_HREADYOUT : std_logic_matrix(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0);
+  signal mst_HRESP     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(MASTERS-1 downto 0);
 
-  signal slv_HSEL      : M_CORES_PER_MISD_SLAVES;
-  signal slv_HADDR     : M_CORES_PER_MISD_SLAVES_PLEN;
-  signal slv_HWDATA    : M_CORES_PER_MISD_SLAVES_XLEN;
-  signal slv_HRDATA    : M_CORES_PER_MISD_SLAVES_XLEN;
-  signal slv_HWRITE    : M_CORES_PER_MISD_SLAVES;
-  signal slv_HSIZE     : M_CORES_PER_MISD_SLAVES_2;
-  signal slv_HBURST    : M_CORES_PER_MISD_SLAVES_2;
-  signal slv_HPROT     : M_CORES_PER_MISD_SLAVES_3;
-  signal slv_HTRANS    : M_CORES_PER_MISD_SLAVES_1;
-  signal slv_HMASTLOCK : M_CORES_PER_MISD_SLAVES;
-  signal slv_HREADY    : M_CORES_PER_MISD_SLAVES;
-  signal slv_HRESP     : M_CORES_PER_MISD_SLAVES;
+  signal slv_HSEL      : std_logic_matrix(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0);
+  signal slv_HADDR     : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(PLEN-1 downto 0);
+  signal slv_HWDATA    : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(XLEN-1 downto 0);
+  signal slv_HRDATA    : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(XLEN-1 downto 0);
+  signal slv_HWRITE    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0);
+  signal slv_HSIZE     : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(2 downto 0);
+  signal slv_HBURST    : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(2 downto 0);
+  signal slv_HPROT     : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(3 downto 0);
+  signal slv_HTRANS    : std_logic_3array(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0)(1 downto 0);
+  signal slv_HMASTLOCK : std_logic_matrix(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0);
+  signal slv_HREADY    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0);
+  signal slv_HRESP     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(SLAVES-1 downto 0);
 
   -- GPIO
   signal mst_gpio_HSEL      : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal mst_gpio_HADDR     : M_CORES_PER_MISD_PLEN;
-  signal mst_gpio_HWDATA    : M_CORES_PER_MISD_XLEN;
-  signal mst_gpio_HRDATA    : M_CORES_PER_MISD_XLEN;
+  signal mst_gpio_HADDR     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+  signal mst_gpio_HWDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+  signal mst_gpio_HRDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
   signal mst_gpio_HWRITE    : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal mst_gpio_HSIZE     : M_CORES_PER_MISD_2;
-  signal mst_gpio_HBURST    : M_CORES_PER_MISD_2;
-  signal mst_gpio_HPROT     : M_CORES_PER_MISD_3;
-  signal mst_gpio_HTRANS    : M_CORES_PER_MISD_1;
+  signal mst_gpio_HSIZE     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal mst_gpio_HBURST    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal mst_gpio_HPROT     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+  signal mst_gpio_HTRANS    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
   signal mst_gpio_HMASTLOCK : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_gpio_HREADY    : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_gpio_HREADYOUT : std_logic_vector(CORES_PER_MISD-1 downto 0);
@@ -859,36 +836,36 @@ architecture RTL of riscv_misd is
   signal gpio_PENABLE : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal gpio_PWRITE  : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal gpio_PSTRB   : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal gpio_PADDR   : M_CORES_PER_MISD_PADDR_SIZE;
-  signal gpio_PWDATA  : M_CORES_PER_MISD_PADDR_SIZE;
-  signal gpio_PRDATA  : M_CORES_PER_MISD_PADDR_SIZE;
+  signal gpio_PADDR   : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PADDR_SIZE-1 downto 0);
+  signal gpio_PWDATA  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PADDR_SIZE-1 downto 0);
+  signal gpio_PRDATA  : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PADDR_SIZE-1 downto 0);
   signal gpio_PREADY  : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal gpio_PSLVERR : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
   -- RAM
   signal mst_sram_HSEL      : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal mst_sram_HADDR     : M_CORES_PER_MISD_PLEN;
-  signal mst_sram_HWDATA    : M_CORES_PER_MISD_XLEN;
-  signal mst_sram_HRDATA    : M_CORES_PER_MISD_XLEN;
+  signal mst_sram_HADDR     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+  signal mst_sram_HWDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+  signal mst_sram_HRDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
   signal mst_sram_HWRITE    : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal mst_sram_HSIZE     : M_CORES_PER_MISD_2;
-  signal mst_sram_HBURST    : M_CORES_PER_MISD_2;
-  signal mst_sram_HPROT     : M_CORES_PER_MISD_3;
-  signal mst_sram_HTRANS    : M_CORES_PER_MISD_1;
+  signal mst_sram_HSIZE     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal mst_sram_HBURST    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal mst_sram_HPROT     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+  signal mst_sram_HTRANS    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
   signal mst_sram_HMASTLOCK : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_sram_HREADY    : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_sram_HREADYOUT : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_sram_HRESP     : std_logic_vector(CORES_PER_MISD-1 downto 0);
 
   signal mst_mram_HSEL      : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal mst_mram_HADDR     : M_CORES_PER_MISD_PLEN;
-  signal mst_mram_HWDATA    : M_CORES_PER_MISD_XLEN;
-  signal mst_mram_HRDATA    : M_CORES_PER_MISD_XLEN;
+  signal mst_mram_HADDR     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+  signal mst_mram_HWDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+  signal mst_mram_HRDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
   signal mst_mram_HWRITE    : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal mst_mram_HSIZE     : M_CORES_PER_MISD_2;
-  signal mst_mram_HBURST    : M_CORES_PER_MISD_2;
-  signal mst_mram_HPROT     : M_CORES_PER_MISD_3;
-  signal mst_mram_HTRANS    : M_CORES_PER_MISD_1;
+  signal mst_mram_HSIZE     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal mst_mram_HBURST    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal mst_mram_HPROT     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+  signal mst_mram_HTRANS    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
   signal mst_mram_HMASTLOCK : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_mram_HREADY    : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal mst_mram_HREADYOUT : std_logic_vector(CORES_PER_MISD-1 downto 0);
@@ -896,14 +873,14 @@ architecture RTL of riscv_misd is
 
   -- PU
   signal bus_dat_HSEL      : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal bus_dat_HADDR     : M_CORES_PER_MISD_PLEN;
-  signal bus_dat_HWDATA    : M_CORES_PER_MISD_XLEN;
-  signal bus_dat_HRDATA    : M_CORES_PER_MISD_XLEN;
+  signal bus_dat_HADDR     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(PLEN-1 downto 0);
+  signal bus_dat_HWDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
+  signal bus_dat_HRDATA    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(XLEN-1 downto 0);
   signal bus_dat_HWRITE    : std_logic_vector(CORES_PER_MISD-1 downto 0);
-  signal bus_dat_HSIZE     : M_CORES_PER_MISD_2;
-  signal bus_dat_HBURST    : M_CORES_PER_MISD_2;
-  signal bus_dat_HPROT     : M_CORES_PER_MISD_3;
-  signal bus_dat_HTRANS    : M_CORES_PER_MISD_1;
+  signal bus_dat_HSIZE     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal bus_dat_HBURST    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(2 downto 0);
+  signal bus_dat_HPROT     : std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);
+  signal bus_dat_HTRANS    : std_logic_matrix(CORES_PER_MISD-1 downto 0)(1 downto 0);
   signal bus_dat_HMASTLOCK : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal bus_dat_HREADY    : std_logic_vector(CORES_PER_MISD-1 downto 0);
   signal bus_dat_HRESP     : std_logic_vector(CORES_PER_MISD-1 downto 0);
@@ -913,7 +890,7 @@ architecture RTL of riscv_misd is
 
   signal pending_misd_master       : std_logic_vector(CORES_PER_MISD-1 downto 0);  --next master waiting to be served
   signal last_granted_misd_master  : std_logic_vector(CORES_PER_MISD-1 downto 0);  --for requested priority level
-  signal last_granted_misd_masters : M_3_CORES_PER_MISD;  --per priority level, for round-robin
+  signal last_granted_misd_masters : std_logic_matrix(CORES_PER_MISD-1 downto 0)(3 downto 0);  --per priority level, for round-robin
 
   signal granted_misd_master_idx     : std_logic_vector(MISD_BITS-1 downto 0);  --granted master as index
   signal granted_misd_master_idx_dly : std_logic_vector(MISD_BITS-1 downto 0);  --deleayed granted master index (for HWDATA)
@@ -1042,61 +1019,61 @@ begin
         dbg_bp    => dbg_bp(t)
       );
 
-    peripheral_interface : mpsoc_msi_ahb3_interface
-      generic map (
-        PLEN    => PLEN,
-        XLEN    => XLEN,
-        MASTERS => MASTERS,
-        SLAVES  => SLAVES
-      )
-      port map (
+    ----peripheral_interface : mpsoc_msi_ahb3_interface
+      ----generic map (
+        ----PLEN    => PLEN,
+        ----XLEN    => XLEN,
+        ----MASTERS => MASTERS,
+        ----SLAVES  => SLAVES
+      ----)
+      ----port map (
         --Common signals
-        HRESETn => HRESETn,
-        HCLK    => HCLK,
+        --------HRESETn => HRESETn,
+        ----HCLK    => HCLK,
 
         --Master Ports; AHB masters connect to these
         --thus these are actually AHB Slave Interfaces
-        mst_priority => (others => (others => '0')),
+        ----mst_priority => (others => (others => '0')),
 
-        mst_HSEL      => mst_HSEL(t),
-        mst_HADDR     => mst_HADDR(t),
-        mst_HWDATA    => mst_HWDATA(t),
-        mst_HRDATA    => mst_HRDATA(t),
-        mst_HWRITE    => mst_HWRITE(t),
-        mst_HSIZE     => mst_HSIZE(t),
-        mst_HBURST    => mst_HBURST(t),
-        mst_HPROT     => mst_HPROT(t),
-        mst_HTRANS    => mst_HTRANS(t),
-        mst_HMASTLOCK => mst_HMASTLOCK(t),
-        mst_HREADYOUT => mst_HREADYOUT(t),
-        mst_HREADY    => mst_HREADY(t),
-        mst_HRESP     => mst_HRESP(t),
+        ----mst_HSEL      => mst_HSEL(t),
+        ----mst_HADDR     => mst_HADDR(t),
+        ----mst_HWDATA    => mst_HWDATA(t),
+        ----mst_HRDATA    => mst_HRDATA(t),
+        ----mst_HWRITE    => mst_HWRITE(t),
+        ----mst_HSIZE     => mst_HSIZE(t),
+        ----mst_HBURST    => mst_HBURST(t),
+        ----mst_HPROT     => mst_HPROT(t),
+        ----mst_HTRANS    => mst_HTRANS(t),
+        ----mst_HMASTLOCK => mst_HMASTLOCK(t),
+        ----mst_HREADYOUT => mst_HREADYOUT(t),
+        ----mst_HREADY    => mst_HREADY(t),
+        ----mst_HRESP     => mst_HRESP(t),
 
         --Slave Ports; AHB Slaves connect to these
         --thus these are actually AHB Master Interfaces
-        slv_addr_mask => (others => (others => '0')),
-        slv_addr_base => (others => (others => '0')),
+        ----slv_addr_mask => (others => (others => '0')),
+        ----slv_addr_base => (others => (others => '0')),
 
-        slv_HSEL      => slv_HSEL(t),
-        slv_HADDR     => slv_HADDR(t),
-        slv_HWDATA    => slv_HWDATA(t),
-        slv_HRDATA    => slv_HRDATA(t),
-        slv_HWRITE    => slv_HWRITE(t),
-        slv_HSIZE     => slv_HSIZE(t),
-        slv_HBURST    => slv_HBURST(t),
-        slv_HPROT     => slv_HPROT(t),
-        slv_HTRANS    => slv_HTRANS(t),
-        slv_HMASTLOCK => slv_HMASTLOCK(t),
-        slv_HREADYOUT => open,
-        slv_HREADY    => slv_HREADY(t),
-        slv_HRESP     => slv_HRESP(t)
-      );
+        ----slv_HSEL      => slv_HSEL(t),
+        ----slv_HADDR     => slv_HADDR(t),
+        ----slv_HWDATA    => slv_HWDATA(t),
+        ----slv_HRDATA    => slv_HRDATA(t),
+        ----slv_HWRITE    => slv_HWRITE(t),
+        ----slv_HSIZE     => slv_HSIZE(t),
+        ----slv_HBURST    => slv_HBURST(t),
+        ----slv_HPROT     => slv_HPROT(t),
+        ----slv_HTRANS    => slv_HTRANS(t),
+        ----slv_HMASTLOCK => slv_HMASTLOCK(t),
+        ----slv_HREADYOUT => open,
+        ----slv_HREADY    => slv_HREADY(t),
+        ----slv_HRESP     => slv_HRESP(t)
+      ----);
 
     --Instantiate RISC-V DMA
     ahb3_top : mpsoc_dma_ahb3_top
       generic map (
-        ADDR_WIDTH => 64,
-        DATA_WIDTH => 64,
+        ADDR_WIDTH => 32,
+        DATA_WIDTH => 32,
 
         TABLE_ENTRIES          => TABLE_ENTRIES,
         TABLE_ENTRIES_PTRWIDTH => TABLE_ENTRIES_PTRWIDTH,

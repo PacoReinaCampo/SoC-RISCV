@@ -138,9 +138,9 @@
   `define CORES              `NODES*`CORES_PER_TILE
 
   //noc parameters
-  `define CHANNELS           7
-  `define PCHANNELS          1
-  `define VCHANNELS          7
+  `define CHANNELS           2
+  `define PCHANNELS          2
+  `define VCHANNELS          2
 
   `define ENABLE_VCHANNELS   1
 

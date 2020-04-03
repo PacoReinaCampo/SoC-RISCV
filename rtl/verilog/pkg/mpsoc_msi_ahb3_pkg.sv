@@ -124,23 +124,23 @@
   `define AR_BITS            5
 
   //mpsoc parameters
-  `define CORES_PER_SIMD     1
-  `define CORES_PER_MISD     1
+  `define CORES_PER_SIMD     8
+  `define CORES_PER_MISD     8
 
   `define CORES_PER_TILE     `CORES_PER_SIMD + `CORES_PER_MISD
 
   //soc parameters
-  `define X                  1
-  `define Y                  1
-  `define Z                  1
+  `define X                  2
+  `define Y                  2
+  `define Z                  2
 
   `define NODES              `X*`Y*`Z
   `define CORES              `NODES*`CORES_PER_TILE
 
   //noc parameters
-  `define CHANNELS           7
-  `define PCHANNELS          1
-  `define VCHANNELS          7
+  `define CHANNELS           2
+  `define PCHANNELS          2
+  `define VCHANNELS          2
 
   `define ENABLE_VCHANNELS   1
 
