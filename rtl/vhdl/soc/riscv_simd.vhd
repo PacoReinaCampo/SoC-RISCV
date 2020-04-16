@@ -412,7 +412,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_noc_buffer
+  component noc_buffer
     generic (
       FLIT_WIDTH : integer := 34;
       DEPTH      : integer := 16;
@@ -439,7 +439,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_noc_mux
+  component noc_mux
     generic (
       FLIT_WIDTH : integer := 34;
       CHANNELS   : integer := 7
@@ -460,7 +460,7 @@ architecture RTL of riscv_simd is
     );
   end component;
 
-  component mpsoc_noc_demux
+  component noc_demux
     generic (
       FLIT_WIDTH : integer := 34;
       CHANNELS   : integer := 7;
@@ -1147,7 +1147,7 @@ begin
         irq => irq_ahb3(t)
       );
 
-    mux_noc_buffer : mpsoc_noc_buffer
+    mux_noc_buffer : noc_buffer
       generic map (
         FLIT_WIDTH => FLIT_WIDTH,
         DEPTH      => 16,
@@ -1170,7 +1170,7 @@ begin
         packet_size => open
       );
 
-    demux_noc_buffer : mpsoc_noc_buffer
+    demux_noc_buffer : noc_buffer
       generic map (
         FLIT_WIDTH => FLIT_WIDTH,
         DEPTH      => 16,
@@ -1193,7 +1193,7 @@ begin
         packet_size => open
       );
 
-    --noc_mux : mpsoc_noc_mux
+    --noc_mux : noc_mux
       --generic map (
         --FLIT_WIDTH => FLIT_WIDTH,
         --CHANNELS   => CHANNELS
@@ -1213,7 +1213,7 @@ begin
         --out_ready => mux_ready(t)
       --);
 
-    --noc_demux : mpsoc_noc_demux
+    --noc_demux : noc_demux
       --generic map (
         --FLIT_WIDTH => FLIT_WIDTH,
         --CHANNELS   => CHANNELS,
@@ -1553,7 +1553,7 @@ begin
     --);
 
   --Instantiate LNKs
-  --noc_mux_lnk1 : mpsoc_noc_mux
+  --noc_mux_lnk1 : noc_mux
     --generic map (
       --FLIT_WIDTH => FLIT_WIDTH,
       --CHANNELS   => CORES_PER_SIMD
@@ -1573,7 +1573,7 @@ begin
       --out_ready => linked1_ready
     --);
 
-  --noc_demux_lnk0 : mpsoc_noc_demux
+  --noc_demux_lnk0 : noc_demux
     --generic map (
       --FLIT_WIDTH => FLIT_WIDTH,
       --CHANNELS   => CORES_PER_SIMD,
@@ -1594,7 +1594,7 @@ begin
       --out_ready => (others => '1')  --noc_input_ready
     --);
 
-  --noc_mux_lnk0 : mpsoc_noc_mux
+  --noc_mux_lnk0 : noc_mux
     --generic map (
       --FLIT_WIDTH => FLIT_WIDTH,
       --CHANNELS   => CHANNELS
@@ -1614,7 +1614,7 @@ begin
       --out_ready => linked0_ready
     --);
 
-  --noc_demux_lnk1 : mpsoc_noc_demux
+  --noc_demux_lnk1 : noc_demux
     --generic map (
       --FLIT_WIDTH => FLIT_WIDTH,
       --CHANNELS   => CHANNELS,

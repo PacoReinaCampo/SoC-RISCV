@@ -1,4 +1,0 @@
-rm -rf sim/vhdl/regression/run/msim
-cd sim/vhdl/regression/run
-export PATH=$PATH:/opt/intelFPGA_pro/19.2/modelsim_ase/linuxaloem/
-make SIM=msim

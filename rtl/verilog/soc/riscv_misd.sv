@@ -683,7 +683,7 @@ module riscv_misd #(
         .irq ( irq_ahb3 [t] )
       );
 
-      mpsoc_noc_buffer #(
+      noc_buffer #(
         .FLIT_WIDTH ( FLIT_WIDTH ),
         .DEPTH      ()
       )
@@ -704,7 +704,7 @@ module riscv_misd #(
         .packet_size ()
       );
 
-      mpsoc_noc_buffer #(
+      noc_buffer #(
         .FLIT_WIDTH ( FLIT_WIDTH ),
         .DEPTH      ()
       )
@@ -725,7 +725,7 @@ module riscv_misd #(
         .packet_size ()
       );
 
-      mpsoc_noc_mux #(
+      noc_mux #(
         .FLIT_WIDTH ( FLIT_WIDTH ),
         .CHANNELS   ( CHANNELS   )
       )
@@ -744,7 +744,7 @@ module riscv_misd #(
         .out_ready ( mux_ready [t] )
       );
 
-      mpsoc_noc_demux #(
+      noc_demux #(
         .FLIT_WIDTH ( FLIT_WIDTH ),
         .CHANNELS   ( CHANNELS   ),
         .MAPPING    ()
@@ -1084,7 +1084,7 @@ module riscv_misd #(
   );
 
   //Instantiate LNKs
-  mpsoc_noc_mux #(
+  noc_mux #(
     .FLIT_WIDTH ( FLIT_WIDTH     ),
     .CHANNELS   ( CORES_PER_MISD )
   )
@@ -1103,7 +1103,7 @@ module riscv_misd #(
     .out_ready ( linked1_ready )
   );
 
-  mpsoc_noc_demux #(
+  noc_demux #(
     .FLIT_WIDTH ( FLIT_WIDTH     ),
     .CHANNELS   ( CORES_PER_MISD ),
     .MAPPING    ()
@@ -1123,7 +1123,7 @@ module riscv_misd #(
     .out_ready ( noc_input_ready )
   );
 
-  mpsoc_noc_mux #(
+  noc_mux #(
     .FLIT_WIDTH ( FLIT_WIDTH ),
     .CHANNELS   ( CHANNELS   )
   )
@@ -1142,7 +1142,7 @@ module riscv_misd #(
     .out_ready ( linked0_ready )
   );
 
-  mpsoc_noc_demux #(
+  noc_demux #(
     .FLIT_WIDTH ( FLIT_WIDTH ),
     .CHANNELS   ( CHANNELS   ),
     .MAPPING    ()
