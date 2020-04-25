@@ -1,15 +1,6 @@
-rm -rf sim/mixed/regression/multi/run
-rm -rf sim/verilog/regression/multi/run
-rm -rf sim/vhdl/regression/multi/run
-
-rm -rf sim/mixed/regression/msim/work
-rm -rf sim/verilog/regression/msim/work
-rm -rf sim/vhdl/regression/msim/work
-
-rm -rf sim/mixed/regression/msim/transcript
 rm -rf sim/verilog/regression/msim/transcript
-rm -rf sim/vhdl/regression/msim/transcript
+rm -rf sim/verilog/regression/msim/work
+rm -rf sim/verilog/regression/msim/stdout.*
 
-rm -rf sim/verilog/regression/iverilog/system.vvp
-
-rm -rf sim/verilog/regression/vtor/obj_dir
+rm -rf sim/verilog/regression/vtor/Vriscv_tile_testbench
+rm -rf sim/verilog/regression/vtor/stdout.*

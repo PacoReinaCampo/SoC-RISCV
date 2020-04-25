@@ -2,5 +2,5 @@ all: build
 
 build:
 	@if [ ! -e work ]; then vlib work; fi
-	@vlog -sv +incdir+../../../../rtl/verilog/pkg -f system.vc
-	vsim -c -do run.do work.riscv_soc
+	@vlog -sv -f soc.vc
+	vsim -c -do run.do work.riscv_tile_testbench

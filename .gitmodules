@@ -25,3 +25,6 @@
 [submodule "noc"]
 	path = noc
 	url = https://github.com/PacoReinaCampo/MPSoC-NoC.git
+[submodule "dbg"]
+	path = dbg
+	url = https://github.com/PacoReinaCampo/MPSoC-DBG.git
