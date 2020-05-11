@@ -1,0 +1,11 @@
+CAPI=1
+[main]
+name = glip:common:scaler
+
+[fileset src_files]
+file_type = systemVerilogSource
+usage = sim synth
+files =
+  verilog/glip_downscale.sv
+  verilog/glip_upscale.sv
+
