@@ -4,5 +4,5 @@ cd ../baremetal/baremetal-apps/heat_mpsimple
 make clean
 make
 
-rm -rf ../../../../sim/heat_mpsimple.vmem
-cp heat_mpsimple.vmem ../../../../sim/
+rm -rf ../../../../sim/verilog/regression/vtor/heat_mpsimple.vmem
+cp heat_mpsimple.vmem ../../../../sim/verilog/regression/vtor/
