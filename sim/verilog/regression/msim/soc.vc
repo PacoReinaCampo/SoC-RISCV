@@ -96,9 +96,9 @@
 ../../../../pu/rtl/verilog/memory/riscv_ram_1rw_generic.sv
 ../../../../pu/rtl/verilog/memory/riscv_ram_1rw.sv
 ../../../../pu/rtl/verilog/memory/riscv_ram_queue.sv
-../../../../pu/rtl/verilog/pu/riscv_biu.sv
-../../../../pu/rtl/verilog/pu/riscv_module.sv
-../../../../pu/rtl/verilog/pu/riscv_pu.sv
+../../../../pu/rtl/verilog/pu/riscv_biu2ahb3.sv
+../../../../pu/rtl/verilog/pu/riscv_module_ahb3.sv
+../../../../pu/rtl/verilog/pu/riscv_pu_ahb3.sv
 ../../../../rtl/verilog/soc/adapter/networkadapter_conf.sv
 ../../../../rtl/verilog/soc/adapter/networkadapter_ct.sv
 ../../../../rtl/verilog/soc/bootrom/bootrom.v

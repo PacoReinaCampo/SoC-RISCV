@@ -303,7 +303,7 @@ module riscv_tile #(
 
   generate
     for (c = 0; c < CONFIG.CORES_PER_TILE; c = c + 1) begin : gen_cores
-      riscv_module #(
+      riscv_module_ahb3 #(
         .XLEN ( XLEN ),
         .PLEN ( PLEN )
       )
