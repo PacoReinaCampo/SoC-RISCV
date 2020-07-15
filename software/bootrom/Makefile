@@ -22,14 +22,14 @@
 #   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
 #   Philipp Wagner <philipp.wagner@tum.de>
 
-all: bootrom_code.v bootrom.hex
+all: bootrom_code.sv bootrom.hex
 
 bootrom.hex: bootrom.bin
 	./bin2vmem bootrom.bin > bootrom.hex
 
-bootrom_code.v: bootrom.bin bin2vlogarray bin2vmem
-	cat bootrom_code.v.header > bootrom_code.v
-	cat bootrom.bin | ./bin2vlogarray >> bootrom_code.v
+bootrom_code.sv: bootrom.bin bin2vlogarray bin2vmem
+	cat bootrom_code.sv.header > bootrom_code.sv
+	cat bootrom.bin | ./bin2vlogarray >> bootrom_code.sv
 
 bootrom.bin: a.out
 	or1k-elf-objcopy -O binary a.out bootrom.bin
@@ -49,9 +49,9 @@ bin2vmem: bin2vmem.c
 	cp bin2vmem ../baremetal/host/bin/
 
 install:
-	rm -f ../../rtl/verilog/soc/bootrom/bootrom_code.v
-	cp -i bootrom_code.v ../../rtl/verilog/soc/bootrom/
+	rm -f ../../rtl/verilog/soc/bootrom/bootrom_code.sv
+	cp -i bootrom_code.sv ../../rtl/verilog/soc/bootrom/
 
 clean:
-	rm -f a.out bootrom.bin bootrom.hex bootrom_code.v bin2vlogarray bin2vmem
+	rm -f a.out bootrom.bin bootrom.hex bootrom_code.sv bin2vlogarray bin2vmem
 

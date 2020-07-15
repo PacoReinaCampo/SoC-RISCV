@@ -4,5 +4,5 @@ cd ../baremetal/baremetal-apps/hello
 make clean
 make
 
-rm -rf ../../../../sim/verilog/regression/vtor/hello.vmem
-cp hello.vmem ../../../../sim/verilog/regression/vtor/
+rm -rf ../../../../sim/verilog/regression/verilator/hello.vmem
+cp hello.vmem ../../../../sim/verilog/regression/verilator/
