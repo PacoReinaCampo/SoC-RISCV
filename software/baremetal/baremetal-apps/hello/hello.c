@@ -1,4 +1,20 @@
-/* Copyright (c) 2013-2015 by the author(s)
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              Software                                                      //
+//              Hello World                                                   //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2019-2020 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,11 +35,9 @@
  * THE SOFTWARE.
  *
  * =============================================================================
- *
- * Simple hello world example.
- *
  * Author(s):
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
+ *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
 #include <stdio.h>
@@ -33,13 +47,13 @@ int main() {
   optimsoc_init(0);
 
   printf("Hello QueenField! Core %d of %d in tile %d, my absolute core id is: %d\n",
-         optimsoc_get_relcoreid()+1, optimsoc_get_tilenumcores(),
-         optimsoc_get_tileid()+1, optimsoc_get_abscoreid()+1);
+    optimsoc_get_relcoreid() + 1, optimsoc_get_tilenumcores(),
+    optimsoc_get_tileid() + 1, optimsoc_get_abscoreid() + 1);
 
   printf("There are %d compute tiles:\n", optimsoc_get_numct());
 
   for (int r = 0; r < optimsoc_get_numct(); ++r) {
-	  printf(" rank %d is tile %d\n", r+1, optimsoc_get_ranktile(r)+1);
+    printf(" rank %d is tile %d\n", r + 1, optimsoc_get_ranktile(r) + 1);
   }
 
   return 0;

@@ -1,4 +1,20 @@
-/* Copyright (c) 2013-2015 by the author(s)
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              Software                                                      //
+//              Hello World                                                   //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2019-2020 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +35,10 @@
  * THE SOFTWARE.
  *
  * =============================================================================
- *
- * Simple hello world example.
- *
  * Author(s):
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
+ *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
-
 
 #include <stdio.h> // For printf
 
@@ -37,34 +50,34 @@
 
 // The main function
 int main() {
-    if (or1k_coreid() != 0)
-        return 0;
-
-    // Initialize optimsoc library
-    optimsoc_init(0);
-    optimsoc_mp_initialize(0);
-
-    // Determine tiles rank
-    uint32_t rank = optimsoc_get_ctrank();
-
-    optimsoc_mp_endpoint_handle ep;
-    optimsoc_mp_endpoint_create(&ep, 0, 0, OPTIMSOC_MP_EP_CONNECTIONLESS, 2, 0);
-    
-    if (rank==0) {
-        size_t count = 0;
-        while(count < (optimsoc_get_numct() - 1)) {
-            uint32_t remote;
-            size_t received;
-            optimsoc_mp_msg_recv(ep, (uint8_t*) &remote, 4, &received);
-            printf("Received from %d\n", remote);
-            count++;
-        }
-    } else {
-        optimsoc_mp_endpoint_handle ep_remote;
-        optimsoc_mp_endpoint_get(&ep_remote, 0, 0, 0);
-
-        optimsoc_mp_msg_send(ep, ep_remote, (uint8_t*) &rank, sizeof(rank));
-    }
-
+  if (or1k_coreid() != 0)
     return 0;
+
+  // Initialize optimsoc library
+  optimsoc_init(0);
+  optimsoc_mp_initialize(0);
+
+  // Determine tiles rank
+  uint32_t rank = optimsoc_get_ctrank();
+
+  optimsoc_mp_endpoint_handle ep;
+  optimsoc_mp_endpoint_create( & ep, 0, 0, OPTIMSOC_MP_EP_CONNECTIONLESS, 2, 0);
+
+  if (rank == 0) {
+    size_t count = 0;
+    while (count < (optimsoc_get_numct() - 1)) {
+      uint32_t remote;
+      size_t received;
+      optimsoc_mp_msg_recv(ep, (uint8_t * ) & remote, 4, & received);
+      printf("Received from %d\n", remote);
+      count++;
+    }
+  } else {
+    optimsoc_mp_endpoint_handle ep_remote;
+    optimsoc_mp_endpoint_get( & ep_remote, 0, 0, 0);
+
+    optimsoc_mp_msg_send(ep, ep_remote, (uint8_t * ) & rank, sizeof(rank));
+  }
+
+  return 0;
 }

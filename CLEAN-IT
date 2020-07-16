@@ -2,5 +2,5 @@ rm -rf sim/verilog/regression/msim/transcript
 rm -rf sim/verilog/regression/msim/work
 rm -rf sim/verilog/regression/msim/stdout.*
 
-rm -rf sim/verilog/regression/vtor/Vriscv_tile_testbench
-rm -rf sim/verilog/regression/vtor/stdout.*
+rm -rf sim/verilog/regression/verilator/Vriscv_tile_testbench
+rm -rf sim/verilog/regression/verilator/stdout.*

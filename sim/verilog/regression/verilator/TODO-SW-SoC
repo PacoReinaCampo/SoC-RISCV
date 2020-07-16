@@ -1,8 +1,6 @@
-export PATH=$PATH:/opt/riscv/bin
-
 rm -rf stdout.*
 
-./Vor1k_tile_testbench --meminit=heat_mpsimple.vmem
-./Vor1k_tile_testbench --meminit=hello.vmem
-./Vor1k_tile_testbench --meminit=hello_mp.vmem
-./Vor1k_tile_testbench --meminit=hello_mpsimple.vmem
+./Vor1k_tile_testbench --meminit=../../../../software/baremetal/host/vmem/heat_mpsimple.vmem
+./Vor1k_tile_testbench --meminit=../../../../software/baremetal/host/vmem/hello.vmem
+./Vor1k_tile_testbench --meminit=../../../../software/baremetal/host/vmem/hello_mp.vmem
+./Vor1k_tile_testbench --meminit=../../../../software/baremetal/host/vmem/hello_mpsimple.vmem

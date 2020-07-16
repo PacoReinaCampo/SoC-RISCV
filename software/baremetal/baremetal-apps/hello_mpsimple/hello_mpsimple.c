@@ -1,4 +1,20 @@
-/* Copyright (c) 2013-2015 by the author(s)
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              Software                                                      //
+//              Hello World                                                   //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2019-2020 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,13 +35,10 @@
  * THE SOFTWARE.
  *
  * =============================================================================
- *
- * Simple hello world example.
- *
  * Author(s):
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
+ *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
-
 
 #include <stdio.h> // For printf
 
@@ -43,74 +56,76 @@
 unsigned int volatile hello_received = 0;
 
 // This function is called by the driver on receival of a message
-void recv(uint32_t *buffer, size_t len) {
-    int source_tile, source_rank;
+void recv(uint32_t * buffer, size_t len) {
+  int source_tile, source_rank;
 
-    assert(len==1); // This is always one flit
+  assert(len == 1); // This is always one flit
 
-    // Extract tile id from flit
-    source_tile = extract_bits(buffer[0],OPTIMSOC_SRC_MSB,OPTIMSOC_SRC_LSB);
+  // Extract tile id from flit
+  source_tile = extract_bits(buffer[0], OPTIMSOC_SRC_MSB, OPTIMSOC_SRC_LSB);
 
-    // Calculate rank from tile
-    source_rank = optimsoc_get_tilerank(source_tile);
+  // Calculate rank from tile
+  source_rank = optimsoc_get_tilerank(source_tile);
 
-    // Print hello for this
-    //printf("Hello World from %d!\n",source_rank);
+  // Print hello for this
+  //printf("Hello World from %d!\n",source_rank);
 
-    // Count up received messages
-    hello_received++;
+  // Count up received messages
+  hello_received++;
 }
 
 // The main function
 int main() {
-    if (or1k_coreid() != 0)
-        return 0;
-
-    // Initialize optimsoc library
-    optimsoc_init(0);
-    optimsoc_mp_simple_init();
-
-    // Add handler for received messages (of class 0)
-    optimsoc_mp_simple_addhandler(0,&recv);
-    or1k_interrupts_enable();
-
-    // Determine tiles rank
-    int rank = optimsoc_get_ctrank();
-    size_t endpoints = optimsoc_mp_simple_num_endpoints();
-
-    if (rank==0) {
-      size_t total = (optimsoc_get_numct()-1) * endpoints;
-        // Rank 0 simply waits for all tiles to send their message
-        printf("Wait for %d messages\n", total);
-
-	optimsoc_mp_simple_enable(0);
-	optimsoc_mp_simple_enable(1);
-
-        while (hello_received < total) {}
-
-        // Conclude and print hello
-        printf("Received all messages. Hello World!\n",rank,optimsoc_get_numct());
-    } else {
-        for (int ep = 0; ep < endpoints; ep++) {
-          // Wait until the remote endpoint buffer is ready
-          while (!optimsoc_mp_simple_ctready(0,ep)) {}
-
-          // The message is a one flit packet
-          uint32_t buffer[1] = { 0 };
-
-          // Set destination (tile 0)
-          set_bits(&buffer[0],0,OPTIMSOC_DEST_MSB,OPTIMSOC_DEST_LSB);
-
-          // Set class (0)
-          set_bits(&buffer[0],0,OPTIMSOC_CLASS_MSB,OPTIMSOC_CLASS_LSB);
-
-          // Set sender as my rank
-          set_bits(&buffer[0],optimsoc_get_ranktile(rank),OPTIMSOC_SRC_MSB,OPTIMSOC_SRC_LSB);
-
-          // Send the message
-          optimsoc_mp_simple_send(ep,1,(uint32_t*) buffer);
-	}
-    }
-
+  if (or1k_coreid() != 0)
     return 0;
+
+  // Initialize optimsoc library
+  optimsoc_init(0);
+  optimsoc_mp_simple_init();
+
+  // Add handler for received messages (of class 0)
+  optimsoc_mp_simple_addhandler(0, & recv);
+  or1k_interrupts_enable();
+
+  // Determine tiles rank
+  int rank = optimsoc_get_ctrank();
+  size_t endpoints = optimsoc_mp_simple_num_endpoints();
+
+  if (rank == 0) {
+    size_t total = (optimsoc_get_numct() - 1) * endpoints;
+    // Rank 0 simply waits for all tiles to send their message
+    printf("Wait for %d messages\n", total);
+
+    optimsoc_mp_simple_enable(0);
+    optimsoc_mp_simple_enable(1);
+
+    while (hello_received < total) {}
+
+    // Conclude and print hello
+    printf("Received all messages. Hello World!\n", rank, optimsoc_get_numct());
+  } else {
+    for (int ep = 0; ep < endpoints; ep++) {
+      // Wait until the remote endpoint buffer is ready
+      while (!optimsoc_mp_simple_ctready(0, ep)) {}
+
+      // The message is a one flit packet
+      uint32_t buffer[1] = {
+        0
+      };
+
+      // Set destination (tile 0)
+      set_bits( & buffer[0], 0, OPTIMSOC_DEST_MSB, OPTIMSOC_DEST_LSB);
+
+      // Set class (0)
+      set_bits( & buffer[0], 0, OPTIMSOC_CLASS_MSB, OPTIMSOC_CLASS_LSB);
+
+      // Set sender as my rank
+      set_bits( & buffer[0], optimsoc_get_ranktile(rank), OPTIMSOC_SRC_MSB, OPTIMSOC_SRC_LSB);
+
+      // Send the message
+      optimsoc_mp_simple_send(ep, 1, (uint32_t * ) buffer);
+    }
+  }
+
+  return 0;
 }
