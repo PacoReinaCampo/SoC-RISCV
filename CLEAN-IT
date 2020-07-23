@@ -2,5 +2,15 @@ rm -rf sim/verilog/regression/msim/transcript
 rm -rf sim/verilog/regression/msim/work
 rm -rf sim/verilog/regression/msim/stdout.*
 
+rm -rf sim/verilog/uvm/ahb3/msim/transcript
+rm -rf sim/verilog/uvm/apb4/msim/transcript
+rm -rf sim/verilog/uvm/axi4/msim/transcript
+rm -rf sim/verilog/uvm/wb/msim/transcript
+
+rm -rf sim/verilog/uvm/ahb3/msim/work
+rm -rf sim/verilog/uvm/apb4/msim/work
+rm -rf sim/verilog/uvm/axi4/msim/work
+rm -rf sim/verilog/uvm/wb/msim/work
+
 rm -rf sim/verilog/regression/verilator/Vriscv_tile_testbench
 rm -rf sim/verilog/regression/verilator/stdout.*
