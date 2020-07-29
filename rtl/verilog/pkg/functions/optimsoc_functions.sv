@@ -1,4 +1,22 @@
-/* Copyright (c) 2013-2018 by the author(s)
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              MPSoC-RISCV CPU                                               //
+//              Multi Processor System on Chip                                //
+//              AMBA3 AHB-Lite Bus Interface                                  //
+//              WishBone Bus Interface                                        //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2018-2019 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,13 +36,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * ============================================================================
- *
- * Utility functions
- *
+ * =============================================================================
  * Author(s):
- *   Philipp Wagner <philipp.wagner@tum.de>
  *   Stefan Wallentowitz <stefan@wallentowitz.de>
+ *   Philipp Wagner <philipp.wagner@tum.de>
+ *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
 package optimsoc_functions;

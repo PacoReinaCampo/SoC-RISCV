@@ -1,4 +1,22 @@
-/* Copyright (c) 2016-2017 by the author(s)
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              MPSoC-RISCV CPU                                               //
+//              Multi Processor System on Chip                                //
+//              AMBA3 AHB-Lite Bus Interface                                  //
+//              WishBone Bus Interface                                        //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2018-2019 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,28 +36,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * ============================================================================
- *
- * Configuration struct
- *
- * This is the static configuration struct. It contains all global configuration
- * settings and is propagated through the hierarchy.
- *
- * There are two struct: The base_config_t struct contains all configuration
- * settings. It is used to setup the system. The config_t struct contains some
- * extra settings, which are derived from the base settings. You can call the
- * function derive_config to convert a base_config_t struct into a config_t.
- *
- * When you add a base variable you need to add it at three positions:
- *
- *  - In base_config_t
- *  - In config_t
- *  - The copy operation in derive_config
- *
- * If it is a derived setting, you only need to add it to the latter two.
- *
+ * =============================================================================
  * Author(s):
  *   Stefan Wallentowitz <stefan@wallentowitz.de>
+ *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
 package optimsoc_config;

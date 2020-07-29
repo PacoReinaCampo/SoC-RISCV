@@ -41,8 +41,8 @@
  */
 
 module bootrom #(
-   parameter PLEN = 32,
-   parameter XLEN = 32
+  parameter PLEN = 32,
+  parameter XLEN = 32
 )
   (
     input clk,
@@ -61,20 +61,19 @@ module bootrom #(
     output reg [XLEN-1:0] ahb3_hrdata_o,
     output                ahb3_hready_o,
     output                ahb3_hresp_o
- );
+  );
 
   ////////////////////////////////////////////////////////////////
   //
   // Module Body
   //
+  assign ahb3_hready_o = 1'b0;
+  assign ahb3_hresp_o  = 1'b0;
 
-   assign ahb3_hready_o = 1'b0;
-   assign ahb3_hresp_o  = 1'b0;
-
-   always @(*) begin
-      case(ahb3_haddr_i[7:2])
-        `include "bootrom_code.v"
-        default: ahb3_hrdata_o = 32'hx;
-      endcase
-   end
+  always @(*) begin
+    case(ahb3_haddr_i[7:2])
+      `include "bootrom_code.sv"
+      default: ahb3_hrdata_o = 32'hx;
+    endcase
+  end
 endmodule

@@ -1,4 +1,22 @@
-/* Copyright (c) 2017 by the author(s)
+////////////////////////////////////////////////////////////////////////////////
+//                                            __ _      _     _               //
+//                                           / _(_)    | |   | |              //
+//                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
+//               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
+//              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
+//               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
+//                  | |                                                       //
+//                  |_|                                                       //
+//                                                                            //
+//                                                                            //
+//              MPSoC-RISCV CPU                                               //
+//              Multi Processor System on Chip                                //
+//              AMBA3 AHB-Lite Bus Interface                                  //
+//              WishBone Bus Interface                                        //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+/* Copyright (c) 2018-2019 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,11 +37,9 @@
  * THE SOFTWARE.
  *
  * =============================================================================
- *
- * Constants
- *
  * Author(s):
  *   Stefan Wallentowitz <stefan@wallentowitz.de>
+ *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
 package optimsoc_constants;

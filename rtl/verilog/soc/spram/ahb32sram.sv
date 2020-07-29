@@ -101,20 +101,20 @@ module ahb32sram #(
 
   wire [WORD_AW-1:0] word_addr_in;
 
-  reg [WORD_AW-1:0]         word_addr_reg;
-  reg [WORD_AW-1:0]         word_addr;
+  reg  [WORD_AW-1:0] word_addr_reg;
+  reg  [WORD_AW-1:0] word_addr;
 
   // Register to indicate if the cycle is a Wishbone B3-registered feedback
   // type access
-  reg                  ahb3_b3_trans;
-  wire                 ahb3_b3_trans_start, ahb3_b3_trans_stop;
+  reg                ahb3_b3_trans;
+  wire               ahb3_b3_trans_start, ahb3_b3_trans_stop;
 
   // Register to use for counting the addresses when doing burst accesses
-  reg [WORD_AW-1:0]    burst_adr_counter;
-  reg [        2:0]    ahb3_hburst_i_r;
-  reg [        1:0]    ahb3_htrans_i_r;
-  wire                 using_burst_adr;
-  wire                 burst_access_wrong_ahb3_adr;
+  reg  [WORD_AW-1:0] burst_adr_counter;
+  reg  [        2:0] ahb3_hburst_i_r;
+  reg  [        1:0] ahb3_htrans_i_r;
+  wire               using_burst_adr;
+  wire               burst_access_wrong_ahb3_adr;
 
   // Ack Logic
   reg     ahb3_ack;

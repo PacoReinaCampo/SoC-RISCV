@@ -38,6 +38,7 @@
  *
  * =============================================================================
  * Author(s):
+ *   Stefan Wallentowitz <stefan@wallentowitz.de>
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
