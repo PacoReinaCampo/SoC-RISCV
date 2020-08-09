@@ -1,0 +1,1837 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdftitle={System on Chip with RISCV},
+            pdfauthor={QueenField},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[left=3cm,right=2cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{System on Chip with RISCV}
+\author{QueenField}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{1. INTRODUCTION}\label{introduction}
+
+A System on Chip (SoC) is an integrated circuit that integrates
+components of a computer system (PU, RAM, GPIO, etc). As they are
+integrated on a single substrate, SoCs consume much less power and take
+up much less area than multi-chip designs with equivalent functionality.
+SoCs are common in the mobile computing, embedded systems and the
+Internet of Things.
+
+\section{2. PROJECTS}\label{projects}
+
+\subsection{2.1. CORE-RISCV}\label{core-riscv}
+
+\subsubsection{2.1.1. Definition}\label{definition}
+
+The RISC-V implementation has a 32/64/128 bit Microarchitecture, 6
+stages data pipeline and an Instruction Set Architecture based on
+Reduced Instruction Set Computer. Compatible with AMBA and Wishbone
+Buses. For Researching and Developing.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Processing Unit & Module description\tabularnewline
+\midrule
+\endhead
+riscv\_pu & Processing Unit\tabularnewline
+\ldots{}riscv\_core & Core\tabularnewline
+\ldots{}riscv\_imem\_ctrl & Instruction Memory Access
+Block\tabularnewline
+\ldots{}riscv\_biu - imem & Bus Interface Unit
+(Instruction)\tabularnewline
+\ldots{}riscv\_dmem\_ctrl & Data Memory Access Block\tabularnewline
+\ldots{}riscv\_biu - dmem & Bus Interface Unit (Data)\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.1.2. RISC Pipeline}\label{risc-pipeline}
+
+In computer science, instruction pipelining is a technique for
+implementing instruction-level parallelism within a PU. Pipelining
+attempts to keep every part of the processor busy with some instruction
+by dividing incoming instructions into a series of sequential steps
+performed by different PUs with different parts of instructions
+processed in parallel. It allows faster PU throughput than would
+otherwise be possible at a given clock rate.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Typical & Modified & Module\tabularnewline
+\midrule
+\endhead
+FETCH & FETCH & riscv\_if\tabularnewline
+\ldots{} & PRE-DECODE & riscv\_id\tabularnewline
+DECODE & DECODE & riscv\_id\tabularnewline
+EXECUTE & EXECUTE & riscv\_execution\tabularnewline
+MEMORY & MEMORY & riscv\_memory\tabularnewline
+WRITE-BACK & WRITE-BACK & riscv\_wb\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  IF -- Instruction Fetch Unit : Send out the PC and fetch the
+  instruction from memory into the Instruction Register (IR); increment
+  the PC to address the next sequential instruction. The IR is used to
+  hold the next instruction that will be needed on subsequent clock
+  cycles; likewise the register NPC is used to hold the next sequential
+  PC.
+\item
+  ID -- Instruction Decode Unit : Decode the instruction and access the
+  register file to read the registers. This unit gets instruction from
+  IF, and extracts opcode and operand from that instruction. It also
+  retrieves register values if requested by the operation.
+\item
+  EX -- Execution Unit : The ALU operates on the operands prepared in
+  prior cycle, performing one functions depending on instruction type.
+\item
+  MEM -- Memory Access Unit : Instructions active in this unit are
+  loads, stores and branches.
+\item
+  WB -- WriteBack Unit : Write the result into the register file,
+  whether it comes from the memory system or from the ALU.
+\end{itemize}
+
+\subsubsection{2.1.3. CORE-RISCV
+Organization}\label{core-riscv-organization}
+
+The CORE-RISCV is based on the Harvard architecture, which is a computer
+architecture with separate storage and signal pathways for instructions
+and data. The implementation is heavily modular, with each particular
+functional block of the design being contained within its own HDL module
+or modules. The RISCV implementation was developed in order to provide a
+better platform for processor component development than previous
+implementations.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Core & Module description\tabularnewline
+\midrule
+\endhead
+riscv\_core & Core\tabularnewline
+\ldots{}riscv\_if & Instruction Fetch\tabularnewline
+\ldots{}riscv\_id & Instruction Decoder\tabularnewline
+\ldots{}riscv\_execution & Execution Unit\tabularnewline
+\ldots{}..riscv\_alu & Arithmetic \& Logical Unit\tabularnewline
+\ldots{}..riscv\_lsu & Load Store Unit\tabularnewline
+\ldots{}..riscv\_bu & Branch Unit\tabularnewline
+\ldots{}..riscv\_mul & Multiplier Unit\tabularnewline
+\ldots{}..riscv\_div & Division Unit\tabularnewline
+\ldots{}riscv\_memory & Memory Unit\tabularnewline
+\ldots{}riscv\_wb & Data Memory Access (Write Back)\tabularnewline
+\ldots{}riscv\_state & State Unit\tabularnewline
+\ldots{}riscv\_rf & Register File\tabularnewline
+\ldots{}riscv\_bp & Correlating Branch Prediction Unit\tabularnewline
+\ldots{}..riscv\_ram\_1r1w & RAM 1RW1\tabularnewline
+\ldots{}\ldots{}.riscv\_ram\_1r1w\_generic & RAM 1RW1
+Generic\tabularnewline
+\ldots{}riscv\_du & Debug Unit\tabularnewline
+\bottomrule
+\end{longtable}
+
+In a Harvard architecture, there is no need to make the two memories
+share characteristics. In particular, the word width, timing,
+implementation technology, and memory address structure can differ. In
+some systems, instructions for pre-programmed tasks can be stored in
+read-only memory while data memory generally requires read-write memory.
+In some systems, there is much more instruction memory than data memory
+so instruction addresses are wider than data addresses.
+
+\subsubsection{2.1.4. Parameters}\label{parameters}
+
+\paragraph{2.1.4.1. Technology Parameters}\label{technology-parameters}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Parameter & Type & Default & Description\tabularnewline
+\midrule
+\endhead
+\texttt{JEDEC\_BANK} & \texttt{Integer} & 0x0A & JEDEC
+Bank\tabularnewline
+\texttt{JEDEC\_MANUFACTURER\_ID} & \texttt{Integer} & 0x6E & JEDEC
+Manufacturer ID\tabularnewline
+\texttt{XLEN} & \texttt{Integer} & 64 & Data Path Width\tabularnewline
+\texttt{PLEN} & \texttt{Integer} & 64 & Physical Memory Address
+Size\tabularnewline
+\texttt{PMP\_CNT} & \texttt{Integer} & 16 & Physical Memory Protection
+Entries\tabularnewline
+\texttt{PMA\_CNT} & \texttt{Integer} & 16 & Physical Menory Attribute
+Entries\tabularnewline
+\texttt{HAS\_USER} & \texttt{Integer} & 1 & User Mode
+Enable\tabularnewline
+\texttt{HAS\_SUPER} & \texttt{Integer} & 1 & Supervisor Mode
+Enable\tabularnewline
+\texttt{HAS\_HYPER} & \texttt{Integer} & 1 & Hypervisor Mode
+Enable\tabularnewline
+\texttt{HAS\_RVM} & \texttt{Integer} & 1 & ``M'' Extension
+Enable\tabularnewline
+\texttt{HAS\_RVA} & \texttt{Integer} & 1 & ``A'' Extension
+Enable\tabularnewline
+\texttt{HAS\_RVC} & \texttt{Integer} & 1 & ``C'' Extension
+Enable\tabularnewline
+\texttt{HAS\_BPU} & \texttt{Integer} & 1 & Branch Prediction Unit
+Control Enable\tabularnewline
+\texttt{IS\_RV32E} & \texttt{Integer} & 0 & Base Integer Instruction Set
+Enable\tabularnewline
+\texttt{MULT\_LATENCY} & \texttt{Integer} & 1 & Hardware Multiplier
+Latency\tabularnewline
+\texttt{ICACHE\_SIZE} & \texttt{Integer} & 16 & Instruction Cache
+size\tabularnewline
+\texttt{ICACHE\_BLOCK\_SIZE} & \texttt{Integer} & 64 & Instruction Cache
+block length\tabularnewline
+\texttt{ICACHE\_WAYS} & \texttt{Integer} & 2 & Instruction Cache
+associativity\tabularnewline
+\texttt{ICACHE\_REPLACE\_ALG} & \texttt{Integer} & 0 & Instruction Cache
+replacement\tabularnewline
+\texttt{DCACHE\_SIZE} & \texttt{Integer} & 16 & Data Cache
+size\tabularnewline
+\texttt{DCACHE\_BLOCK\_SIZE} & \texttt{Integer} & 64 & Data Cache block
+length\tabularnewline
+\texttt{DCACHE\_WAYS} & \texttt{Integer} & 2 & Data Cache
+associativity\tabularnewline
+\texttt{DCACHE\_REPLACE\_ALG} & \texttt{Integer} & 0 & Data Cache
+replacement algorithm\tabularnewline
+\texttt{HARTID} & \texttt{Integer} & 0 & Hart Identifier\tabularnewline
+\texttt{PC\_INIT} & \texttt{Address} & \texttt{\textquotesingle{}h200} &
+Program Counter Initialisation Vector\tabularnewline
+\texttt{MNMIVEC\_DEFAULT} & \texttt{Address} &
+\texttt{PC\_INIT-\textquotesingle{}h004} & Machine Mode
+Non-Maskable\tabularnewline
+\texttt{MTVEC\_DEFAULT} & \texttt{Address} &
+\texttt{PC\_INIT-\textquotesingle{}h040} & Machine Mode Interrupt
+Address\tabularnewline
+\texttt{HTVEC\_DEFAULT} & \texttt{Address} &
+\texttt{PC\_INIT-\textquotesingle{}h080} & Hypervisor Mode Interrupt
+Address\tabularnewline
+\texttt{STVEC\_DEFAULT} & \texttt{Address} &
+\texttt{PC\_INIT-\textquotesingle{}h0C0} & Supervisor Mode Interrupt
+Address\tabularnewline
+\texttt{UTVEC\_DEFAULT} & \texttt{Address} &
+\texttt{PC\_INIT-\textquotesingle{}h100} & User Mode Interrupt
+Address\tabularnewline
+\texttt{BP\_LOCAL\_BITS} & \texttt{Integer} & 10 & Number of local
+predictor bits\tabularnewline
+\texttt{BP\_GLOBAL\_BITS} & \texttt{Integer} & 2 & Number of global
+predictor bits\tabularnewline
+\texttt{BREAKPOINTS} & \texttt{Integer} & 3 & Number of hardware
+breakpoints\tabularnewline
+\texttt{TECHNOLOGY} & \texttt{String} & \texttt{GENERIC} & Target
+Silicon Technology\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.1.5. Opcodes}\label{opcodes}
+
+\paragraph{2.1.5.1. RV32I : Base Integer Instruction
+Set}\label{rv32i-base-integer-instruction-set}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV32I & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+LUI RD, IMM & IIIIIII & IIIII & IIIII & III & RD4:0 &
+0110111\tabularnewline
+AUPIC RD, IMM & IIIIIII & IIIII & IIIII & III & RD4:0 &
+0010111\tabularnewline
+JAL RD, IMM & IIIIIII & IIIII & IIIII & III & RD4:0 &
+1101111\tabularnewline
+JALR RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 000 & RD4:0 &
+1101111\tabularnewline
+BEQ RS1,RS2,IMM & IIIIIII & RS24:0 & RS14:0 & 000 & IIIII &
+1100011\tabularnewline
+BNE RS1,RS2,IMM & IIIIIII & RS24:0 & RS14:0 & 001 & IIIII &
+1100011\tabularnewline
+BLT RS1,RS2,IMM & IIIIIII & RS24:0 & RS14:0 & 100 & IIIII &
+1100011\tabularnewline
+BGE RS1,RS2,IMM & IIIIIII & RS24:0 & RS14:0 & 101 & IIIII &
+1100011\tabularnewline
+BLTU RS1,RS2,IMM & IIIIIII & RS24:0 & RS14:0 & 110 & IIIII &
+1100011\tabularnewline
+BGEU RS1,RS2,IMM & IIIIIII & RS24:0 & RS14:0 & 111 & IIIII &
+1100011\tabularnewline
+LB RD, RS1 & IIIIIII & IIIII & RS14:0 & 000 & RD4:0 &
+0000011\tabularnewline
+LH RD, RS1 & IIIIIII & IIIII & RS14:0 & 001 & RD4:0 &
+0000011\tabularnewline
+LW RD, RS1 & IIIIIII & IIIII & RS14:0 & 010 & RD4:0 &
+0000011\tabularnewline
+LBU RD, RS1 & IIIIIII & IIIII & RS14:0 & 100 & RD4:0 &
+0000011\tabularnewline
+LHU RD, RS1 & IIIIIII & IIIII & RS14:0 & 101 & RD4:0 &
+0000011\tabularnewline
+SB RS2,RS1 & IIIIIII & RS24:0 & RS14:0 & 000 & IIIII &
+0100011\tabularnewline
+SH RS2,RS1 & IIIIIII & RS24:0 & RS14:0 & 001 & IIIII &
+0100011\tabularnewline
+SW RS2,RS1 & IIIIIII & RS24:0 & RS14:0 & 010 & IIIII &
+0100011\tabularnewline
+ADDI RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 000 & RD4:0 &
+0010011\tabularnewline
+SLTI RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 010 & RD4:0 &
+0010011\tabularnewline
+SLTIU RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 011 & RD4:0 &
+0010011\tabularnewline
+XORI RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 100 & RD4:0 &
+0010011\tabularnewline
+ORI RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 110 & RD4:0 &
+0010011\tabularnewline
+ANDI RD,RS1,IMM & IIIIIII & IIIII & RS14:0 & 111 & RD4:0 &
+0010011\tabularnewline
+SLLI RD,RS1,IMM & 0000000 & IIII & RS14:0 & 001 & RD4:0 &
+0010011\tabularnewline
+SRLI RD,RS1,IMM & 0000000 & IIII & RS14:0 & 101 & RD4:0 &
+0010011\tabularnewline
+SRAI RD,RS1,IMM & 0100000 & IIII & RS14:0 & 101 & RD4:0 &
+0010011\tabularnewline
+ADD RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 000 & RD4:0 &
+0110011\tabularnewline
+SUB RD,RS1,RS2 & 0100000 & RS24:0 & RS14:0 & 000 & RD4:0 &
+0110011\tabularnewline
+SLL RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 001 & RD4:0 &
+0110011\tabularnewline
+SLT RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 010 & RD4:0 &
+0110011\tabularnewline
+SLTU RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 011 & RD4:0 &
+0110011\tabularnewline
+XOR RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 100 & RD4:0 &
+0110011\tabularnewline
+SRL RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 101 & RD4:0 &
+0110011\tabularnewline
+SRA RD,RS1,RS2 & 0100000 & RS24:0 & RS14:0 & 101 & RD4:0 &
+0110011\tabularnewline
+OR RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 110 & RD4:0 &
+0110011\tabularnewline
+AND RD,RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 111 & RD4:0 &
+0110011\tabularnewline
+FENCE PRED,SUCC & 0000PPP & PSSSS & 00000 & 000 & 00000 &
+0001111\tabularnewline
+FENCE.I & 0000P00 & 00000 & 00000 & 001 & 00000 & 0001111\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.2. RV64I : Base Integer Instruction Set
+(64bit)}\label{rv64i-base-integer-instruction-set-64bit}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV64I & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+LWU RD, RS1 & IIIIIII & IIIII & RS14:0 & 110 & RD4:0 &
+0000011\tabularnewline
+LD RD, RS1 & IIIIIII & IIIII & RS14:0 & 011 & RD4:0 &
+0000011\tabularnewline
+SD RD, RS1,RS2 & IIIIIII & RS24:0 & RS14:0 & 011 & IIIII &
+0000011\tabularnewline
+SLLI RD, RS1,IMM & 0000000 & IIIII & RS14:0 & 001 & RD4:0 &
+0010011\tabularnewline
+SRLI RD, RS1,IMM & 0000000 & IIIII & RS14:0 & 001 & RD4:0 &
+0010011\tabularnewline
+SRAI RD, RS1,IMM & 0100000 & IIIII & RS14:0 & 001 & RD4:0 &
+0010011\tabularnewline
+ADDIW RD, RS1 & IIIIIII & IIIII & RS14:0 & 000 & RD4:0 &
+0011011\tabularnewline
+SLLIW RD, RS1 & 0000000 & IIIII & RS14:0 & 001 & RD4:0 &
+0011011\tabularnewline
+SRLIW RD, RS1 & 0000000 & IIIII & RS14:0 & 101 & RD4:0 &
+0011011\tabularnewline
+SRAIW RD, RS1 & 0100000 & IIIII & RS14:0 & 101 & RD4:0 &
+0011011\tabularnewline
+ADDW RD, RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 000 & RD4:0 &
+0111011\tabularnewline
+SUBW RD, RS1,RS2 & 0100000 & RS24:0 & RS14:0 & 000 & RD4:0 &
+0111011\tabularnewline
+SLIW RD, RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 001 & RD4:0 &
+0111011\tabularnewline
+SRLW RD, RS1,RS2 & 0000000 & RS24:0 & RS14:0 & 101 & RD4:0 &
+0111011\tabularnewline
+SRAW RD, RS1,RS2 & 0100000 & RS24:0 & RS14:0 & 101 & RD4:0 &
+0111011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.3. RV32M : Standard Extension for Integer Multiply and
+Divide}\label{rv32m-standard-extension-for-integer-multiply-and-divide}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV32M & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+MUL RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 000 & RD4:0 &
+0110011\tabularnewline
+MULH RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 001 & RD4:0 &
+0110011\tabularnewline
+MULHSU RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 010 & RD4:0 &
+0110011\tabularnewline
+MULHU RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 011 & RD4:0 &
+0110011\tabularnewline
+DIV RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 100 & RD4:0 &
+0110011\tabularnewline
+DIVU RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 101 & RD4:0 &
+0110011\tabularnewline
+REM RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 110 & RD4:0 &
+0110011\tabularnewline
+REMU RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 111 & RD4:0 &
+0110011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.4. RV64M : Standard Extension for Integer Multiply and
+Divide
+(64bit)}\label{rv64m-standard-extension-for-integer-multiply-and-divide-64bit}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV64M & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+MULW RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 000 & RD4:0 &
+0111011\tabularnewline
+DIVW RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 100 & RD4:0 &
+0111011\tabularnewline
+DIVUW RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 101 & RD4:0 &
+0111011\tabularnewline
+REMW RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 110 & RD4:0 &
+0111011\tabularnewline
+REMUW RD,RS1,RS2 & 0000001 & RS24:0 & RS14:0 & 111 & RD4:0 &
+0111011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.5. RV32A : Standard Extension for Atomic
+Instructions}\label{rv32a-standard-extension-for-atomic-instructions}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV32A & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+LR.W AQRL,RD,RS1 & 00010AQRL & 00000 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+SC.W AQRL,RD,RS2,RS1 & 00011AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOSWAP.W AQRL,RD,RS2,RS1 & 00001AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOSADD.W AQRL,RD,RS2,RS1 & 00000AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOSXOR.W AQRL,RD,RS2,RS1 & 00100AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOOR.W AQRL,RD,RS2,RS1 & 01000AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOAMD.W AQRL,RD,RS2,RS1 & 01100AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOMIN.W AQRL,RD,RS2,RS1 & 10000AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOMAX.W AQRL,RD,RS2,RS1 & 10100AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOMINU.W AQRL,RD,RS2,RS1 & 11000AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+AMOMAXU.W AQRL,RD,RS2,RS1 & 11100AQRL & RS24:0 & RS14:0 & 010 & RD4:0 &
+0101111\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.6. RV64A : Standard Extension for Atomic Instructions
+(64bit)}\label{rv64a-standard-extension-for-atomic-instructions-64bit}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV64A & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+LR.D AQRL,RD,RS1 & 00010AQRL & 00000 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+SC.D AQRL,RD,RS2,RS1 & 00011AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOSWAP.D AQRL,RD,RS2,RS1 & 00001AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOSADD.D AQRL,RD,RS2,RS1 & 00000AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOSXOR.D AQRL,RD,RS2,RS1 & 00100AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOOR.D AQRL,RD,RS2,RS1 & 01000AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOAMD.D AQRL,RD,RS2,RS1 & 01100AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOMIN.D AQRL,RD,RS2,RS1 & 10000AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOMAX.D AQRL,RD,RS2,RS1 & 10100AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOMINU.D AQRL,RD,RS2,RS1 & 11000AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+AMOMAXU.D AQRL,RD,RS2,RS1 & 11100AQRL & RS24:0 & RS14:0 & 011 & RD4:0 &
+0101111\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.7. RV32F : Standard Extension for Single-Precision
+Floating-Point}\label{rv32f-standard-extension-for-single-precision-floating-point}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV32F & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+FLW FRD,RS1 & IIIIIII & IIIII & FRS1 & 010 & FRD &
+0000111\tabularnewline
+FSW FRS2,RS1 & IIIIIII & FRS2 & FRS1 & 010 & IIIII &
+0100111\tabularnewline
+FMADD.S RM,FRD,FRS1,FRS2,FRS3 & FRS3\_00 & FRS2 & FRS1 & RM & FRD &
+1000011\tabularnewline
+FMSUB.S RM,FRD,FRS1,FRS2,FRS3 & FRS3\_00 & FRS2 & FRS1 & RM & FRD &
+1000111\tabularnewline
+FNMSUB.S RM,FRD,FRS1,FRS2,FRS3 & FRS3\_00 & FRS2 & FRS1 & RM & FRD &
+1001011\tabularnewline
+FNMADD.S RM,FRD,FRS1,FRS2,FRS3 & FRS3\_00 & FRS2 & FRS1 & RM & FRD &
+1001111\tabularnewline
+FADD.S RM,FRD,FRS1,FRS2,FRS3 & 0000000 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FSUB.S RM,FRD,FRS1,FRS2,FRS3 & 0000100 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FMUL.S RM,FRD,FRS1,FRS2,FRS3 & 0001000 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FDIV.S RM,FRD,FRS1,FRS2,FRS3 & 0001100 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FSGNJ.S FRD,FRS1,FRS2 & 0010000 & FRS2 & FRS1 & 000 & FRD &
+1010011\tabularnewline
+FSGNJN.S FRD,FRS1,FRS2 & 0010000 & FRS2 & FRS1 & 001 & FRD &
+1010011\tabularnewline
+FSGNJX.S FRD,FRS1,FRS2 & 0010000 & FRS2 & FRS1 & 010 & FRD &
+1010011\tabularnewline
+FMIN.S FRD,FRS1,FRS2 & 0010100 & FRS2 & FRS1 & 000 & FRD &
+1010011\tabularnewline
+FMAX.S FRD,FRS1,FRS2 & 0010100 & FRS2 & FRS1 & 001 & FRD &
+1010011\tabularnewline
+FSQRT.S FRD,FRS1,FRS2 & 0101100 & 00000 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FLE.S FRD,FRS1,FRS2 & 1010000 & FRS2 & FRS1 & 000 & FRD &
+1010011\tabularnewline
+FLT.S FRD,FRS1,FRS2 & 1010000 & FRS2 & FRS1 & 001 & FRD &
+1010011\tabularnewline
+FEQ.S FRD,FRS1,FRS2 & 1010000 & FRS2 & FRS1 & 010 & FRD &
+1010011\tabularnewline
+FCVT.W.S RM,RD,FRS1 & 1100000 & 00000 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.WU.S RM,RD,FRS1 & 1100000 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.S.W RM,RD,FRS1 & 1101000 & 00000 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.S.WU RM,RD,FRS1 & 1101000 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FMV.X.S RD,FRS1 & 1110000 & 00000 & FRS1 & 000 & RD &
+1010011\tabularnewline
+FCLASS.S RD,FRS1 & 1110000 & 00000 & FRS1 & 001 & RD &
+1010011\tabularnewline
+FMV.S.X RD,FRS1 & 1111000 & 00000 & RS1 & 000 & FRD &
+1010011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.8. RV64F : Standard Extension for Single-Precision
+Floating-Point
+(64bit)}\label{rv64f-standard-extension-for-single-precision-floating-point-64bit}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV64F & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+FCVT.L.S RM,RD,FRS1 & 1100000 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.LU.S RM,RD,FRS1 & 1100000 & 00011 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.S.L RM,RD,FRS1 & 1101000 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.S.LU RM,RD,FRS1 & 1101000 & 00011 & FRS1 & RM & FRD &
+1010011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.9. RV32D : Standard Extension for Double-Precision
+Floating-Point}\label{rv32d-standard-extension-for-double-precision-floating-point}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV32F & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+FLW FRD,RS1 & IIIIIII & IIIII & FRS1 & 011 & FRD &
+0000111\tabularnewline
+FSW FRS2,RS1 & IIIIIII & FRS2 & FRS1 & 011 & IIIII &
+0100111\tabularnewline
+FMADD.D RM,FRD,FRS1,FRS2,FRS3 & FRS3\_01 & FRS2 & FRS1 & RM & FRD &
+1000011\tabularnewline
+FMSUB.D RM,FRD,FRS1,FRS2,FRS3 & FRS3\_01 & FRS2 & FRS1 & RM & FRD &
+1000111\tabularnewline
+FNMSUB.D RM,FRD,FRS1,FRS2,FRS3 & FRS3\_01 & FRS2 & FRS1 & RM & FRD &
+1001011\tabularnewline
+FNMADD.D RM,FRD,FRS1,FRS2,FRS3 & FRS3\_01 & FRS2 & FRS1 & RM & FRD &
+1001111\tabularnewline
+FADD.D RM,FRD,FRS1,FRS2,FRS3 & 0000001 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FSUB.D RM,FRD,FRS1,FRS2,FRS3 & 0000101 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FMUL.D RM,FRD,FRS1,FRS2,FRS3 & 0001001 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FDIV.D RM,FRD,FRS1,FRS2,FRS3 & 0001101 & FRS2 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FSGNJ.D FRD,FRS1,FRS2 & 0010001 & FRS2 & FRS1 & 000 & FRD &
+1010011\tabularnewline
+FSGNJN.D FRD,FRS1,FRS2 & 0010001 & FRS2 & FRS1 & 001 & FRD &
+1010011\tabularnewline
+FSGNJX.D FRD,FRS1,FRS2 & 0010001 & FRS2 & FRS1 & 010 & FRD &
+1010011\tabularnewline
+FMIN.D FRD,FRS1,FRS2 & 0010101 & FRS2 & FRS1 & 000 & FRD &
+1010011\tabularnewline
+FMAX.D FRD,FRS1,FRS2 & 0010101 & FRS2 & FRS1 & 001 & FRD &
+1010011\tabularnewline
+FSQRT.D FRD,FRS1,FRS2 & 0101101 & 00000 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FLE.D FRD,FRS1,FRS2 & 1010001 & FRS2 & FRS1 & 000 & FRD &
+1010011\tabularnewline
+FLT.D FRD,FRS1,FRS2 & 1010001 & FRS2 & FRS1 & 001 & FRD &
+1010011\tabularnewline
+FEQ.D FRD,FRS1,FRS2 & 1010001 & FRS2 & FRS1 & 010 & FRD &
+1010011\tabularnewline
+FCVT.W.D RM,RD,FRS1 & 1100001 & 00000 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.WU.D RM,RD,FRS1 & 1100001 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.D.W RM,RD,FRS1 & 1101001 & 00000 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.D.WU RM,RD,FRS1 & 1101001 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCLASS.D RD,FRS1 & 1110001 & 00000 & FRS1 & 001 & RD &
+1010011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.1.5.10. RV64D : Standard Extension for Double-Precision
+Floating-Point
+(64bit)}\label{rv64d-standard-extension-for-double-precision-floating-point-64bit}
+
+\begin{longtable}[]{@{}lcccccc@{}}
+\toprule
+RV64D & 31:25 & 24:20 & 19:15 & 14:12 & 11:7 & 6:0\tabularnewline
+\midrule
+\endhead
+FCVT.L.D RM,RD,FRS1 & 1100001 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.LU.D RM,RD,FRS1 & 1100001 & 00011 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.D.L RM,RD,FRS1 & 1101001 & 00010 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FCVT.D.LU RM,RD,FRS1 & 1101001 & 00011 & FRS1 & RM & FRD &
+1010011\tabularnewline
+FMV.X.D RD,FRS1 & 1110001 & 00000 & FRS1 & 000 & RD &
+1010011\tabularnewline
+FMV.D.X RD,FRS1 & 1111001 & 00000 & RS1 & 000 & FRD &
+1010011\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.1.6. Instruction INPUTS/OUTPUTS
+Bus}\label{instruction-inputsoutputs-bus}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{ins\_stb} & 1 & Input & Strobe\tabularnewline
+\texttt{ins\_stb\_ack} & 1 & Output & Strobe acknowledge\tabularnewline
+\texttt{ins\_d\_ack} & 1 & Output & Data acknowledge\tabularnewline
+\texttt{ins\_adri} & \texttt{PLEN} & Input & Start
+address\tabularnewline
+\texttt{ins\_adro} & \texttt{PLEN} & Output & Response
+address\tabularnewline
+\texttt{ins\_size} & 3 & Input & Syze\tabularnewline
+\texttt{ins\_type} & 3 & Input & Type\tabularnewline
+\texttt{ins\_prot} & 3 & Input & Protection\tabularnewline
+\texttt{ins\_lock} & 1 & Input & Locked access\tabularnewline
+\texttt{ins\_d} & \texttt{XLEN} & Input & Write data\tabularnewline
+\texttt{ins\_q} & \texttt{XLEN} & Output & Read data\tabularnewline
+\texttt{ins\_ack} & 1 & Output & Acknowledge\tabularnewline
+\texttt{ins\_err} & 1 & Output & Error\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.1.7. Data INPUTS/OUTPUTS
+Bus}\label{data-inputsoutputs-bus}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{dat\_stb} & 1 & Input & Strobe\tabularnewline
+\texttt{dat\_stb\_ack} & 1 & Output & Strobe acknowledge\tabularnewline
+\texttt{dat\_d\_ack} & 1 & Output & Data acknowledge\tabularnewline
+\texttt{dat\_adri} & \texttt{PLEN} & Input & Start
+address\tabularnewline
+\texttt{dat\_adro} & \texttt{PLEN} & Output & Response
+address\tabularnewline
+\texttt{dat\_size} & 3 & Input & Syze\tabularnewline
+\texttt{dat\_type} & 3 & Input & Type\tabularnewline
+\texttt{dat\_prot} & 3 & Input & Protection\tabularnewline
+\texttt{dat\_lock} & 1 & Input & Locked access\tabularnewline
+\texttt{dat\_d} & \texttt{XLEN} & Input & Write data\tabularnewline
+\texttt{dat\_q} & \texttt{XLEN} & Output & Read data\tabularnewline
+\texttt{dat\_ack} & 1 & Output & Acknowledge\tabularnewline
+\texttt{dat\_err} & 1 & Output & Error\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{2.2. INSTRUCTION CACHE}\label{instruction-cache}
+
+A PU cache is a hardware cache used by the PU to reduce the average cost
+(time or energy) to access instruction/data from the main memory. A
+cache is a smaller, faster memory, closer to a core, which stores copies
+of the data from frequently used main memory locations. Most CPUs have
+different independent caches, including instruction and data caches.
+
+\subsubsection{2.2.1. Instruction
+Organization}\label{instruction-organization}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Instruction Memory & Module description\tabularnewline
+\midrule
+\endhead
+riscv\_imem\_ctrl & Instruction Memory Access Block\tabularnewline
+\ldots{}riscv\_membuf & Memory Access Buffer\tabularnewline
+\ldots{}..riscv\_ram\_queue & Fall-through Queue\tabularnewline
+\ldots{}riscv\_memmisaligned & Misalignment Check\tabularnewline
+\ldots{}riscv\_mmu & Memory Management Unit\tabularnewline
+\ldots{}riscv\_pmachk & Physical Memory Attributes
+Checker\tabularnewline
+\ldots{}riscv\_pmpchk & Physical Memory Protection
+Checker\tabularnewline
+\ldots{}riscv\_icache\_core & Instruction Cache (Write
+Back)\tabularnewline
+\ldots{}..riscv\_ram\_1rw & RAM 1RW\tabularnewline
+\ldots{}\ldots{}.riscv\_ram\_1rw\_generic & RAM 1RW
+Generic\tabularnewline
+\ldots{}riscv\_dext & Data External Access Logic\tabularnewline
+\ldots{}riscv\_ram\_queue & Fall-through Queue\tabularnewline
+\ldots{}riscv\_mux & Bus-Interface-Unit Mux\tabularnewline
+riscv\_biu & Bus Interface Unit\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.2.2 Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite
+Bus}\label{instruction-inputsoutputs-amba4-axi-lite-bus}
+
+\paragraph{2.2.2.1. Signals of the Read and Write Address
+channels}\label{signals-of-the-read-and-write-address-channels}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Write Port & Read Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{AWID} & \texttt{ARID} & \texttt{AXI\_ID\_WIDTH} & Output &
+Address ID, to identify multiple streams\tabularnewline
+\texttt{AWADDR} & \texttt{ARADDR} & \texttt{AXI\_ADDR\_WIDTH} & Output &
+Address of the first beat of the burst\tabularnewline
+\texttt{AWLEN} & \texttt{ARLEN} & 8 & Output & Number of beats inside
+the burst\tabularnewline
+\texttt{AWSIZE} & \texttt{ARSIZE} & 3 & Output & Size of each
+beat\tabularnewline
+\texttt{AWBURST} & \texttt{ARBURST} & 2 & Output & Type of the
+burst\tabularnewline
+\texttt{AWLOCK} & \texttt{ARLOCK} & 1 & Output & Lock type, to provide
+atomic operations\tabularnewline
+\texttt{AWCACHE} & \texttt{ARCACHE} & 4 & Output & Memory type, progress
+through the system\tabularnewline
+\texttt{AWPROT} & \texttt{ARPROT} & 3 & Output & Protection
+type\tabularnewline
+\texttt{AWQOS} & \texttt{ARQOS} & 4 & Output & Quality of Service of the
+transaction\tabularnewline
+\texttt{AWREGION} & \texttt{ARREGION} & 4 & Output & Region identifier,
+physical to logical\tabularnewline
+\texttt{AWUSER} & \texttt{ARUSER} & \texttt{AXI\_USER\_WIDTH} & Output &
+User-defined data\tabularnewline
+\texttt{AWVALID} & \texttt{ARVALID} & 1 & Output & xVALID handshake
+signal\tabularnewline
+\texttt{AWREADY} & \texttt{ARREADY} & 1 & Input & xREADY handshake
+signal\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.2.2.2. Signals of the Read and Write Data
+channels}\label{signals-of-the-read-and-write-data-channels}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Write Port & Read Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{WID} & \texttt{RID} & \texttt{AXI\_ID\_WIDTH} & Output & Data
+ID, to identify multiple streams\tabularnewline
+\texttt{WDATA} & \texttt{RDATA} & \texttt{AXI\_DATA\_WIDTH} & Output &
+Read/Write data\tabularnewline
+\texttt{-\/-} & \texttt{RRESP} & 2 & Output & Read response, current
+RDATA status\tabularnewline
+\texttt{WSTRB} & \texttt{-\/-} & \texttt{AXI\_STRB\_WIDTH} & Output &
+Byte strobe, WDATA signal\tabularnewline
+\texttt{WLAST} & \texttt{RLAST} & 1 & Output & Last beat
+identifier\tabularnewline
+\texttt{WUSER} & \texttt{RUSER} & \texttt{AXI\_USER\_WIDTH} & Output &
+User-defined data\tabularnewline
+\texttt{WVALID} & \texttt{RVALID} & 1 & Output & xVALID handshake
+signal\tabularnewline
+\texttt{WREADY} & \texttt{RREADY} & 1 & Input & xREADY handshake
+signal\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.2.2.3. Signals of the Write Response
+channel}\label{signals-of-the-write-response-channel}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Write Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{BID} & \texttt{AXI\_ID\_WIDTH} & Input & Write response ID, to
+identify multiple streams\tabularnewline
+\texttt{BRESP} & 2 & Input & Write response, to specify the burst
+status\tabularnewline
+\texttt{BUSER} & \texttt{AXI\_USER\_WIDTH} & Input & User-defined
+data\tabularnewline
+\texttt{BVALID} & 1 & Input & xVALID handshake signal\tabularnewline
+\texttt{BREADY} & 1 & Output & xREADY handshake signal\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.2.3. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite
+Bus}\label{instruction-inputsoutputs-amba3-ahb-lite-bus}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{HRESETn} & 1 & Input & Asynchronous Active Low
+Reset\tabularnewline
+\texttt{HCLK} & 1 & Input & System Clock Input\tabularnewline
+& & &\tabularnewline
+\texttt{IHSEL} & 1 & Output & Instruction Bus Select\tabularnewline
+\texttt{IHADDR} & \texttt{PLEN} & Output & Instruction Address
+Bus\tabularnewline
+\texttt{IHRDATA} & \texttt{XLEN} & Input & Instruction Read Data
+Bus\tabularnewline
+\texttt{IHWDATA} & \texttt{XLEN} & Output & Instruction Write Data
+Bus\tabularnewline
+\texttt{IHWRITE} & 1 & Output & Instruction Write Select\tabularnewline
+\texttt{IHSIZE} & 3 & Output & Instruction Transfer Size\tabularnewline
+\texttt{IHBURST} & 3 & Output & Instruction Transfer Burst
+Size\tabularnewline
+\texttt{IHPROT} & 4 & Output & Instruction Transfer Protection
+Level\tabularnewline
+\texttt{IHTRANS} & 2 & Output & Instruction Transfer Type\tabularnewline
+\texttt{IHMASTLOCK} & 1 & Output & Instruction Transfer Master
+Lock\tabularnewline
+\texttt{IHREADY} & 1 & Input & Instruction Slave Ready
+Indicator\tabularnewline
+\texttt{IHRESP} & 1 & Input & Instruction Transfer
+Response\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.2.4. Instruction INPUTS/OUTPUTS Wishbone
+Bus}\label{instruction-inputsoutputs-wishbone-bus}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{rst} & 1 & Input & Synchronous Active High Reset\tabularnewline
+\texttt{clk} & 1 & Input & System Clock Input\tabularnewline
+& & &\tabularnewline
+\texttt{iadr} & \texttt{AW} & Input & Instruction Address
+Bus\tabularnewline
+\texttt{idati} & \texttt{DW} & Input & Instruction Input
+Bus\tabularnewline
+\texttt{idato} & \texttt{DW} & Output & Instruction Output
+Bus\tabularnewline
+\texttt{isel} & \texttt{DW/8} & Input & Byte Select
+Signals\tabularnewline
+\texttt{iwe} & 1 & Input & Write Enable Input\tabularnewline
+\texttt{istb} & 1 & Input & Strobe Signal/Core Select
+Input\tabularnewline
+\texttt{icyc} & 1 & Input & Valid Bus Cycle Input\tabularnewline
+\texttt{iack} & 1 & Output & Bus Cycle Acknowledge Output\tabularnewline
+\texttt{ierr} & 1 & Output & Bus Cycle Error Output\tabularnewline
+\texttt{iint} & 1 & Output & Interrupt Signal Output\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{2.3. DATA CACHE}\label{data-cache}
+
+\subsubsection{2.3.1. Data Organization}\label{data-organization}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Data Memory & Module description\tabularnewline
+\midrule
+\endhead
+riscv\_dmem\_ctrl & Data Memory Access Block\tabularnewline
+\ldots{}riscv\_membuf & Memory Access Buffer\tabularnewline
+\ldots{}..riscv\_ram\_queue & Fall-through Queue\tabularnewline
+\ldots{}riscv\_memmisaligned & Misalignment Check\tabularnewline
+\ldots{}riscv\_mmu & Memory Management Unit\tabularnewline
+\ldots{}riscv\_pmachk & Physical Memory Attributes
+Checker\tabularnewline
+\ldots{}riscv\_pmpchk & Physical Memory Protection
+Checker\tabularnewline
+\ldots{}riscv\_dcache\_core & Data Cache (Write Back)\tabularnewline
+\ldots{}..riscv\_ram\_1rw & RAM 1RW\tabularnewline
+\ldots{}\ldots{}.riscv\_ram\_1rw\_generic & RAM 1RW
+Generic\tabularnewline
+\ldots{}riscv\_dext & Data External Access Logic\tabularnewline
+\ldots{}riscv\_mux & Bus-Interface-Unit Mux\tabularnewline
+riscv\_biu & Bus Interface Unit\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.3.2. Data INPUTS/OUTPUTS AMBA4 AXI-Lite
+Bus}\label{data-inputsoutputs-amba4-axi-lite-bus}
+
+\paragraph{2.3.2.1. Signals of the Read and Write Address
+channels}\label{signals-of-the-read-and-write-address-channels-1}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Write Port & Read Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{AWID} & \texttt{ARID} & \texttt{AXI\_ID\_WIDTH} & Output &
+Address ID, to identify multiple streams\tabularnewline
+\texttt{AWADDR} & \texttt{ARADDR} & \texttt{AXI\_ADDR\_WIDTH} & Output &
+Address of the first beat of the burst\tabularnewline
+\texttt{AWLEN} & \texttt{ARLEN} & 8 & Output & Number of beats inside
+the burst\tabularnewline
+\texttt{AWSIZE} & \texttt{ARSIZE} & 3 & Output & Size of each
+beat\tabularnewline
+\texttt{AWBURST} & \texttt{ARBURST} & 2 & Output & Type of the
+burst\tabularnewline
+\texttt{AWLOCK} & \texttt{ARLOCK} & 1 & Output & Lock type, to provide
+atomic operations\tabularnewline
+\texttt{AWCACHE} & \texttt{ARCACHE} & 4 & Output & Memory type, progress
+through the system\tabularnewline
+\texttt{AWPROT} & \texttt{ARPROT} & 3 & Output & Protection
+type\tabularnewline
+\texttt{AWQOS} & \texttt{ARQOS} & 4 & Output & Quality of Service of the
+transaction\tabularnewline
+\texttt{AWREGION} & \texttt{ARREGION} & 4 & Output & Region identifier,
+physical to logical\tabularnewline
+\texttt{AWUSER} & \texttt{ARUSER} & \texttt{AXI\_USER\_WIDTH} & Output &
+User-defined data\tabularnewline
+\texttt{AWVALID} & \texttt{ARVALID} & 1 & Output & xVALID handshake
+signal\tabularnewline
+\texttt{AWREADY} & \texttt{ARREADY} & 1 & Input & xREADY handshake
+signal\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.3.2.2. Signals of the Read and Write Data
+channels}\label{signals-of-the-read-and-write-data-channels-1}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Write Port & Read Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{WID} & \texttt{RID} & \texttt{AXI\_ID\_WIDTH} & Output & Data
+ID, to identify multiple streams\tabularnewline
+\texttt{WDATA} & \texttt{RDATA} & \texttt{AXI\_DATA\_WIDTH} & Output &
+Read/Write data\tabularnewline
+\texttt{-\/-} & \texttt{RRESP} & 2 & Output & Read response, current
+RDATA status\tabularnewline
+\texttt{WSTRB} & \texttt{-\/-} & \texttt{AXI\_STRB\_WIDTH} & Output &
+Byte strobe, WDATA signal\tabularnewline
+\texttt{WLAST} & \texttt{RLAST} & 1 & Output & Last beat
+identifier\tabularnewline
+\texttt{WUSER} & \texttt{RUSER} & \texttt{AXI\_USER\_WIDTH} & Output &
+User-defined data\tabularnewline
+\texttt{WVALID} & \texttt{RVALID} & 1 & Output & xVALID handshake
+signal\tabularnewline
+\texttt{WREADY} & \texttt{RREADY} & 1 & Input & xREADY handshake
+signal\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{2.3.2.3. Signals of the Write Response
+channel}\label{signals-of-the-write-response-channel-1}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Write Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{BID} & \texttt{AXI\_ID\_WIDTH} & Input & Write response ID, to
+identify multiple streams\tabularnewline
+\texttt{BRESP} & 2 & Input & Write response, to specify the burst
+status\tabularnewline
+\texttt{BUSER} & \texttt{AXI\_USER\_WIDTH} & Input & User-defined
+data\tabularnewline
+\texttt{BVALID} & 1 & Input & xVALID handshake signal\tabularnewline
+\texttt{BREADY} & 1 & Output & xREADY handshake signal\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.3.3. Data INPUTS/OUTPUTS AMBA3 AHB-Lite
+Bus}\label{data-inputsoutputs-amba3-ahb-lite-bus}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{HRESETn} & 1 & Input & Asynchronous Active Low
+Reset\tabularnewline
+\texttt{HCLK} & 1 & Input & System Clock Input\tabularnewline
+& & &\tabularnewline
+\texttt{DHSEL} & 1 & Output & Data Bus Select\tabularnewline
+\texttt{DHADDR} & \texttt{PLEN} & Output & Data Address
+Bus\tabularnewline
+\texttt{DHRDATA} & \texttt{XLEN} & Input & Data Read Data
+Bus\tabularnewline
+\texttt{DHWDATA} & \texttt{XLEN} & Output & Data Write Data
+Bus\tabularnewline
+\texttt{DHWRITE} & 1 & Output & Data Write Select\tabularnewline
+\texttt{DHSIZE} & 3 & Output & Data Transfer Size\tabularnewline
+\texttt{DHBURST} & 3 & Output & Data Transfer Burst Size\tabularnewline
+\texttt{DHPROT} & 4 & Output & Data Transfer Protection
+Level\tabularnewline
+\texttt{DHTRANS} & 2 & Output & Data Transfer Type\tabularnewline
+\texttt{DHMASTLOCK} & 1 & Output & Data Transfer Master
+Lock\tabularnewline
+\texttt{DHREADY} & 1 & Input & Data Slave Ready Indicator\tabularnewline
+\texttt{DHRESP} & 1 & Input & Data Transfer Response\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{2.3.4. Data INPUTS/OUTPUTS Wishbone
+Bus}\label{data-inputsoutputs-wishbone-bus}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Port & Size & Direction & Description\tabularnewline
+\midrule
+\endhead
+\texttt{rst} & 1 & Input & Synchronous Active High Reset\tabularnewline
+\texttt{clk} & 1 & Input & System Clock Input\tabularnewline
+& & &\tabularnewline
+\texttt{dadr} & \texttt{AW} & Input & Data Address Bus\tabularnewline
+\texttt{ddati} & \texttt{DW} & Input & Data Input Bus\tabularnewline
+\texttt{ddato} & \texttt{DW} & Output & Data Output Bus\tabularnewline
+\texttt{dsel} & \texttt{DW/8} & Input & Byte Select
+Signals\tabularnewline
+\texttt{dwe} & 1 & Input & Write Enable Input\tabularnewline
+\texttt{dstb} & 1 & Input & Strobe Signal/Core Select
+Input\tabularnewline
+\texttt{dcyc} & 1 & Input & Valid Bus Cycle Input\tabularnewline
+\texttt{dack} & 1 & Output & Bus Cycle Acknowledge Output\tabularnewline
+\texttt{derr} & 1 & Output & Bus Cycle Error Output\tabularnewline
+\texttt{dint} & 1 & Output & Interrupt Signal Output\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{2.4. RISC-V ARCHITECTURE}\label{risc-v-architecture}
+
+\subsubsection{2.4.1. Library}\label{library}
+
+type:
+
+\begin{verbatim}
+sudo apt install autoconf automake autotools-dev curl python3 libmpc-dev \
+libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf \
+libtool patchutils bc zlib1g-dev libexpat-dev
+\end{verbatim}
+
+\subsubsection{2.4.2. Toolchain}\label{toolchain}
+
+type:
+
+\begin{verbatim}
+git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
+
+cd riscv-gnu-toolchain
+
+./configure --prefix=/opt/riscv
+sudo make
+
+./configure --prefix=/opt/riscv
+sudo make linux
+
+./configure --prefix=/opt/riscv --enable-multilib
+sudo make linux
+
+./configure --prefix=$RISCV
+sudo make linux
+sudo make report-linux
+\end{verbatim}
+
+\subsubsection{2.4.3. Software}\label{software}
+
+type:
+
+\begin{verbatim}
+export PATH=$PATH:/opt/riscv/bin
+
+cd software
+
+rm -rf tests
+rm -rf riscv-tests
+
+mkdir tests
+mkdir tests/dump
+mkdir tests/hex
+
+git clone --recursive https://github.com/riscv/riscv-tests
+cd riscv-tests
+
+autoconf
+./configure --prefix=/opt/riscv/bin
+make
+
+cd isa
+
+source ../../elf2hex.sh
+
+mv *.dump ../../tests/dump
+mv *.hex ../../tests/hex
+
+cd ..
+
+make clean
+\end{verbatim}
+
+\section{3. WORKFLOW}\label{workflow}
+
+\textbf{1. System Level (SystemC/SystemVerilog)}
+
+The System Level abstraction of a system only looks at its biggest
+building blocks like processing units or peripheral devices. At this
+level the circuit is usually described using traditional programming
+languages like SystemC or SystemVerilog. Sometimes special software
+libraries are used that are aimed at simulation circuits on the system
+level. The IEEE 1685-2009 standard defines the IP-XACT file format that
+can be used to represent designs on the system level and building blocks
+that can be used in such system level designs.
+
+\textbf{2. Behavioral \& Register Transfer Level (VHDL/Verilog)}
+
+At the Behavioural Level abstraction a language aimed at hardware
+description such as Verilog or VHDL is used to describe the circuit, but
+so-called behavioural modeling is used in at least part of the circuit
+description. In behavioural modeling there must be a language feature
+that allows for imperative programming to be used to describe data paths
+and registers. This is the always -block in Verilog and the process
+-block in VHDL.
+
+A design in Register Transfer Level representation is usually stored
+using HDLs like Verilog and VHDL. But only a very limited subset of
+features is used, namely minimalistic always blocks (Verilog) or process
+blocks (VHDL) that model the register type used and unconditional
+assignments for the datapath logic. The use of HDLs on this level
+simplifies simulation as no additional tools are required to simulate a
+design in Register Transfer Level representation.
+
+\textbf{3. Logical Gate}
+
+At the Logical Gate Level the design is represented by a netlist that
+uses only cells from a small number of single-bit cells, such as basic
+logic gates (AND, OR, NOT, XOR, etc.) and registers (usually D-Type
+Flip-flops). A number of netlist formats exists that can be used on this
+level such as the Electronic Design Interchange Format (EDIF), but for
+ease of simulation often a HDL netlist is used. The latter is a HDL file
+(Verilog or VHDL) that only uses the most basic language constructs for
+instantiation and connecting of cells.
+
+\textbf{4. Physical Gate}
+
+On the Physical Gate Level only gates are used that are physically
+available on the target architecture. In some cases this may only be
+NAND, NOR and NOT gates as well as D-Type registers. In the case of an
+FPGA-based design the Physical Gate Level representation is a netlist of
+LUTs with optional output registers, as these are the basic building
+blocks of FPGA logic cells.
+
+\textbf{5. Switch Level}
+
+A Switch Level representation of a circuit is a netlist utilizing single
+transistors as cells. Switch Level modeling is possible in Verilog and
+VHDL, but is seldom used in modern designs, as in modern digital ASIC or
+FPGA flows the physical gates are considered the atomic build blocks of
+the logic circuit.
+
+\subsection{3.1. FRONT-END OPEN SOURCE
+TOOLS}\label{front-end-open-source-tools}
+
+\subsubsection{3.1.1. Modeling System Level of
+Hardware}\label{modeling-system-level-of-hardware}
+
+\emph{A System Description Language Editor is a computer tool allows to
+generate software code. A System Description Language is a formal
+language, which comprises a Programming Language (input), producing a
+Hardware Description (output). Programming languages are used in
+computer programming to implement algorithms. The description of a
+programming language is split into the two components of syntax (form)
+and semantics (meaning).}
+
+\textbf{System Description Language Editor}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/emacs-mirror/emacs
+\end{verbatim}
+
+\subsubsection{3.1.2. Simulating System Level of
+Hardware}\label{simulating-system-level-of-hardware}
+
+\emph{A System Description Language Simulator (translator) is a computer
+program that translates computer code written in a Programming Language
+(the source language) into a Hardware Description Language (the target
+language). The compiler is primarily used for programs that translate
+source code from a high-level programming language to a low-level
+language to create an executable program.}
+
+\textbf{SystemVerilog System Description Language Simulator}
+
+type:
+
+\begin{verbatim}
+git clone http://git.veripool.org/git/verilator
+
+cd verilator
+autoconf
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/verilog/regression/wb/vtor
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/verilog/regression/ahb3/vtor
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/verilog/regression/axi4/vtor
+source SIMULATE-IT
+\end{verbatim}
+
+\subsubsection{3.1.3. Verifying System Level of
+Hardware}\label{verifying-system-level-of-hardware}
+
+\emph{A UVM standard improves interoperability and reduces the cost of
+repurchasing and rewriting IP for each new project or Electronic Design
+Automation tool. It also makes it easier to reuse verification
+components. The UVM Class Library provides generic utilities, such as
+component hierarchy, Transaction Library Model or configuration
+database, which enable the user to create virtually any structure wanted
+for the testbench.}
+
+\textbf{SystemVerilog System Description Language Verifier}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/QueenField/UVM
+\end{verbatim}
+
+\subsubsection{3.1.4. Describing Register Transfer Level of
+Hardware}\label{describing-register-transfer-level-of-hardware}
+
+\emph{A Hardware Description Language Editor is any editor that allows
+to generate hardware code. Hardware Description Language is a
+specialized computer language used to describe the structure and
+behavior of digital logic circuits. It allows for the synthesis of a HDL
+into a netlist, which can then be synthesized, placed and routed to
+produce the set of masks used to create an integrated circuit.}
+
+\textbf{Hardware Description Language Editor}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/emacs-mirror/emacs
+\end{verbatim}
+
+\subsubsection{3.1.5. Simulating Register Transfer Level of
+Hardware}\label{simulating-register-transfer-level-of-hardware}
+
+\emph{A Hardware Description Language Simulator uses mathematical models
+to replicate the behavior of an actual hardware device. Simulation
+software allows for modeling of circuit operation and is an invaluable
+analysis tool. Simulating a circuit's behavior before actually building
+it can greatly improve design efficiency by making faulty designs known
+as such, and providing insight into the behavior of electronics circuit
+designs.}
+
+\textbf{VHDL Hardware Description Language Simulator}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/ghdl/ghdl
+
+cd ghdl
+./configure --prefix=/usr/local
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/vhdl/regression/wb/ghdl
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/vhdl/regression/ahb3/ghdl
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/vhdl/regression/axi4/ghdl
+source SIMULATE-IT
+\end{verbatim}
+
+\textbf{Verilog Hardware Description Language Simulator}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/steveicarus/iverilog
+
+cd iverilog
+sh autoconf.sh
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/verilog/regression/wb/iverilog
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/verilog/regression/ahb3/iverilog
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+cd sim/verilog/regression/axi4/iverilog
+source SIMULATE-IT
+\end{verbatim}
+
+\subsubsection{3.1.6. Synthesizing Register Transfer Level of
+Hardware}\label{synthesizing-register-transfer-level-of-hardware}
+
+\emph{A Hardware Description Language Synthesizer turns a RTL
+implementation into a Logical Gate Level implementation. Logical design
+is a step in the standard design cycle in which the functional design of
+an electronic circuit is converted into the representation which
+captures logic operations, arithmetic operations, control flow, etc. In
+EDA parts of the logical design is automated using synthesis tools based
+on the behavioral description of the circuit.}
+
+\textbf{Verilog Hardware Description Language Synthesizer}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/YosysHQ/yosys
+
+cd yosys
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+cd synthesis/yosys
+source SYNTHESIZE-IT
+\end{verbatim}
+
+\subsubsection{3.1.7. Optimizing Register Transfer Level of
+Hardware}\label{optimizing-register-transfer-level-of-hardware}
+
+\emph{A Hardware Description Language Optimizer finds an equivalent
+representation of the specified logic circuit under specified
+constraints (minimum area, pre-specified delay). This tool combines
+scalable logic optimization based on And-Inverter Graphs (AIGs),
+optimal-delay DAG-based technology mapping for look-up tables and
+standard cells, and innovative algorithms for sequential synthesis and
+verification.}
+
+\textbf{Verilog Hardware Description Language Optimizer}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/YosysHQ/yosys
+
+cd yosys
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+cd synthesis/yosys
+source SYNTHESIZE-IT
+\end{verbatim}
+
+\subsubsection{3.1.8. Verifying Register Transfer Level of
+Hardware}\label{verifying-register-transfer-level-of-hardware}
+
+\emph{A Hardware Description Language Verifier proves or disproves the
+correctness of intended algorithms underlying a hardware system with
+respect to a certain formal specification or property, using formal
+methods of mathematics. Formal verification uses modern techniques
+(SAT/SMT solvers, BDDs, etc.) to prove correctness by essentially doing
+an exhaustive search through the entire possible input space (formal
+proof).}
+
+\textbf{Verilog Hardware Description Language Verifier}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/YosysHQ/SymbiYosys
+\end{verbatim}
+
+\subsection{3.2. BACK-END OPEN SOURCE
+TOOLS}\label{back-end-open-source-tools}
+
+\textbf{Library}
+
+type:
+
+\begin{verbatim}
+sudo apt update
+sudo apt upgrade
+
+sudo apt install bison cmake flex freeglut3-dev libcairo2-dev libgsl-dev \
+libncurses-dev libx11-dev m4 python-tk python3-tk swig tcl tcl-dev tk-dev tcsh
+\end{verbatim}
+
+\textbf{Back-End Workflow Qflow}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/qflow
+
+cd qflow
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+mkdir qflow
+cd qflow
+\end{verbatim}
+
+\subsubsection{3.2.1. Planning Switch Level of
+Hardware}\label{planning-switch-level-of-hardware}
+
+\emph{A Floor-Planner of an Integrated Circuit (IC) is a schematic
+representation of tentative placement of its major functional blocks. In
+modern electronic design process floor-plans are created during the
+floor-planning design stage, an early stage in the hierarchical approach
+to Integrated Circuit design. Depending on the design methodology being
+followed, the actual definition of a floor-plan may differ.}
+
+\textbf{Floor-Planner}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/magic
+
+cd magic
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{3.2.2. Placing Switch Level of
+Hardware}\label{placing-switch-level-of-hardware}
+
+\emph{A Standard Cell Placer takes a given synthesized circuit netlist
+together with a technology library and produces a valid placement
+layout. The layout is optimized according to the aforementioned
+objectives and ready for cell resizing and buffering, a step essential
+for timing and signal integrity satisfaction. Physical design flow are
+iterated a number of times until design closure is achieved.}
+
+\textbf{Standard Cell Placer}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/rubund/graywolf
+
+cd graywolf
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{3.2.3. Timing Switch Level of
+Hardware}\label{timing-switch-level-of-hardware}
+
+\emph{A Standard Cell Timing-Analizer is a simulation method of
+computing the expected timing of a digital circuit without requiring a
+simulation of the full circuit. High-performance integrated circuits
+have traditionally been characterized by the clock frequency at which
+they operate. Measuring the ability of a circuit to operate at the
+specified speed requires an ability to measure, during the design
+process, its delay at numerous steps.}
+
+\textbf{Standard Cell Timing-Analizer}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/The-OpenROAD-Project/OpenSTA
+
+cd OpenSTA
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{3.2.4. Routing Switch Level of
+Hardware}\label{routing-switch-level-of-hardware}
+
+\emph{A Standard Cell Router takes pre-existing polygons consisting of
+pins on cells, and pre-existing wiring called pre-routes. Each of these
+polygons are associated with a net. The primary task of the router is to
+create geometries such that all terminals assigned to the same net are
+connected, no terminals assigned to different nets are connected, and
+all design rules are obeyed.}
+
+\textbf{Standard Cell Router}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/qrouter
+
+cd qrouter
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{3.2.5. Simulating Switch Level of
+Hardware}\label{simulating-switch-level-of-hardware}
+
+\emph{A Standard Cell Simulator treats transistors as ideal switches.
+Extracted capacitance and lumped resistance values are used to make the
+switch a little bit more realistic than the ideal, using the RC time
+constants to predict the relative timing of events. This simulator
+represents a circuit in terms of its exact transistor structure but
+describes the electrical behavior in a highly idealized way.}
+
+\textbf{Standard Cell Simulator}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/irsim
+
+cd irsim
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{3.2.6. Verifying Switch Level of Hardware
+LVS}\label{verifying-switch-level-of-hardware-lvs}
+
+\emph{A Standard Cell Verifier compares netlists, a process known as LVS
+(Layout vs.~Schematic). This step ensures that the geometry that has
+been laid out matches the expected circuit. The greatest need for LVS is
+in large analog or mixed-signal circuits that cannot be simulated in
+reasonable time. LVS can be done faster than simulation, and provides
+feedback that makes it easier to find errors.}
+
+\textbf{Standard Cell Verifier}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/netgen
+
+cd netgen
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\begin{verbatim}
+cd synthesis/qflow
+source FLOW-IT
+\end{verbatim}
+
+\subsubsection{3.2.7. Checking Switch Level of Hardware
+DRC}\label{checking-switch-level-of-hardware-drc}
+
+\emph{A Standard Cell Checker is a geometric constraint imposed on
+Printed Circuit Board (PCB) and Integrated Circuit (IC) designers to
+ensure their designs function properly, reliably, and can be produced
+with acceptable yield. Design Rules for production are developed by
+hardware engineers based on the capability of their processes to realize
+design intent. Design Rule Checking (DRC) is used to ensure that
+designers do not violate design rules.}
+
+\textbf{Standard Cell Checker}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/magic
+
+cd magic
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{3.2.8. Printing Switch Level of Hardware
+GDS}\label{printing-switch-level-of-hardware-gds}
+
+\emph{A Standard Cell Editor allows to print a set of standard cells.
+The standard cell methodology is an abstraction, whereby a low-level
+VLSI layout is encapsulated into a logical representation. A standard
+cell is a group of transistor and interconnect structures that provides
+a boolean logic function (AND, OR, XOR, XNOR, inverters) or a storage
+function (flipflop or latch).}
+
+\textbf{Standard Cell Editor}
+
+type:
+
+\begin{verbatim}
+git clone https://github.com/RTimothyEdwards/magic
+
+cd magic
+./configure
+make
+sudo make install
+\end{verbatim}
+
+\section{4. CONCLUSION}\label{conclusion}
+
+\subsection{4.1. OPEN SOURCE TOOLS FOR WINDOWS
+USERS!}\label{open-source-tools-for-windows-users}
+
+\subsubsection{4.1.0. Install
+Prerequisites}\label{install-prerequisites}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Settings → Apps → Apps \& features → Related settings, Programs and
+  Features → Turn Windows features on or off → Windows Subsystem for
+  Linux
+\item
+  Microsoft Store → INSTALL UBUNTU
+\end{enumerate}
+
+Library type:
+
+\begin{verbatim}
+sudo apt update
+sudo apt upgrade
+
+sudo apt install bison cmake flex freeglut3-dev libcairo2-dev libgsl-dev \
+libncurses-dev libx11-dev m4 python-tk python3-tk swig tcl tcl-dev tk-dev tcsh
+\end{verbatim}
+
+\subsubsection{4.1.1. Front-End}\label{front-end}
+
+type:
+
+\begin{verbatim}
+sudo apt install verilator
+sudo apt install iverilog
+sudo apt install ghdl
+
+cd /mnt/c/../sim/verilog/regression/wb/iverilog
+source SIMULATE-IT
+\end{verbatim}
+
+\begin{verbatim}
+sudo apt install yosys
+
+cd /mnt/c/../synthesis/yosys
+source SYNTHESIZE-IT
+\end{verbatim}
+
+\subsubsection{4.1.2. Back-End}\label{back-end}
+
+type:
+
+\begin{verbatim}
+mkdir qflow
+cd qflow
+
+git clone https://github.com/RTimothyEdwards/magic
+git clone https://github.com/rubund/graywolf
+git clone https://github.com/The-OpenROAD-Project/OpenSTA
+git clone https://github.com/RTimothyEdwards/qrouter
+git clone https://github.com/RTimothyEdwards/irsim
+git clone https://github.com/RTimothyEdwards/netgen
+git clone https://github.com/RTimothyEdwards/qflow
+\end{verbatim}
+
+\begin{verbatim}
+cd /mnt/c/../synthesis/qflow
+source FLOW-IT
+\end{verbatim}
+
+\subsection{4.2. OPEN SOURCE SYNTHESIZER FOR WINDOWS
+USERS!}\label{open-source-synthesizer-for-windows-users}
+
+\subsubsection{4.2.0. Install
+Prerequisites}\label{install-prerequisites-1}
+
+\paragraph{4.2.0.1. For WINDOWS Users!}\label{for-windows-users}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Settings → Apps → Apps \& features → Related settings, Programs and
+  Features → Turn Windows features on or off → Windows Subsystem for
+  Linux
+\item
+  Microsoft Store → INSTALL UBUNTU
+\end{enumerate}
+
+\paragraph{4.2.0.2. For WINDOWS and LINUX
+Users}\label{for-windows-and-linux-users}
+
+\begin{verbatim}
+sudo apt update
+sudo apt upgrade
+\end{verbatim}
+
+\begin{verbatim}
+sudo apt -y install build-essential clang bison flex \
+libreadline-dev gawk tcl-dev libffi-dev git make gnat \
+graphviz xdot pkg-config python3 libboost-system-dev \
+libboost-python-dev libboost-filesystem-dev zlib1g-dev
+\end{verbatim}
+
+\subsubsection{4.2.1. Install GHDL}\label{install-ghdl}
+
+\begin{verbatim}
+git clone https://github.com/ghdl/ghdl
+
+cd ghdl
+./configure --prefix=/usr/local
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{4.2.2. Install Yosys}\label{install-yosys}
+
+\begin{verbatim}
+git clone https://github.com/YosysHQ/yosys
+
+cd yosys
+make
+sudo make install
+\end{verbatim}
+
+\subsubsection{4.2.3. Install Synthesizer
+Plugin}\label{install-synthesizer-plugin}
+
+\begin{verbatim}
+git clone https://github.com/ghdl/ghdl-yosys-plugin
+cd ghdl-yosys-plugin
+make GHDL=/usr/local
+sudo yosys-config --exec mkdir -p --datdir/plugins
+sudo yosys-config --exec cp "ghdl.so" --datdir/plugins/ghdl.so
+\end{verbatim}
+
+\end{document}
