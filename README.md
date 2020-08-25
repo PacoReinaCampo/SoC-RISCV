@@ -6,118 +6,51 @@ geometry: "left=3cm,right=2cm,top=3cm,bottom=2cm"
 
 # 1. INTRODUCTION
 
-A System on Chip (SoC) is an integrated circuit that integrates components of a computer system (PU, RAM, GPIO, etc). As they are integrated on a single substrate, SoCs consume much less power and take up much less area than multi-chip designs with equivalent functionality. SoCs are common in the mobile computing, embedded systems and the Internet of Things.
+## 1.1. OPEN SOURCE PHILOSOPHY
 
-# 2. PROJECTS
+**For Windows Users!**
 
-## 2.1. CORE-RISCV
+1. Settings → Apps → Apps & features → Related settings, Programs and Features → Turn Windows features on or off → Windows Subsystem for Linux
 
-### 2.1.1. Definition
+2. Microsoft Store → INSTALL UBUNTU
 
-The RISC-V implementation has a 32/64/128 bit Microarchitecture, 6 stages data pipeline and an Instruction Set Architecture based on Reduced Instruction Set Computer. Compatible with AMBA and Wishbone Buses. For Researching and Developing.
+type:
+```
+sudo apt update
+sudo apt upgrade
+```
 
-| Processing Unit              | Module description               |
-| ---------------------------- | -------------------------------- |
-| riscv_pu                     | Processing Unit                  |
-|...riscv_core                 | Core                             |
-|...riscv_imem_ctrl            | Instruction Memory Access Block  |
-|...riscv_biu - imem           | Bus Interface Unit (Instruction) |
-|...riscv_dmem_ctrl            | Data Memory Access Block         |
-|...riscv_biu - dmem           | Bus Interface Unit (Data)        |
+### 1.2.1. Open Source Hardware
 
-### 2.1.2. RISC Pipeline
+#### 1.2.1.1. MSP430 Processing Unit
 
-In computer science, instruction pipelining is a technique for implementing instruction-level parallelism within a PU. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different PUs with different parts of instructions processed in parallel. It allows faster PU throughput than would otherwise be possible at a given clock rate.
+#### 1.2.1.2. OpenRISC Processing Unit
 
-| Typical    | Modified   | Module          |
-| ---------- | ---------- | --------------- |
-| FETCH      | FETCH      | riscv_if        |
-| ...        | PRE-DECODE | riscv_id        |
-| DECODE     | DECODE     | riscv_id        |
-| EXECUTE    | EXECUTE    | riscv_execution |
-| MEMORY     | MEMORY     | riscv_memory    |
-| WRITE-BACK | WRITE-BACK | riscv_wb        |
+#### 1.2.1.3. RISC-V Processing Unit
 
-- IF – Instruction Fetch Unit : Send out the PC and fetch the instruction from memory into the Instruction Register (IR); increment the PC to address the next sequential instruction. The IR is used to hold the next instruction that will be needed on subsequent clock cycles; likewise the register NPC is used to hold the next sequential PC.
+### 1.2.2. Open Source Software
 
-- ID – Instruction Decode Unit : Decode the instruction and access the register file to read the registers. This unit gets instruction from IF, and extracts opcode and operand from that instruction. It also retrieves register values if requested by the operation.
+#### 1.2.2.1. MSP430 GNU Compiler Collection
 
-- EX – Execution Unit : The ALU operates on the operands prepared in prior cycle, performing one functions depending on instruction type.
+#### 1.2.2.2. OpenRISC GNU Compiler Collection
 
-- MEM – Memory Access Unit : Instructions active in this unit are loads, stores and branches.
+#### 1.2.2.3. RISC-V GNU Compiler Collection
 
-- WB – WriteBack Unit : Write the result into the register file, whether it comes from the memory system or from the ALU.
+## 1.2. RISC-V ISA
 
-### 2.1.3. CORE-RISCV Organization
+### 1.2.1. ISA Bases
 
-The CORE-RISCV is based on the Harvard architecture, which is a computer architecture with separate storage and signal pathways for instructions and data. The implementation is heavily modular, with each particular functional block of the design being contained within its own HDL module or modules. The RISCV implementation was developed in order to provide a better platform for processor component development than previous implementations.
+#### 1.2.2.1. RISC-V 32
 
-| Core                         | Module description                 |
-| ---------------------------- | ---------------------------------- |
-| riscv_core                   | Core                               |
-|...riscv_if                   | Instruction Fetch                  |
-|...riscv_id                   | Instruction Decoder                |
-|...riscv_execution            | Execution Unit                     |
-|.....riscv_alu                | Arithmetic & Logical Unit          |
-|.....riscv_lsu                | Load Store Unit                    |
-|.....riscv_bu                 | Branch Unit                        |
-|.....riscv_mul                | Multiplier Unit                    |
-|.....riscv_div                | Division Unit                      |
-|...riscv_memory               | Memory Unit                        |
-|...riscv_wb                   | Data Memory Access (Write Back)    |
-|...riscv_state                | State Unit                         |
-|...riscv_rf                   | Register File                      |
-|...riscv_bp                   | Correlating Branch Prediction Unit |
-|.....riscv_ram_1r1w           | RAM 1RW1                           |
-|.......riscv_ram_1r1w_generic | RAM 1RW1 Generic                   |
-|...riscv_du                   | Debug Unit                         |
+#### 1.2.2.2. RISC-V 64
 
-In a Harvard architecture, there is no need to make the two memories share characteristics. In particular, the word width, timing, implementation technology, and memory address structure can differ. In some systems, instructions for pre-programmed tasks can be stored in read-only memory while data memory generally requires read-write memory. In some systems, there is much more instruction memory than data memory so instruction addresses are wider than data addresses.
+#### 1.2.2.3. RISC-V 128
 
-### 2.1.4. Parameters
+### 1.2.2. ISA Extensions
 
-#### 2.1.4.1. Technology Parameters
+#### 1.2.2.1. Base Integer Instruction Set
 
-| Parameter               | Type      | Default         | Description                           |
-| ----------------------- | --------- | --------------- | ------------------------------------- |
-| `JEDEC_BANK`            | `Integer` | 0x0A            | JEDEC Bank                            |
-| `JEDEC_MANUFACTURER_ID` | `Integer` | 0x6E            | JEDEC Manufacturer ID                 |
-| `XLEN`                  | `Integer` | 64              | Data Path Width                       |
-| `PLEN`                  | `Integer` | 64              | Physical Memory Address Size          |
-| `PMP_CNT`               | `Integer` | 16              | Physical Memory Protection Entries    |
-| `PMA_CNT`               | `Integer` | 16              | Physical Menory Attribute Entries     |
-| `HAS_USER`              | `Integer` | 1               | User Mode Enable                      |
-| `HAS_SUPER`             | `Integer` | 1               | Supervisor Mode Enable                |
-| `HAS_HYPER`             | `Integer` | 1               | Hypervisor Mode Enable                |
-| `HAS_RVM`               | `Integer` | 1               | "M" Extension Enable                  |
-| `HAS_RVA`               | `Integer` | 1               | "A" Extension Enable                  |
-| `HAS_RVC`               | `Integer` | 1               | "C" Extension Enable                  |
-| `HAS_BPU`               | `Integer` | 1               | Branch Prediction Unit Control Enable |
-| `IS_RV32E`              | `Integer` | 0               | Base Integer Instruction Set Enable   |
-| `MULT_LATENCY`          | `Integer` | 1               | Hardware Multiplier Latency           |
-| `ICACHE_SIZE`           | `Integer` | 16              | Instruction Cache size                |
-| `ICACHE_BLOCK_SIZE`     | `Integer` | 64              | Instruction Cache block length        |
-| `ICACHE_WAYS`           | `Integer` | 2               | Instruction Cache associativity       |
-| `ICACHE_REPLACE_ALG`    | `Integer` | 0               | Instruction Cache replacement         |
-| `DCACHE_SIZE`           | `Integer` | 16              | Data Cache size                       |
-| `DCACHE_BLOCK_SIZE`     | `Integer` | 64              | Data Cache block length               |
-| `DCACHE_WAYS`           | `Integer` | 2               | Data Cache associativity              |
-| `DCACHE_REPLACE_ALG`    | `Integer` | 0               | Data Cache replacement algorithm      |
-| `HARTID`                | `Integer` | 0               | Hart Identifier                       |
-| `PC_INIT`               | `Address` | `'h200`         | Program Counter Initialisation Vector |
-| `MNMIVEC_DEFAULT`       | `Address` | `PC_INIT-'h004` | Machine Mode Non-Maskable             |
-| `MTVEC_DEFAULT`         | `Address` | `PC_INIT-'h040` | Machine Mode Interrupt Address        |
-| `HTVEC_DEFAULT`         | `Address` | `PC_INIT-'h080` | Hypervisor Mode Interrupt Address     |
-| `STVEC_DEFAULT`         | `Address` | `PC_INIT-'h0C0` | Supervisor Mode Interrupt Address     |
-| `UTVEC_DEFAULT`         | `Address` | `PC_INIT-'h100` | User Mode Interrupt Address           |
-| `BP_LOCAL_BITS`         | `Integer` | 10              | Number of local predictor bits        |
-| `BP_GLOBAL_BITS`        | `Integer` | 2               | Number of global predictor bits       |
-| `BREAKPOINTS`           | `Integer` | 3               | Number of hardware breakpoints        |
-| `TECHNOLOGY`            | `String`  | `GENERIC`       | Target Silicon Technology             |
-
-### 2.1.5. Opcodes
-
-#### 2.1.5.1. RV32I : Base Integer Instruction Set
+**RV32I : Base Integer Instruction Set (32 bit)**
 
 | RV32I            |31:25   |24:20 |19:15 |14:12|11:7  |6:0     |
 | ---------------- |:------:|:----:|:----:|:---:|:----:|:------:|
@@ -161,7 +94,7 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | FENCE PRED,SUCC  |0000PPP |PSSSS |00000 |000  |00000 |0001111 |
 | FENCE.I          |0000P00 |00000 |00000 |001  |00000 |0001111 |
 
-#### 2.1.5.2. RV64I : Base Integer Instruction Set (64bit)
+**RV64I : Base Integer Instruction Set (64 bit)**
 
 | RV64I            |31:25   |24:20 |19:15 |14:12|11:7  |6:0     |
 | ---------------- |:------:|:----:|:----:|:---:|:----:|:------:|
@@ -181,7 +114,9 @@ In a Harvard architecture, there is no need to make the two memories share chara
 |SRLW  RD, RS1,RS2 |0000000 |RS24:0|RS14:0|101  |RD4:0 |0111011 |
 |SRAW  RD, RS1,RS2 |0100000 |RS24:0|RS14:0|101  |RD4:0 |0111011 |
 
-#### 2.1.5.3. RV32M : Standard Extension for Integer Multiply and Divide
+#### 1.2.2.2. Standard Extension for Integer Multiply and Divide
+
+**RV32M : Standard Extension for Integer Multiply and Divide (32 bit)**
 
 | RV32M             |31:25   |24:20 |19:15 |14:12|11:7  |6:0     |
 | ----------------- |:------:|:----:|:----:|:---:|:----:|:------:|
@@ -194,7 +129,7 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | REM RD,RS1,RS2    |0000001 |RS24:0|RS14:0|110  |RD4:0 |0110011 |
 | REMU RD,RS1,RS2   |0000001 |RS24:0|RS14:0|111  |RD4:0 |0110011 |
 
-#### 2.1.5.4. RV64M : Standard Extension for Integer Multiply and Divide (64bit)
+**Standard Extension for Integer Multiply and Divide (64 bit)**
 
 | RV64M             |31:25   |24:20 |19:15 |14:12|11:7  |6:0     |
 | ----------------- |:------:|:----:|:----:|:---:|:----:|:------:|
@@ -204,7 +139,9 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | REMW RD,RS1,RS2   |0000001 |RS24:0|RS14:0|110  |RD4:0 |0111011 |
 | REMUW RD,RS1,RS2  |0000001 |RS24:0|RS14:0|111  |RD4:0 |0111011 |
 
-#### 2.1.5.5. RV32A : Standard Extension for Atomic Instructions
+#### 1.2.2.3. Standard Extension for Atomic Instructions
+
+**RV32A : Standard Extension for Atomic Instructions (32 bit)**
 
 | RV32A                    |31:25    |24:20 |19:15 |14:12|11:7  |6:0     |
 | -------------------------|:-------:|:----:|:----:|:---:|:----:|:------:|
@@ -220,7 +157,7 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | AMOMINU.W AQRL,RD,RS2,RS1|11000AQRL|RS24:0|RS14:0|010  |RD4:0 |0101111 |
 | AMOMAXU.W AQRL,RD,RS2,RS1|11100AQRL|RS24:0|RS14:0|010  |RD4:0 |0101111 |
 
-#### 2.1.5.6. RV64A : Standard Extension for Atomic Instructions (64bit)
+**RV64A : Standard Extension for Atomic Instructions (64 bit)**
 
 | RV64A                    |31:25    |24:20 |19:15 |14:12|11:7  |6:0     |
 | -------------------------|:-------:|:----:|:----:|:---:|:----:|:------:|
@@ -236,7 +173,9 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | AMOMINU.D AQRL,RD,RS2,RS1|11000AQRL|RS24:0|RS14:0|011  |RD4:0 |0101111 |
 | AMOMAXU.D AQRL,RD,RS2,RS1|11100AQRL|RS24:0|RS14:0|011  |RD4:0 |0101111 |
 
-#### 2.1.5.7. RV32F : Standard Extension for Single-Precision Floating-Point
+#### 1.2.2.4. Standard Extension for Single-Precision Floating-Point
+
+**RV32F : Standard Extension for Single-Precision Floating-Point (32 bit)**
 
 | RV32F                         |31:25    |24:20 |19:15 |14:12|11:7  |6:0     |
 | ------------------------------|:-------:|:----:|:----:|:---:|:----:|:------:|
@@ -267,7 +206,7 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | FCLASS.S RD,FRS1              |1110000  |00000 |FRS1  |001  |RD    |1010011 |
 | FMV.S.X RD,FRS1               |1111000  |00000 |RS1   |000  |FRD   |1010011 |
 
-#### 2.1.5.8. RV64F : Standard Extension for Single-Precision Floating-Point (64bit)
+**RV64F : Standard Extension for Single-Precision Floating-Point (64 bit)**
 
 | RV64F                         |31:25    |24:20 |19:15 |14:12|11:7  |6:0     |
 | ------------------------------|:-------:|:----:|:----:|:---:|:----:|:------:|
@@ -276,7 +215,9 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | FCVT.S.L RM,RD,FRS1           |1101000  |00010 |FRS1  |RM   |FRD   |1010011 |
 | FCVT.S.LU RM,RD,FRS1          |1101000  |00011 |FRS1  |RM   |FRD   |1010011 |
 
-#### 2.1.5.9. RV32D : Standard Extension for Double-Precision Floating-Point
+#### 1.2.2.5. Standard Extension for Double-Precision Floating-Point
+
+**RV32D : Standard Extension for Double-Precision Floating-Point (32 bit)**
 
 | RV32F                         |31:25    |24:20 |19:15 |14:12|11:7  |6:0     |
 | ------------------------------|:-------:|:----:|:----:|:---:|:----:|:------:|
@@ -305,7 +246,7 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | FCVT.D.WU RM,RD,FRS1          |1101001  |00010 |FRS1  |RM   |FRD   |1010011 |
 | FCLASS.D RD,FRS1              |1110001  |00000 |FRS1  |001  |RD    |1010011 |
 
-#### 2.1.5.10. RV64D : Standard Extension for Double-Precision Floating-Point (64bit)
+**RV64D : Standard Extension for Double-Precision Floating-Point (64 bit)**
 
 | RV64D                         |31:25    |24:20 |19:15 |14:12|11:7  |6:0     |
 | ------------------------------|:-------:|:----:|:----:|:---:|:----:|:------:|
@@ -316,10 +257,114 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | FMV.X.D RD,FRS1               |1110001  |00000 |FRS1  |000  |RD    |1010011 |
 | FMV.D.X RD,FRS1               |1111001  |00000 |RS1   |000  |FRD   |1010011 |
 
-### 2.1.6. Instruction INPUTS/OUTPUTS Bus
+### 1.2.3. ISA Modes
+
+#### 1.2.3.1. RISC-V User
+
+#### 1.2.3.2. RISC-V Supervisor
+
+#### 1.2.3.3. RISC-V Hypervisor
+
+#### 1.2.3.4. RISC-V Machine
+
+# 2. PROJECTS
+
+## 2.1. CORE-RISCV
+
+### 2.1.1. Definition
+
+### 2.1.2. RISC Pipeline
+
+In computer science, instruction pipelining is a technique for implementing instruction-level parallelism within a PU. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different PUs with different parts of instructions processed in parallel. It allows faster PU throughput than would otherwise be possible at a given clock rate.
+
+| Typical    | Modified   | Module            |
+| ---------- | ---------- | ----------------- |
+| FETCH      | FETCH      | `riscv_if`        |
+| ...        | PRE-DECODE | `riscv_id`        |
+| DECODE     | DECODE     | `riscv_id`        |
+| EXECUTE    | EXECUTE    | `riscv_execution` |
+| MEMORY     | MEMORY     | `riscv_memory`    |
+| WRITE-BACK | WRITE-BACK | `riscv_wb`        |
+
+- IF – Instruction Fetch Unit : Send out the PC and fetch the instruction from memory into the Instruction Register (IR); increment the PC to address the next sequential instruction. The IR is used to hold the next instruction that will be needed on subsequent clock cycles; likewise the register NPC is used to hold the next sequential PC.
+
+- ID – Instruction Decode Unit : Decode the instruction and access the register file to read the registers. This unit gets instruction from IF, and extracts opcode and operand from that instruction. It also retrieves register values if requested by the operation.
+
+- EX – Execution Unit : The ALU operates on the operands prepared in prior cycle, performing one functions depending on instruction type.
+
+- MEM – Memory Access Unit : Instructions active in this unit are loads, stores and branches.
+
+- WB – WriteBack Unit : Write the result into the register file, whether it comes from the memory system or from the ALU.
+
+### 2.1.3. CORE-RISCV Organization
+
+The CORE-RISCV is based on the Harvard architecture, which is a computer architecture with separate storage and signal pathways for instructions and data. The implementation is heavily modular, with each particular functional block of the design being contained within its own HDL module or modules. The RISCV implementation was developed in order to provide a better platform for processor component development than previous implementations.
+
+| Core                            | Module description                 |
+| ------------------------------- | ---------------------------------- |
+| `riscv_core`                    | Core                               |
+| `...riscv_if`                   | Instruction Fetch                  |
+| `...riscv_id`                   | Instruction Decoder                |
+| `...riscv_execution`            | Execution Unit                     |
+| `.....riscv_alu`                | Arithmetic & Logical Unit          |
+| `.....riscv_lsu`                | Load Store Unit                    |
+| `.....riscv_bu`                 | Branch Unit                        |
+| `.....riscv_mul`                | Multiplier Unit                    |
+| `.....riscv_div`                | Division Unit                      |
+| `...riscv_memory`               | Memory Unit                        |
+| `...riscv_wb`                   | Data Memory Access (Write Back)    |
+| `...riscv_state`                | State Unit                         |
+| `...riscv_rf`                   | Register File                      |
+| `...riscv_bp`                   | Correlating Branch Prediction Unit |
+| `.....riscv_ram_1r1w`           | RAM 1RW1                           |
+| `.......riscv_ram_1r1w_generic` | RAM 1RW1 Generic                   |
+| `...riscv_du`                   | Debug Unit                         |
+
+In a Harvard architecture, there is no need to make the two memories share characteristics. In particular, the word width, timing, implementation technology, and memory address structure can differ. In some systems, instructions for pre-programmed tasks can be stored in read-only memory while data memory generally requires read-write memory. In some systems, there is much more instruction memory than data memory so instruction addresses are wider than data addresses.
+
+### 2.1.4. Parameters
+
+| Parameter               | Type      | Default         | Description                           |
+| ----------------------- |:---------:|:---------------:| ------------------------------------- |
+| `JEDEC_BANK`            | `Integer` | 0x0A            | JEDEC Bank                            |
+| `JEDEC_MANUFACTURER_ID` | `Integer` | 0x6E            | JEDEC Manufacturer ID                 |
+| `XLEN`                  | `Integer` | 64              | Data Path Width                       |
+| `PLEN`                  | `Integer` | 64              | Physical Memory Address Size          |
+| `PMP_CNT`               | `Integer` | 16              | Physical Memory Protection Entries    |
+| `PMA_CNT`               | `Integer` | 16              | Physical Menory Attribute Entries     |
+| `HAS_USER`              | `Integer` | 1               | User Mode Enable                      |
+| `HAS_SUPER`             | `Integer` | 1               | Supervisor Mode Enable                |
+| `HAS_HYPER`             | `Integer` | 1               | Hypervisor Mode Enable                |
+| `HAS_RVM`               | `Integer` | 1               | "M" Extension Enable                  |
+| `HAS_RVA`               | `Integer` | 1               | "A" Extension Enable                  |
+| `HAS_RVC`               | `Integer` | 1               | "C" Extension Enable                  |
+| `HAS_BPU`               | `Integer` | 1               | Branch Prediction Unit Control Enable |
+| `IS_RV32E`              | `Integer` | 0               | Base Integer Instruction Set Enable   |
+| `MULT_LATENCY`          | `Integer` | 1               | Hardware Multiplier Latency           |
+| `ICACHE_SIZE`           | `Integer` | 16              | Instruction Cache size                |
+| `ICACHE_BLOCK_SIZE`     | `Integer` | 64              | Instruction Cache block length        |
+| `ICACHE_WAYS`           | `Integer` | 2               | Instruction Cache associativity       |
+| `ICACHE_REPLACE_ALG`    | `Integer` | 0               | Instruction Cache replacement         |
+| `DCACHE_SIZE`           | `Integer` | 16              | Data Cache size                       |
+| `DCACHE_BLOCK_SIZE`     | `Integer` | 64              | Data Cache block length               |
+| `DCACHE_WAYS`           | `Integer` | 2               | Data Cache associativity              |
+| `DCACHE_REPLACE_ALG`    | `Integer` | 0               | Data Cache replacement algorithm      |
+| `HARTID`                | `Integer` | 0               | Hart Identifier                       |
+| `PC_INIT`               | `Address` | `'h200`         | Program Counter Initialisation Vector |
+| `MNMIVEC_DEFAULT`       | `Address` | `PC_INIT-'h004` | Machine Mode Non-Maskable             |
+| `MTVEC_DEFAULT`         | `Address` | `PC_INIT-'h040` | Machine Mode Interrupt Address        |
+| `HTVEC_DEFAULT`         | `Address` | `PC_INIT-'h080` | Hypervisor Mode Interrupt Address     |
+| `STVEC_DEFAULT`         | `Address` | `PC_INIT-'h0C0` | Supervisor Mode Interrupt Address     |
+| `UTVEC_DEFAULT`         | `Address` | `PC_INIT-'h100` | User Mode Interrupt Address           |
+| `BP_LOCAL_BITS`         | `Integer` | 10              | Number of local predictor bits        |
+| `BP_GLOBAL_BITS`        | `Integer` | 2               | Number of global predictor bits       |
+| `BREAKPOINTS`           | `Integer` | 3               | Number of hardware breakpoints        |
+| `TECHNOLOGY`            | `String`  | `GENERIC`       | Target Silicon Technology             |
+
+### 2.1.5. Instruction Inputs/Outputs Bus
 
 | Port          |  Size  | Direction | Description        |
-| ------------- | ------ | --------- | ------------------ |
+| ------------- |:------:|:---------:| ------------------ |
 | `ins_stb`     |    1   |   Input   | Strobe             |
 | `ins_stb_ack` |    1   |   Output  | Strobe acknowledge |
 | `ins_d_ack`   |    1   |   Output  | Data acknowledge   |
@@ -334,10 +379,10 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | `ins_ack`     |    1   |   Output  | Acknowledge        |
 | `ins_err`     |    1   |   Output  | Error              |
 
-### 2.1.7. Data INPUTS/OUTPUTS Bus
+### 2.1.6. Data Inputs/Outputs Bus
 
 | Port          |  Size  | Direction | Description        |
-| ------------- | ------ | --------- | ------------------ |
+| ------------- |:------:|:---------:| ------------------ |
 | `dat_stb`     |    1   |   Input   | Strobe             |
 | `dat_stb_ack` |    1   |   Output  | Strobe acknowledge |
 | `dat_d_ack`   |    1   |   Output  | Data acknowledge   |
@@ -352,35 +397,50 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | `dat_ack`     |    1   |   Output  | Acknowledge        |
 | `dat_err`     |    1   |   Output  | Error              |
 
-## 2.2. INSTRUCTION CACHE
+## 2.2. PU-RISCV
+
+### 2.2.1. Definition
+
+The RISC-V implementation has a 32/64/128 bit Microarchitecture, 6 stages data pipeline and an Instruction Set Architecture based on Reduced Instruction Set Computer. Compatible with AMBA and Wishbone Buses. For Researching and Developing.
+
+| Processing Unit                 | Module description               |
+| ------------------------------- | -------------------------------- |
+| `riscv_pu`                      | Processing Unit                  |
+| `...riscv_core`                 | Core                             |
+| `...riscv_imem_ctrl`            | Instruction Memory Access Block  |
+| `...riscv_biu - imem`           | Bus Interface Unit (Instruction) |
+| `...riscv_dmem_ctrl`            | Data Memory Access Block         |
+| `...riscv_biu - dmem`           | Bus Interface Unit (Data)        |
 
 A PU cache is a hardware cache used by the PU to reduce the average cost (time or energy) to access instruction/data from the main memory. A cache is a smaller, faster memory, closer to a core, which stores copies of the data from frequently used main memory locations. Most CPUs have different independent caches, including instruction and data caches.
 
-### 2.2.1. Instruction Organization
+### 2.2.2. Instruction Cache
 
-| Instruction Memory          | Module description                 |
-| --------------------------- | ---------------------------------- |
-| riscv_imem_ctrl             | Instruction Memory Access Block    |
-|...riscv_membuf              | Memory Access Buffer               |
-|.....riscv_ram_queue         | Fall-through Queue                 |
-|...riscv_memmisaligned       | Misalignment Check                 |
-|...riscv_mmu                 | Memory Management Unit             |
-|...riscv_pmachk              | Physical Memory Attributes Checker |
-|...riscv_pmpchk              | Physical Memory Protection Checker |
-|...riscv_icache_core         | Instruction Cache (Write Back)     |
-|.....riscv_ram_1rw           | RAM 1RW                            |
-|.......riscv_ram_1rw_generic | RAM 1RW Generic                    |
-|...riscv_dext                | Data External Access Logic         |
-|...riscv_ram_queue           | Fall-through Queue                 |
-|...riscv_mux                 | Bus-Interface-Unit Mux             |
-| riscv_biu                   | Bus Interface Unit                 |
+#### 2.2.2.1. Instruction Organization
 
-### 2.2.2 Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+| Instruction Memory             | Module description                 |
+| ------------------------------ | ---------------------------------- |
+| `riscv_imem_ctrl`              | Instruction Memory Access Block    |
+| `...riscv_membuf`              | Memory Access Buffer               |
+| `.....riscv_ram_queue`         | Fall-through Queue                 |
+| `...riscv_memmisaligned`       | Misalignment Check                 |
+| `...riscv_mmu`                 | Memory Management Unit             |
+| `...riscv_pmachk`              | Physical Memory Attributes Checker |
+| `...riscv_pmpchk`              | Physical Memory Protection Checker |
+| `...riscv_icache_core`         | Instruction Cache (Write Back)     |
+| `.....riscv_ram_1rw`           | RAM 1RW                            |
+| `.......riscv_ram_1rw_generic` | RAM 1RW Generic                    |
+| `...riscv_dext`                | Data External Access Logic         |
+| `...riscv_ram_queue`           | Fall-through Queue                 |
+| `...riscv_mux`                 | Bus-Interface-Unit Mux             |
+| `riscv_biu`                    | Bus Interface Unit                 |
 
-#### 2.2.2.1. Signals of the Read and Write Address channels
+#### 2.2.2.2. Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+
+##### 2.2.2.2.1. Signals of the Read and Write Address channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
-| ---------- | ---------- | ---------------- | --------- | ---------------------------------------- |
+| ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
 | `AWID`     | `ARID`     | `AXI_ID_WIDTH`   | Output    | Address ID, to identify multiple streams |
 | `AWADDR`   | `ARADDR`   | `AXI_ADDR_WIDTH` | Output    | Address of the first beat of the burst   |
 | `AWLEN`    | `ARLEN`    |         8        | Output    | Number of beats inside the burst         |
@@ -395,33 +455,33 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `AWVALID`  | `ARVALID`  |         1        | Output    | xVALID handshake signal                  |
 | `AWREADY`  | `ARREADY`  |         1        | Input     | xREADY handshake signal                  |
 
-#### 2.2.2.2. Signals of the Read and Write Data channels
+##### 2.2.2.2.2. Signals of the Read and Write Data channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
-| ---------- | ---------- | ---------------- | --------- | ---------------------------------------- |
+| ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
 | `WID`      | `RID`      | `AXI_ID_WIDTH`   | Output    | Data ID, to identify multiple streams    |
 | `WDATA`    | `RDATA`    | `AXI_DATA_WIDTH` | Output    | Read/Write data                          |
-|    `--`    | `RRESP`    |        2         | Output    | Read response, current RDATA status      |
+|    `--`    | `RRESP`    |         2        | Output    | Read response, current RDATA status      |
 | `WSTRB`    |    `--`    | `AXI_STRB_WIDTH` | Output    | Byte strobe, WDATA signal                |
-| `WLAST`    | `RLAST`    |        1         | Output    | Last beat identifier                     |
+| `WLAST`    | `RLAST`    |         1        | Output    | Last beat identifier                     |
 | `WUSER`    | `RUSER`    | `AXI_USER_WIDTH` | Output    | User-defined data                        |
-| `WVALID`   | `RVALID`   |        1         | Output    | xVALID handshake signal                  |
-| `WREADY`   | `RREADY`   |        1         | Input     | xREADY handshake signal                  |
+| `WVALID`   | `RVALID`   |         1        | Output    | xVALID handshake signal                  |
+| `WREADY`   | `RREADY`   |         1        | Input     | xREADY handshake signal                  |
 
-#### 2.2.2.3. Signals of the Write Response channel
+##### 2.2.2.2.3. Signals of the Write Response channel
 
 | Write Port | Size             | Direction | Description                                     |
-| ---------- | ---------------- | --------- | ----------------------------------------------- |
+| ---------- |:----------------:|:---------:| ----------------------------------------------- |
 | `BID`      | `AXI_ID_WIDTH`   |   Input   | Write response ID, to identify multiple streams |
 | `BRESP`    |         2        |   Input   | Write response, to specify the burst status     |
 | `BUSER`    | `AXI_USER_WIDTH` |   Input   | User-defined data                               |
 | `BVALID`   |         1        |   Input   | xVALID handshake signal                         |
 | `BREADY`   |         1        |   Output  | xREADY handshake signal                         |
 
-### 2.2.3. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
+#### 2.2.2.3. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
 
 | Port         |  Size  | Direction | Description                           |
-| ------------ | ------ | --------- | ------------------------------------- |
+| ------------ |:------:|:---------:| ------------------------------------- |
 | `HRESETn`    |    1   |   Input   | Asynchronous Active Low Reset         |
 | `HCLK`       |    1   |   Input   | System Clock Input                    |
 |              |        |           |                                       |
@@ -438,10 +498,10 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `IHREADY`    |    1   |   Input   | Instruction Slave Ready Indicator     |
 | `IHRESP`     |    1   |   Input   | Instruction Transfer Response         |
 
-### 2.2.4. Instruction INPUTS/OUTPUTS Wishbone Bus
+#### 2.2.2.4. Instruction INPUTS/OUTPUTS Wishbone Bus
 
 | Port    |  Size  | Direction | Description                     |
-| ------- | ------ | --------- | ------------------------------- |
+| ------- |:------:|:---------:| ------------------------------- |
 | `rst`   |    1   |   Input   | Synchronous Active High Reset   |
 | `clk`   |    1   |   Input   | System Clock Input              |
 |         |        |           |                                 |
@@ -456,32 +516,32 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `ierr`  |    1   |   Output  | Bus Cycle Error Output          |
 | `iint`  |    1   |   Output  | Interrupt Signal Output         |
 
-## 2.3. DATA CACHE
+### 2.2.3. Data Cache
 
-### 2.3.1. Data Organization
+#### 2.2.3.1. Data Organization
 
-| Data Memory                 | Module description                 |
-| --------------------------- | ---------------------------------- |
-| riscv_dmem_ctrl             | Data Memory Access Block           |
-|...riscv_membuf              | Memory Access Buffer               |
-|.....riscv_ram_queue         | Fall-through Queue                 |
-|...riscv_memmisaligned       | Misalignment Check                 |
-|...riscv_mmu                 | Memory Management Unit             |
-|...riscv_pmachk              | Physical Memory Attributes Checker |
-|...riscv_pmpchk              | Physical Memory Protection Checker |
-|...riscv_dcache_core         | Data Cache (Write Back)            |
-|.....riscv_ram_1rw           | RAM 1RW                            |
-|.......riscv_ram_1rw_generic | RAM 1RW Generic                    |
-|...riscv_dext                | Data External Access Logic         |
-|...riscv_mux                 | Bus-Interface-Unit Mux             |
-| riscv_biu                   | Bus Interface Unit                 |
+| Data Memory                    | Module description                 |
+| ------------------------------ | ---------------------------------- |
+| `riscv_dmem_ctrl`              | Data Memory Access Block           |
+| `...riscv_membuf`              | Memory Access Buffer               |
+| `.....riscv_ram_queue`         | Fall-through Queue                 |
+| `...riscv_memmisaligned`       | Misalignment Check                 |
+| `...riscv_mmu`                 | Memory Management Unit             |
+| `...riscv_pmachk`              | Physical Memory Attributes Checker |
+| `...riscv_pmpchk`              | Physical Memory Protection Checker |
+| `...riscv_dcache_core`         | Data Cache (Write Back)            |
+| `.....riscv_ram_1rw`           | RAM 1RW                            |
+| `.......riscv_ram_1rw_generic` | RAM 1RW Generic                    |
+| `...riscv_dext`                | Data External Access Logic         |
+| `...riscv_mux`                 | Bus-Interface-Unit Mux             |
+| `riscv_biu`                    | Bus Interface Unit                 |
 
-### 2.3.2. Data INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+#### 2.2.3.2. Data INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
 
-#### 2.3.2.1. Signals of the Read and Write Address channels
+##### 2.2.3.2.1. Signals of the Read and Write Address channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
-| ---------- | ---------- | ---------------- | --------- | ---------------------------------------- |
+| ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
 | `AWID`     | `ARID`     | `AXI_ID_WIDTH`   | Output    | Address ID, to identify multiple streams |
 | `AWADDR`   | `ARADDR`   | `AXI_ADDR_WIDTH` | Output    | Address of the first beat of the burst   |
 | `AWLEN`    | `ARLEN`    |         8        | Output    | Number of beats inside the burst         |
@@ -496,10 +556,10 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `AWVALID`  | `ARVALID`  |         1        | Output    | xVALID handshake signal                  |
 | `AWREADY`  | `ARREADY`  |         1        | Input     | xREADY handshake signal                  |
 
-#### 2.3.2.2. Signals of the Read and Write Data channels
+##### 2.2.3.2.2. Signals of the Read and Write Data channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
-| ---------- | ---------- | ---------------- | --------- | ---------------------------------------- |
+| ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
 | `WID`      | `RID`      | `AXI_ID_WIDTH`   | Output    | Data ID, to identify multiple streams    |
 | `WDATA`    | `RDATA`    | `AXI_DATA_WIDTH` | Output    | Read/Write data                          |
 |    `--`    | `RRESP`    |        2         | Output    | Read response, current RDATA status      |
@@ -509,20 +569,20 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `WVALID`   | `RVALID`   |        1         | Output    | xVALID handshake signal                  |
 | `WREADY`   | `RREADY`   |        1         | Input     | xREADY handshake signal                  |
 
-#### 2.3.2.3. Signals of the Write Response channel
+##### 2.2.3.2.3. Signals of the Write Response channel
 
 | Write Port | Size             | Direction | Description                                     |
-| ---------- | ---------------- | --------- | ----------------------------------------------- |
+| ---------- |:----------------:|:---------:| ----------------------------------------------- |
 | `BID`      | `AXI_ID_WIDTH`   |   Input   | Write response ID, to identify multiple streams |
 | `BRESP`    |         2        |   Input   | Write response, to specify the burst status     |
 | `BUSER`    | `AXI_USER_WIDTH` |   Input   | User-defined data                               |
 | `BVALID`   |         1        |   Input   | xVALID handshake signal                         |
 | `BREADY`   |         1        |   Output  | xREADY handshake signal                         |
 
-### 2.3.3. Data INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
+#### 2.2.3.3. Data INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
 
 | Port         |  Size  | Direction | Description                    |
-| ------------ | ------ | --------- | ------------------------------ |
+| ------------ |:------:|:---------:| ------------------------------ |
 | `HRESETn`    |    1   |   Input   | Asynchronous Active Low Reset  |
 | `HCLK`       |    1   |   Input   | System Clock Input             |
 |              |        |           |                                |
@@ -539,10 +599,10 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `DHREADY`    |    1   |   Input   | Data Slave Ready Indicator     |
 | `DHRESP`     |    1   |   Input   | Data Transfer Response         |
 
-### 2.3.4. Data INPUTS/OUTPUTS Wishbone Bus
+#### 2.2.3.4. Data INPUTS/OUTPUTS Wishbone Bus
 
 | Port    |  Size  | Direction | Description                     |
-| ------- | ------ | --------- | ------------------------------- |
+| ------- |:------:|:---------:| ------------------------------- |
 | `rst`   |    1   |   Input   | Synchronous Active High Reset   |
 | `clk`   |    1   |   Input   | System Clock Input              |
 |         |        |           |                                 |
@@ -557,74 +617,27 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `derr`  |    1   |   Output  | Bus Cycle Error Output          |
 | `dint`  |    1   |   Output  | Interrupt Signal Output         |
 
-## 2.4. RISC-V ARCHITECTURE
+## 2.3. SoC-RISCV
 
-### 2.4.1. Library
+### 2.3.1. MPSoC-DBG
 
-type:
-```
-sudo apt install autoconf automake autotools-dev curl python3 libmpc-dev \
-libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf \
-libtool patchutils bc zlib1g-dev libexpat-dev
-```
+### 2.3.2. MPSoC-DMA
 
-### 2.4.2. Toolchain
+### 2.3.3. MPSoC-GPIO
 
-type:
-```
-git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
+### 2.3.4. MPSoC-MPI
 
-cd riscv-gnu-toolchain
+### 2.3.5. MPSoC-MPRAM
 
-./configure --prefix=/opt/riscv
-sudo make
+### 2.3.6. MPSoC-MSI
 
-./configure --prefix=/opt/riscv
-sudo make linux
+### 2.3.7. MPSoC-SPRAM
 
-./configure --prefix=/opt/riscv --enable-multilib
-sudo make linux
-
-./configure --prefix=$RISCV
-sudo make linux
-sudo make report-linux
-```
-
-### 2.4.3. Software
-
-type:
-```
-export PATH=$PATH:/opt/riscv/bin
-
-cd software
-
-rm -rf tests
-rm -rf riscv-tests
-
-mkdir tests
-mkdir tests/dump
-mkdir tests/hex
-
-git clone --recursive https://github.com/riscv/riscv-tests
-cd riscv-tests
-
-autoconf
-./configure --prefix=/opt/riscv/bin
-make
-
-cd isa
-
-source ../../elf2hex.sh
-
-mv *.dump ../../tests/dump
-mv *.hex ../../tests/hex
-
-cd ..
-
-make clean
-```
+### 2.3.8. MPSoC-UART
 
 # 3. WORKFLOW
+
+## 3.1. HARDWARE
 
 **1. System Level (SystemC/SystemVerilog)**
 
@@ -648,20 +661,25 @@ On the Physical Gate Level only gates are used that are physically available on 
 
 A Switch Level representation of a circuit is a netlist utilizing single transistors as cells. Switch Level modeling is possible in Verilog and VHDL, but is seldom used in modern designs, as in modern digital ASIC or FPGA flows the physical gates are considered the atomic build blocks of the logic circuit.
 
-## 3.1. FRONT-END OPEN SOURCE TOOLS
+### 3.1.1. Front-End Open Source Tools
 
-### 3.1.1. Modeling System Level of Hardware
+#### 3.1.1.1. Modeling System Level of Hardware
 
 *A System Description Language Editor is a computer tool allows to generate software code. A System Description Language is a formal language, which comprises a Programming Language (input), producing a Hardware Description (output). Programming languages are used in computer programming to implement algorithms. The description of a programming language is  split into the two components of syntax (form) and semantics (meaning).*
 
-**System Description Language Editor**
+**SystemVerilog System Description Language Editor**
 
 type:
 ```
-git clone https://github.com/emacs-mirror/emacs
+git clone --recursive https://github.com/emacs-mirror/emacs
+
+cd emacs
+./configure
+make
+sudo make install
 ```
 
-### 3.1.2. Simulating System Level of Hardware
+#### 3.1.1.2. Simulating System Level of Hardware
 
 *A System Description Language Simulator (translator) is a computer program that translates computer code written in a Programming Language (the source language) into a Hardware Description Language (the target language). The compiler is primarily used for programs that translate source code from a high-level programming language to a low-level language to create an executable program.*
 
@@ -669,7 +687,7 @@ git clone https://github.com/emacs-mirror/emacs
 
 type:
 ```
-git clone http://git.veripool.org/git/verilator
+git clone --recursive http://git.veripool.org/git/verilator
 
 cd verilator
 autoconf
@@ -679,21 +697,21 @@ sudo make install
 ```
 
 ```
-cd sim/verilog/regression/wb/vtor
+cd sim/verilog/regression/wb/verilator
 source SIMULATE-IT
 ```
 
 ```
-cd sim/verilog/regression/ahb3/vtor
+cd sim/verilog/regression/ahb3/verilator
 source SIMULATE-IT
 ```
 
 ```
-cd sim/verilog/regression/axi4/vtor
+cd sim/verilog/regression/axi4/verilator
 source SIMULATE-IT
 ```
 
-### 3.1.3. Verifying System Level of Hardware
+#### 3.1.1.3. Verifying System Level of Hardware
 
 *A UVM standard improves interoperability and reduces the cost of repurchasing and rewriting IP for each new project or Electronic Design Automation tool. It also makes it easier to reuse verification components. The UVM Class Library provides generic utilities, such as component hierarchy, Transaction Library Model or configuration database, which enable the user to create virtually any structure wanted for the testbench.*
 
@@ -701,56 +719,49 @@ source SIMULATE-IT
 
 type:
 ```
-git clone https://github.com/QueenField/UVM
+git clone --recursive https://github.com/QueenField/UVM
 ```
 
-### 3.1.4. Describing Register Transfer Level of Hardware
+```
+cd sim/verilog/pu/riscv/wb/msim
+source SIMULATE-IT
+```
+
+```
+cd sim/verilog/pu/riscv/ahb3/msim
+source SIMULATE-IT
+```
+
+```
+cd sim/verilog/pu/riscv/axi4/msim
+source SIMULATE-IT
+```
+
+#### 3.1.1.4. Describing Register Transfer Level of Hardware
 
 *A Hardware Description Language Editor is any editor that allows to generate hardware code. Hardware Description Language is a specialized computer language used to describe the structure and behavior of digital logic circuits. It allows for the synthesis of a HDL into a netlist, which can then be synthesized, placed and routed to produce the set of masks used to create an integrated circuit.*
 
-**Hardware Description Language Editor**
+**VHDL/Verilog Hardware Description Language Editor**
 
 type:
 ```
-git clone https://github.com/emacs-mirror/emacs
-```
+git clone --recursive https://github.com/emacs-mirror/emacs
 
-### 3.1.5. Simulating Register Transfer Level of Hardware
-
-*A Hardware Description Language Simulator uses mathematical models to replicate the behavior of an actual hardware device. Simulation software allows for modeling of circuit operation and is an invaluable analysis tool. Simulating a circuit’s behavior before actually building it can greatly improve design efficiency by making faulty designs known as such, and providing insight into the behavior of electronics circuit designs.*
-
-**VHDL Hardware Description Language Simulator**
-
-type:
-```
-git clone https://github.com/ghdl/ghdl
-
-cd ghdl
-./configure --prefix=/usr/local
+cd emacs
+./configure
 make
 sudo make install
 ```
 
-```
-cd sim/vhdl/regression/wb/ghdl
-source SIMULATE-IT
-```
+#### 3.1.1.5. Simulating Register Transfer Level of Hardware
 
-```
-cd sim/vhdl/regression/ahb3/ghdl
-source SIMULATE-IT
-```
-
-```
-cd sim/vhdl/regression/axi4/ghdl
-source SIMULATE-IT
-```
+*A Hardware Description Language Simulator uses mathematical models to replicate the behavior of an actual hardware device. Simulation software allows for modeling of circuit operation and is an invaluable analysis tool. Simulating a circuit’s behavior before actually building it can greatly improve design efficiency by making faulty designs known as such, and providing insight into the behavior of electronics circuit designs.*
 
 **Verilog Hardware Description Language Simulator**
 
 type:
 ```
-git clone https://github.com/steveicarus/iverilog
+git clone --recursive https://github.com/steveicarus/iverilog
 
 cd iverilog
 sh autoconf.sh
@@ -774,7 +785,34 @@ cd sim/verilog/regression/axi4/iverilog
 source SIMULATE-IT
 ```
 
-### 3.1.6. Synthesizing Register Transfer Level of Hardware
+**VHDL Hardware Description Language Simulator**
+
+type:
+```
+git clone --recursive https://github.com/ghdl/ghdl
+
+cd ghdl
+./configure --prefix=/usr/local
+make
+sudo make install
+```
+
+```
+cd sim/vhdl/regression/wb/ghdl
+source SIMULATE-IT
+```
+
+```
+cd sim/vhdl/regression/ahb3/ghdl
+source SIMULATE-IT
+```
+
+```
+cd sim/vhdl/regression/axi4/ghdl
+source SIMULATE-IT
+```
+
+#### 3.1.1.6. Synthesizing Register Transfer Level of Hardware
 
 *A Hardware Description Language Synthesizer turns a RTL implementation into a Logical Gate Level implementation. Logical design is a step in the standard design cycle in which the functional design of an electronic circuit is converted into the representation which captures logic operations, arithmetic operations, control flow, etc. In EDA parts of the logical design is automated using  synthesis tools based on the behavioral description of the circuit.*
 
@@ -782,19 +820,25 @@ source SIMULATE-IT
 
 type:
 ```
-git clone https://github.com/YosysHQ/yosys
+git clone --recursive https://github.com/YosysHQ/yosys
 
 cd yosys
 make
 sudo make install
 ```
 
+**VHDL Hardware Description Language Synthesizer**
+
+type:
 ```
-cd synthesis/yosys
-source SYNTHESIZE-IT
+git clone --recursive https://github.com/ghdl/ghdl-yosys-plugin
+cd ghdl-yosys-plugin
+make GHDL=/usr/local
+sudo yosys-config --exec mkdir -p --datdir/plugins
+sudo yosys-config --exec cp "ghdl.so" --datdir/plugins/ghdl.so
 ```
 
-### 3.1.7. Optimizing Register Transfer Level of Hardware
+#### 3.1.1.7. Optimizing Register Transfer Level of Hardware
 
 *A Hardware Description Language Optimizer finds an equivalent representation of the specified logic circuit under specified constraints (minimum area, pre-specified delay). This tool combines scalable logic optimization based on And-Inverter Graphs (AIGs), optimal-delay DAG-based technology mapping for look-up tables and standard cells, and innovative algorithms for sequential synthesis and verification.*
 
@@ -802,19 +846,14 @@ source SYNTHESIZE-IT
 
 type:
 ```
-git clone https://github.com/YosysHQ/yosys
+git clone --recursive https://github.com/YosysHQ/yosys
 
 cd yosys
 make
 sudo make install
 ```
 
-```
-cd synthesis/yosys
-source SYNTHESIZE-IT
-```
-
-### 3.1.8. Verifying Register Transfer Level of Hardware
+#### 3.1.1.8. Verifying Register Transfer Level of Hardware
 
 *A Hardware Description Language Verifier proves or disproves the correctness of intended algorithms underlying a hardware system with respect to a certain formal specification or property, using formal methods of mathematics. Formal verification uses modern techniques (SAT/SMT solvers, BDDs, etc.) to prove correctness by essentially doing an exhaustive search through the entire possible input space (formal proof).*
 
@@ -822,27 +861,22 @@ source SYNTHESIZE-IT
 
 type:
 ```
-git clone https://github.com/YosysHQ/SymbiYosys
+git clone --recursive https://github.com/YosysHQ/SymbiYosys
 ```
 
-## 3.2. BACK-END OPEN SOURCE TOOLS
+### 3.1.2. Back-End Open Source Tools
 
-**Library**
+**I. Back-End Workflow Qflow for ASICs**
 
 type:
 ```
-sudo apt update
-sudo apt upgrade
-
 sudo apt install bison cmake flex freeglut3-dev libcairo2-dev libgsl-dev \
 libncurses-dev libx11-dev m4 python-tk python3-tk swig tcl tcl-dev tk-dev tcsh
 ```
 
-**Back-End Workflow Qflow**
-
 type:
 ```
-git clone https://github.com/RTimothyEdwards/qflow
+git clone --recursive https://github.com/RTimothyEdwards/qflow
 
 cd qflow
 ./configure
@@ -850,12 +884,7 @@ make
 sudo make install
 ```
 
-```
-mkdir qflow
-cd qflow
-```
-
-### 3.2.1. Planning Switch Level of Hardware
+#### 3.1.2.1. Planning Switch Level of Hardware
 
 *A Floor-Planner of an Integrated Circuit (IC) is a schematic representation of tentative placement of its major functional blocks. In modern electronic design process floor-plans are created during the floor-planning design stage, an early stage in the hierarchical approach to Integrated Circuit design. Depending on the design methodology being followed, the actual definition of a floor-plan may differ.*
 
@@ -863,7 +892,7 @@ cd qflow
 
 type:
 ```
-git clone https://github.com/RTimothyEdwards/magic
+git clone --recursive https://github.com/RTimothyEdwards/magic
 
 cd magic
 ./configure
@@ -871,7 +900,7 @@ make
 sudo make install
 ```
 
-### 3.2.2. Placing Switch Level of Hardware
+#### 3.1.2.2. Placing Switch Level of Hardware
 
 *A Standard Cell Placer takes a given synthesized circuit netlist together with a technology library and produces a valid placement layout. The layout is optimized according to the aforementioned objectives and ready for cell resizing and buffering, a step essential for timing and signal integrity satisfaction. Physical design flow are iterated a number of times until design closure is achieved.*
 
@@ -879,7 +908,7 @@ sudo make install
 
 type:
 ```
-git clone https://github.com/rubund/graywolf
+git clone --recursive https://github.com/rubund/graywolf
 
 cd graywolf
 mkdir build
@@ -889,7 +918,7 @@ make
 sudo make install
 ```
 
-### 3.2.3. Timing Switch Level of Hardware
+#### 3.1.2.3. Timing Switch Level of Hardware
 
 *A Standard Cell Timing-Analizer is a simulation method of computing the expected timing of a digital circuit without requiring a simulation of the full circuit. High-performance integrated circuits have traditionally been characterized by the clock frequency at which they operate. Measuring the ability of a circuit to operate at the specified speed requires an ability to measure, during the design process, its delay at numerous steps.*
 
@@ -897,7 +926,7 @@ sudo make install
 
 type:
 ```
-git clone https://github.com/The-OpenROAD-Project/OpenSTA
+git clone --recursive https://github.com/The-OpenROAD-Project/OpenSTA
 
 cd OpenSTA
 mkdir build
@@ -907,7 +936,7 @@ make
 sudo make install
 ```
 
-### 3.2.4. Routing Switch Level of Hardware
+#### 3.1.2.4. Routing Switch Level of Hardware
 
 *A Standard Cell Router takes pre-existing polygons consisting of pins on cells, and pre-existing wiring called pre-routes. Each of these polygons are associated with a net. The primary task of the router is to create geometries such that all terminals assigned to the same net are connected, no terminals assigned to different nets are connected, and all design rules are obeyed.*
 
@@ -915,7 +944,7 @@ sudo make install
 
 type:
 ```
-git clone https://github.com/RTimothyEdwards/qrouter
+git clone --recursive https://github.com/RTimothyEdwards/qrouter
 
 cd qrouter
 ./configure
@@ -923,7 +952,7 @@ make
 sudo make install
 ```
 
-### 3.2.5. Simulating Switch Level of Hardware
+#### 3.1.2.5. Simulating Switch Level of Hardware
 
 *A Standard Cell Simulator treats transistors as ideal switches. Extracted capacitance and lumped resistance values are used to make the switch a little bit more realistic than the ideal, using the RC time constants to predict the relative timing of events. This simulator represents a circuit in terms of its exact transistor structure but describes the electrical behavior in a highly idealized way.*
 
@@ -931,7 +960,7 @@ sudo make install
 
 type:
 ```
-git clone https://github.com/RTimothyEdwards/irsim
+git clone --recursive https://github.com/RTimothyEdwards/irsim
 
 cd irsim
 ./configure
@@ -939,7 +968,7 @@ make
 sudo make install
 ```
 
-### 3.2.6. Verifying Switch Level of Hardware LVS
+#### 3.1.2.6. Verifying Switch Level of Hardware LVS
 
 *A Standard Cell Verifier compares netlists, a process known as LVS (Layout vs. Schematic). This step ensures that the geometry that has been laid out matches the expected circuit. The greatest need for LVS is in large analog or mixed-signal circuits that cannot be simulated in reasonable time. LVS can be done faster than simulation, and provides feedback that makes it easier to find errors.*
 
@@ -947,7 +976,7 @@ sudo make install
 
 type:
 ```
-git clone https://github.com/RTimothyEdwards/netgen
+git clone --recursive https://github.com/RTimothyEdwards/netgen
 
 cd netgen
 ./configure
@@ -955,12 +984,7 @@ make
 sudo make install
 ```
 
-```
-cd synthesis/qflow
-source FLOW-IT
-```
-
-### 3.2.7. Checking Switch Level of Hardware DRC
+#### 3.1.2.7. Checking Switch Level of Hardware DRC
 
 *A Standard Cell Checker is a geometric constraint imposed on Printed Circuit Board (PCB) and Integrated Circuit (IC) designers to ensure their designs function properly, reliably, and can be produced with acceptable yield. Design Rules for production are developed by hardware engineers based on the capability of their processes to realize design intent. Design Rule Checking (DRC) is used to ensure that designers do not violate design rules.*
 
@@ -968,7 +992,7 @@ source FLOW-IT
 
 type:
 ```
-git clone https://github.com/RTimothyEdwards/magic
+git clone --recursive https://github.com/RTimothyEdwards/magic
 
 cd magic
 ./configure
@@ -976,7 +1000,7 @@ make
 sudo make install
 ```
 
-### 3.2.8. Printing Switch Level of Hardware GDS
+#### 3.1.2.8. Printing Switch Level of Hardware GDS
 
 *A Standard Cell Editor allows to print a set of standard cells. The standard cell methodology is an abstraction, whereby a low-level VLSI layout is encapsulated into a logical representation. A standard cell is a group of transistor and interconnect structures that provides a boolean logic function (AND, OR, XOR, XNOR, inverters) or a storage function (flipflop or latch).*
 
@@ -984,7 +1008,7 @@ sudo make install
 
 type:
 ```
-git clone https://github.com/RTimothyEdwards/magic
+git clone --recursive https://github.com/RTimothyEdwards/magic
 
 cd magic
 ./configure
@@ -992,116 +1016,310 @@ make
 sudo make install
 ```
 
+**II. Back-End Workflow Symbiflow for FPGAs**
+
+## 3.2. SOFTWARE
+
+### 3.2.1. Compilers
+
+type:
+```
+sudo apt install autoconf automake autotools-dev curl python3 libmpc-dev \
+libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf \
+libtool patchutils bc zlib1g-dev libexpat-dev
+```
+
+#### 3.2.1.1. RISC-V GNU C/C++
+
+type:
+```
+git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
+
+cd riscv-gnu-toolchain
+
+./configure --prefix=/opt/riscv-elf-gcc
+sudo make clean
+sudo make
+
+./configure --prefix=/opt/riscv-elf-gcc
+sudo make clean
+sudo make linux
+
+./configure --prefix=/opt/riscv-elf-gcc --enable-multilib
+sudo make clean
+sudo make linux
+```
+
+#### 3.2.1.2. RISC-V GNU Go
+
+type:
+```
+git clone --recursive https://go.googlesource.com/go riscv-go
+cd riscv-go/src
+./all.bash
+cd ../..
+sudo mv riscv-go /opt
+```
+
+### 3.2.2. Simulators
+
+type:
+```
+sudo apt install device-tree-compiler libglib2.0-dev libpixman-1-dev pkg-config
+```
+
+#### 3.2.2.1. Spike (For Hardware Engineers)
+
+**Building Proxy Kernel**
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+git clone --recursive https://github.com/riscv/riscv-pk
+
+cd riscv-pk
+mkdir build
+cd build
+../configure --prefix=/opt/riscv-elf-gcc --host=riscv64-unknown-elf
+make
+sudo make install
+```
+
+**Building Spike**
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+git clone --recursive https://github.com/riscv/riscv-isa-sim
+
+cd riscv-isa-sim
+mkdir build
+cd build
+../configure --prefix=/opt/riscv-elf-gcc
+make
+sudo make install
+```
+
+#### 3.2.2.2. QEMU (For Software Engineers)
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+git clone --recursive https://github.com/qemu/qemu
+
+cd qemu
+./configure --prefix=/opt/riscv-elf-gcc \
+--target-list=riscv64-softmmu,riscv32-softmmu,riscv64-linux-user,riscv32-linux-user
+make
+sudo make install
+```
+
 # 4. CONCLUSION
 
-## 4.1. OPEN SOURCE TOOLS FOR WINDOWS USERS!
-
-### 4.1.0. Install Prerequisites
-
-1. Settings → Apps → Apps & features → Related settings, Programs and
-Features → Turn Windows features on or off → Windows Subsystem for
-Linux
-
-2. Microsoft Store → INSTALL UBUNTU
-
-Library
-type:
-```
-sudo apt update
-sudo apt upgrade
-
-sudo apt install bison cmake flex freeglut3-dev libcairo2-dev libgsl-dev \
-libncurses-dev libx11-dev m4 python-tk python3-tk swig tcl tcl-dev tk-dev tcsh
-```
-
-### 4.1.1. Front-End
-
-type:
-```
-sudo apt install verilator
-sudo apt install iverilog
-sudo apt install ghdl
-
-cd /mnt/c/../sim/verilog/regression/wb/iverilog
-source SIMULATE-IT
-```
+## 4.1. HARDWARE
 
 ```
-sudo apt install yosys
-
-cd /mnt/c/../synthesis/yosys
+cd synthesis/yosys
 source SYNTHESIZE-IT
 ```
 
-### 4.1.2. Back-End
+### 4.1.1. GSCL 45 nm ASIC
 
 type:
 ```
-mkdir qflow
-cd qflow
-
-git clone https://github.com/RTimothyEdwards/magic
-git clone https://github.com/rubund/graywolf
-git clone https://github.com/The-OpenROAD-Project/OpenSTA
-git clone https://github.com/RTimothyEdwards/qrouter
-git clone https://github.com/RTimothyEdwards/irsim
-git clone https://github.com/RTimothyEdwards/netgen
-git clone https://github.com/RTimothyEdwards/qflow
-```
-
-```
-cd /mnt/c/../synthesis/qflow
+cd synthesis/qflow
 source FLOW-IT
 ```
 
-## 4.2. OPEN SOURCE SYNTHESIZER FOR WINDOWS USERS!
+### 4.1.2. Lattice iCE40 FPGA
 
-### 4.2.0. Install Prerequisites
-
-#### 4.2.0.1. For WINDOWS Users!
-
-1. Settings → Apps → Apps & features → Related settings, Programs and Features → Turn Windows features on or off → Windows Subsystem for Linux
-
-2. Microsoft Store → INSTALL UBUNTU
-
-#### 4.2.0.2. For WINDOWS and LINUX Users
-
+type:
 ```
-sudo apt update
-sudo apt upgrade
+cd synthesis/symbiflow
+source FLOW-IT
 ```
 
-```
-sudo apt -y install build-essential clang bison flex \
-libreadline-dev gawk tcl-dev libffi-dev git make gnat \
-graphviz xdot pkg-config python3 libboost-system-dev \
-libboost-python-dev libboost-filesystem-dev zlib1g-dev
-```
+## 4.2. SOFTWARE
 
-### 4.2.1. Install GHDL
-```
-git clone https://github.com/ghdl/ghdl
+### 4.2.1. RISC-V Tests
 
-cd ghdl
-./configure --prefix=/usr/local
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+rm -rf tests
+rm -rf riscv-tests
+
+mkdir tests
+mkdir tests/dump
+mkdir tests/hex
+
+git clone --recursive https://github.com/riscv/riscv-tests
+cd riscv-tests
+
+autoconf
+./configure --prefix=/opt/riscv-elf-gcc/bin
 make
-sudo make install
+
+cd isa
+
+source ../../elf2hex.sh
+
+mv *.dump ../../tests/dump
+mv *.hex ../../tests/hex
+
+cd ..
+
+make clean
 ```
 
-### 4.2.2. Install Yosys
+elf2hex.sh:
 ```
-git clone https://github.com/YosysHQ/yosys
+riscv64-unknown-elf-objcopy -O ihex rv32mi-p-breakpoint rv32mi-p-breakpoint.hex
+riscv64-unknown-elf-objcopy -O ihex rv32mi-p-csr rv32mi-p-csr.hex
+...
+riscv64-unknown-elf-objcopy -O ihex rv64um-v-remw rv64um-v-remw.hex
+```
 
-cd yosys
-make
-sudo make install
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+spike rv32mi-p-breakpoint
+spike rv32mi-p-csr
+...
+spike rv64um-v-remw
 ```
 
-### 4.2.3. Install Synthesizer Plugin
+### 4.2.2. RISC-V Bare Metal
+
+type:
 ```
-git clone https://github.com/ghdl/ghdl-yosys-plugin
-cd ghdl-yosys-plugin
-make GHDL=/usr/local
-sudo yosys-config --exec mkdir -p --datdir/plugins
-sudo yosys-config --exec cp "ghdl.so" --datdir/plugins/ghdl.so
+rm -rf hello_c.elf
+rm -rf hello_c.hex
+
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+riscv64-unknown-elf-gcc -o hello_c.elf hello_c.c
+riscv64-unknown-elf-objcopy -O ihex hello_c.elf hello_c.hex
 ```
+
+C Language:
+```c
+#include <stdio.h>
+
+int main() {
+  printf("Hello QueenField!\n");
+  return 0;
+}
+```
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+spike pk hello_c.elf
+```
+
+type:
+```
+rm -rf hello_cpp.elf
+rm -rf hello_cpp.hex
+
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+riscv64-unknown-elf-g++ -o hello_cpp.elf hello_cpp.cpp
+riscv64-unknown-elf-objcopy -O ihex hello_cpp.elf hello_cpp.hex
+```
+
+C++ Language:
+```cpp
+#include <iostream>
+
+int main() {
+  std::cout << "Hello QueenField!\n";
+  return 0;
+}
+```
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+spike pk hello_cpp.elf
+```
+
+type:
+```
+rm -rf hello_go.elf
+rm -rf hello_go.hex
+
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+export PATH=/opt/riscv-go/bin:${PATH}
+
+GOOS=linux GOARCH=riscv64 go build -o hello_go.elf hello_go.go
+riscv64-unknown-elf-objcopy -O ihex hello_go.elf hello_go.hex
+```
+
+Go Language:
+```go
+package main
+
+import "fmt"
+func main() {
+  fmt.Println("Hello QueenField!")
+}
+```
+
+### 4.2.3. RISC-V Operating System
+
+#### 4.2.3.1. GNU Linux
+
+**Building BusyBox**
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+git clone --recursive https://git.busybox.net/busybox
+
+cd busybox
+make CROSS_COMPILE=riscv64-unknown-linux-gnu- defconfig
+make CROSS_COMPILE=riscv64-unknown-linux-gnu-
+```
+
+**Building Linux**
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+git clone --recursive https://github.com/torvalds/linux
+
+cd linux
+make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- defconfig
+make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu-
+```
+
+**Running Linux**
+
+type:
+```
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+qemu-system-riscv64 -nographic -machine virt \
+-kernel Image -append "root=/dev/vda ro console=ttyS0" \
+-drive file=busybox,format=raw,id=hd0 \
+-device virtio-blk-device,drive=hd0
+```
+
+#### 4.2.3.2. GNU Hurd
+
+### 4.2.4. RISC-V Distribution
+
+#### 4.2.4.1. GNU Debian
+
+#### 4.2.4.2. GNU Fedora
