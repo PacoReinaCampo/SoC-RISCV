@@ -1,0 +1,9 @@
+source ../../build.sh
+
+make clean
+make
+
+rm -rf ../host/vmem/hello_mpsimple.vmem
+cp hello_mpsimple.vmem ../host/vmem/
+
+make clean

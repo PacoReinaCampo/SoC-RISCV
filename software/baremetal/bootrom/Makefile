@@ -1,4 +1,3 @@
-#!/bin/sh
 ###################################################################################
 ##                                            __ _      _     _                  ##
 ##                                           / _(_)    | |   | |                 ##
@@ -38,9 +37,41 @@
 ##                                                                               ##
 ## ============================================================================= ##
 ## Author(s):                                                                    ##
+##   Stefan Wallentowitz <stefan.wallentowitz@tum.de>                            ##
+##   Philipp Wagner <philipp.wagner@tum.de>                                      ##
 ##   Paco Reina Campo <pacoreinacampo@queenfield.tech>                           ##
 ##                                                                               ##
 ###################################################################################
 
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-exec pkg-config --define-variable=OPTIMSOC=$OPTIMSOC $@
+all: bootrom_code.sv bootrom.hex
+
+bootrom.hex: bootrom.bin
+	./bin2vmem bootrom.bin > bootrom.hex
+
+bootrom_code.sv: bootrom.bin bin2vlogarray bin2vmem
+	cat bootrom_code.sv.header > bootrom_code.sv
+	cat bootrom.bin | ./bin2vlogarray >> bootrom_code.sv
+
+bootrom.bin: a.out
+	or1k-elf-objcopy -O binary a.out bootrom.bin
+
+bootrom.dis: a.out
+	or1k-elf-objdump -d a.out > bootrom.dis
+
+a.out: boot.s
+	or1k-elf-as boot.s
+
+bin2vlogarray: bin2vlogarray.c
+	gcc -Wall -o bin2vlogarray bin2vlogarray.c
+
+bin2vmem: bin2vmem.c
+	gcc -Wall -o bin2vmem bin2vmem.c
+	rm -f ../host/bin/bin2vmem
+	cp bin2vmem ../host/bin/
+
+install:
+	rm -f ../../../rtl/verilog/bootrom/bootrom_code.sv
+	cp -i bootrom_code.sv ../../../rtl/verilog/soc/bootrom/
+
+clean:
+	rm -f a.out bootrom.bin bootrom.hex bootrom_code.sv bin2vlogarray bin2vmem

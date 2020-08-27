@@ -15,7 +15,7 @@
 
 ###################################################################################
 ##                                                                               ##
-## Copyright (c) 2016-2015 by the author(s)                                      ##
+## Copyright (c) 2019-2020 by the author(s)                                      ##
 ##                                                                               ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
 ## of this software and associated documentation files (the "Software"), to deal ##
@@ -41,8 +41,7 @@
 ##                                                                               ##
 ###################################################################################
 
-PROGRAM=hello_mp
-ENABLE_MP=1
+PROGRAM=hello
 
 BUILDSCRIPTS=$(shell pkg-config --variable=buildscriptdir optimsoc-baremetal)
 include $(BUILDSCRIPTS)/Makefile.inc

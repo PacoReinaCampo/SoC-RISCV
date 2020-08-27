@@ -15,7 +15,7 @@
 
 ###################################################################################
 ##                                                                               ##
-## Copyright (c) 2016-2015 by the author(s)                                      ##
+## Copyright (c) 2019-2020 by the author(s)                                      ##
 ##                                                                               ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
 ## of this software and associated documentation files (the "Software"), to deal ##
@@ -41,17 +41,8 @@
 ##                                                                               ##
 ###################################################################################
 
-export PATH=/opt/or1k-elf-gcc/bin:${PATH}
+PROGRAM=hello_mp
+ENABLE_MP=1
 
-if [ -n "$BASH_SOURCE" ]; then
-   OPTIMSOC="`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd `"
-elif [ -n "$ZSH_NAME" ]; then
-   OPTIMSOC="`dirname $0`"
-else
-   OPTIMSOC="`pwd`"
-fi
-
-export OPTIMSOC
-
-export PKG_CONFIG_PATH=$OPTIMSOC/baremetal/baremetal-libs/sw/share/pkgconfig:$PKG_CONFIG_PATH
-export PATH=$OPTIMSOC/baremetal/host/bin:$PATH
+BUILDSCRIPTS=$(shell pkg-config --variable=buildscriptdir optimsoc-baremetal)
+include $(BUILDSCRIPTS)/Makefile.inc

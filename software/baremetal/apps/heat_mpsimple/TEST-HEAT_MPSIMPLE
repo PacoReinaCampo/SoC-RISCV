@@ -1,0 +1,9 @@
+source ../../build.sh
+
+make clean
+make
+
+rm -rf ../host/vmem/heat_mpsimple.vmem
+cp heat_mpsimple.vmem ../host/vmem/
+
+make clean

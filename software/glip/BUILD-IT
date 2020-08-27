@@ -1,0 +1,8 @@
+./autogen.sh
+mkdir build
+cd build
+
+../configure --prefix=/opt/glip --enable-cypressfx2 --enable-tcp
+make
+sudo make install
+
