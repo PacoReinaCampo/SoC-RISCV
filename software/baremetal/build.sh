@@ -54,4 +54,4 @@ fi
 export OPTIMSOC
 
 export PKG_CONFIG_PATH=$OPTIMSOC/libs/sw/share/pkgconfig:$PKG_CONFIG_PATH
-export PATH=$OPTIMSOC/baremetal/host/bin:$PATH
+export PATH=$OPTIMSOC/host/bin:$PATH

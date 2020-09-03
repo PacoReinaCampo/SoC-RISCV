@@ -3,7 +3,7 @@ source ../../build.sh
 make clean
 make
 
-rm -rf ../host/vmem/hello_mp.vmem
-cp hello_mp.vmem ../host/vmem/
+rm -rf ../../host/vmem/hello_mp.vmem
+cp hello_mp.vmem ../../host/vmem/
 
 make clean
