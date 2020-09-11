@@ -29,11 +29,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include <or1k-support.h>
-#include <or1k-sprs.h>
+#include <riscv-support.h>
+#include <riscv-sprs.h>
 
 extern void* _end;
-extern void* _or1k_stack_bottom;
+extern void* _riscv_stack_bottom;
 
 struct optimsoc_list_t *gzll_pagepool_local;
 
@@ -48,7 +48,7 @@ void gzll_paging_init() {
 
     // Local page table
     uint32_t start = (uint32_t) _gzll_image_layout.apps_end;
-    uint32_t end = (uint32_t) _or1k_stack_bottom;
+    uint32_t end = (uint32_t) _riscv_stack_bottom;
 
     start += 40 * 8192;
 
@@ -70,7 +70,7 @@ void gzll_paging_init() {
 
 void gzll_paging_dpage_fault(uint32_t vaddr) {
     printf("Data page fault for %p @PC=%p\n", (void*) vaddr,
-           or1k_mfspr(OR1K_SPR_SYS_EPCR_ADDR(0)));
+           riscv_mfspr(RISCV_SPR_SYS_EPCR_ADDR(0)));
     exit(1);
 }
 

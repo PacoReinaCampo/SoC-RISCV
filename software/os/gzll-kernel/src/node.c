@@ -8,7 +8,7 @@
 #include "memcpy_userspace.h"
 
 #include <optimsoc-runtime.h>
-#include <or1k-support.h>
+#include <riscv-support.h>
 
 #include <stdio.h>
 #include <assert.h>
@@ -25,7 +25,7 @@ gzll_node_id gzll_get_nodeid() {
         nodeid = gzll_node_nxtid;
         // Try to increment. If someone else already incremented, this will fail
         // and we retry
-    } while (or1k_sync_cas(&gzll_node_nxtid, nodeid, nodeid + 1) != nodeid);
+    } while (riscv_sync_cas(&gzll_node_nxtid, nodeid, nodeid + 1) != nodeid);
 
     return nodeid;
 }

@@ -23,8 +23,8 @@ __attribute__((section(".gzll_image_layout"))) = {
 extern void *__bss_start;
 extern void *end;
 
-extern uint32_t _or1k_heap_start;
-extern uint32_t _or1k_heap_end;
+extern uint32_t _riscv_heap_start;
+extern uint32_t _riscv_heap_end;
 
 void _gzll_print_memory_information() {
     printf("Kernel end: %p\n", &_image_gzll_kernel_end);
@@ -32,8 +32,8 @@ void _gzll_print_memory_information() {
     printf("end symbol: %p\n", &end);
     printf("Image start: %p\n", &_image_gzll_apps_start);
     printf("Image end: %p\n", &_image_gzll_apps_end);
-    printf("Heap start: %p\n", _or1k_heap_start);
-    printf("Current heap ptr: %p\n", _or1k_heap_end);
+    printf("Heap start: %p\n", _riscv_heap_start);
+    printf("Current heap ptr: %p\n", _riscv_heap_end);
 }
 
 void main() {

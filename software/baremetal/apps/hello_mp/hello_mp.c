@@ -43,14 +43,14 @@
 #include <stdio.h> // For printf
 
 #include <optimsoc-mp.h>
-#include <or1k-support.h>
+#include <riscv-support.h>
 #include <optimsoc-baremetal.h>
 
 #include <assert.h>
 
 // The main function
 int main() {
-  if (or1k_coreid() != 0)
+  if (riscv_coreid() != 0)
     return 0;
 
   // Initialize optimsoc library

@@ -27,7 +27,7 @@ void control_init() {
 
     optimsoc_mp_simple_enable(0);
     optimsoc_mp_simple_enable(1);
-    or1k_interrupts_enable();
+    riscv_interrupts_enable();
 }
 
 // The following handler is called by the message interrupt service routine
@@ -193,13 +193,13 @@ void control_msg_handler(uint32_t* buffer,size_t len) {
 
 void control_wait_response() {
     // Get current interrupts by disabling temporarily
-    uint32_t restore = or1k_interrupts_disable();
+    uint32_t restore = riscv_interrupts_disable();
     // Enable all interrupts
-    or1k_interrupts_enable();
+    riscv_interrupts_enable();
     // Wait until the reply arrived
     while (ctrl_request.done == 0) { }
     // Restore previous state of interrupts
-    or1k_interrupts_restore(restore);
+    riscv_interrupts_restore(restore);
 }
 
 struct endpoint *control_get_endpoint(uint32_t domain, uint32_t node,

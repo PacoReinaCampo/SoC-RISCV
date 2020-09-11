@@ -154,7 +154,7 @@ int optimsoc_mp_channel_send(struct endpoint_handle *from,
 
     do {
         oldcredit = from->ep->remotecredit;
-    } while (or1k_sync_cas((void*)&(from->ep->remotecredit), oldcredit, oldcredit-1) != oldcredit);
+    } while (riscv_sync_cas((void*)&(from->ep->remotecredit), oldcredit, oldcredit-1) != oldcredit);
 
     trace_chan_send_xmit(from);
 

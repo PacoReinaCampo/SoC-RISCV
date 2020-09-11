@@ -22,8 +22,8 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-#include <or1k-asm.h>
-#include <or1k-sprs.h>
+#include <riscv-asm.h>
+#include <riscv-sprs.h>
 
 #define GPR_BUF_OFFSET(x) (x << 2)
 
@@ -41,7 +41,7 @@ _optimsoc_syscall_entry:
     // De-reference pointer
     l.lwz   r3,0(r3)
     // Add core offset
-    l.mfspr r4,r0,OR1K_SPR_SYS_COREID_ADDR
+    l.mfspr r4,r0,RISCV_SPR_SYS_COREID_ADDR
     l.slli  r4,r4,5
     l.add   r3,r3,r4
     // Store id
@@ -75,17 +75,17 @@ _optimsoc_syscall_entry:
 
     // Check that syscall handler is set
     l.sfeqi r4,0
-    OR1K_DELAYED_NOP(l.bf .no_entry_set)
+    RISCV_DELAYED_NOP(l.bf .no_entry_set)
 
     // Jump to registered syscall handler
-    OR1K_DELAYED_NOP(l.jalr r4)
+    RISCV_DELAYED_NOP(l.jalr r4)
 
     // Store return to register
     l.lwz   r11,4(r14)
     l.sw    GPR_BUF_OFFSET(11)(r1),r11
 
     // Return to exception handler
-    OR1K_DELAYED_NOP(l.jr r16)
+    RISCV_DELAYED_NOP(l.jr r16)
 
 .no_entry_set:
-    OR1K_DELAYED_NOP(l.j exit)
+    RISCV_DELAYED_NOP(l.j exit)

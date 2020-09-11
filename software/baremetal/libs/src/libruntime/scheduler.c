@@ -24,7 +24,7 @@
  */
 
 #include <optimsoc-baremetal.h>
-#include <or1k-support.h>
+#include <riscv-support.h>
 #include <context.h>
 
 #include "runtime.h"
@@ -62,7 +62,7 @@ void _optimsoc_idle_thread_func() {
 
 optimsoc_thread_t _optimsoc_scheduler_get_current(void) {
     struct _optimsoc_scheduler_core *core_ctx;
-    core_ctx = &_optimsoc_scheduler_core[or1k_coreid()];
+    core_ctx = &_optimsoc_scheduler_core[riscv_coreid()];
     assert (core_ctx && core_ctx->active_thread);
 
     return core_ctx->active_thread;
@@ -70,7 +70,7 @@ optimsoc_thread_t _optimsoc_scheduler_get_current(void) {
 
 void _optimsoc_scheduler_tick() {
     struct _optimsoc_scheduler_core *core_ctx;
-    core_ctx = &_optimsoc_scheduler_core[or1k_coreid()];
+    core_ctx = &_optimsoc_scheduler_core[riscv_coreid()];
 
     _optimsoc_timer_tick();
 
@@ -87,7 +87,7 @@ void _optimsoc_scheduler_tick() {
     _optimsoc_schedule();
 
     /* activate timer */
-    or1k_timer_reset();
+    riscv_timer_reset();
 }
 
 void _optimsoc_scheduler_init() {
@@ -105,10 +105,10 @@ void _optimsoc_scheduler_init() {
 
     optimsoc_thread_create(&init_thread, &init, attr_init);
 
-    _optimsoc_scheduler_core = calloc(or1k_numcores(),
+    _optimsoc_scheduler_core = calloc(riscv_numcores(),
                                       sizeof(struct _optimsoc_scheduler_core));
 
-    for (int c = 0; c < or1k_numcores(); c++) {
+    for (int c = 0; c < riscv_numcores(); c++) {
         struct optimsoc_thread_attr *attr_idle;
         attr_idle = malloc(sizeof(struct optimsoc_thread_attr));
         optimsoc_thread_attr_init(attr_idle);
@@ -134,18 +134,18 @@ void _optimsoc_scheduler_add(optimsoc_thread_t t, struct optimsoc_list_t* q) {
 void _optimsoc_scheduler_start() {
 
     /* init timer */
-    or1k_timer_init(runtime_config_get_numticks());
+    riscv_timer_init(runtime_config_get_numticks());
     /* timer set handle must be after timer init */
-    or1k_timer_set_handler(&_optimsoc_scheduler_tick);
+    riscv_timer_set_handler(&_optimsoc_scheduler_tick);
 
     _optimsoc_schedule();
 
     /* activate timer */
-    or1k_timer_reset();
-    or1k_timer_enable();
+    riscv_timer_reset();
+    riscv_timer_enable();
 
     _optimsoc_thread_ctx_t *ctx;
-    ctx = _optimsoc_scheduler_core[or1k_coreid()].active_thread->ctx;
+    ctx = _optimsoc_scheduler_core[riscv_coreid()].active_thread->ctx;
     _optimsoc_context_replace(ctx);
 }
 
@@ -157,19 +157,19 @@ void _optimsoc_schedule() {
 
     /* In case we don't have a thread in the ready_q: schedule idle thread */
     if(!t) {
-        t = _optimsoc_scheduler_core[or1k_coreid()].idle_thread;
+        t = _optimsoc_scheduler_core[riscv_coreid()].idle_thread;
     }
 
     assert(t);
 
     /* set active */
-    _optimsoc_scheduler_core[or1k_coreid()].active_thread = t;
+    _optimsoc_scheduler_core[riscv_coreid()].active_thread = t;
 
     runtime_trace_schedule(t->id);
 
     /* switch the context */
     _optimsoc_thread_ctx_t *ctx;
-    ctx = _optimsoc_scheduler_core[or1k_coreid()].active_thread->ctx;
+    ctx = _optimsoc_scheduler_core[riscv_coreid()].active_thread->ctx;
     _optimsoc_context_restore(ctx);
 
     // TODO: Clear TLB

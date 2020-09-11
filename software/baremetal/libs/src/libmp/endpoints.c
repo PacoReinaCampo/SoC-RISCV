@@ -225,7 +225,7 @@ int endpoint_pop(struct endpoint *ep, uint32_t *ptr) {
         if (ep->buffer->size <= newptr) {
             newptr -= ep->buffer->size;
         }
-    } while (or1k_sync_cas((void*) &ep->buffer->read_ptr, *ptr, newptr) != *ptr);
+    } while (riscv_sync_cas((void*) &ep->buffer->read_ptr, *ptr, newptr) != *ptr);
 
     return 0;
 }
@@ -240,7 +240,7 @@ int endpoint_push(struct endpoint *ep, uint32_t *ptr) {
         if (ep->buffer->size <= newptr) {
             newptr -= ep->buffer->size;
         }
-    } while (or1k_sync_cas((void*) &ep->buffer->write_ptr, *ptr, newptr) != *ptr);
+    } while (riscv_sync_cas((void*) &ep->buffer->write_ptr, *ptr, newptr) != *ptr);
 
     return 0;
 }

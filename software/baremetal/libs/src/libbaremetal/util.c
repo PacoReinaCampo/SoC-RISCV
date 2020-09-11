@@ -93,7 +93,7 @@ void optimsoc_mutex_init(optimsoc_mutex_t *mutex) {
 }
 
 void optimsoc_mutex_lock(optimsoc_mutex_t *mutex) {
-    while (or1k_sync_tsl(mutex) != 0) {}
+    while (riscv_sync_tsl(mutex) != 0) {}
 }
 
 void optimsoc_mutex_unlock(optimsoc_mutex_t *mutex) {

@@ -22,9 +22,9 @@
 #   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
 #
 
-CC_FOR_TARGET ?= @OR1K-CC@
-OBJDUMP_FOR_TARGET ?= @OR1K-OBJDUMP@
-OBJCOPY_FOR_TARGET ?= @OR1K-OBJCOPY@
+CC_FOR_TARGET ?= @RISCV-CC@
+OBJDUMP_FOR_TARGET ?= @RISCV-OBJDUMP@
+OBJCOPY_FOR_TARGET ?= @RISCV-OBJCOPY@
 CFLAGS ?= -mnewlib -mboard=optimsoc -O0 -Wall -std=gnu99
 
 BUILDSCRIPTS=$(shell pkg-config --variable=buildscriptdir optimsoc-baremetal-runtime)

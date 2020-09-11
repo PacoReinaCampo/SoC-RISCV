@@ -53,13 +53,13 @@ bootrom_code.sv: bootrom.bin bin2vlogarray bin2vmem
 	cat bootrom.bin | ./bin2vlogarray >> bootrom_code.sv
 
 bootrom.bin: a.out
-	or1k-elf-objcopy -O binary a.out bootrom.bin
+	riscv-elf-objcopy -O binary a.out bootrom.bin
 
 bootrom.dis: a.out
-	or1k-elf-objdump -d a.out > bootrom.dis
+	riscv-elf-objdump -d a.out > bootrom.dis
 
 a.out: boot.s
-	or1k-elf-as boot.s
+	riscv-elf-as boot.s
 
 bin2vlogarray: bin2vlogarray.c
 	gcc -Wall -o bin2vlogarray bin2vlogarray.c

@@ -41,7 +41,7 @@
  */
 
 #include <optimsoc-baremetal.h>
-#include <or1k-support.h>
+#include <riscv-support.h>
 
 #include <assert.h>
 #include <stdio.h>  // For printf
@@ -165,7 +165,7 @@ int main() {
   // time a packet arrives.
   optimsoc_mp_simple_addhandler(0, & recv);
 
-  or1k_interrupts_enable();
+  riscv_interrupts_enable();
 
   // Determine my rank and total number
   rank = optimsoc_get_ctrank();

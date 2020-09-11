@@ -1,4 +1,4 @@
-#include <or1k-support.h>
+#include <riscv-support.h>
 
 #include "timer.h"
 
@@ -38,7 +38,7 @@ void optimsoc_timer_wait_ticks(uint32_t ticks)
 {
     struct _optimsoc_timer_t timer;
 
-    uint32_t restore = or1k_critical_begin();
+    uint32_t restore = riscv_critical_begin();
 
     timer.ticks = 0;
     timer.goal = ticks;
@@ -52,5 +52,5 @@ void optimsoc_timer_wait_ticks(uint32_t ticks)
 
     optimsoc_thread_suspend(timer.thread);
 
-    or1k_critical_end(restore);
+    riscv_critical_end(restore);
 }

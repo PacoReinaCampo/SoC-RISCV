@@ -6,11 +6,11 @@ libdir() {
         echo $(cd $1/$(gcc -print-multi-os-directory); pwd)
 }
 
-args="--prefix=\${OPTIMSOC_INSTALLATION}/sw --host=or1k-elf"
+args="--prefix=\${OPTIMSOC_INSTALLATION}/sw --host=riscv-elf"
 
 echo
 echo "Configuration done. Before proceeding you need:"
-echo " * you need a proper OpenRISC compiler (or1k-elf-gcc)."
+echo " * you need a proper OpenRISC compiler (riscv-elf-gcc)."
 echo " * to decide for an installation path (documentation assumes /opt/optimsoc)."
 echo 
 echo "Usual configuration step:"

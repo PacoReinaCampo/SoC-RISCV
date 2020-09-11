@@ -296,7 +296,7 @@ case $basic_machine in
 	| nios | nios2 | nios2eb | nios2el \
 	| ns16k | ns32k \
 	| open8 \
-	| or1k | or32 \
+	| riscv | or32 \
 	| pdp10 | pdp11 | pj | pjl \
 	| powerpc | powerpc64 | powerpc64le | powerpcle \
 	| pyramid \
@@ -1592,7 +1592,7 @@ case $basic_machine in
 	mips*-*)
 		os=-elf
 		;;
-	or1k-*)
+	riscv-*)
 		os=-elf
 		;;
 	or32-*)

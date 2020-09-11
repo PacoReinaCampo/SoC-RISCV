@@ -66,28 +66,28 @@ pkgconfig_DATA = share/optimsoc-baremetal-runtime.pc
 EXTRA_DIST = share/optimsoc-baremetal-runtime.pc.in
 CLEANFILES = share/optimsoc-baremetal-runtime.pc
 
-if OR1KOBJDUMPSET
-MYOR1KOBJDUMP = $(OR1KOBJDUMP)
+if RISCVOBJDUMPSET
+MYRISCVOBJDUMP = $(RISCVOBJDUMP)
 else
-MYOR1KOBJDUMP = $(subst gcc,objdump,$(wordlist 1,1,$(CC)))
+MYRISCVOBJDUMP = $(subst gcc,objdump,$(wordlist 1,1,$(CC)))
 endif
 
-if OR1KOBJCOPYSET
-MYOR1KOBJCOPY = $(OR1KOBJCOPY)
+if RISCVOBJCOPYSET
+MYRISCVOBJCOPY = $(RISCVOBJCOPY)
 else
-MYOR1KOBJCOPY = $(subst gcc,objcopy,$(wordlist 1,1,$(CC)))
+MYRISCVOBJCOPY = $(subst gcc,objcopy,$(wordlist 1,1,$(CC)))
 endif
 
 share/Makefile.inc: share/Makefile.inc.in Makefile
 	$(AM_V_GEN)$(MKDIR_P) share; \
-	$(SED) -e 's,@OR1K-CC@,$(CC),g' -e 's,@OR1K-OBJDUMP@,$(MYOR1KOBJDUMP),g' \
-	-e 's,@OR1K-OBJCOPY@,$(MYOR1KOBJCOPY),g' < $< > $@ || rm $@
+	$(SED) -e 's,@RISCV-CC@,$(CC),g' -e 's,@RISCV-OBJDUMP@,$(MYRISCVOBJDUMP),g' \
+	-e 's,@RISCV-OBJCOPY@,$(MYRISCVOBJCOPY),g' < $< > $@ || rm $@
 
 CLEANFILES += share/Makefile.inc
 
 share/create_pgas_binary.sh: share/create_pgas_binary.sh.in Makefile 
 	$(AM_V_GEN)$(MKDIR_P) share; \
-	$(SED) -e 's,@OR1K-CC@,$(CC),g' -e 's,@OR1K-OBJDUMP@,$(MYOR1KOBJDUMP),g' \
-	-e 's,@OR1K-OBJCOPY@,$(MYOR1KOBJCOPY),g' < $< > $@ || rm $@
+	$(SED) -e 's,@RISCV-CC@,$(CC),g' -e 's,@RISCV-OBJDUMP@,$(MYRISCVOBJDUMP),g' \
+	-e 's,@RISCV-OBJCOPY@,$(MYRISCVOBJCOPY),g' < $< > $@ || rm $@
 
 CLEANFILES += share/create_pgas_binary.sh

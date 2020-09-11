@@ -16,7 +16,7 @@ This repository contains some baremetal libraries for OpTiMSoC:
 ```
 ./autogen.sh
 mkdir build; cd build
-../configure --prefix=/opt/optimsoc/sw --host=or1k-elf
+../configure --prefix=/opt/optimsoc/sw --host=riscv-elf
 make
 sudo make install
 ```

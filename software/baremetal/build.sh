@@ -41,7 +41,7 @@
 ##                                                                               ##
 ###################################################################################
 
-export PATH=/opt/or1k-elf-gcc/bin:${PATH}
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
 
 if [ -n "$BASH_SOURCE" ]; then
    OPTIMSOC="`cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd `"

@@ -28,7 +28,7 @@
 #include "thread.h"
 #include "context.h"
 #include <assert.h>
-#include <or1k-support.h>
+#include <riscv-support.h>
 #include <optimsoc-baremetal.h>
 
 #include <stdio.h>
@@ -44,7 +44,7 @@ void optimsoc_runtime_boot(void) {
     // Activate proper handling of exceptions in section trace
     OPTIMSOC_TRACE(0x23, 0);
 
-    if (or1k_coreid() == 0) {
+    if (riscv_coreid() == 0) {
         printf("Initializing OpTiMSoC platform..\n");
         optimsoc_init(0);
 

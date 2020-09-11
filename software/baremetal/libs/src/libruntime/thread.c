@@ -115,7 +115,7 @@ int optimsoc_thread_create(optimsoc_thread_t *thread,
             t->id = id;
             // Try to write new value of thread_next_id. If it was changed
             // meanwhile, we retry the whole operation.
-        } while (or1k_sync_cas((void*) &_optimsoc_thread_next_id, id, id+1) != id);
+        } while (riscv_sync_cas((void*) &_optimsoc_thread_next_id, id, id+1) != id);
     }
 
     // Check if a thread identifier name is given
@@ -173,7 +173,7 @@ void optimsoc_thread_yield(optimsoc_thread_t thread) {
 
     if (thread == current) {
         if (thread->flags & OPTIMSOC_THREAD_FLAG_KERNEL) {
-            uint32_t restore = or1k_critical_begin();
+            uint32_t restore = riscv_critical_begin();
             // Store the current context
             struct _optimsoc_thread_ctx_t *ctx;
 
@@ -182,7 +182,7 @@ void optimsoc_thread_yield(optimsoc_thread_t thread) {
                 _optimsoc_schedule();
                 _optimsoc_context_replace(_optimsoc_scheduler_get_current()->ctx);
             } else {
-                or1k_critical_end(restore);
+                riscv_critical_end(restore);
             }
         } else {
             assert(0);
@@ -216,7 +216,7 @@ void optimsoc_thread_exit() {
 
 void _optimsoc_kthread_handle(void (*f)(void*),void *arg) {
     f(arg);
-    or1k_critical_begin();
+    riscv_critical_begin();
     // We don't actually care for the original context
     _optimsoc_context_enter_exception(_optimsoc_scheduler_get_current()->ctx);
     optimsoc_thread_exit();
@@ -271,7 +271,7 @@ int _optimsoc_context_create(optimsoc_thread_t thread,
 void optimsoc_thread_suspend(optimsoc_thread_t thread)
 {
 
-    uint32_t restore = or1k_critical_begin();
+    uint32_t restore = riscv_critical_begin();
 
     assert(thread->state == THREAD_RUNNABLE);
 
@@ -300,7 +300,7 @@ void optimsoc_thread_suspend(optimsoc_thread_t thread)
         thread->state = THREAD_SUSPENDED;
     }
 
-    or1k_critical_end(restore);
+    riscv_critical_end(restore);
 }
 
 void optimsoc_thread_resume(optimsoc_thread_t thread)
@@ -363,7 +363,7 @@ optimsoc_thread_t optimsoc_thread_dma_copy(uint32_t remote_tile,
         local_thread->id = id;
         /* Try to write new value of thread_next_id. If it was changed
          * meanwhile, we retry the whole operation.*/
-    } while (or1k_sync_cas((void*) &_optimsoc_thread_next_id, id, id+1) != id);
+    } while (riscv_sync_cas((void*) &_optimsoc_thread_next_id, id, id+1) != id);
 
     /* struct _optimsoc_thread_ctx_t *ctx */
     local_thread->ctx = malloc(sizeof(struct _optimsoc_thread_ctx_t));

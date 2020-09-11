@@ -635,12 +635,12 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-OR1KOBJCOPY
-OR1KOBJDUMP
-OR1KOBJCOPYSET_FALSE
-OR1KOBJCOPYSET_TRUE
-OR1KOBJDUMPSET_FALSE
-OR1KOBJDUMPSET_TRUE
+RISCVOBJCOPY
+RISCVOBJDUMP
+RISCVOBJCOPYSET_FALSE
+RISCVOBJCOPYSET_TRUE
+RISCVOBJDUMPSET_FALSE
+RISCVOBJDUMPSET_TRUE
 GZLL_LIBS
 GZLL_CFLAGS
 PKG_CONFIG_LIBDIR
@@ -12242,20 +12242,20 @@ fi
 
 
 
- if test "x$OR1KOBJDUMP" != "x"; then
-  OR1KOBJDUMPSET_TRUE=
-  OR1KOBJDUMPSET_FALSE='#'
+ if test "x$RISCVOBJDUMP" != "x"; then
+  RISCVOBJDUMPSET_TRUE=
+  RISCVOBJDUMPSET_FALSE='#'
 else
-  OR1KOBJDUMPSET_TRUE='#'
-  OR1KOBJDUMPSET_FALSE=
+  RISCVOBJDUMPSET_TRUE='#'
+  RISCVOBJDUMPSET_FALSE=
 fi
 
- if test "x$OR1KOBJCOPY" != "x"; then
-  OR1KOBJCOPYSET_TRUE=
-  OR1KOBJCOPYSET_FALSE='#'
+ if test "x$RISCVOBJCOPY" != "x"; then
+  RISCVOBJCOPYSET_TRUE=
+  RISCVOBJCOPYSET_FALSE='#'
 else
-  OR1KOBJCOPYSET_TRUE='#'
-  OR1KOBJCOPYSET_FALSE=
+  RISCVOBJCOPYSET_TRUE='#'
+  RISCVOBJCOPYSET_FALSE=
 fi
 
 
@@ -12437,12 +12437,12 @@ if test -z "${am__fastdepCCAS_TRUE}" && test -z "${am__fastdepCCAS_FALSE}"; then
   as_fn_error $? "conditional \"am__fastdepCCAS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${OR1KOBJDUMPSET_TRUE}" && test -z "${OR1KOBJDUMPSET_FALSE}"; then
-  as_fn_error $? "conditional \"OR1KOBJDUMPSET\" was never defined.
+if test -z "${RISCVOBJDUMPSET_TRUE}" && test -z "${RISCVOBJDUMPSET_FALSE}"; then
+  as_fn_error $? "conditional \"RISCVOBJDUMPSET\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${OR1KOBJCOPYSET_TRUE}" && test -z "${OR1KOBJCOPYSET_FALSE}"; then
-  as_fn_error $? "conditional \"OR1KOBJCOPYSET\" was never defined.
+if test -z "${RISCVOBJCOPYSET_TRUE}" && test -z "${RISCVOBJCOPYSET_FALSE}"; then
+  as_fn_error $? "conditional \"RISCVOBJCOPYSET\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

@@ -1,10 +1,10 @@
-export PATH=/opt/or1k-elf-gcc/bin:${PATH}
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
 
 ./autogen.sh
 mkdir sw
 mkdir build
 cd build
 
-../configure --prefix=`pwd`/../sw --host=or1k-elf
+../configure --prefix=`pwd`/../sw --host=riscv-elf
 make
 make install

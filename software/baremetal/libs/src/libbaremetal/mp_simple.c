@@ -26,7 +26,7 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-#include <or1k-support.h>
+#include <riscv-support.h>
 
 #include "include/optimsoc-baremetal.h"
 
@@ -96,8 +96,8 @@ static uint16_t _num_endpoints;
 
 void optimsoc_mp_simple_init(void) {
     // Register interrupt
-    or1k_interrupt_handler_add(3, &_irq_handler, 0);
-    or1k_interrupt_enable(3);
+    riscv_interrupt_handler_add(3, &_irq_handler, 0);
+    riscv_interrupt_enable(3);
 
     // Reset class handler
     for (int i=0;i<OPTIMSOC_CLASS_NUM;i++) {
@@ -208,14 +208,14 @@ void _irq_handler(void* arg) {
 void optimsoc_mp_simple_send(uint16_t endpoint, size_t size, uint32_t *buf) {
     trace_mp_simple_send(buf[0]>>OPTIMSOC_DEST_LSB, size, buf);
 
-    uint32_t restore = or1k_critical_begin();
+    uint32_t restore = riscv_critical_begin();
 
     SEND(endpoint) = size;
     for (int i=0;i<size;i++) {
         SEND(endpoint) = buf[i];
     }
 
-    or1k_critical_end(restore);
+    riscv_critical_end(restore);
 
     trace_mp_simple_send_finished(buf[0] >> OPTIMSOC_DEST_LSB);
 }

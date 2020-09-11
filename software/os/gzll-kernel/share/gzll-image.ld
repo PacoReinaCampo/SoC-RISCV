@@ -1,4 +1,4 @@
-OUTPUT_ARCH(or1k)
+OUTPUT_ARCH(riscv)
 
 SECTIONS
 {

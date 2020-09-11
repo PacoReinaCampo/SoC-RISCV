@@ -5,19 +5,19 @@
 #include <string.h>
 #include <inttypes.h>
 
-#include <or1k-support.h>
+#include <riscv-support.h>
 
 _optimsoc_thread_ctx_t **_optimsoc_exception_ctx;
 
-extern void **_or1k_exception_stack_core;
-#define OR1K_EXCEPTION_FRAME 136
+extern void **_riscv_exception_stack_core;
+#define RISCV_EXCEPTION_FRAME 136
 
 void _optimsoc_context_init(void) {
-    _optimsoc_exception_ctx = calloc(or1k_numcores(), 4);
+    _optimsoc_exception_ctx = calloc(riscv_numcores(), 4);
 
-    for (int c = 0; c < or1k_numcores(); c++) {
-        void *stack = _or1k_exception_stack_core[c];
-        _optimsoc_exception_ctx[c] = stack - OR1K_EXCEPTION_FRAME;
+    for (int c = 0; c < riscv_numcores(); c++) {
+        void *stack = _riscv_exception_stack_core[c];
+        _optimsoc_exception_ctx[c] = stack - RISCV_EXCEPTION_FRAME;
     }
 }
 
@@ -51,14 +51,14 @@ void _optimsoc_context_copy(_optimsoc_thread_ctx_t *to,
 
 void _optimsoc_context_restore(_optimsoc_thread_ctx_t *ctx) {
     _optimsoc_thread_ctx_t *c;
-    c = _optimsoc_exception_ctx[or1k_coreid()];
+    c = _optimsoc_exception_ctx[riscv_coreid()];
 
     _optimsoc_context_copy(c, ctx);
 }
 
 void _optimsoc_context_save(_optimsoc_thread_ctx_t *ctx) {
     _optimsoc_thread_ctx_t *c;
-    c = _optimsoc_exception_ctx[or1k_coreid()];
+    c = _optimsoc_exception_ctx[riscv_coreid()];
 
     _optimsoc_context_copy(ctx, c);
 }

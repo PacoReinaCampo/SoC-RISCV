@@ -188,7 +188,7 @@ makefile.write("\n\n")
 # is standard in the include Makefile
 for o in objects:
     makefile.write("%s.bin: %s\n" % (o["objname"], o["path"]))
-    makefile.write("\tor1k-elf-objcopy -O binary $^ $@\n")
+    makefile.write("\triscv-elf-objcopy -O binary $^ $@\n")
 
 # include the gzll kernel Makefile
 makefile.write("include $(SCRIPTDIR)/Makefile-images.inc\n")

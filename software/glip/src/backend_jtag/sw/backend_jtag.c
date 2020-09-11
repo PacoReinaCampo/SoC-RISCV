@@ -706,7 +706,7 @@ static uint8_t hexstring_to_byte(char *in)
 static int jtag_drscan_write(struct glip_ctx *ctx, const uint8_t *req,
                              const size_t size)
 {
-    static const char OOCD_CMDSTART[] = "drscan or1k.fifo ";
+    static const char OOCD_CMDSTART[] = "drscan riscv.fifo ";
     static const char OOCD_CMDEND[] = "\x1a"; /* CTRL-Z == EOF */
 
     static const size_t OOCD_CMD_MAXLEN = 1*1024*1024;
