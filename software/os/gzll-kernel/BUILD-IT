@@ -1,0 +1,11 @@
+export PATH=/opt/riscv-elf-gcc/bin:${PATH}
+
+source ../../baremetal/build.sh
+
+./autogen.sh
+mkdir build
+cd build
+
+../configure --prefix=`pwd`/../sw --host=riscv-elf
+make
+make install
