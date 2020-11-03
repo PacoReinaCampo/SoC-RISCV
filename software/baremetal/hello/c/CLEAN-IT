@@ -1,0 +1,3 @@
+source ../../../tool/build.sh
+
+make clean

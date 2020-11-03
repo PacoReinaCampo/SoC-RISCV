@@ -1,8 +1,7 @@
 export PATH=/opt/riscv-elf-gcc/bin:${PATH}
 
-source ../../tool/build.sh
-
 ./autogen.sh
+mkdir sw
 mkdir build
 cd build
 

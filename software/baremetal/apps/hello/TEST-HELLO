@@ -1,9 +1,0 @@
-source ../../build.sh
-
-make clean
-make
-
-rm -rf ../../host/vmem/hello.vmem
-cp hello.vmem ../../host/vmem/
-
-make clean
