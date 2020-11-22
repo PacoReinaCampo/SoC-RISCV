@@ -271,32 +271,9 @@ sudo apt upgrade
 
 ## 2.1. CORE-RISCV
 
-### 2.1.1. Definition
+### 2.1.1. Functionality
 
-### 2.1.2. RISC Pipeline
-
-In computer science, instruction pipelining is a technique for implementing instruction-level parallelism within a PU. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different PUs with different parts of instructions processed in parallel. It allows faster PU throughput than would otherwise be possible at a given clock rate.
-
-| Typical    | Modified   | Module            |
-| ---------- | ---------- | ----------------- |
-| FETCH      | FETCH      | `riscv_if`        |
-| ...        | PRE-DECODE | `riscv_id`        |
-| DECODE     | DECODE     | `riscv_id`        |
-| EXECUTE    | EXECUTE    | `riscv_execution` |
-| MEMORY     | MEMORY     | `riscv_memory`    |
-| WRITE-BACK | WRITE-BACK | `riscv_wb`        |
-
-- IF – Instruction Fetch Unit : Send out the PC and fetch the instruction from memory into the Instruction Register (IR); increment the PC to address the next sequential instruction. The IR is used to hold the next instruction that will be needed on subsequent clock cycles; likewise the register NPC is used to hold the next sequential PC.
-
-- ID – Instruction Decode Unit : Decode the instruction and access the register file to read the registers. This unit gets instruction from IF, and extracts opcode and operand from that instruction. It also retrieves register values if requested by the operation.
-
-- EX – Execution Unit : The ALU operates on the operands prepared in prior cycle, performing one functions depending on instruction type.
-
-- MEM – Memory Access Unit : Instructions active in this unit are loads, stores and branches.
-
-- WB – WriteBack Unit : Write the result into the register file, whether it comes from the memory system or from the ALU.
-
-### 2.1.3. CORE-RISCV Organization
+#### 2.1.1.1. Organization
 
 The CORE-RISCV is based on the Harvard architecture, which is a computer architecture with separate storage and signal pathways for instructions and data. The implementation is heavily modular, with each particular functional block of the design being contained within its own HDL module or modules. The RISCV implementation was developed in order to provide a better platform for processor component development than previous implementations.
 
@@ -322,7 +299,7 @@ The CORE-RISCV is based on the Harvard architecture, which is a computer archite
 
 In a Harvard architecture, there is no need to make the two memories share characteristics. In particular, the word width, timing, implementation technology, and memory address structure can differ. In some systems, instructions for pre-programmed tasks can be stored in read-only memory while data memory generally requires read-write memory. In some systems, there is much more instruction memory than data memory so instruction addresses are wider than data addresses.
 
-### 2.1.4. Parameters
+#### 2.1.1.2. Parameters
 
 | Parameter               | Type      | Default         | Description                           |
 | ----------------------- |:---------:|:---------------:| ------------------------------------- |
@@ -361,7 +338,32 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | `BREAKPOINTS`           | `Integer` | 3               | Number of hardware breakpoints        |
 | `TECHNOLOGY`            | `String`  | `GENERIC`       | Target Silicon Technology             |
 
-### 2.1.5. Instruction Inputs/Outputs Bus
+#### 2.1.1.3. Pipeline
+
+In computer science, instruction pipelining is a technique for implementing instruction-level parallelism within a PU. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different PUs with different parts of instructions processed in parallel. It allows faster PU throughput than would otherwise be possible at a given clock rate.
+
+| Typical    | Modified   | Module            |
+| ---------- | ---------- | ----------------- |
+| FETCH      | FETCH      | `riscv_if`        |
+| ...        | PRE-DECODE | `riscv_id`        |
+| DECODE     | DECODE     | `riscv_id`        |
+| EXECUTE    | EXECUTE    | `riscv_execution` |
+| MEMORY     | MEMORY     | `riscv_memory`    |
+| WRITE-BACK | WRITE-BACK | `riscv_wb`        |
+
+- IF – Instruction Fetch Unit : Send out the PC and fetch the instruction from memory into the Instruction Register (IR); increment the PC to address the next sequential instruction. The IR is used to hold the next instruction that will be needed on subsequent clock cycles; likewise the register NPC is used to hold the next sequential PC.
+
+- ID – Instruction Decode Unit : Decode the instruction and access the register file to read the registers. This unit gets instruction from IF, and extracts opcode and operand from that instruction. It also retrieves register values if requested by the operation.
+
+- EX – Execution Unit : The ALU operates on the operands prepared in prior cycle, performing one functions depending on instruction type.
+
+- MEM – Memory Access Unit : Instructions active in this unit are loads, stores and branches.
+
+- WB – WriteBack Unit : Write the result into the register file, whether it comes from the memory system or from the ALU.
+
+### 2.1.2. Interface
+
+#### 2.1.2.1. Instruction Inputs/Outputs Bus
 
 | Port          |  Size  | Direction | Description        |
 | ------------- |:------:|:---------:| ------------------ |
@@ -379,7 +381,7 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | `ins_ack`     |    1   |   Output  | Acknowledge        |
 | `ins_err`     |    1   |   Output  | Error              |
 
-### 2.1.6. Data Inputs/Outputs Bus
+#### 2.1.2.2. Data Inputs/Outputs Bus
 
 | Port          |  Size  | Direction | Description        |
 | ------------- |:------:|:---------:| ------------------ |
@@ -397,9 +399,13 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | `dat_ack`     |    1   |   Output  | Acknowledge        |
 | `dat_err`     |    1   |   Output  | Error              |
 
+### 2.1.3. Registers
+
+### 2.1.4. Interruptions
+
 ## 2.2. PU-RISCV
 
-### 2.2.1. Definition
+### 2.2.1. Processing Unit
 
 The RISC-V implementation has a 32/64/128 bit Microarchitecture, 6 stages data pipeline and an Instruction Set Architecture based on Reduced Instruction Set Computer. Compatible with AMBA and Wishbone Buses. For Researching and Developing.
 
@@ -416,7 +422,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 
 ### 2.2.2. Instruction Cache
 
-#### 2.2.2.1. Instruction Organization
+#### 2.2.2.1. Functionality
 
 | Instruction Memory             | Module description                 |
 | ------------------------------ | ---------------------------------- |
@@ -435,9 +441,11 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `...riscv_mux`                 | Bus-Interface-Unit Mux             |
 | `riscv_biu`                    | Bus Interface Unit                 |
 
-#### 2.2.2.2. Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+#### 2.2.2.2. Interface
 
-##### 2.2.2.2.1. Signals of the Read and Write Address channels
+##### 2.2.2.2.1. Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+
+###### 2.2.2.2.1.1. Signals of the Read and Write Address channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
 | ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
@@ -455,7 +463,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `AWVALID`  | `ARVALID`  |         1        | Output    | xVALID handshake signal                  |
 | `AWREADY`  | `ARREADY`  |         1        | Input     | xREADY handshake signal                  |
 
-##### 2.2.2.2.2. Signals of the Read and Write Data channels
+###### 2.2.2.2.1.2. Signals of the Read and Write Data channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
 | ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
@@ -468,7 +476,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `WVALID`   | `RVALID`   |         1        | Output    | xVALID handshake signal                  |
 | `WREADY`   | `RREADY`   |         1        | Input     | xREADY handshake signal                  |
 
-##### 2.2.2.2.3. Signals of the Write Response channel
+###### 2.2.2.2.1.3. Signals of the Write Response channel
 
 | Write Port | Size             | Direction | Description                                     |
 | ---------- |:----------------:|:---------:| ----------------------------------------------- |
@@ -478,7 +486,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `BVALID`   |         1        |   Input   | xVALID handshake signal                         |
 | `BREADY`   |         1        |   Output  | xREADY handshake signal                         |
 
-#### 2.2.2.3. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
+##### 2.2.2.2.2. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
 
 | Port         |  Size  | Direction | Description                           |
 | ------------ |:------:|:---------:| ------------------------------------- |
@@ -498,7 +506,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `IHREADY`    |    1   |   Input   | Instruction Slave Ready Indicator     |
 | `IHRESP`     |    1   |   Input   | Instruction Transfer Response         |
 
-#### 2.2.2.4. Instruction INPUTS/OUTPUTS Wishbone Bus
+##### 2.2.2.2.3. Instruction INPUTS/OUTPUTS Wishbone Bus
 
 | Port    |  Size  | Direction | Description                     |
 | ------- |:------:|:---------:| ------------------------------- |
@@ -518,7 +526,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 
 ### 2.2.3. Data Cache
 
-#### 2.2.3.1. Data Organization
+#### 2.2.3.1. Functionality
 
 | Data Memory                    | Module description                 |
 | ------------------------------ | ---------------------------------- |
@@ -536,9 +544,11 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `...riscv_mux`                 | Bus-Interface-Unit Mux             |
 | `riscv_biu`                    | Bus Interface Unit                 |
 
-#### 2.2.3.2. Data INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+#### 2.2.3.2. Interface
 
-##### 2.2.3.2.1. Signals of the Read and Write Address channels
+##### 2.2.3.2.1. Data INPUTS/OUTPUTS AMBA4 AXI-Lite Bus
+
+###### 2.2.3.2.1.1. Signals of the Read and Write Address channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
 | ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
@@ -556,7 +566,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `AWVALID`  | `ARVALID`  |         1        | Output    | xVALID handshake signal                  |
 | `AWREADY`  | `ARREADY`  |         1        | Input     | xREADY handshake signal                  |
 
-##### 2.2.3.2.2. Signals of the Read and Write Data channels
+###### 2.2.3.2.1.2. Signals of the Read and Write Data channels
 
 | Write Port | Read Port  |  Size            | Direction | Description                              |
 | ---------- | ---------- |:----------------:|:---------:| ---------------------------------------- |
@@ -569,7 +579,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `WVALID`   | `RVALID`   |        1         | Output    | xVALID handshake signal                  |
 | `WREADY`   | `RREADY`   |        1         | Input     | xREADY handshake signal                  |
 
-##### 2.2.3.2.3. Signals of the Write Response channel
+###### 2.2.3.2.1.3. Signals of the Write Response channel
 
 | Write Port | Size             | Direction | Description                                     |
 | ---------- |:----------------:|:---------:| ----------------------------------------------- |
@@ -579,7 +589,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `BVALID`   |         1        |   Input   | xVALID handshake signal                         |
 | `BREADY`   |         1        |   Output  | xREADY handshake signal                         |
 
-#### 2.2.3.3. Data INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
+#### 2.2.3.2.2. Data INPUTS/OUTPUTS AMBA3 AHB-Lite Bus
 
 | Port         |  Size  | Direction | Description                    |
 | ------------ |:------:|:---------:| ------------------------------ |
@@ -599,7 +609,7 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 | `DHREADY`    |    1   |   Input   | Data Slave Ready Indicator     |
 | `DHRESP`     |    1   |   Input   | Data Transfer Response         |
 
-#### 2.2.3.4. Data INPUTS/OUTPUTS Wishbone Bus
+#### 2.2.3.2.3. Data INPUTS/OUTPUTS Wishbone Bus
 
 | Port    |  Size  | Direction | Description                     |
 | ------- |:------:|:---------:| ------------------------------- |

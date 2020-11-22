@@ -619,61 +619,11 @@ FMV.D.X RD,FRS1 & 1111001 & 00000 & RS1 & 000 & FRD &
 \hypertarget{core-riscv}{%
 \subsection{2.1. CORE-RISCV}\label{core-riscv}}
 
-\hypertarget{definition}{%
-\subsubsection{2.1.1. Definition}\label{definition}}
+\hypertarget{functionality}{%
+\subsubsection{2.1.1. Functionality}\label{functionality}}
 
-\hypertarget{risc-pipeline}{%
-\subsubsection{2.1.2. RISC Pipeline}\label{risc-pipeline}}
-
-In computer science, instruction pipelining is a technique for
-implementing instruction-level parallelism within a PU. Pipelining
-attempts to keep every part of the processor busy with some instruction
-by dividing incoming instructions into a series of sequential steps
-performed by different PUs with different parts of instructions
-processed in parallel. It allows faster PU throughput than would
-otherwise be possible at a given clock rate.
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule
-Typical & Modified & Module\tabularnewline
-\midrule
-\endhead
-FETCH & FETCH & \texttt{riscv\_if}\tabularnewline
-\ldots{} & PRE-DECODE & \texttt{riscv\_id}\tabularnewline
-DECODE & DECODE & \texttt{riscv\_id}\tabularnewline
-EXECUTE & EXECUTE & \texttt{riscv\_execution}\tabularnewline
-MEMORY & MEMORY & \texttt{riscv\_memory}\tabularnewline
-WRITE-BACK & WRITE-BACK & \texttt{riscv\_wb}\tabularnewline
-\bottomrule
-\end{longtable}
-
-\begin{itemize}
-\item
-  IF -- Instruction Fetch Unit : Send out the PC and fetch the
-  instruction from memory into the Instruction Register (IR); increment
-  the PC to address the next sequential instruction. The IR is used to
-  hold the next instruction that will be needed on subsequent clock
-  cycles; likewise the register NPC is used to hold the next sequential
-  PC.
-\item
-  ID -- Instruction Decode Unit : Decode the instruction and access the
-  register file to read the registers. This unit gets instruction from
-  IF, and extracts opcode and operand from that instruction. It also
-  retrieves register values if requested by the operation.
-\item
-  EX -- Execution Unit : The ALU operates on the operands prepared in
-  prior cycle, performing one functions depending on instruction type.
-\item
-  MEM -- Memory Access Unit : Instructions active in this unit are
-  loads, stores and branches.
-\item
-  WB -- WriteBack Unit : Write the result into the register file,
-  whether it comes from the memory system or from the ALU.
-\end{itemize}
-
-\hypertarget{core-riscv-organization}{%
-\subsubsection{2.1.3. CORE-RISCV
-Organization}\label{core-riscv-organization}}
+\hypertarget{organization}{%
+\paragraph{2.1.1.1. Organization}\label{organization}}
 
 The CORE-RISCV is based on the Harvard architecture, which is a computer
 architecture with separate storage and signal pathways for instructions
@@ -719,7 +669,7 @@ In some systems, there is much more instruction memory than data memory
 so instruction addresses are wider than data addresses.
 
 \hypertarget{parameters}{%
-\subsubsection{2.1.4. Parameters}\label{parameters}}
+\paragraph{2.1.1.2. Parameters}\label{parameters}}
 
 \begin{longtable}[]{@{}lccl@{}}
 \toprule
@@ -800,8 +750,60 @@ Silicon Technology\tabularnewline
 \bottomrule
 \end{longtable}
 
+\hypertarget{pipeline}{%
+\paragraph{2.1.1.3. Pipeline}\label{pipeline}}
+
+In computer science, instruction pipelining is a technique for
+implementing instruction-level parallelism within a PU. Pipelining
+attempts to keep every part of the processor busy with some instruction
+by dividing incoming instructions into a series of sequential steps
+performed by different PUs with different parts of instructions
+processed in parallel. It allows faster PU throughput than would
+otherwise be possible at a given clock rate.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Typical & Modified & Module\tabularnewline
+\midrule
+\endhead
+FETCH & FETCH & \texttt{riscv\_if}\tabularnewline
+\ldots{} & PRE-DECODE & \texttt{riscv\_id}\tabularnewline
+DECODE & DECODE & \texttt{riscv\_id}\tabularnewline
+EXECUTE & EXECUTE & \texttt{riscv\_execution}\tabularnewline
+MEMORY & MEMORY & \texttt{riscv\_memory}\tabularnewline
+WRITE-BACK & WRITE-BACK & \texttt{riscv\_wb}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  IF -- Instruction Fetch Unit : Send out the PC and fetch the
+  instruction from memory into the Instruction Register (IR); increment
+  the PC to address the next sequential instruction. The IR is used to
+  hold the next instruction that will be needed on subsequent clock
+  cycles; likewise the register NPC is used to hold the next sequential
+  PC.
+\item
+  ID -- Instruction Decode Unit : Decode the instruction and access the
+  register file to read the registers. This unit gets instruction from
+  IF, and extracts opcode and operand from that instruction. It also
+  retrieves register values if requested by the operation.
+\item
+  EX -- Execution Unit : The ALU operates on the operands prepared in
+  prior cycle, performing one functions depending on instruction type.
+\item
+  MEM -- Memory Access Unit : Instructions active in this unit are
+  loads, stores and branches.
+\item
+  WB -- WriteBack Unit : Write the result into the register file,
+  whether it comes from the memory system or from the ALU.
+\end{itemize}
+
+\hypertarget{interface}{%
+\subsubsection{2.1.2. Interface}\label{interface}}
+
 \hypertarget{instruction-inputsoutputs-bus}{%
-\subsubsection{2.1.5. Instruction Inputs/Outputs
+\paragraph{2.1.2.1. Instruction Inputs/Outputs
 Bus}\label{instruction-inputsoutputs-bus}}
 
 \begin{longtable}[]{@{}lccl@{}}
@@ -828,7 +830,7 @@ address\tabularnewline
 \end{longtable}
 
 \hypertarget{data-inputsoutputs-bus}{%
-\subsubsection{2.1.6. Data Inputs/Outputs
+\paragraph{2.1.2.2. Data Inputs/Outputs
 Bus}\label{data-inputsoutputs-bus}}
 
 \begin{longtable}[]{@{}lccl@{}}
@@ -854,11 +856,17 @@ address\tabularnewline
 \bottomrule
 \end{longtable}
 
+\hypertarget{registers}{%
+\subsubsection{2.1.3. Registers}\label{registers}}
+
+\hypertarget{interruptions}{%
+\subsubsection{2.1.4. Interruptions}\label{interruptions}}
+
 \hypertarget{pu-riscv}{%
 \subsection{2.2. PU-RISCV}\label{pu-riscv}}
 
-\hypertarget{definition-1}{%
-\subsubsection{2.2.1. Definition}\label{definition-1}}
+\hypertarget{processing-unit}{%
+\subsubsection{2.2.1. Processing Unit}\label{processing-unit}}
 
 The RISC-V implementation has a 32/64/128 bit Microarchitecture, 6
 stages data pipeline and an Instruction Set Architecture based on
@@ -891,9 +899,8 @@ different independent caches, including instruction and data caches.
 \hypertarget{instruction-cache}{%
 \subsubsection{2.2.2. Instruction Cache}\label{instruction-cache}}
 
-\hypertarget{instruction-organization}{%
-\paragraph{2.2.2.1. Instruction
-Organization}\label{instruction-organization}}
+\hypertarget{functionality-1}{%
+\paragraph{2.2.2.1. Functionality}\label{functionality-1}}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -922,13 +929,14 @@ Generic\tabularnewline
 \bottomrule
 \end{longtable}
 
+\hypertarget{interface-1}{%
+\paragraph{2.2.2.2. Interface}\label{interface-1}}
+
 \hypertarget{instruction-inputsoutputs-amba4-axi-lite-bus}{%
-\paragraph{2.2.2.2. Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite
+\subparagraph{2.2.2.2.1. Instruction INPUTS/OUTPUTS AMBA4 AXI-Lite
 Bus}\label{instruction-inputsoutputs-amba4-axi-lite-bus}}
 
-\hypertarget{signals-of-the-read-and-write-address-channels}{%
-\subparagraph{2.2.2.2.1. Signals of the Read and Write Address
-channels}\label{signals-of-the-read-and-write-address-channels}}
+2.2.2.2.1.1. Signals of the Read and Write Address channels
 
 \begin{longtable}[]{@{}llccl@{}}
 \toprule
@@ -964,9 +972,7 @@ signal\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{signals-of-the-read-and-write-data-channels}{%
-\subparagraph{2.2.2.2.2. Signals of the Read and Write Data
-channels}\label{signals-of-the-read-and-write-data-channels}}
+2.2.2.2.1.2. Signals of the Read and Write Data channels
 
 \begin{longtable}[]{@{}llccl@{}}
 \toprule
@@ -992,9 +998,7 @@ signal\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{signals-of-the-write-response-channel}{%
-\subparagraph{2.2.2.2.3. Signals of the Write Response
-channel}\label{signals-of-the-write-response-channel}}
+2.2.2.2.1.3. Signals of the Write Response channel
 
 \begin{longtable}[]{@{}lccl@{}}
 \toprule
@@ -1013,7 +1017,7 @@ data\tabularnewline
 \end{longtable}
 
 \hypertarget{instruction-inputsoutputs-amba3-ahb-lite-bus}{%
-\paragraph{2.2.2.3. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite
+\subparagraph{2.2.2.2.2. Instruction INPUTS/OUTPUTS AMBA3 AHB-Lite
 Bus}\label{instruction-inputsoutputs-amba3-ahb-lite-bus}}
 
 \begin{longtable}[]{@{}lccl@{}}
@@ -1049,7 +1053,7 @@ Response\tabularnewline
 \end{longtable}
 
 \hypertarget{instruction-inputsoutputs-wishbone-bus}{%
-\paragraph{2.2.2.4. Instruction INPUTS/OUTPUTS Wishbone
+\subparagraph{2.2.2.2.3. Instruction INPUTS/OUTPUTS Wishbone
 Bus}\label{instruction-inputsoutputs-wishbone-bus}}
 
 \begin{longtable}[]{@{}lccl@{}}
@@ -1081,8 +1085,8 @@ Input\tabularnewline
 \hypertarget{data-cache}{%
 \subsubsection{2.2.3. Data Cache}\label{data-cache}}
 
-\hypertarget{data-organization}{%
-\paragraph{2.2.3.1. Data Organization}\label{data-organization}}
+\hypertarget{functionality-2}{%
+\paragraph{2.2.3.1. Functionality}\label{functionality-2}}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -1108,13 +1112,14 @@ Generic\tabularnewline
 \bottomrule
 \end{longtable}
 
+\hypertarget{interface-2}{%
+\paragraph{2.2.3.2. Interface}\label{interface-2}}
+
 \hypertarget{data-inputsoutputs-amba4-axi-lite-bus}{%
-\paragraph{2.2.3.2. Data INPUTS/OUTPUTS AMBA4 AXI-Lite
+\subparagraph{2.2.3.2.1. Data INPUTS/OUTPUTS AMBA4 AXI-Lite
 Bus}\label{data-inputsoutputs-amba4-axi-lite-bus}}
 
-\hypertarget{signals-of-the-read-and-write-address-channels-1}{%
-\subparagraph{2.2.3.2.1. Signals of the Read and Write Address
-channels}\label{signals-of-the-read-and-write-address-channels-1}}
+2.2.3.2.1.1. Signals of the Read and Write Address channels
 
 \begin{longtable}[]{@{}llccl@{}}
 \toprule
@@ -1150,9 +1155,7 @@ signal\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{signals-of-the-read-and-write-data-channels-1}{%
-\subparagraph{2.2.3.2.2. Signals of the Read and Write Data
-channels}\label{signals-of-the-read-and-write-data-channels-1}}
+2.2.3.2.1.2. Signals of the Read and Write Data channels
 
 \begin{longtable}[]{@{}llccl@{}}
 \toprule
@@ -1178,9 +1181,7 @@ signal\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{signals-of-the-write-response-channel-1}{%
-\subparagraph{2.2.3.2.3. Signals of the Write Response
-channel}\label{signals-of-the-write-response-channel-1}}
+2.2.3.2.1.3. Signals of the Write Response channel
 
 \begin{longtable}[]{@{}lccl@{}}
 \toprule
@@ -1199,7 +1200,7 @@ data\tabularnewline
 \end{longtable}
 
 \hypertarget{data-inputsoutputs-amba3-ahb-lite-bus}{%
-\paragraph{2.2.3.3. Data INPUTS/OUTPUTS AMBA3 AHB-Lite
+\paragraph{2.2.3.2.2. Data INPUTS/OUTPUTS AMBA3 AHB-Lite
 Bus}\label{data-inputsoutputs-amba3-ahb-lite-bus}}
 
 \begin{longtable}[]{@{}lccl@{}}
@@ -1232,7 +1233,7 @@ Lock\tabularnewline
 \end{longtable}
 
 \hypertarget{data-inputsoutputs-wishbone-bus}{%
-\paragraph{2.2.3.4. Data INPUTS/OUTPUTS Wishbone
+\paragraph{2.2.3.2.3. Data INPUTS/OUTPUTS Wishbone
 Bus}\label{data-inputsoutputs-wishbone-bus}}
 
 \begin{longtable}[]{@{}lccl@{}}
