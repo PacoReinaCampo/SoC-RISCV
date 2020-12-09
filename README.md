@@ -299,7 +299,32 @@ The CORE-RISCV is based on the Harvard architecture, which is a computer archite
 
 In a Harvard architecture, there is no need to make the two memories share characteristics. In particular, the word width, timing, implementation technology, and memory address structure can differ. In some systems, instructions for pre-programmed tasks can be stored in read-only memory while data memory generally requires read-write memory. In some systems, there is much more instruction memory than data memory so instruction addresses are wider than data addresses.
 
-#### 2.1.1.2. Parameters
+#### 2.1.1.2. Pipeline
+
+In computer science, instruction pipelining is a technique for implementing instruction-level parallelism within a PU. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different PUs with different parts of instructions processed in parallel. It allows faster PU throughput than would otherwise be possible at a given clock rate.
+
+| Typical    | Modified   | Module            |
+| ---------- | ---------- | ----------------- |
+| FETCH      | FETCH      | `riscv_if`        |
+| ...        | PRE-DECODE | `riscv_id`        |
+| DECODE     | DECODE     | `riscv_id`        |
+| EXECUTE    | EXECUTE    | `riscv_execution` |
+| MEMORY     | MEMORY     | `riscv_memory`    |
+| WRITE-BACK | WRITE-BACK | `riscv_wb`        |
+
+- IF – Instruction Fetch Unit : Send out the PC and fetch the instruction from memory into the Instruction Register (IR); increment the PC to address the next sequential instruction. The IR is used to hold the next instruction that will be needed on subsequent clock cycles; likewise the register NPC is used to hold the next sequential PC.
+
+- ID – Instruction Decode Unit : Decode the instruction and access the register file to read the registers. This unit gets instruction from IF, and extracts opcode and operand from that instruction. It also retrieves register values if requested by the operation.
+
+- EX – Execution Unit : The ALU operates on the operands prepared in prior cycle, performing one functions depending on instruction type.
+
+- MEM – Memory Access Unit : Instructions active in this unit are loads, stores and branches.
+
+- WB – WriteBack Unit : Write the result into the register file, whether it comes from the memory system or from the ALU.
+
+### 2.1.2. Interface
+
+#### 2.1.2.1. Constants
 
 | Parameter               | Type      | Default         | Description                           |
 | ----------------------- |:---------:|:---------------:| ------------------------------------- |
@@ -338,32 +363,9 @@ In a Harvard architecture, there is no need to make the two memories share chara
 | `BREAKPOINTS`           | `Integer` | 3               | Number of hardware breakpoints        |
 | `TECHNOLOGY`            | `String`  | `GENERIC`       | Target Silicon Technology             |
 
-#### 2.1.1.3. Pipeline
+#### 2.1.2.2. Signals
 
-In computer science, instruction pipelining is a technique for implementing instruction-level parallelism within a PU. Pipelining attempts to keep every part of the processor busy with some instruction by dividing incoming instructions into a series of sequential steps performed by different PUs with different parts of instructions processed in parallel. It allows faster PU throughput than would otherwise be possible at a given clock rate.
-
-| Typical    | Modified   | Module            |
-| ---------- | ---------- | ----------------- |
-| FETCH      | FETCH      | `riscv_if`        |
-| ...        | PRE-DECODE | `riscv_id`        |
-| DECODE     | DECODE     | `riscv_id`        |
-| EXECUTE    | EXECUTE    | `riscv_execution` |
-| MEMORY     | MEMORY     | `riscv_memory`    |
-| WRITE-BACK | WRITE-BACK | `riscv_wb`        |
-
-- IF – Instruction Fetch Unit : Send out the PC and fetch the instruction from memory into the Instruction Register (IR); increment the PC to address the next sequential instruction. The IR is used to hold the next instruction that will be needed on subsequent clock cycles; likewise the register NPC is used to hold the next sequential PC.
-
-- ID – Instruction Decode Unit : Decode the instruction and access the register file to read the registers. This unit gets instruction from IF, and extracts opcode and operand from that instruction. It also retrieves register values if requested by the operation.
-
-- EX – Execution Unit : The ALU operates on the operands prepared in prior cycle, performing one functions depending on instruction type.
-
-- MEM – Memory Access Unit : Instructions active in this unit are loads, stores and branches.
-
-- WB – WriteBack Unit : Write the result into the register file, whether it comes from the memory system or from the ALU.
-
-### 2.1.2. Interface
-
-#### 2.1.2.1. Instruction Inputs/Outputs Bus
+##### 2.1.2.2.1. Instruction Inputs/Outputs Bus
 
 | Port          |  Size  | Direction | Description        |
 | ------------- |:------:|:---------:| ------------------ |
@@ -381,7 +383,7 @@ In computer science, instruction pipelining is a technique for implementing inst
 | `ins_ack`     |    1   |   Output  | Acknowledge        |
 | `ins_err`     |    1   |   Output  | Error              |
 
-#### 2.1.2.2. Data Inputs/Outputs Bus
+##### 2.1.2.2.2. Data Inputs/Outputs Bus
 
 | Port          |  Size  | Direction | Description        |
 | ------------- |:------:|:---------:| ------------------ |
@@ -641,9 +643,11 @@ A PU cache is a hardware cache used by the PU to reduce the average cost (time o
 
 ### 2.3.6. MPSoC-MSI
 
-### 2.3.7. MPSoC-SPRAM
+### 2.3.7. MPSoC-NoC
 
-### 2.3.8. MPSoC-UART
+### 2.3.8. MPSoC-SPRAM
+
+### 2.3.9. MPSoC-UART
 
 # 3. WORKFLOW
 
