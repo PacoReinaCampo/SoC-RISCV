@@ -1,2 +1,3 @@
-source TODO-HW-SoC
-source TODO-SW-SoC
+make clean
+make hardware-tile
+make software-tile
