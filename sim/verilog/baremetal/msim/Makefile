@@ -6,3 +6,6 @@ build:
 
 simulate:
 	vsim -c -do run.do work.riscv_tile_testbench
+
+clean:
+	rm -rf work transcript
