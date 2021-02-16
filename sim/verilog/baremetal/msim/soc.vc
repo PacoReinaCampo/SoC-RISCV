@@ -3,6 +3,7 @@
 +incdir+../../../../bench/cpp/verilator/inc
 +incdir+../../../../bench/cpp/glip
 +incdir+../../../../dma/rtl/verilog/ahb3/pkg
+
 ../../../../rtl/verilog/pkg/arbiter/arb_rr.sv
 ../../../../rtl/verilog/pkg/functions/optimsoc_functions.sv
 ../../../../rtl/verilog/pkg/config/optimsoc_config.sv
@@ -97,9 +98,9 @@
 ../../../../pu/rtl/verilog/memory/riscv_ram_1rw_generic.sv
 ../../../../pu/rtl/verilog/memory/riscv_ram_1rw.sv
 ../../../../pu/rtl/verilog/memory/riscv_ram_queue.sv
-../../../../pu/rtl/verilog/pu/riscv_biu2ahb3.sv
-../../../../pu/rtl/verilog/pu/riscv_module_ahb3.sv
-../../../../pu/rtl/verilog/pu/riscv_pu_ahb3.sv
+../../../../pu/rtl/verilog/pu/ahb3/riscv_biu2ahb3.sv
+../../../../pu/rtl/verilog/pu/ahb3/riscv_module_ahb3.sv
+../../../../pu/rtl/verilog/pu/ahb3/riscv_pu_ahb3.sv
 ../../../../rtl/verilog/soc/adapter/networkadapter_conf.sv
 ../../../../rtl/verilog/soc/adapter/networkadapter_ct.sv
 ../../../../rtl/verilog/soc/bootrom/bootrom.sv
@@ -111,8 +112,3 @@
 ../../../../rtl/verilog/soc/spram/ahb3_sram_sp.sv
 ../../../../rtl/verilog/soc/spram/ahb32sram.sv
 ../../../../rtl/verilog/soc/riscv_tile.sv
-
-../../../../bench/verilog/glip/glip_tcp_toplevel.sv
-../../../../bench/verilog/monitor/r3_checker.sv
-../../../../bench/verilog/monitor/trace_monitor.sv
-../../../../bench/verilog/riscv_tile_testbench.sv
