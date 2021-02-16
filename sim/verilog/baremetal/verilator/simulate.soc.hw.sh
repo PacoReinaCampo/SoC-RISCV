@@ -1,2 +1,2 @@
 make clean
-make hardware-tile
+make hardware-tile; make clear
