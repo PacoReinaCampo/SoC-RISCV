@@ -51,8 +51,8 @@ build:
 	-i ../../../../dma/rtl/verilog/ahb3/pkg
 
 simulate:
-	xelab riscv_tile
-	xsim -R riscv_tile
+	xelab soc_riscv_testbench
+	xsim -R soc_riscv_testbench
 
 clean:
 	rm -rf .Xil *.dir *.jou *.log *.pb

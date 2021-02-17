@@ -5,6 +5,6 @@ xvlog -prj soc.prj \
 -i ../../../../pu/rtl/verilog/pkg \
 -i ../../../../rtl/verilog/soc/bootrom \
 -i ../../../../dma/rtl/verilog/ahb3/pkg
-xelab riscv_tile
-xsim -R riscv_tile
+xelab soc_riscv_testbench
+xsim -R soc_riscv_testbench
 pause

@@ -106,3 +106,5 @@ sv work ../../../../rtl/verilog/soc/spram/sram_sp.sv
 sv work ../../../../rtl/verilog/soc/spram/ahb3_sram_sp.sv
 sv work ../../../../rtl/verilog/soc/spram/ahb32sram.sv
 sv work ../../../../rtl/verilog/soc/riscv_tile.sv
+
+sv work ../../../../bench/verilog/soc_riscv_testbench.sv
