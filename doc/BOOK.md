@@ -1,7 +1,10 @@
-# SoC-RISCV
-## QueenField
+---
+title: SoC-RISCV
+author: QueenField
+geometry: "left = 3cm, right = 2cm, top = 3cm, bottom = 2cm"
+---
 
-![QueenField](../master/icon.jpg)
+![QueenField](../icon.jpg)
 
 # 0. INTRODUCTION
 
@@ -628,11 +631,11 @@ sudo apt upgrade
 
 # 1. METHODOLOGY
 
-![Project Workflow](doc/project.svg)
+![Project Workflow](../doc/project.svg)
 
 ## 1.1. Requirements
 
-![UML Diagrams Overview](requirements/uml_diagrams_overview.svg)
+![UML Diagrams Overview](../requirements/uml_diagrams_overview.svg)
 
 ### 1.1.1. Structural UML diagrams
 
@@ -684,7 +687,7 @@ sudo apt upgrade
 
 ### 1.6.2. UVM-Verilog
 
-![UVM Diagram Overview](bench/uvm-testbench.png)
+![UVM Diagram Overview](../bench/uvm-testbench.png)
 
 #### 1.6.2.1. UVM Agent
 #### 1.6.2.2. UVM Driver
@@ -1027,7 +1030,7 @@ libboost-python-dev libboost-filesystem-dev zlib1g-dev
 
 ## 4.1. FRONT-END OPEN SOURCE TOOLS
 
-![Front-End](doc/front-end.svg)
+![Front-End](../doc/front-end.svg)
 
 ### 4.1.1. Modeling System Level of Hardware
 
@@ -1223,7 +1226,7 @@ git clone https://github.com/YosysHQ/SymbiYosys
 
 ## 4.2. BACK-END OPEN SOURCE TOOLS
 
-![Back-End](doc/back-end.svg)
+![Back-End](../doc/back-end.svg)
 
 **Library**
 
