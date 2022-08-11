@@ -1,0 +1,32 @@
+verilog
+├── pkg
+│   ├── arbiter
+│   │   └── arb_rr.sv
+│   ├── config
+│   │   └── optimsoc_config.sv
+│   ├── constants
+│   │   └── optimsoc_constants.sv
+│   └── functions
+│       └── optimsoc_functions.sv
+└── soc
+    ├── adapter
+    │   ├── networkadapter_conf.sv
+    │   └── networkadapter_ct.sv
+    ├── bootrom
+    │   ├── bootrom_code.sv
+    │   └── bootrom.sv
+    ├── interconnection
+    │   ├── bus
+    │   │   └── ahb3_bus_b3.sv
+    │   ├── decode
+    │   │   └── ahb3_decode.sv
+    │   └── mux
+    │       └── ahb3_mux.sv
+    ├── riscv_tile.sv
+    └── spram
+        ├── ahb32sram.sv
+        ├── ahb3_sram_sp.sv
+        ├── sram_sp_impl_plain.sv
+        └── sram_sp.sv
+
+13 directories, 16 files
