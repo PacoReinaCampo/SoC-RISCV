@@ -1,6 +1,6 @@
 ---
 title: 'SoC-RISCV'
-subtitle: 'QueenField ![](../../soc-riscv.svg){width=17cm}'
+subtitle: 'QueenField ![](../../icon.jpg)'
 
 author: Paco Reina Campo
 
