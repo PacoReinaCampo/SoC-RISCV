@@ -1,6 +1,6 @@
 # SoC-RISCV
 ## QueenField
 
-![QueenField](../master/moc-riscv.svg)
+![QueenField](../master/soc-riscv.svg)
 
 **System on Chip with ISA RISCV**
