@@ -7,8 +7,10 @@ class master_driver extends uvm_driver #(master_sequence_item);
   master_sequence_item q3[$];
   master_sequence_item q4[$];
   master_sequence_item q5[$];
+ 
   bit [3:0] d_delay;
   bit [3:0] BID[$];
+
   virtual axi_if.M_DRV_MP vif;
 
   // Declare virtual interface handle with WDR_MP as modport
@@ -23,7 +25,6 @@ class master_driver extends uvm_driver #(master_sequence_item);
   //------------------------------------------
 
   // Standard UVM Methods:
-
   extern function new(string name = "master_driver", uvm_component parent);
   extern function void build_phase(uvm_phase phase);
   extern function void connect_phase(uvm_phase phase);

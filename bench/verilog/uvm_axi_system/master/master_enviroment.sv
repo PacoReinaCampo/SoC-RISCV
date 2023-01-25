@@ -23,6 +23,7 @@ function void master_enviroment::build_phase(uvm_phase phase);
   super.build_phase(phase);
 
   m_agenth = new[e_cfg.no_of_master_agent];
+
   foreach (m_agenth[i]) begin
     uvm_config_db#(master_object)::set(this, $sformatf("m_agenth[%0d]*", i), "set_from_master_top", e_cfg.m_cfg[i]);
 

@@ -119,8 +119,7 @@ task slave_monitor::collect_data();
     end
   join
 
-  store[data_rcv.AWADDR][data_rcv.AWID] = slave_sequence_item::type_id::create(
-      $sformatf("data_rcv[%0d][%0d]", data_rcv.AWADDR, data_rcv.AWID));
+  store[data_rcv.AWADDR][data_rcv.AWID] = slave_sequence_item::type_id::create($sformatf("data_rcv[%0d][%0d]", data_rcv.AWADDR, data_rcv.AWID));
 
   foreach (data_rcv.WDATA[i]) begin
     store[data_rcv.AWADDR][data_rcv.AWID].WDATA.push_back(data_rcv.WDATA[i]);
