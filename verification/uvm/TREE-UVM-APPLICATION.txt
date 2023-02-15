@@ -25,7 +25,59 @@ application
 │       ├── peripheral_testbench.sv
 │       ├── peripheral_uvm_interface.sv
 │       └── peripheral_uvm_package.sv
-└── core
+├── core
+│   ├── ahb3
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   ├── apb4
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   ├── axi4
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   ├── bb
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   └── wb
+│       ├── peripheral_design.sv
+│       ├── peripheral_testbench.sv
+│       ├── peripheral_uvm_interface.sv
+│       └── peripheral_uvm_package.sv
+├── pu
+│   ├── ahb3
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   ├── apb4
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   ├── axi4
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   ├── bb
+│   │   ├── peripheral_design.sv
+│   │   ├── peripheral_testbench.sv
+│   │   ├── peripheral_uvm_interface.sv
+│   │   └── peripheral_uvm_package.sv
+│   └── wb
+│       ├── peripheral_design.sv
+│       ├── peripheral_testbench.sv
+│       ├── peripheral_uvm_interface.sv
+│       └── peripheral_uvm_package.sv
+└── soc
     ├── ahb3
     │   ├── peripheral_design.sv
     │   ├── peripheral_testbench.sv
@@ -52,4 +104,4 @@ application
         ├── peripheral_uvm_interface.sv
         └── peripheral_uvm_package.sv
 
-12 directories, 40 files
+24 directories, 80 files

@@ -15,7 +15,39 @@ library
 │   └── wb
 │       ├── peripheral.cpp
 │       └── peripheral.hpp
-└── core
+├── core
+│   ├── ahb3
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   ├── apb4
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   ├── axi4
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   ├── bb
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   └── wb
+│       ├── peripheral.cpp
+│       └── peripheral.hpp
+├── pu
+│   ├── ahb3
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   ├── apb4
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   ├── axi4
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   ├── bb
+│   │   ├── peripheral.cpp
+│   │   └── peripheral.hpp
+│   └── wb
+│       ├── peripheral.cpp
+│       └── peripheral.hpp
+└── soc
     ├── ahb3
     │   ├── peripheral.cpp
     │   └── peripheral.hpp
@@ -32,4 +64,4 @@ library
         ├── peripheral.cpp
         └── peripheral.hpp
 
-12 directories, 20 files
+24 directories, 40 files

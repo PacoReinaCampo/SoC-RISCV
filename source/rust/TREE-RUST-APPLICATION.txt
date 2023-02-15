@@ -10,7 +10,29 @@ application
 │   │   └── peripheral_test.rs
 │   └── wb
 │       └── peripheral_test.rs
-└── core
+├── core
+│   ├── ahb3
+│   │   └── peripheral_test.rs
+│   ├── apb4
+│   │   └── peripheral_test.rs
+│   ├── axi4
+│   │   └── peripheral_test.rs
+│   ├── bb
+│   │   └── peripheral_test.rs
+│   └── wb
+│       └── peripheral_test.rs
+├── pu
+│   ├── ahb3
+│   │   └── peripheral_test.rs
+│   ├── apb4
+│   │   └── peripheral_test.rs
+│   ├── axi4
+│   │   └── peripheral_test.rs
+│   ├── bb
+│   │   └── peripheral_test.rs
+│   └── wb
+│       └── peripheral_test.rs
+└── soc
     ├── ahb3
     │   └── peripheral_test.rs
     ├── apb4
@@ -22,4 +44,4 @@ application
     └── wb
         └── peripheral_test.rs
 
-12 directories, 10 files
+24 directories, 20 files

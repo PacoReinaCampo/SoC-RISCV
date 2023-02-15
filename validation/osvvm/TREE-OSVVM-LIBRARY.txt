@@ -15,7 +15,39 @@ library
 │   └── wb
 │       ├── peripheral_osvvm_model.vhd
 │       └── peripheral_osvvm_testbench.vhd
-└── core
+├── core
+│   ├── ahb3
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   ├── apb4
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   ├── axi4
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   ├── bb
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   └── wb
+│       ├── peripheral_osvvm_model.vhd
+│       └── peripheral_osvvm_testbench.vhd
+├── pu
+│   ├── ahb3
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   ├── apb4
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   ├── axi4
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   ├── bb
+│   │   ├── peripheral_osvvm_model.vhd
+│   │   └── peripheral_osvvm_testbench.vhd
+│   └── wb
+│       ├── peripheral_osvvm_model.vhd
+│       └── peripheral_osvvm_testbench.vhd
+└── soc
     ├── ahb3
     │   ├── peripheral_osvvm_model.vhd
     │   └── peripheral_osvvm_testbench.vhd
@@ -32,4 +64,4 @@ library
         ├── peripheral_osvvm_model.vhd
         └── peripheral_osvvm_testbench.vhd
 
-12 directories, 20 files
+24 directories, 40 files
