@@ -1,8 +1,0 @@
-./autogen.sh
-mkdir build
-cd build
-
-../configure --prefix=/opt/glip-riscv --enable-cypressfx2 --enable-tcp
-make
-sudo make install
-
