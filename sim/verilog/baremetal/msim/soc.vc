@@ -155,6 +155,6 @@
 ../../../../rtl/verilog/soc/spram/sram_sp.sv
 ../../../../rtl/verilog/soc/spram/ahb3_sram_sp.sv
 ../../../../rtl/verilog/soc/spram/ahb32sram.sv
-../../../../rtl/verilog/soc/riscv_tile.sv
+../../../../rtl/verilog/soc/main/riscv_tile.sv
 
-../../../../bench/verilog/soc_riscv_testbench.sv
+../../../../bench/verilog/main/soc_riscv_testbench.sv

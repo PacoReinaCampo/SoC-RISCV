@@ -161,16 +161,16 @@
 ../../../../rtl/verilog/soc/spram/sram_sp.sv
 ../../../../rtl/verilog/soc/spram/ahb3_sram_sp.sv
 ../../../../rtl/verilog/soc/spram/ahb32sram.sv
-../../../../rtl/verilog/soc/riscv_tile.sv
+../../../../rtl/verilog/soc/main/riscv_tile.sv
 ../../../../bench/verilog/glip/glip_tcp_toplevel.sv
 ../../../../bench/verilog/monitor/r3_checker.sv
 ../../../../bench/verilog/monitor/trace_monitor.sv
-../../../../bench/verilog/riscv_tile_testbench.sv
+../../../../bench/verilog/main/riscv_tile_testbench.sv
 --top-module riscv_tile_testbench
 --exe
 ../../../../bench/cpp/glip/glip_tcp_dpi.cpp
 ../../../../bench/cpp/glip/GlipTcp.cpp
-../../../../bench/cpp/riscv_tile_testbench.cpp
+../../../../bench/cpp/main/riscv_tile_testbench.cpp
 ../../../../bench/cpp/verilator/src/OptionsParser.cpp
 ../../../../bench/cpp/verilator/src/VerilatedControl.cpp
 -GNUM_CORES=2
