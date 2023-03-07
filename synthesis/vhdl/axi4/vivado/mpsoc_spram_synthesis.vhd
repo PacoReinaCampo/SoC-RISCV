@@ -2,20 +2,20 @@
 -- by verilog2vhdl - QueenField
 
 --------------------------------------------------------------------------------
---                                            __ _      _     _               //
---                                           / _(_)    | |   | |              //
---                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
---               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              //
---              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              //
---               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              //
---                  | |                                                       //
---                  |_|                                                       //
---                                                                            //
---                                                                            //
---              MPSoC-RISCV CPU                                               //
---              Master Slave Interface Tesbench                               //
---              AMBA3 AHB-Lite Bus Interface                                  //
---                                                                            //
+--                                            __ _      _     _               --
+--                                           / _(_)    | |   | |              --
+--                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              --
+--               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |              --
+--              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |              --
+--               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|              --
+--                  | |                                                       --
+--                  |_|                                                       --
+--                                                                            --
+--                                                                            --
+--              MPSoC-RISCV CPU                                               --
+--              Master Slave Interface Tesbench                               --
+--              AMBA3 AHB-Lite Bus Interface                                  --
+--                                                                            --
 --------------------------------------------------------------------------------
 
 -- Copyright (c) 2018-2019 by the author(s)
@@ -53,11 +53,10 @@ use work.mpsoc_spram_ahb3_pkg.all;
 entity mpsoc_spram_testbench is
 end mpsoc_spram_testbench;
 
-architecture RTL of mpsoc_spram_testbench is
+architecture rtl of mpsoc_spram_testbench is
   ------------------------------------------------------------------------------
-  --
   -- Variables
-  --
+  ------------------------------------------------------------------------------
 
   --Common signals
   signal HRESETn : std_logic;
@@ -79,9 +78,8 @@ architecture RTL of mpsoc_spram_testbench is
   signal mst_spram_HRESP     : std_logic;
 
   ------------------------------------------------------------------------------
-  --
   -- Components
-  --
+  ------------------------------------------------------------------------------
   component mpsoc_ahb3_spram
     generic (
       MEM_SIZE          : integer := 256;  --Memory in Bytes
@@ -115,9 +113,8 @@ architecture RTL of mpsoc_spram_testbench is
 
 begin
   ------------------------------------------------------------------------------
-  --
   -- Module Body
-  --
+  ------------------------------------------------------------------------------
 
   --DUT AHB3
   ahb3_spram : mpsoc_ahb3_spram
@@ -147,4 +144,4 @@ begin
       HREADY    => mst_spram_HREADY,
       HRESP     => mst_spram_HRESP
       );
-end RTL;
+end rtl;
