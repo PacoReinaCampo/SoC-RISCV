@@ -74,6 +74,11 @@ entity mpsoc_spram_synthesis is
 end mpsoc_spram_synthesis;
 
 architecture rtl of mpsoc_spram_synthesis is
+
+  ------------------------------------------------------------------------------
+  -- Components
+  ------------------------------------------------------------------------------
+
   component msp430_ram
     generic (
       AW       : integer := 6;   -- Address bus

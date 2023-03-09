@@ -79,6 +79,11 @@ entity mpsoc_spram_synthesis is
 end mpsoc_spram_synthesis;
 
 architecture rtl of mpsoc_spram_synthesis is
+
+  ------------------------------------------------------------------------------
+  -- Components
+  ------------------------------------------------------------------------------
+
   component mpsoc_wb_spram
     generic (
       --Memory parameters
