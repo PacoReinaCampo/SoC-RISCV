@@ -48,24 +48,23 @@ module mpsoc_spram_synthesis #(
   //Wishbone parameters
   parameter DW = 32,
   parameter AW = $clog2(DEPTH)
-)
-  (
-    input           wb_clk_i,
-    input           wb_rst_i,
+) (
+  input wb_clk_i,
+  input wb_rst_i,
 
-    input  [AW-1:0] wb_adr_i,
-    input  [DW-1:0] wb_dat_i,
-    input  [   3:0] wb_sel_i,
-    input           wb_we_i,
-    input  [   1:0] wb_bte_i,
-    input  [   2:0] wb_cti_i,
-    input           wb_cyc_i,
-    input           wb_stb_i,
+  input [AW-1:0] wb_adr_i,
+  input [DW-1:0] wb_dat_i,
+  input [   3:0] wb_sel_i,
+  input          wb_we_i,
+  input [   1:0] wb_bte_i,
+  input [   2:0] wb_cti_i,
+  input          wb_cyc_i,
+  input          wb_stb_i,
 
-    output reg      wb_ack_o,
-    output          wb_err_o,
-    output [DW-1:0] wb_dat_o
-  );
+  output reg          wb_ack_o,
+  output              wb_err_o,
+  output     [DW-1:0] wb_dat_o
+);
 
   //////////////////////////////////////////////////////////////////
   //
@@ -75,27 +74,26 @@ module mpsoc_spram_synthesis #(
   //DUT WB
   mpsoc_wb_spram #(
     //Memory parameters
-    .DEPTH   ( DEPTH   ),
-    .MEMFILE ( MEMFILE ),
+    .DEPTH  (DEPTH),
+    .MEMFILE(MEMFILE),
 
     //Wishbone parameters
-    .AW ( AW ),
-    .DW ( DW )
-  )
-  wb_spram (
-    .wb_clk_i ( wb_clk_i ),
-    .wb_rst_i ( wb_rst_i ),
+    .AW(AW),
+    .DW(DW)
+  ) wb_spram (
+    .wb_clk_i(wb_clk_i),
+    .wb_rst_i(wb_rst_i),
 
-    .wb_adr_i ( wb_adr_i ),
-    .wb_dat_i ( wb_dat_i ),
-    .wb_sel_i ( wb_sel_i ),
-    .wb_we_i  ( wb_we_i  ),
-    .wb_bte_i ( wb_bte_i ),
-    .wb_cti_i ( wb_cti_i ),
-    .wb_cyc_i ( wb_cyc_i ),
-    .wb_stb_i ( wb_stb_i ),
-    .wb_ack_o ( wb_ack_o ),
-    .wb_err_o ( wb_err_o ),
-    .wb_dat_o ( wb_dat_o )
+    .wb_adr_i(wb_adr_i),
+    .wb_dat_i(wb_dat_i),
+    .wb_sel_i(wb_sel_i),
+    .wb_we_i (wb_we_i),
+    .wb_bte_i(wb_bte_i),
+    .wb_cti_i(wb_cti_i),
+    .wb_cyc_i(wb_cyc_i),
+    .wb_stb_i(wb_stb_i),
+    .wb_ack_o(wb_ack_o),
+    .wb_err_o(wb_err_o),
+    .wb_dat_o(wb_dat_o)
   );
 endmodule

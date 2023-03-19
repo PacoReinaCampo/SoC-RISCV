@@ -37,7 +37,12 @@ module trace_monitor (
   // Outputs
   termination,
   // Inputs
-  clk, enable, wb_pc, wb_insn, r3, termination_all
+  clk,
+  enable,
+  wb_pc,
+  wb_insn,
+  r3,
+  termination_all
 );
 
   parameter ID = 0;
@@ -60,22 +65,22 @@ module trace_monitor (
   input [31:0] r3;
 
   // This trace monitor wants to terminate
-  output reg                   termination;
+  output reg termination;
   // Signals of all termination requests of all monitors
-  input [TERM_CROSS_NUM-1:0]   termination_all;
+  input [TERM_CROSS_NUM-1:0] termination_all;
 
-  reg   [31:0] wb_pc_prev;
-  integer      count;
-  integer      stdout;
-  integer      tracefile;
-  reg          is_newline;
+  reg     [31:0] wb_pc_prev;
+  integer        count;
+  integer        stdout;
+  integer        tracefile;
+  reg            is_newline;
 
   initial begin
     wb_pc_prev = 32'h0000_0000;
-    count = 0;
+    count      = 0;
     is_newline = 1;
 
-    stdout = $fopen(STDOUT_FILENAME, "w");
+    stdout     = $fopen(STDOUT_FILENAME, "w");
     $fwrite(stdout, "# OpTiMSoC trace_monitor stdout file\n");
     $fwrite(stdout, "# [TIME, CORE] MESSAGE\n");
 
@@ -105,8 +110,7 @@ module trace_monitor (
       if (ENABLE_TRACE) begin
         if ((wb_pc_prev + 4 == wb_pc) || (wb_pc_prev == wb_pc)) begin
           count <= count + 1;
-        end
-        else if (count > 0) begin
+        end else if (count > 0) begin
           $fwrite(tracefile, "[%0t, %0d] %3d, 0x%08x\n", $time, ID, count, wb_pc);
           $fflush(tracefile);
           count <= 0;
@@ -134,7 +138,7 @@ module trace_monitor (
             end else begin
               is_newline <= 0;
             end
-          end // case: 16'h0004
+          end  // case: 16'h0004
           default: begin
             $display("[%t, %0d] Event 0x%x: 0x%x", $time, ID, wb_insn[15:0], r3);
           end
@@ -159,8 +163,7 @@ module trace_monitor (
             13: $display("[%t, %0d] Trap exception", $time, ID);
           endcase
         end
-      end
-      else if (wb_insn[31:0] == 32'h24000000) begin
+      end else if (wb_insn[31:0] == 32'h24000000) begin
         $display("[%t, %0d] Return from exception", $time, ID);
       end
     end

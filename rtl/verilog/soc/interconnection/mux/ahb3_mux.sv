@@ -52,43 +52,42 @@ module ahb3_mux #(
   /* Derived local parameters */
   // Width of byte select registers
   localparam SW = XLEN >> 3
-)
-  (
-    /* Ports */
-    input clk_i,
-    input rst_i,
+) (
+  /* Ports */
+  input clk_i,
+  input rst_i,
 
-    input      [MASTERS-1:0]           m_hsel_i,
-    input      [MASTERS-1:0][PLEN-1:0] m_haddr_i,
-    input      [MASTERS-1:0][XLEN-1:0] m_hwdata_i,
-    input      [MASTERS-1:0]           m_hwrite_i,
-    input      [MASTERS-1:0][     2:0] m_hsize_i,
-    input      [MASTERS-1:0][     2:0] m_hburst_i,
-    input      [MASTERS-1:0][SW  -1:0] m_hprot_i,
-    input      [MASTERS-1:0][     1:0] m_htrans_i,
-    input      [MASTERS-1:0]           m_hmastlock_i,
+  input [MASTERS-1:0]           m_hsel_i,
+  input [MASTERS-1:0][PLEN-1:0] m_haddr_i,
+  input [MASTERS-1:0][XLEN-1:0] m_hwdata_i,
+  input [MASTERS-1:0]           m_hwrite_i,
+  input [MASTERS-1:0][     2:0] m_hsize_i,
+  input [MASTERS-1:0][     2:0] m_hburst_i,
+  input [MASTERS-1:0][SW  -1:0] m_hprot_i,
+  input [MASTERS-1:0][     1:0] m_htrans_i,
+  input [MASTERS-1:0]           m_hmastlock_i,
 
-    output reg [MASTERS-1:0][XLEN-1:0] m_hrdata_o,
-    output reg [MASTERS-1:0]           m_hready_o,
-    output reg [MASTERS-1:0]           m_hresp_o,
+  output reg [MASTERS-1:0][XLEN-1:0] m_hrdata_o,
+  output reg [MASTERS-1:0]           m_hready_o,
+  output reg [MASTERS-1:0]           m_hresp_o,
 
-    output reg                         s_hsel_o,
-    output reg              [PLEN-1:0] s_haddr_o,
-    output reg              [XLEN-1:0] s_hwdata_o,
-    output reg                         s_hwrite_o,
-    output reg              [     2:0] s_hsize_o,
-    output reg              [     2:0] s_hburst_o,
-    output reg              [SW  -1:0] s_hprot_o,
-    output reg              [     1:0] s_htrans_o,
-    output reg                         s_hmastlock_o,
+  output reg            s_hsel_o,
+  output reg [PLEN-1:0] s_haddr_o,
+  output reg [XLEN-1:0] s_hwdata_o,
+  output reg            s_hwrite_o,
+  output reg [     2:0] s_hsize_o,
+  output reg [     2:0] s_hburst_o,
+  output reg [SW  -1:0] s_hprot_o,
+  output reg [     1:0] s_htrans_o,
+  output reg            s_hmastlock_o,
 
-    input                   [XLEN-1:0] s_hrdata_i,
-    input                              s_hready_i,
-    input                              s_hresp_i,
+  input [XLEN-1:0] s_hrdata_i,
+  input            s_hready_i,
+  input            s_hresp_i,
 
-    input      bus_hold,
-    output reg bus_hold_ack
-  );
+  input      bus_hold,
+  output reg bus_hold_ack
+);
 
   ////////////////////////////////////////////////////////////////
   //
@@ -96,9 +95,9 @@ module ahb3_mux #(
   //
 
   // The granted master is one hot encoded
-  wire [MASTERS-1:0]     grant;
+  wire [MASTERS-1:0] grant;
   // The granted master from previous cycle (register)
-  reg  [MASTERS-1:0]     prev_grant;
+  reg  [MASTERS-1:0] prev_grant;
 
   // This is a net that masks the actual requests. The arbiter
   // selects a different master each cycle. Therefore we need to
@@ -107,7 +106,7 @@ module ahb3_mux #(
   // mask out all other requests (be setting the requests to grant).
   // When the cycle signal is released, we set the request to all
   // masters cycle signals.
-  reg [MASTERS-1:0] m_req;
+  reg  [MASTERS-1:0] m_req;
 
   // This is the arbitration net from round robin
   wire [MASTERS-1:0] arb_grant;
@@ -127,8 +126,7 @@ module ahb3_mux #(
       // The bus is not released this cycle
       m_req        = prev_grant;
       bus_hold_ack = 1'b0;
-    end 
-    else begin
+    end else begin
       m_req        = m_hmastlock_i;
       bus_hold_ack = bus_hold;
     end
@@ -138,26 +136,24 @@ module ahb3_mux #(
   // fair arbitration (round robin)
   always @(posedge clk_i) begin
     if (rst_i) begin
-      prev_arb_grant <= {{MASTERS-1{1'b0}},1'b1};
-      prev_grant     <= {{MASTERS-1{1'b0}},1'b1};
-    end
-    else begin
+      prev_arb_grant <= {{MASTERS - 1{1'b0}}, 1'b1};
+      prev_grant     <= {{MASTERS - 1{1'b0}}, 1'b1};
+    end else begin
       prev_arb_grant <= arb_grant;
       prev_grant     <= grant;
     end
   end
 
   arb_rr #(
-    .N (MASTERS)
-  )
-  u_arbiter (
+    .N(MASTERS)
+  ) u_arbiter (
     // Outputs
-    .nxt_gnt (arb_grant),
+    .nxt_gnt(arb_grant),
 
     // Inputs
-    .en  (1'b1),
-    .req (m_req),
-    .gnt (prev_arb_grant)
+    .en (1'b1),
+    .req(m_req),
+    .gnt(prev_arb_grant)
   );
 
   // Mux the bus based on the grant signal which must be one hot!
@@ -181,7 +177,7 @@ module ahb3_mux #(
         s_hsel_o      = m_hsel_i[i];
         s_haddr_o     = m_haddr_i[i];
         s_hwdata_o    = m_hwdata_i[i];
-        s_hwrite_o    = m_hwrite_i [i];
+        s_hwrite_o    = m_hwrite_i[i];
         s_hburst_o    = m_hburst_i[i];
         s_hprot_o     = m_hprot_i[i];
         s_htrans_o    = m_htrans_i[i];

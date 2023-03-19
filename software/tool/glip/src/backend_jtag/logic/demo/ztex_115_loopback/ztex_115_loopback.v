@@ -25,45 +25,50 @@
  * Author(s):
  *   Jan Alexander Wessel <jan.wessel@tum.de>
  */
-module ztex_115_loopback(/*AUTOARG*/
-   // Outputs
-   tdo,
-   // Inputs
-   tck, tms, tdi, clk
-   );
+module ztex_115_loopback (  /*AUTOARG*/
+  // Outputs
+  tdo,
+  // Inputs
+  tck,
+  tms,
+  tdi,
+  clk
+);
 
-   input tck, tms, tdi;
-   output tdo;
+  input tck, tms, tdi;
+  output tdo;
 
-   input clk;
+  input clk;
 
-   parameter WORD_WIDTH = 16;
+  parameter WORD_WIDTH = 16;
 
-   wire [WORD_WIDTH-1:0] loop_data;
-   wire                  loop_valid;
-   wire                  loop_ready;
+  wire [WORD_WIDTH-1:0] loop_data;
+  wire                  loop_valid;
+  wire                  loop_ready;
 
-   glip_jtag_toplevel
-      #(.WORD_WIDTH(WORD_WIDTH))
-      u_adapter(.fifo_out_ready (loop_ready),
-                .fifo_in_valid  (loop_valid),
-                .fifo_in_data   (loop_data),
-                .fifo_out_valid (loop_valid),
-                .fifo_out_data  (loop_data),
-                .fifo_in_ready  (loop_ready),
+  glip_jtag_toplevel #(
+    .WORD_WIDTH(WORD_WIDTH)
+  ) u_adapter (
+    .fifo_out_ready(loop_ready),
+    .fifo_in_valid (loop_valid),
+    .fifo_in_data  (loop_data),
+    .fifo_out_valid(loop_valid),
+    .fifo_out_data (loop_data),
+    .fifo_in_ready (loop_ready),
 
-                .rst            (1'b0),
-                .com_rst        (),
-                .ctrl_logic_rst (),
+    .rst           (1'b0),
+    .com_rst       (),
+    .ctrl_logic_rst(),
 
-                /*AUTOINST*/
-                // Outputs
-                .tdo                    (tdo),
-                // Inputs
-                .clk                    (clk),
-                .tck                    (tck),
-                .tms                    (tms),
-                .tdi                    (tdi));
+    /*AUTOINST*/
+    // Outputs
+    .tdo(tdo),
+    // Inputs
+    .clk(clk),
+    .tck(tck),
+    .tms(tms),
+    .tdi(tdi)
+  );
 endmodule
 
 // Local Variables:

@@ -48,9 +48,7 @@ module sram_sp_impl_plain #(
   // data width (must be multiple of 8 for byte selects to work)
   parameter XLEN = 32,
 
-  localparam SW = (XLEN == 32) ? 4 :
-                  (XLEN == 16) ? 2 :
-                  (XLEN ==  8) ? 1 : 'hx,
+  localparam SW = (XLEN == 32) ? 4 : (XLEN == 16) ? 2 : (XLEN == 8) ? 1 : 'hx,
 
   // word address width
   parameter WORD_AW = PLEN - (SW >> 1),
@@ -62,27 +60,26 @@ module sram_sp_impl_plain #(
 
   // VMEM file used to initialize the memory in simulation
   parameter MEM_FILE = "sram.vmem"
-)
-  (
-    input                    clk,   // Clock
-    input                    rst,   // Reset
-    input                    ce,    // Chip enable input
-    input                    we,    // Write enable input
-    input                    oe,    // Output enable input
-    input      [WORD_AW-1:0] waddr, // word address
-    input      [XLEN   -1:0] din,   // input data bus
-    input      [SW     -1:0] sel,   // select bytes
-    output reg [XLEN   -1:0] dout   // output data bus
-  );
+) (
+  input                    clk,    // Clock
+  input                    rst,    // Reset
+  input                    ce,     // Chip enable input
+  input                    we,     // Write enable input
+  input                    oe,     // Output enable input
+  input      [WORD_AW-1:0] waddr,  // word address
+  input      [XLEN   -1:0] din,    // input data bus
+  input      [SW     -1:0] sel,    // select bytes
+  output reg [XLEN   -1:0] dout    // output data bus
+);
 
   ////////////////////////////////////////////////////////////////
   //
   // Module Body
   //
 
-  (* ram_style = "block" *) reg [XLEN-1:0] mem [MEM_SIZE_WORDS-1:0] /*synthesis syn_ramstyle = "block_ram" */;
+  (* ram_style = "block" *) reg [XLEN-1:0] mem[MEM_SIZE_WORDS-1:0]  /*synthesis syn_ramstyle = "block_ram" */;
 
-  always_ff @ (posedge clk) begin
+  always_ff @(posedge clk) begin
     if (we) begin
       // memory write
       for (int i = 0; i < SW; i = i + 1) begin
@@ -95,7 +92,7 @@ module sram_sp_impl_plain #(
     dout <= mem[waddr];
   end
 
-  `ifdef verilator
+`ifdef verilator
   export "DPI-C" task do_readmemh;
 
   task do_readmemh;
@@ -112,21 +109,20 @@ module sram_sp_impl_plain #(
   // Function to access RAM (for use by Verilator).
   function [XLEN-1:0] get_mem;
     // verilator public
-    input [WORD_AW-1:0] waddr; // word address
+    input [WORD_AW-1:0] waddr;  // word address
     get_mem = mem[waddr];
   endfunction
 
   // Function to write RAM (for use by Verilator).
   function set_mem;
     // verilator public
-    input [WORD_AW-1:0] waddr; // word address
-    input [   XLEN-1:0] data;  // data to write
+    input [WORD_AW-1:0] waddr;  // word address
+    input [XLEN-1:0] data;  // data to write
     mem[waddr] = data;
   endfunction
-  `else
-  initial
-    begin
-      $readmemh(MEM_FILE, mem);
-    end
-  `endif
+`else
+  initial begin
+    $readmemh(MEM_FILE, mem);
+  end
+`endif
 endmodule

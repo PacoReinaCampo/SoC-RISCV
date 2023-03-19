@@ -61,15 +61,15 @@ package optimsoc_functions;
    *   value, and an argument value of 0 shall produce a result of 0.
    */
 
-function automatic integer clog2;
-  input integer value;
-  begin
-    value = value - 1;
-    for (clog2 = 0; value > 0; clog2 = clog2 + 1) begin
-      value = value >> 1;
+  function automatic integer clog2;
+    input integer value;
+    begin
+      value = value - 1;
+      for (clog2 = 0; value > 0; clog2 = clog2 + 1) begin
+        value = value >> 1;
+      end
     end
-  end
-endfunction
+  endfunction
 
   /*
    * Math function: enhanced clog2 function
@@ -103,16 +103,16 @@ endfunction
    *   reg [clog2_width(64 + 1) - 1 : 0] store_number_64; // width is [6:0]
    */
 
-function automatic integer clog2_width;
-  input integer value;
-  begin
-    if (value == 1) begin
-      clog2_width = 1;
-    end else begin
-      clog2_width = clog2(value);
+  function automatic integer clog2_width;
+    input integer value;
+    begin
+      if (value == 1) begin
+        clog2_width = 1;
+      end else begin
+        clog2_width = clog2(value);
+      end
     end
-  end
-endfunction
+  endfunction
 
   /*
    * Get a string representing an integer
@@ -120,18 +120,18 @@ endfunction
    * This function works only for up to three-digit numbers, e.g. 0 - 999.
    */
 
-function automatic [23:0] index2string;
-  input integer index;
-  integer       hundreds;
-  integer       tens;
-  integer       ones;
-  begin
-    hundreds = index / 100;
-    tens = (index - (hundreds * 100)) / 10;
-    ones = (index - (hundreds * 100) - (tens * 10));
-    index2string[23:16] = 8'(hundreds) + 8'd48;
-    index2string[15:8] = 8'(tens) + 8'd48;
-    index2string[7:0] = 8'(ones) + 8'd48;
-  end
-endfunction
-endpackage // functions
+  function automatic [23:0] index2string;
+    input integer index;
+    integer hundreds;
+    integer tens;
+    integer ones;
+    begin
+      hundreds            = index / 100;
+      tens                = (index - (hundreds * 100)) / 10;
+      ones                = (index - (hundreds * 100) - (tens * 10));
+      index2string[23:16] = 8'(hundreds) + 8'd48;
+      index2string[15:8]  = 8'(tens) + 8'd48;
+      index2string[7:0]   = 8'(ones) + 8'd48;
+    end
+  endfunction
+endpackage  // functions

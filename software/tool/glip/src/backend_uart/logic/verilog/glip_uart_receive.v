@@ -29,134 +29,132 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-module glip_uart_receive
-  #(
-    parameter DIVISOR = 1'bx
-    )
-   (
-    // Clock & Reset
-    input            clk,
-    input            rst,
+module glip_uart_receive #(
+  parameter DIVISOR = 1'bx
+) (
+  // Clock & Reset
+  input clk,
+  input rst,
 
-    // UART input
-    input            rx,
+  // UART input
+  input rx,
 
-    // Byte output or error
-    output reg       enable,
-    output reg [7:0] data,
-    output reg       error
-    );
+  // Byte output or error
+  output reg       enable,
+  output reg [7:0] data,
+  output reg       error
+);
 
-   // Data is a register of the detected bits
-   reg [7:0]         nxt_data;
+  // Data is a register of the detected bits
+  reg [7:0] nxt_data;
 
-   // State machine
-   reg [1:0]         state;
-   reg [1:0]         nxt_state;
-   
-   localparam STATE_IDLE  = 0;
-   localparam STATE_START = 1;
-   localparam STATE_BITS  = 2;
-   localparam STATE_STOP  = 3;
+  // State machine
+  reg [1:0] state;
+  reg [1:0] nxt_state;
 
-   // Count down the clock edges per bit
-   reg [31:0]        divcounter;
-   reg [31:0]        nxt_divcounter;
+  localparam STATE_IDLE = 0;
+  localparam STATE_START = 1;
+  localparam STATE_BITS = 2;
+  localparam STATE_STOP = 3;
 
-   // Count up the bit position
-   reg [2:0]         bitpos;
-   reg [2:0]         nxt_bitpos;
+  // Count down the clock edges per bit
+  reg  [31:0] divcounter;
+  reg  [31:0] nxt_divcounter;
 
-   // Register the last two rx bits. This is needed to detect the
-   // start edge, and we previously faced the issue of a race when
-   // comparing rx and reg_rx. Hence we sample and compare sampled
-   // bits
-   reg [1:0]         rx_reg;
+  // Count up the bit position
+  reg  [ 2:0] bitpos;
+  reg  [ 2:0] nxt_bitpos;
 
-   // Detect edges in the RX signal
-   wire              rxedge;
-   wire              rxnegedge;
-   assign rxedge = ^rx_reg;
-   assign rxnegedge = rxedge & !rx_reg[0];
+  // Register the last two rx bits. This is needed to detect the
+  // start edge, and we previously faced the issue of a race when
+  // comparing rx and reg_rx. Hence we sample and compare sampled
+  // bits
+  reg  [ 1:0] rx_reg;
 
-   // Helpers for mid and end of a bit
-   wire              bitend;
-   wire              bitmid;
-   assign bitend = (divcounter == 0);   
-   assign bitmid = (divcounter == (DIVISOR >> 1)); 
+  // Detect edges in the RX signal
+  wire        rxedge;
+  wire        rxnegedge;
+  assign rxedge    = ^rx_reg;
+  assign rxnegedge = rxedge & !rx_reg[0];
 
-   // Sequential part of state machine
-   always @(posedge clk) begin
-      if (rst) begin
-         divcounter <= 0;
-         state <= STATE_IDLE;
-         rx_reg <= { rx, rx };
-      end else begin
-         state <= nxt_state;
-         rx_reg <= {rx_reg[0], rx}; // Shift in RX sample
-         divcounter <= nxt_divcounter;
+  // Helpers for mid and end of a bit
+  wire bitend;
+  wire bitmid;
+  assign bitend = (divcounter == 0);
+  assign bitmid = (divcounter == (DIVISOR >> 1));
+
+  // Sequential part of state machine
+  always @(posedge clk) begin
+    if (rst) begin
+      divcounter <= 0;
+      state      <= STATE_IDLE;
+      rx_reg     <= {rx, rx};
+    end else begin
+      state      <= nxt_state;
+      rx_reg     <= {rx_reg[0], rx};  // Shift in RX sample
+      divcounter <= nxt_divcounter;
+    end
+    bitpos <= nxt_bitpos;
+    data   <= nxt_data;
+  end  // always @ (posedge clk)
+
+  // Combinational part of state machine
+  always @(*) begin
+    // Defaults for registers
+    nxt_state  = state;
+    nxt_bitpos = bitpos;
+    nxt_data   = data;
+
+    if (bitend) begin
+      // Auto-reset divisor counter
+      nxt_divcounter = DIVISOR - 1;
+    end else begin
+      // else count down
+      nxt_divcounter = divcounter - 1;
+    end
+
+    // Default output
+    enable = 0;
+    error  = 0;
+
+    case (state)
+      STATE_IDLE: begin
+        if (rxnegedge) begin
+          // Detected negative edge, this is a start bit
+          nxt_state      = STATE_START;
+          nxt_divcounter = DIVISOR - 1;
+        end
       end
-      bitpos <= nxt_bitpos;
-      data <= nxt_data;
-   end // always @ (posedge clk)
 
-   // Combinational part of state machine
-   always @(*) begin
-      // Defaults for registers
-      nxt_state = state;
-      nxt_bitpos = bitpos;
-      nxt_data = data;
-      
-      if (bitend) begin
-         // Auto-reset divisor counter
-         nxt_divcounter = DIVISOR - 1;
-      end else begin
-         // else count down
-         nxt_divcounter = divcounter - 1;
+      STATE_START: begin
+        if (bitend) begin
+          // End of start bit detected
+          nxt_state  = STATE_BITS;
+          nxt_bitpos = 0;
+        end
       end
 
-      // Default output
-      enable = 0;
-      error = 0;
-      
-      case (state)
-        STATE_IDLE: begin
-           if (rxnegedge) begin
-              // Detected negative edge, this is a start bit
-              nxt_state = STATE_START;
-              nxt_divcounter = DIVISOR - 1;
-           end
+      STATE_BITS: begin
+        if (bitmid) begin
+          // Sample at mid of bit
+          nxt_data[bitpos] = rx_reg[0];
+          nxt_bitpos       = bitpos + 1;
+          if (bitpos == 7) begin
+            // End of frame
+            nxt_state = STATE_STOP;
+          end
         end
+      end
 
-        STATE_START: begin
-           if (bitend) begin
-              // End of start bit detected
-              nxt_state = STATE_BITS;
-              nxt_bitpos = 0;
-           end
+      STATE_STOP: begin
+        if (bitmid) begin
+          // Frame was valid if stop bit is 1
+          enable    = rx_reg[0];
+          error     = ~rx_reg[0];
+          nxt_state = STATE_IDLE;
         end
+      end
+    endcase  // case (state)
+  end  // always @ (*)
 
-        STATE_BITS: begin
-           if (bitmid) begin
-              // Sample at mid of bit
-              nxt_data[bitpos] = rx_reg[0];
-              nxt_bitpos = bitpos + 1;
-              if (bitpos == 7) begin
-                 // End of frame
-                 nxt_state = STATE_STOP;
-              end
-           end
-        end
-
-        STATE_STOP: begin
-           if (bitmid) begin
-              // Frame was valid if stop bit is 1
-              enable = rx_reg[0];
-              error = ~rx_reg[0];
-              nxt_state = STATE_IDLE;
-           end
-        end
-      endcase // case (state)
-   end // always @ (*)
-
-endmodule // glip_uart_receive
+endmodule  // glip_uart_receive

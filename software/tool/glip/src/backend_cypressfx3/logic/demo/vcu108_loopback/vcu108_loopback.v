@@ -27,90 +27,90 @@
  *   Max Koenen <max.koenen@tum.de>
  */
 
-module vcu108_loopback
-  #(
-    parameter WIDTH = 16
-    )
-  (
-   // FX3 interface
-   output 	     fx3_pclk,
-   inout [WIDTH-1:0] fx3_dq,
-   output 	     fx3_slcs_n,
-   output 	     fx3_sloe_n,
-   output 	     fx3_slrd_n,
-   output 	     fx3_slwr_n,
-   output 	     fx3_pktend_n,
-   output [1:0]  fx3_a,
-   input 	     fx3_flaga_n,
-   input 	     fx3_flagb_n,
-   input 	     fx3_flagc_n,
-   input 	     fx3_flagd_n,
-   input 	     fx3_com_rst,
-   input 	     fx3_logic_rst,
+module vcu108_loopback #(
+  parameter WIDTH = 16
+) (
+  // FX3 interface
+  output             fx3_pclk,
+  inout  [WIDTH-1:0] fx3_dq,
+  output             fx3_slcs_n,
+  output             fx3_sloe_n,
+  output             fx3_slrd_n,
+  output             fx3_slwr_n,
+  output             fx3_pktend_n,
+  output [      1:0] fx3_a,
+  input              fx3_flaga_n,
+  input              fx3_flagb_n,
+  input              fx3_flagc_n,
+  input              fx3_flagd_n,
+  input              fx3_com_rst,
+  input              fx3_logic_rst,
 
-   output [2:0]   fx3_pmode,
+  output [2:0] fx3_pmode,
 
-   // User logic
-   input 	     clk_n,
-   input 	     clk_p
-   );
+  // User logic
+  input clk_n,
+  input clk_p
+);
 
-   wire  clk;
-   wire  clk_locked;
+  wire clk;
+  wire clk_locked;
 
-   // Generate 100MHz clock for the FX3
-   vcu108_loopback_clock
-      #(.FREQ(32'd100_000_000))
-   u_clock (
-      .rst(),
-      .locked(),
-      .clk_in_p (clk_p),
-      .clk_in_n (clk_n),
-      .clk_out  (clk));
+  // Generate 100MHz clock for the FX3
+  vcu108_loopback_clock #(
+    .FREQ(32'd100_000_000)
+  ) u_clock (
+    .rst     (),
+    .locked  (),
+    .clk_in_p(clk_p),
+    .clk_in_n(clk_n),
+    .clk_out (clk)
+  );
 
-   wire [WIDTH-1:0]  loop_data;
-   wire 	     loop_valid;
-   wire 	     loop_ready;
+  wire [WIDTH-1:0] loop_data;
+  wire             loop_valid;
+  wire             loop_ready;
 
-   wire glip_logic_rst;
+  wire             glip_logic_rst;
 
-   glip_cypressfx3_toplevel
-      #(.WIDTH(WIDTH))
-   u_glib_cypressfx3(
-      // Clock/Reset
-      .clk        (clk),
-      .clk_io_100 (clk),
-      .rst        (),
+  glip_cypressfx3_toplevel #(
+    .WIDTH(WIDTH)
+  ) u_glib_cypressfx3 (
+    // Clock/Reset
+    .clk       (clk),
+    .clk_io_100(clk),
+    .rst       (),
 
-      // Cypress FX3 ports
-      .fx3_pclk      (fx3_pclk),
-      .fx3_dq        (fx3_dq),
-      .fx3_slcs_n    (fx3_slcs_n),
-      .fx3_sloe_n    (fx3_sloe_n),
-      .fx3_slrd_n    (fx3_slrd_n),
-      .fx3_slwr_n    (fx3_slwr_n),
-      .fx3_pktend_n  (fx3_pktend_n),
-      .fx3_a         (fx3_a[1:0]),
-      .fx3_flaga_n   (fx3_flaga_n),
-      .fx3_flagb_n   (fx3_flagb_n),
-      .fx3_flagc_n   (fx3_flagc_n),
-      .fx3_flagd_n   (fx3_flagd_n),
-      .fx3_com_rst   (fx3_com_rst),
-      .fx3_logic_rst (fx3_logic_rst),
-      .fx3_pmode (fx3_pmode),
+    // Cypress FX3 ports
+    .fx3_pclk     (fx3_pclk),
+    .fx3_dq       (fx3_dq),
+    .fx3_slcs_n   (fx3_slcs_n),
+    .fx3_sloe_n   (fx3_sloe_n),
+    .fx3_slrd_n   (fx3_slrd_n),
+    .fx3_slwr_n   (fx3_slwr_n),
+    .fx3_pktend_n (fx3_pktend_n),
+    .fx3_a        (fx3_a[1:0]),
+    .fx3_flaga_n  (fx3_flaga_n),
+    .fx3_flagb_n  (fx3_flagb_n),
+    .fx3_flagc_n  (fx3_flagc_n),
+    .fx3_flagd_n  (fx3_flagd_n),
+    .fx3_com_rst  (fx3_com_rst),
+    .fx3_logic_rst(fx3_logic_rst),
+    .fx3_pmode    (fx3_pmode),
 
-      // GLIP FIFO Interface
-      // Logic->Host
-      .fifo_out_ready   (loop_ready),
-      .fifo_out_valid   (loop_valid),
-      .fifo_out_data    (loop_data),
-      // Host->Logic
-      .fifo_in_valid    (loop_valid),
-      .fifo_in_data     (loop_data),
-      .fifo_in_ready    (loop_ready),
-      // GLIP Control Interface
-      .com_rst          (),
-      .ctrl_logic_rst   (glip_logic_rst));
+    // GLIP FIFO Interface
+    // Logic->Host
+    .fifo_out_ready(loop_ready),
+    .fifo_out_valid(loop_valid),
+    .fifo_out_data (loop_data),
+    // Host->Logic
+    .fifo_in_valid (loop_valid),
+    .fifo_in_data  (loop_data),
+    .fifo_in_ready (loop_ready),
+    // GLIP Control Interface
+    .com_rst       (),
+    .ctrl_logic_rst(glip_logic_rst)
+  );
 
 
 endmodule

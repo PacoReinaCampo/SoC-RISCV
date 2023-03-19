@@ -28,67 +28,61 @@
  *   Max Koenen <max.koenen@tum.de>
  */
 
-module stress_test_lfsr
-#(
-   parameter WIDTH = 16
-)(
-   // Clock
-   input                clk,
+module stress_test_lfsr #(
+  parameter WIDTH = 16
+) (
+  // Clock
+  input clk,
 
-   input [WIDTH-1:0]    rnd_seed,
-   input                set_seed,
-   input                generate_rnd,
-   output [WIDTH-1:0]   rnd_data
+  input  [WIDTH-1:0] rnd_seed,
+  input              set_seed,
+  input              generate_rnd,
+  output [WIDTH-1:0] rnd_data
 );
 
-   // Contains the generated random numbers.
-   reg [WIDTH-1:0] rnd_gen;
-   assign rnd_data = rnd_gen;
+  // Contains the generated random numbers.
+  reg [WIDTH-1:0] rnd_gen;
+  assign rnd_data = rnd_gen;
 
-   // Shift register generating pseudo random numbers.
-   generate
-      if (WIDTH == 32) begin
-         always @(posedge clk) begin
-            if (set_seed) begin
-               // Make sure the lfsr is initialized with a valid value.
-               if (rnd_seed == 0) begin
-                  rnd_gen <= 32'h00000001;
-               end else begin
-                  // Immediately perform first shift operation when initializing
-                  rnd_gen[0] <= rnd_seed[31] ^ rnd_seed[21] ^ rnd_seed[1]
-                     ^ rnd_seed[0];
-                  rnd_gen[31:1] <= rnd_seed[30:0];
-               end
-            end else if (generate_rnd) begin
-               rnd_gen[0] <= rnd_gen[31] ^ rnd_gen[21] ^ rnd_gen[1]
-                  ^ rnd_gen[0];
-               rnd_gen[31:1] <= rnd_gen[30:0];
-            end else begin
-               rnd_gen <= rnd_gen;
-            end
-         end
+  // Shift register generating pseudo random numbers.
+  generate
+    if (WIDTH == 32) begin
+      always @(posedge clk) begin
+        if (set_seed) begin
+          // Make sure the lfsr is initialized with a valid value.
+          if (rnd_seed == 0) begin
+            rnd_gen <= 32'h00000001;
+          end else begin
+            // Immediately perform first shift operation when initializing
+            rnd_gen[0]    <= rnd_seed[31] ^ rnd_seed[21] ^ rnd_seed[1] ^ rnd_seed[0];
+            rnd_gen[31:1] <= rnd_seed[30:0];
+          end
+        end else if (generate_rnd) begin
+          rnd_gen[0]    <= rnd_gen[31] ^ rnd_gen[21] ^ rnd_gen[1] ^ rnd_gen[0];
+          rnd_gen[31:1] <= rnd_gen[30:0];
+        end else begin
+          rnd_gen <= rnd_gen;
+        end
       end
-      else if (WIDTH == 16) begin
-         always @(posedge clk) begin
-            if (set_seed) begin
-               // Make sure the lfsr is initialized with a valid value.
-               if (rnd_seed == 0) begin
-                  rnd_gen <= 16'h0001;
-               end else begin               
-                  // Immediately perform first shift operation when initializing
-                  rnd_gen[0] <= rnd_seed[15] ^ rnd_seed[14] ^ rnd_seed[12]
-                     ^ rnd_seed[3];
-                  rnd_gen[15:1] <= rnd_seed[14:0];
-               end
-            end else if (generate_rnd) begin
-               rnd_gen[0] <= rnd_gen[15] ^ rnd_gen[14] ^ rnd_gen[12]
-                  ^ rnd_gen[3];
-               rnd_gen[15:1] <= rnd_gen[14:0];
-            end else begin
-               rnd_gen <= rnd_gen;
-            end
-         end
+    end else if (WIDTH == 16) begin
+      always @(posedge clk) begin
+        if (set_seed) begin
+          // Make sure the lfsr is initialized with a valid value.
+          if (rnd_seed == 0) begin
+            rnd_gen <= 16'h0001;
+          end else begin
+            // Immediately perform first shift operation when initializing
+            rnd_gen[0]    <= rnd_seed[15] ^ rnd_seed[14] ^ rnd_seed[12] ^ rnd_seed[3];
+            rnd_gen[15:1] <= rnd_seed[14:0];
+          end
+        end else if (generate_rnd) begin
+          rnd_gen[0]    <= rnd_gen[15] ^ rnd_gen[14] ^ rnd_gen[12] ^ rnd_gen[3];
+          rnd_gen[15:1] <= rnd_gen[14:0];
+        end else begin
+          rnd_gen <= rnd_gen;
+        end
       end
-   endgenerate
+    end
+  endgenerate
 
 endmodule

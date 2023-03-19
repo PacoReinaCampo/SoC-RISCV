@@ -54,7 +54,7 @@ module mpsoc_spram_testbench;
   localparam TECHNOLOGY = "GENERIC";
 
   //Memory parameters
-  parameter DEPTH   = 256;
+  parameter DEPTH = 256;
   parameter MEMFILE = "";
 
   //////////////////////////////////////////////////////////////////
@@ -63,23 +63,23 @@ module mpsoc_spram_testbench;
   //
 
   //Common signals
-  wire                                     HRESETn;
-  wire                                     HCLK;
+  wire                       HRESETn;
+  wire                       HCLK;
 
   //AHB3 signals
-  wire                                     mst_spram_HSEL;
-  wire               [PLEN           -1:0] mst_spram_HADDR;
-  wire               [XLEN           -1:0] mst_spram_HWDATA;
-  wire               [XLEN           -1:0] mst_spram_HRDATA;
-  wire                                     mst_spram_HWRITE;
-  wire               [                2:0] mst_spram_HSIZE;
-  wire               [                2:0] mst_spram_HBURST;
-  wire               [                3:0] mst_spram_HPROT;
-  wire               [                1:0] mst_spram_HTRANS;
-  wire                                     mst_spram_HMASTLOCK;
-  wire                                     mst_spram_HREADY;
-  wire                                     mst_spram_HREADYOUT;
-  wire                                     mst_spram_HRESP;
+  wire                       mst_spram_HSEL;
+  wire [PLEN           -1:0] mst_spram_HADDR;
+  wire [XLEN           -1:0] mst_spram_HWDATA;
+  wire [XLEN           -1:0] mst_spram_HRDATA;
+  wire                       mst_spram_HWRITE;
+  wire [                2:0] mst_spram_HSIZE;
+  wire [                2:0] mst_spram_HBURST;
+  wire [                3:0] mst_spram_HPROT;
+  wire [                1:0] mst_spram_HTRANS;
+  wire                       mst_spram_HMASTLOCK;
+  wire                       mst_spram_HREADY;
+  wire                       mst_spram_HREADYOUT;
+  wire                       mst_spram_HRESP;
 
   //////////////////////////////////////////////////////////////////
   //
@@ -88,29 +88,28 @@ module mpsoc_spram_testbench;
 
   //DUT AHB3
   mpsoc_ahb3_spram #(
-    .MEM_SIZE          ( 256 ),
-    .MEM_DEPTH         ( 256 ),
-    .PLEN              ( PLEN ),
-    .XLEN              ( XLEN ),
-    .TECHNOLOGY        ( TECHNOLOGY ),
-    .REGISTERED_OUTPUT ( "NO" )
-  )
-  ahb3_spram (
-    .HRESETn   ( HRESETn ),
-    .HCLK      ( HCLK    ),
+    .MEM_SIZE         (256),
+    .MEM_DEPTH        (256),
+    .PLEN             (PLEN),
+    .XLEN             (XLEN),
+    .TECHNOLOGY       (TECHNOLOGY),
+    .REGISTERED_OUTPUT("NO")
+  ) ahb3_spram (
+    .HRESETn(HRESETn),
+    .HCLK   (HCLK),
 
-    .HSEL      ( mst_spram_HSEL      ),
-    .HADDR     ( mst_spram_HADDR     ),
-    .HWDATA    ( mst_spram_HWDATA    ),
-    .HRDATA    ( mst_spram_HRDATA    ),
-    .HWRITE    ( mst_spram_HWRITE    ),
-    .HSIZE     ( mst_spram_HSIZE     ),
-    .HBURST    ( mst_spram_HBURST    ),
-    .HPROT     ( mst_spram_HPROT     ),
-    .HTRANS    ( mst_spram_HTRANS    ),
-    .HMASTLOCK ( mst_spram_HMASTLOCK ),
-    .HREADYOUT ( mst_spram_HREADYOUT ),
-    .HREADY    ( mst_spram_HREADY    ),
-    .HRESP     ( mst_spram_HRESP     )
+    .HSEL     (mst_spram_HSEL),
+    .HADDR    (mst_spram_HADDR),
+    .HWDATA   (mst_spram_HWDATA),
+    .HRDATA   (mst_spram_HRDATA),
+    .HWRITE   (mst_spram_HWRITE),
+    .HSIZE    (mst_spram_HSIZE),
+    .HBURST   (mst_spram_HBURST),
+    .HPROT    (mst_spram_HPROT),
+    .HTRANS   (mst_spram_HTRANS),
+    .HMASTLOCK(mst_spram_HMASTLOCK),
+    .HREADYOUT(mst_spram_HREADYOUT),
+    .HREADY   (mst_spram_HREADY),
+    .HRESP    (mst_spram_HRESP)
   );
 endmodule

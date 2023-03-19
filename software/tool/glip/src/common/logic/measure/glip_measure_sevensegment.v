@@ -34,40 +34,46 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-module glip_measure_sevensegment
-  #(parameter FREQ = 32'hx,
-    parameter DIGITS = 8,
-    parameter OFFSET = 0,
-    parameter STEP = 1)
-  (
-   input                 clk,
-   input                 rst,
-   
-   input                 trigger,
-   
-   output [DIGITS*7-1:0] digits,
-   
-   output                overflow
-   );
+module glip_measure_sevensegment #(
+  parameter FREQ   = 32'hx,
+  parameter DIGITS = 8,
+  parameter OFFSET = 0,
+  parameter STEP   = 1
+) (
+  input clk,
+  input rst,
 
-   wire [DIGITS*4-1:0]   bcd_digits;
-   
-   glip_measure
-     #(.FREQ(FREQ), .DIGITS(DIGITS), .OFFSET(OFFSET), .STEP(STEP))
-     u_measure(.clk      (clk),
-           .rst      (rst),
-           .trigger  (trigger),
-           .digits   (bcd_digits),
-           .overflow (overflow));
+  input trigger,
 
-   genvar i;
+  output [DIGITS*7-1:0] digits,
 
-   generate
-      for (i = 0; i < DIGITS; i = i + 1) begin
-         sevensegment
-            u_seg(.in  (bcd_digits[(i+1)*4-1:i*4]),
-                  .out (digits[(i+1)*7-1:i*7]));
-      end
-   endgenerate
-   
-endmodule // glip_measure_sevensegment
+  output overflow
+);
+
+  wire [DIGITS*4-1:0] bcd_digits;
+
+  glip_measure #(
+    .FREQ  (FREQ),
+    .DIGITS(DIGITS),
+    .OFFSET(OFFSET),
+    .STEP  (STEP)
+  ) u_measure (
+    .clk     (clk),
+    .rst     (rst),
+    .trigger (trigger),
+    .digits  (bcd_digits),
+    .overflow(overflow)
+  );
+
+  genvar i;
+
+  generate
+    for (i = 0; i < DIGITS; i = i + 1) begin
+      sevensegment u_seg (
+        .in (bcd_digits[(i+1)*4-1:i*4]),
+        .out(digits[(i+1)*7-1:i*7])
+      );
+    end
+  endgenerate
+
+endmodule  // glip_measure_sevensegment

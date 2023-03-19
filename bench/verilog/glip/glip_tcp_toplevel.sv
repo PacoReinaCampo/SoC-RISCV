@@ -26,56 +26,50 @@
  */
 
 module glip_tcp_toplevel #(
-  parameter WIDTH = 16,
-  parameter PORT = 23000,
+  parameter WIDTH     = 16,
+  parameter PORT      = 23000,
   parameter UART_LIKE = 0
-)
-  (
-    // Clock & Reset
-    input                  clk_io,
-    input                  clk_logic,
-    input                  rst,
+) (
+  // Clock & Reset
+  input clk_io,
+  input clk_logic,
+  input rst,
 
-    // GLIP FIFO Interface
-    glip_channel.slave     fifo_out,
-    glip_channel.master    fifo_in,
+  // GLIP FIFO Interface
+  glip_channel.slave  fifo_out,
+  glip_channel.master fifo_in,
 
-    // GLIP Control Interface
-    output reg             logic_rst,
-    output reg             com_rst
+  // GLIP Control Interface
+  output reg logic_rst,
+  output reg com_rst
+);
+
+  import "DPI-C" function chandle glip_tcp_create(
+    input int tcp_port,
+    input int width
   );
 
-  import "DPI-C" function
-    chandle glip_tcp_create(
-      input int tcp_port,
-      input int width
-    );
+  import "DPI-C" function int glip_tcp_reset(input chandle obj);
 
-  import "DPI-C" function
-    int glip_tcp_reset(input chandle obj);
+  import "DPI-C" function int glip_tcp_connected(input chandle obj);
 
-  import "DPI-C" function
-    int glip_tcp_connected(input chandle obj);
+  import "DPI-C" function int glip_tcp_next_cycle(input chandle obj);
 
-  import "DPI-C" function
-    int glip_tcp_next_cycle(input chandle obj);
+  import "DPI-C" function int glip_tcp_control_msg(input chandle obj);
 
-  import "DPI-C" function
-    int glip_tcp_control_msg(input chandle obj);
+  import "DPI-C" function longint glip_tcp_read(input chandle obj);
 
-  import "DPI-C" function
-    longint glip_tcp_read(input chandle obj);
+  import "DPI-C" function void glip_tcp_read_ack(input chandle obj);
 
-  import "DPI-C" function
-    void glip_tcp_read_ack(input chandle obj);
-
-  import "DPI-C" function
-    void glip_tcp_write(input chandle obj, input longint unsigned data);
+  import "DPI-C" function void glip_tcp_write(
+    input chandle          obj,
+    input longint unsigned data
+  );
 
   chandle obj;
 
-  localparam STATE_MASK_CTRL  = 32'h1;
-  localparam STATE_MASK_READ  = 32'h2;
+  localparam STATE_MASK_CTRL = 32'h1;
+  localparam STATE_MASK_READ = 32'h2;
   localparam STATE_MASK_WRITE = 32'h4;
 
   localparam UART_DELAY = 8;
@@ -85,20 +79,18 @@ module glip_tcp_toplevel #(
   always @(negedge clk_logic) begin
     if (rst) begin
       logic_rst = 0;
-      com_rst = 0;
-      rcnt = 0;
-      wcnt = 0;
-    end
-    else begin
-      automatic int connected;
+      com_rst   = 0;
+      rcnt      = 0;
+      wcnt      = 0;
+    end else begin
+      automatic int          connected;
       automatic int unsigned state;
-      automatic longint data;
+      automatic longint      data;
 
       connected = glip_tcp_connected(obj);
       if (connected > 0) begin
         com_rst = 1'b0;
-      end
-      else begin
+      end else begin
         com_rst = 1'b1;
       end
 
@@ -108,8 +100,7 @@ module glip_tcp_toplevel #(
       if ((state & STATE_MASK_CTRL) != 0) begin
         automatic int data = glip_tcp_control_msg(obj);
         logic_rst = data[0];
-      end
-      else begin
+      end else begin
         logic_rst = 1'b0;
       end
 
@@ -121,14 +112,12 @@ module glip_tcp_toplevel #(
 
         if (UART_LIKE ? rcnt == 1 : 1) begin
           automatic longint data = glip_tcp_read(obj);
-          fifo_in.data = data[WIDTH-1:0];
+          fifo_in.data  = data[WIDTH-1:0];
           fifo_in.valid = 1;
-        end
-        else begin
+        end else begin
           fifo_in.valid = 0;
         end
-      end
-      else begin
+      end else begin
         fifo_in.valid = 0;
       end
 
@@ -140,12 +129,10 @@ module glip_tcp_toplevel #(
 
         if (UART_LIKE ? wcnt == 1 : 1) begin
           fifo_out.ready = 1;
-        end
-        else begin
+        end else begin
           fifo_out.ready = 0;
         end
-      end
-      else begin
+      end else begin
         fifo_out.ready = 0;
       end
 

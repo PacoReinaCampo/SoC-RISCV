@@ -33,60 +33,63 @@
  *   Stefan Wallentowitz <stefan@wallentowitz.de>
  */
 
-module glip_downscale
-  #(parameter IN_SIZE = 16,
-    parameter OUT_SIZE = IN_SIZE/2)
-   (input clk, rst,
+module glip_downscale #(
+  parameter IN_SIZE  = 16,
+  parameter OUT_SIZE = IN_SIZE / 2
+) (
+  input clk,
+  rst,
 
-    input [IN_SIZE-1:0]    in_data,
-    input                  in_valid,
-    output                 in_ready,
+  input  [IN_SIZE-1:0] in_data,
+  input                in_valid,
+  output               in_ready,
 
-    output [OUT_SIZE-1:0]  out_data,
-    output                 out_valid,
-    input                  out_ready);
+  output [OUT_SIZE-1:0] out_data,
+  output                out_valid,
+  input                 out_ready
+);
 
-   initial begin
-      assert(OUT_SIZE == IN_SIZE || OUT_SIZE == IN_SIZE/2)
-         else $fatal(1, "Only 1:1 and 1:2 scaling factors are supported.");
-   end
+  initial begin
+    assert (OUT_SIZE == IN_SIZE || OUT_SIZE == IN_SIZE / 2)
+    else $fatal(1, "Only 1:1 and 1:2 scaling factors are supported.");
+  end
 
-   generate
-      if (OUT_SIZE == IN_SIZE) begin
-         assign out_data = in_data;
-         assign out_valid = in_valid;
-         assign in_ready = out_ready;
+  generate
+    if (OUT_SIZE == IN_SIZE) begin
+      assign out_data  = in_data;
+      assign out_valid = in_valid;
+      assign in_ready  = out_ready;
 
-      end else if (OUT_SIZE == IN_SIZE / 2) begin
+    end else if (OUT_SIZE == IN_SIZE / 2) begin
 
-         /* 0 when passthrough and 1 when emitting lower part */
-         reg                     scale;
-         /* Store lower part for emitting in second transfer */
-         reg [OUT_SIZE-1:0]      lower;
+      /* 0 when passthrough and 1 when emitting lower part */
+      reg                scale;
+      /* Store lower part for emitting in second transfer */
+      reg [OUT_SIZE-1:0] lower;
 
-         /* Ready during passthrough */
-         assign in_ready = !scale & out_ready;
-         /* Valid during passthrough or second transfer */
-         assign out_valid = scale | in_valid;
-         /* Passthrough in first and stored lower in second transfer */
-         assign out_data = scale ? lower : in_data[OUT_SIZE*2-1:OUT_SIZE];
+      /* Ready during passthrough */
+      assign in_ready  = !scale & out_ready;
+      /* Valid during passthrough or second transfer */
+      assign out_valid = scale | in_valid;
+      /* Passthrough in first and stored lower in second transfer */
+      assign out_data  = scale ? lower : in_data[OUT_SIZE*2-1:OUT_SIZE];
 
-         always @(posedge clk) begin
-            if (rst) begin
-               scale <= 0;
-            end else if (scale & out_valid & out_ready) begin
-               scale <= 0;
-            end else if (!scale & in_valid & in_ready) begin
-               scale <= 1;
-            end
-         end
-
-         always @(posedge clk) begin
-            if (in_valid & in_ready) begin
-               lower <= in_data[OUT_SIZE-1:0];
-            end
-         end
+      always @(posedge clk) begin
+        if (rst) begin
+          scale <= 0;
+        end else if (scale & out_valid & out_ready) begin
+          scale <= 0;
+        end else if (!scale & in_valid & in_ready) begin
+          scale <= 1;
+        end
       end
-   endgenerate
-endmodule // glip_downscale
+
+      always @(posedge clk) begin
+        if (in_valid & in_ready) begin
+          lower <= in_data[OUT_SIZE-1:0];
+        end
+      end
+    end
+  endgenerate
+endmodule  // glip_downscale
 

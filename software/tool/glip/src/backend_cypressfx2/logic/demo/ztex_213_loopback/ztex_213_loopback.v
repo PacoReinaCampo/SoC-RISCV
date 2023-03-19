@@ -25,84 +25,96 @@
  * Author(s):
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
-module ztex_213_loopback(/*AUTOARG*/
-   // Outputs
-   fx2_sloe_n, fx2_slrd_n, fx2_slwr_n, fx2_pktend_n, fx2_fifoadr, led,
-   // Inouts
-   fx2_fd,
-   // Inputs
-   fx2_ifclk, fx2_com_rst, fx2_logic_rst, fx2_flaga_n, fx2_flagb_n,
-   fx2_flagc_n, fx2_flagd_n, clk
-   );
+module ztex_213_loopback (  /*AUTOARG*/
+  // Outputs
+  fx2_sloe_n,
+  fx2_slrd_n,
+  fx2_slwr_n,
+  fx2_pktend_n,
+  fx2_fifoadr,
+  led,
+  // Inouts
+  fx2_fd,
+  // Inputs
+  fx2_ifclk,
+  fx2_com_rst,
+  fx2_logic_rst,
+  fx2_flaga_n,
+  fx2_flagb_n,
+  fx2_flagc_n,
+  fx2_flagd_n,
+  clk
+);
 
-   // FX2 interface
-   input        fx2_ifclk;
-   input        fx2_com_rst;
-   input        fx2_logic_rst;
-   inout [15:0] fx2_fd;
-   output       fx2_sloe_n;
-   output       fx2_slrd_n;
-   output       fx2_slwr_n;
-   output       fx2_pktend_n;
-   output [1:0] fx2_fifoadr;
-   input        fx2_flaga_n;
-   input        fx2_flagb_n;
-   input        fx2_flagc_n;
-   input        fx2_flagd_n;
+  // FX2 interface
+  input fx2_ifclk;
+  input fx2_com_rst;
+  input fx2_logic_rst;
+  inout [15:0] fx2_fd;
+  output fx2_sloe_n;
+  output fx2_slrd_n;
+  output fx2_slwr_n;
+  output fx2_pktend_n;
+  output [1:0] fx2_fifoadr;
+  input fx2_flaga_n;
+  input fx2_flagb_n;
+  input fx2_flagc_n;
+  input fx2_flagd_n;
 
-   // User logic
-   input        clk;
-   output [9:0] led;
+  // User logic
+  input clk;
+  output [9:0] led;
 
-   wire [15:0]  loop_data;
-   wire         loop_valid;
-   wire         loop_ready;
+  wire [15:0] loop_data;
+  wire        loop_valid;
+  wire        loop_ready;
 
-   reg [20:0]    count;
+  reg  [20:0] count;
 
-   assign led[9:1] = count[20:12];
-   assign led[0] = |count[11:0];
+  assign led[9:1] = count[20:12];
+  assign led[0]   = |count[11:0];
 
-   always @(posedge clk) begin
-      if (fx2_com_rst) begin
-         count <= 0;
-      end else begin
-         if (loop_valid & loop_ready) begin
-            count <= count + 1;
-         end
+  always @(posedge clk) begin
+    if (fx2_com_rst) begin
+      count <= 0;
+    end else begin
+      if (loop_valid & loop_ready) begin
+        count <= count + 1;
       end
-   end
+    end
+  end
 
-   glip_cypressfx2_toplevel
-      u_glib_cypressfx2(.fifo_out_ready (loop_ready),
-                        .fifo_in_valid  (loop_valid),
-                        .fifo_in_data   (loop_data),
-                        .fifo_out_valid (loop_valid),
-                        .fifo_out_data  (loop_data),
-                        .fifo_in_ready  (loop_ready),
+  glip_cypressfx2_toplevel u_glib_cypressfx2 (
+    .fifo_out_ready(loop_ready),
+    .fifo_in_valid (loop_valid),
+    .fifo_in_data  (loop_data),
+    .fifo_out_valid(loop_valid),
+    .fifo_out_data (loop_data),
+    .fifo_in_ready (loop_ready),
 
-                        .rst            (1'b0),
-                        .com_rst        (),
-                        .ctrl_logic_rst (),
+    .rst           (1'b0),
+    .com_rst       (),
+    .ctrl_logic_rst(),
 
-                        /*AUTOINST*/
-                        // Outputs
-                        .fx2_sloe_n     (fx2_sloe_n),
-                        .fx2_slrd_n     (fx2_slrd_n),
-                        .fx2_slwr_n     (fx2_slwr_n),
-                        .fx2_pktend_n   (fx2_pktend_n),
-                        .fx2_fifoadr    (fx2_fifoadr[1:0]),
-                        // Inouts
-                        .fx2_fd         (fx2_fd[15:0]),
-                        // Inputs
-                        .fx2_ifclk      (fx2_ifclk),
-                        .fx2_com_rst    (fx2_com_rst),
-                        .fx2_logic_rst  (fx2_logic_rst),
-                        .fx2_flaga_n    (fx2_flaga_n),
-                        .fx2_flagb_n    (fx2_flagb_n),
-                        .fx2_flagc_n    (fx2_flagc_n),
-                        .fx2_flagd_n    (fx2_flagd_n),
-                        .clk            (clk));
+    /*AUTOINST*/
+    // Outputs
+    .fx2_sloe_n   (fx2_sloe_n),
+    .fx2_slrd_n   (fx2_slrd_n),
+    .fx2_slwr_n   (fx2_slwr_n),
+    .fx2_pktend_n (fx2_pktend_n),
+    .fx2_fifoadr  (fx2_fifoadr[1:0]),
+    // Inouts
+    .fx2_fd       (fx2_fd[15:0]),
+    // Inputs
+    .fx2_ifclk    (fx2_ifclk),
+    .fx2_com_rst  (fx2_com_rst),
+    .fx2_logic_rst(fx2_logic_rst),
+    .fx2_flaga_n  (fx2_flaga_n),
+    .fx2_flagb_n  (fx2_flagb_n),
+    .fx2_flagc_n  (fx2_flagc_n),
+    .fx2_flagd_n  (fx2_flagd_n),
+    .clk          (clk)
+  );
 
 endmodule
 

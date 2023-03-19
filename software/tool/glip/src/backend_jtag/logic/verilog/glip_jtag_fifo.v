@@ -28,85 +28,91 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-module glip_jtag_fifo(/*AUTOARG*/
-   // Outputs
-   in_ready, out_flit, out_valid,
-   fifo_free_space,
-   // Inputs
-   clk, rst, in_flit, in_valid, out_ready
-   );
+module glip_jtag_fifo (  /*AUTOARG*/
+  // Outputs
+  in_ready,
+  out_flit,
+  out_valid,
+  fifo_free_space,
+  // Inputs
+  clk,
+  rst,
+  in_flit,
+  in_valid,
+  out_ready
+);
 
-   parameter FLIT_DATA_WIDTH = 32;
-   parameter FLIT_TYPE_WIDTH = 2;
-   parameter PACKET_LENGTH   = 0;
+  parameter FLIT_DATA_WIDTH = 32;
+  parameter FLIT_TYPE_WIDTH = 2;
+  parameter PACKET_LENGTH = 0;
 
-   localparam FLIT_WIDTH = FLIT_DATA_WIDTH+FLIT_TYPE_WIDTH;
+  localparam FLIT_WIDTH = FLIT_DATA_WIDTH + FLIT_TYPE_WIDTH;
 
-   parameter LENGTH = 16;
-   parameter FIFO_FREE_SPACE_WIDTH = 3;
+  parameter LENGTH = 16;
+  parameter FIFO_FREE_SPACE_WIDTH = 3;
 
-   input  clk;
-   input  rst;
+  input clk;
+  input rst;
 
-   // FIFO input side
-   input  [FLIT_WIDTH-1:0] in_flit;  // input
-   input  in_valid;                   // write_enable
-   output in_ready;                   // accepting new data
+  // FIFO input side
+  input [FLIT_WIDTH-1:0] in_flit;  // input
+  input in_valid;  // write_enable
+  output in_ready;  // accepting new data
 
-   //FIFO output side
-   output [FLIT_WIDTH-1:0] out_flit;  // data_out
-   output out_valid;                   // data available
-   input  out_ready;                   // read request
+  //FIFO output side
+  output [FLIT_WIDTH-1:0] out_flit;  // data_out
+  output out_valid;  // data available
+  input out_ready;  // read request
 
-   output reg [FIFO_FREE_SPACE_WIDTH-1:0] fifo_free_space;
+  output reg [FIFO_FREE_SPACE_WIDTH-1:0] fifo_free_space;
 
-   // Signals for fifo
-   reg [FLIT_WIDTH-1:0] fifo_data [0:LENGTH-1]; //actual fifo
+  // Signals for fifo
+  reg  [FLIT_WIDTH-1:0] fifo_data      [0:LENGTH-1];  //actual fifo
 
-   reg [LENGTH:0]         fifo_write_ptr;
+  reg  [      LENGTH:0] fifo_write_ptr;
 
-   wire                   pop;
-   wire                   push;
+  wire                  pop;
+  wire                  push;
 
-   assign pop = out_valid & out_ready;
-   assign push = in_valid & in_ready;
+  assign pop       = out_valid & out_ready;
+  assign push      = in_valid & in_ready;
 
-   assign out_flit = fifo_data[0];
-   assign out_valid = !fifo_write_ptr[0];
+  assign out_flit  = fifo_data[0];
+  assign out_valid = !fifo_write_ptr[0];
 
-   assign in_ready = !fifo_write_ptr[LENGTH];
+  assign in_ready  = !fifo_write_ptr[LENGTH];
 
-   always @(posedge clk) begin
-      if (rst) begin
-         fifo_write_ptr <= {{LENGTH{1'b0}},1'b1};
-         fifo_free_space <= LENGTH;
-      end else if (push & !pop) begin
-         fifo_write_ptr <= fifo_write_ptr << 1;
-         fifo_free_space <=  fifo_free_space - 1;
-      end else if (!push & pop) begin
-         fifo_write_ptr <= fifo_write_ptr >> 1;
-         fifo_free_space <=  fifo_free_space + 1;
+  always @(posedge clk) begin
+    if (rst) begin
+      fifo_write_ptr  <= {{LENGTH{1'b0}}, 1'b1};
+      fifo_free_space <= LENGTH;
+    end else if (push & !pop) begin
+      fifo_write_ptr  <= fifo_write_ptr << 1;
+      fifo_free_space <= fifo_free_space - 1;
+    end else if (!push & pop) begin
+      fifo_write_ptr  <= fifo_write_ptr >> 1;
+      fifo_free_space <= fifo_free_space + 1;
+    end
+  end
+
+  integer i;
+
+  always @(posedge clk) begin : shift_register_seq
+    for (i = 0; i < LENGTH; i = i + 1) begin
+      if (pop) begin
+        if (push & fifo_write_ptr[i+1]) begin
+          fifo_data[i] <= in_flit;
+        end else if (i < LENGTH - 1) begin
+          fifo_data[i] <= fifo_data[i+1];
+        end else begin
+          fifo_data[i] <= fifo_data[i];
+        end
+      end else if (push & fifo_write_ptr[i]) begin
+        fifo_data[i] <= in_flit;
+      end else begin
+        fifo_data[i] <= fifo_data[i];
       end
-   end
-
-   integer i;
-
-   always @(posedge clk) begin : shift_register_seq
-      for (i=0;i<LENGTH;i=i+1) begin
-         if (pop) begin
-            if (push & fifo_write_ptr[i+1]) begin
-               fifo_data[i] <= in_flit;
-            end else if (i<LENGTH-1) begin
-               fifo_data[i] <= fifo_data[i+1];
-            end else begin
-               fifo_data[i] <= fifo_data[i];
-            end
-         end else if (push & fifo_write_ptr[i]) begin
-            fifo_data[i] <= in_flit;
-         end else begin
-            fifo_data[i] <= fifo_data[i];
-         end
-      end
-   end
+    end
+  end
 
 endmodule
