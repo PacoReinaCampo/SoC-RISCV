@@ -22,11 +22,12 @@ verilog
     │   │   └── ahb3_decode.sv
     │   └── mux
     │       └── ahb3_mux.sv
-    ├── riscv_tile.sv
+    ├── main
+    │   └── riscv_tile.sv
     └── spram
         ├── ahb32sram.sv
         ├── ahb3_sram_sp.sv
         ├── sram_sp_impl_plain.sv
         └── sram_sp.sv
 
-13 directories, 16 files
+14 directories, 16 files
