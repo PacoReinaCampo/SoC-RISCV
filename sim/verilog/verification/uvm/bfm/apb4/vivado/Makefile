@@ -9,14 +9,14 @@
 ##                  |_|                                                          ##
 ##                                                                               ##
 ##                                                                               ##
-##              MPSoC-SPRAM CPU                                                  ##
-##              Simulation Test Makefile                                         ##
+##              Peripheral for MPSoC                                             ##
+##              Multi-Processor System on Chip                                   ##
 ##                                                                               ##
 ###################################################################################
 
 ###################################################################################
 ##                                                                               ##
-## Copyright (c) 2018-2019 by the author(s)                                      ##
+## Copyright (c) 2015-2016 by the author(s)                                      ##
 ##                                                                               ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
 ## of this software and associated documentation files (the "Software"), to deal ##
@@ -38,18 +38,17 @@
 ##                                                                               ##
 ## ============================================================================= ##
 ## Author(s):                                                                    ##
-##   Francisco Javier Reina Campo <frareicam@gmail.com>                          ##
+##   Paco Reina Campo <pacoreinacampo@queenfield.tech>                           ##
 ##                                                                               ##
 ###################################################################################
 
 all: build simulate
 
 build:
-	xvlog -i ../../../../../../uvm/src -prj system.prj
+	xvlog -i ../../../../../../../verification/uvm/src -prj system.prj
 
 simulate:
-	xelab test
-	xsim -R test
-
+	xelab peripheral_uvm_testbench
+	xsim -R peripheral_uvm_testbench
 clean:
 	rm -rf *.dir *.jou *.log *.pb
