@@ -1,0 +1,30 @@
+[submodule "dbg"]
+	path = dbg
+	url = https://github.com/PacoReinaCampo/MPSoC-DBG.git
+[submodule "dma"]
+	path = dma
+	url = https://github.com/PacoReinaCampo/MPSoC-DMA.git
+[submodule "gpio"]
+	path = gpio
+	url = https://github.com/PacoReinaCampo/MPSoC-GPIO.git
+[submodule "mpi"]
+	path = mpi
+	url = https://github.com/PacoReinaCampo/MPSoC-MPI.git
+[submodule "mpram"]
+	path = mpram
+	url = https://github.com/PacoReinaCampo/MPSoC-MPRAM.git
+[submodule "msi"]
+	path = msi
+	url = https://github.com/PacoReinaCampo/MPSoC-MSI.git
+[submodule "noc"]
+	path = noc
+	url = https://github.com/PacoReinaCampo/MPSoC-NoC.git
+[submodule "spram"]
+	path = spram
+	url = https://github.com/PacoReinaCampo/MPSoC-SPRAM.git
+[submodule "uart"]
+	path = uart
+	url = https://github.com/PacoReinaCampo/MPSoC-UART.git
+[submodule "pu"]
+	path = pu
+	url = https://github.com/PacoReinaCampo/PU-RISCV.git
