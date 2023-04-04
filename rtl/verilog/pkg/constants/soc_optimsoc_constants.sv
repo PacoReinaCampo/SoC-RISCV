@@ -42,7 +42,7 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-package optimsoc_constants;
+package soc_optimsoc_constants;
   // Maximum packet length
   localparam NOC_MAX_LEN = 32;
 

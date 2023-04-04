@@ -43,17 +43,17 @@
 ###################################################################################
 
 +incdir+../../../../pu/rtl/verilog/pkg
-+incdir+../../../../rtl/verilog/soc/bootrom
++incdir+../../../../rtl/verilog/soc/soc_bootrom
 +incdir+../../../../bench/cpp/verilator/inc
 +incdir+../../../../bench/cpp/glip
 +incdir+../../../../dma/rtl/verilog/ahb3/pkg
 
-../../../../rtl/verilog/pkg/arbiter/arb_rr.sv
-../../../../rtl/verilog/pkg/functions/optimsoc_functions.sv
-../../../../rtl/verilog/pkg/config/optimsoc_config.sv
-../../../../rtl/verilog/pkg/constants/optimsoc_constants.sv
+../../../../rtl/verilog/pkg/arbiter/soc_arbiter_rr.sv
+../../../../rtl/verilog/pkg/functions/soc_optimsoc_functions.sv
+../../../../rtl/verilog/pkg/config/soc_optimsoc_configuration.sv
+../../../../rtl/verilog/pkg/constants/soc_optimsoc_constants.sv
 ../../../../dbg/rtl/soc/verilog/interfaces/riscv/mriscv_trace_exec.sv
-../../../../bench/verilog/glip/glip_channel.sv
+../../../../bench/verilog/glip/soc_glip_channel.sv
 ../../../../dbg/rtl/soc/verilog/interfaces/common/dii_channel_flat.sv
 ../../../../dbg/rtl/soc/verilog/interfaces/common/dii_channel.sv
 ../../../../dbg/rtl/soc/verilog/debug_interface.sv
@@ -145,16 +145,16 @@
 ../../../../pu/rtl/verilog/pu/ahb3/riscv_biu2ahb3.sv
 ../../../../pu/rtl/verilog/pu/ahb3/riscv_module_ahb3.sv
 ../../../../pu/rtl/verilog/pu/ahb3/riscv_pu_ahb3.sv
-../../../../rtl/verilog/soc/adapter/networkadapter_conf.sv
-../../../../rtl/verilog/soc/adapter/networkadapter_ct.sv
-../../../../rtl/verilog/soc/bootrom/bootrom.sv
-../../../../rtl/verilog/soc/interconnection/bus/ahb3_bus_b3.sv
-../../../../rtl/verilog/soc/interconnection/decode/ahb3_decode.sv
-../../../../rtl/verilog/soc/interconnection/mux/ahb3_mux.sv
-../../../../rtl/verilog/soc/spram/sram_sp_impl_plain.sv
-../../../../rtl/verilog/soc/spram/sram_sp.sv
-../../../../rtl/verilog/soc/spram/ahb3_sram_sp.sv
-../../../../rtl/verilog/soc/spram/ahb32sram.sv
-../../../../rtl/verilog/soc/main/riscv_tile.sv
+../../../../rtl/verilog/soc/adapter/soc_network_adapter_configuration.sv
+../../../../rtl/verilog/soc/adapter/soc_network_adapter_ct.sv
+../../../../rtl/verilog/soc/soc_bootrom/bootrom.sv
+../../../../rtl/verilog/soc/interconnection/bus/soc_b3_ahb3.sv
+../../../../rtl/verilog/soc/interconnection/decode/soc_decode_ahb3.sv
+../../../../rtl/verilog/soc/interconnection/mux/soc_mux_ahb3.sv
+../../../../rtl/verilog/soc/spram/soc_sram_sp_impl_plain.sv
+../../../../rtl/verilog/soc/spram/soc_sram_sp.sv
+../../../../rtl/verilog/soc/spram/soc_sram_sp_ahb3.sv
+../../../../rtl/verilog/soc/spram/soc_ahb32sram.sv
+../../../../rtl/verilog/soc/main/soc_riscv_tile.sv
 
 ../../../../bench/verilog/main/soc_riscv_testbench.sv

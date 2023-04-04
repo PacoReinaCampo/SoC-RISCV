@@ -40,7 +40,7 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-module ahb3_bus_b3 #(
+module soc_b3_ahb3 #(
   /* User parameters */
   // Set the number of masters and slaves
   parameter MASTERS = 2,
@@ -155,7 +155,7 @@ module ahb3_bus_b3 #(
   // Module Body
   //
 
-  ahb3_mux #(
+  soc_mux_ahb3 #(
     .MASTERS(MASTERS),
     .PLEN   (PLEN),
     .XLEN   (XLEN)
@@ -197,7 +197,7 @@ module ahb3_bus_b3 #(
     .bus_hold    (bus_hold)
   );
 
-  ahb3_decode #(
+  soc_decode_ahb3 #(
     .SLAVES        (SLAVES),
     .PLEN          (PLEN),
     .XLEN          (XLEN),

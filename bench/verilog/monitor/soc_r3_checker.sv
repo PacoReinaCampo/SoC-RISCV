@@ -1,4 +1,4 @@
-/* Copyright (c) 2016 by the author(s)
+/* Copyright (c) 2012-2013 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,33 +18,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * =============================================================================
+ * ============================================================================
  *
- * GLIP communication channel interface
+ * The trace monitor is used to collect data during RTL simulation.
  *
  * Author(s):
- *   Stefan Wallentowitz <stefan@wallentowitz.de>
+ *   Philipp Wagner <philipp.wagner@tum.de>
+ *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-interface glip_channel #(
-  parameter WIDTH = 16
-) (
-  input clk
+module soc_r3_checker (
+  input             clk,
+  input             valid,
+  input             we,
+  input      [ 4:0] addr,
+  input      [31:0] data,
+  output reg [31:0] r3
 );
 
-  logic [WIDTH-1:0] data;
-  logic             valid;
-  logic             ready;
-
-  modport master(output data, output valid, input ready);
-
-  modport slave(input data, input valid, output ready);
-
-  // a helper function to ease the assembly of interface signals
-  function logic assemble(input logic [WIDTH-1:0] m_data, input logic m_valid);
-
-    data  = m_data;
-    valid = m_valid;
-    return ready;
-  endfunction
-endinterface
+  always @(posedge clk) begin
+    if (valid && we && (addr == 3)) begin
+      r3 <= data;
+    end
+  end
+endmodule

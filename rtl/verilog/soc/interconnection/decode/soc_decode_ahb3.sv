@@ -40,7 +40,7 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-module ahb3_decode #(
+module soc_decode_ahb3 #(
   /* User parameters */
   // Set the number of slaves
   parameter SLAVES = 1,

@@ -1,12 +1,12 @@
 verilog
 ├── glip
-│   ├── glip_channel.sv
-│   └── glip_tcp_toplevel.sv
+│   ├── soc_glip_channel.sv
+│   └── soc_glip_tcp_top.sv
 ├── main
-│   ├── riscv_tile_testbench.sv
+│   ├── soc_riscv_tile_testbench.sv
 │   └── soc_riscv_testbench.sv
 └── monitor
-    ├── r3_checker.sv
-    └── trace_monitor.sv
+    ├── soc_r3_checker.sv
+    └── soc_trace_monitor.sv
 
 3 directories, 6 files

@@ -42,10 +42,10 @@
 
 import dii_package::dii_flit;
 import opensocdebug::mriscv_trace_exec;
-import optimsoc_config::*;
-import optimsoc_functions::*;
+import soc_optimsoc_configuration::*;
+import soc_optimsoc_functions::*;
 
-module riscv_tile_testbench (
+module soc_riscv_tile_testbench (
 `ifdef verilator
   input clk,
   input rst
@@ -157,7 +157,7 @@ module riscv_tile_testbench (
 
   generate
     for (i = 0; i < NUM_CORES; i = i + 1) begin
-      r3_checker u_r3_checker (
+      soc_r3_checker u_r3_checker (
         .clk  (clk),
         .valid(trace[i].valid),
         .we   (trace[i].wben),
@@ -166,7 +166,7 @@ module riscv_tile_testbench (
         .r3   (trace_r3[i])
       );
 
-      trace_monitor #(
+      soc_trace_monitor #(
         .STDOUT_FILENAME   ({"stdout.", index2string(i)}),
         .TRACEFILE_FILENAME({"trace.", index2string(i)}),
         .ENABLE_TRACE      (0),
@@ -186,14 +186,14 @@ module riscv_tile_testbench (
 
   generate
     if (CONFIG.USE_DEBUG == 1) begin
-      glip_channel c_glip_in (.*);
-      glip_channel c_glip_out (.*);
+      soc_glip_channel c_glip_in (.*);
+      soc_glip_channel c_glip_out (.*);
 
       logic com_rst;
       logic logic_rst;
 
       // TCP communication interface (simulation only)
-      glip_tcp_toplevel u_glip (
+      soc_glip_tcp_top u_glip (
         .*,
         .clk_io   (clk),
         .clk_logic(clk),
@@ -241,7 +241,7 @@ module riscv_tile_testbench (
 
 
   // The actual system: a single compute tile
-  riscv_tile #(
+  soc_riscv_tile #(
     .CONFIG      (CONFIG),
     .ID          (0),
     .MEM_FILE    ("ct.vmem"),

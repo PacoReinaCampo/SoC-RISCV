@@ -39,7 +39,7 @@
  * Author(s):
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
-module ahb3_mux #(
+module soc_mux_ahb3 #(
   /* User parameters */
   // Set the number of slaves
   parameter MASTERS = 1,
@@ -144,7 +144,7 @@ module ahb3_mux #(
     end
   end
 
-  arb_rr #(
+  soc_arbiter_rr #(
     .N(MASTERS)
   ) u_arbiter (
     // Outputs

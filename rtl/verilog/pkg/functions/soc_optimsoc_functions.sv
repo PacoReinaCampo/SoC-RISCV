@@ -43,7 +43,7 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-package optimsoc_functions;
+package soc_optimsoc_functions;
   /*
    * Math function: $clog2 as specified in Verilog-2005
    *

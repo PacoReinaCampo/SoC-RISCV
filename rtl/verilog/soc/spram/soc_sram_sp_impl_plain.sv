@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 //                                            __ _      _     _               //
 //                                           / _(_)    | |   | |              //
 //                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |              //
@@ -12,11 +12,10 @@
 //              MPSoC-RISCV CPU                                               //
 //              Multi Processor System on Chip                                //
 //              AMBA3 AHB-Lite Bus Interface                                  //
-//              WishBone Bus Interface                                        //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
-/* Copyright (c) 2018-2019 by the author(s)
+/* Copyright (c) 2019-2020 by the author(s)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,65 +37,92 @@
  *
  * =============================================================================
  * Author(s):
- *   Stefan Wallentowitz <stefan@wallentowitz.de>
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-module arb_rr #(
-  parameter N = 2
-)
-  (
-    input  [N-1:0] req,
-    input          en,
-    input  [N-1:0] gnt,
-    output [N-1:0] nxt_gnt
-  );
+import soc_optimsoc_functions::*;
 
-  //////////////////////////////////////////////////////////////////
-  //
-  // Variables
-  //
+module soc_sram_sp_impl_plain #(
+  // byte address width
+  parameter PLEN = 32,
+  // data width (must be multiple of 8 for byte selects to work)
+  parameter XLEN = 32,
 
-  // Mask net
-  reg [N-1:0] mask [0:N-1];
+  localparam SW = (XLEN == 32) ? 4 : (XLEN == 16) ? 2 : (XLEN == 8) ? 1 : 'hx,
 
-  integer i,j;
+  // word address width
+  parameter WORD_AW = PLEN - (SW >> 1),
 
-  genvar k;
+  // size of the memory in bytes
+  parameter MEM_SIZE_BYTE = 'hx,
 
-  //////////////////////////////////////////////////////////////////
+  localparam MEM_SIZE_WORDS = MEM_SIZE_BYTE / SW,
+
+  // VMEM file used to initialize the memory in simulation
+  parameter MEM_FILE = "sram.vmem"
+) (
+  input                    clk,    // Clock
+  input                    rst,    // Reset
+  input                    ce,     // Chip enable input
+  input                    we,     // Write enable input
+  input                    oe,     // Output enable input
+  input      [WORD_AW-1:0] waddr,  // word address
+  input      [XLEN   -1:0] din,    // input data bus
+  input      [SW     -1:0] sel,    // select bytes
+  output reg [XLEN   -1:0] dout    // output data bus
+);
+
+  ////////////////////////////////////////////////////////////////
   //
   // Module Body
   //
 
-  // Calculate the mask
-  always @(*) begin : calc_mask
-    for (i=0;i<N;i=i+1) begin
-      // Initialize mask as 0
-      mask[i] = {N{1'b0}};
+  (* ram_style = "block" *) reg [XLEN-1:0] mem[MEM_SIZE_WORDS-1:0]  /*synthesis syn_ramstyle = "block_ram" */;
 
-      if(i>0)
-        // For i=N:1 the next right is i-1
-        mask[i][i-1] = ~gnt[i-1];
-      else
-        // For i=0 the next right is N-1
-        mask[i][N-1] = ~gnt[N-1];
-
-      for (j=2;j<N;j=j+1) begin
-        if (i-j>=0)
-          mask[i][i-j] = mask[i][i-j+1] & ~gnt[i-j];
-        else if (i-j+1>=0)
-          mask[i][i-j+N] = mask[i][i-j+1] & ~gnt[i-j+N];
-        else
-          mask[i][i-j+N] = mask[i][i-j+N+1] & ~gnt[i-j+N];
+  always_ff @(posedge clk) begin
+    if (we) begin
+      // memory write
+      for (int i = 0; i < SW; i = i + 1) begin
+        if (sel[i] == 1'b1) begin
+          mem[waddr][i*8 +: 8] <= din[i*8 +: 8];
+        end
       end
     end
+    // memory read
+    dout <= mem[waddr];
   end
 
-  // Calculate the nxt_gnt
-  generate
-    for (k=0;k<N;k=k+1) begin : gen_nxt_gnt         
-      assign nxt_gnt[k] = en ? (~|(mask[k] & req) & req[k]) | (~|req & gnt[k]) : gnt[k];
-    end
-  endgenerate
+`ifdef verilator
+  export "DPI-C" task do_readmemh;
+
+  task do_readmemh;
+    $readmemh(MEM_FILE, mem);
+  endtask
+
+  export "DPI-C" task do_readmemh_file;
+
+  task do_readmemh_file;
+    input string file;
+    $readmemh(file, mem);
+  endtask
+
+  // Function to access RAM (for use by Verilator).
+  function [XLEN-1:0] get_mem;
+    // verilator public
+    input [WORD_AW-1:0] waddr;  // word address
+    get_mem = mem[waddr];
+  endfunction
+
+  // Function to write RAM (for use by Verilator).
+  function set_mem;
+    // verilator public
+    input [WORD_AW-1:0] waddr;  // word address
+    input [XLEN-1:0] data;  // data to write
+    mem[waddr] = data;
+  endfunction
+`else
+  initial begin
+    $readmemh(MEM_FILE, mem);
+  end
+`endif
 endmodule

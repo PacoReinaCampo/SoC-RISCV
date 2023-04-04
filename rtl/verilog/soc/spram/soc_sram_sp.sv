@@ -40,9 +40,9 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-import optimsoc_functions::*;
+import soc_optimsoc_functions::*;
 
-module sram_sp #(
+module soc_sram_sp #(
   parameter MEM_SIZE_BYTE = 'hx,
 
   // address width
@@ -85,12 +85,12 @@ module sram_sp #(
   // ensure that parameters are set to allowed values
   initial begin
     if (XLEN % 8 != 0) begin
-      $display("sram_sp: the data port width (parameter XLEN) must be a multiple of 8");
+      $display("soc_sram_sp: the data port width (parameter XLEN) must be a multiple of 8");
       $stop;
     end
 
     if ((1 << $clog2(SW)) != SW) begin
-      $display("sram_sp: the byte select width (paramter SW = XLEN/8) must be a power of two");
+      $display("soc_sram_sp: the byte select width (paramter SW = XLEN/8) must be a power of two");
       $stop;
     end
   end
@@ -101,15 +101,15 @@ module sram_sp #(
   assign addr = {waddr, (PLEN - WORD_AW)'{1'b0}};
   always @(posedge clk) begin
     if (addr > MEM_SIZE_BYTE) begin
-      $display("sram_sp: access to out-of-bounds memory address detected! Trying to access byte address 0x%x, MEM_SIZE_BYTE is %d bytes.", addr, MEM_SIZE_BYTE);
+      $display("soc_sram_sp: access to out-of-bounds memory address detected! Trying to access byte address 0x%x, MEM_SIZE_BYTE is %d bytes.", addr, MEM_SIZE_BYTE);
       $stop;
     end
   end
   `endif
 
   generate
-    if (MEM_IMPL_TYPE == "PLAIN") begin : gen_sram_sp_impl
-      sram_sp_impl_plain #(
+    if (MEM_IMPL_TYPE == "PLAIN") begin : gen_soc_sram_sp_impl
+      soc_sram_sp_impl_plain #(
         .PLEN                     (PLEN),
         .WORD_AW                  (WORD_AW),
         .XLEN                     (XLEN),

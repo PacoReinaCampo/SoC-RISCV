@@ -1,33 +1,33 @@
 verilog
 ├── pkg
 │   ├── arbiter
-│   │   └── arb_rr.sv
-│   ├── config
-│   │   └── optimsoc_config.sv
+│   │   └── soc_arbiter_rr.sv
+│   ├── configuration
+│   │   └── soc_optimsoc_configuration.sv
 │   ├── constants
-│   │   └── optimsoc_constants.sv
+│   │   └── soc_optimsoc_constants.sv
 │   └── functions
-│       └── optimsoc_functions.sv
+│       └── soc_optimsoc_functions.sv
 └── soc
     ├── adapter
-    │   ├── networkadapter_conf.sv
-    │   └── networkadapter_ct.sv
-    ├── bootrom
-    │   ├── bootrom_code.sv
-    │   └── bootrom.sv
+    │   ├── soc_network_adapter_configuration.sv
+    │   └── soc_network_adapter_ct.sv
+    ├── soc_bootrom
+    │   ├── soc_bootrom_code.sv
+    │   └── soc_bootrom.sv
     ├── interconnection
     │   ├── bus
-    │   │   └── ahb3_bus_b3.sv
+    │   │   └── soc_b3_ahb3.sv
     │   ├── decode
-    │   │   └── ahb3_decode.sv
+    │   │   └── soc_decode_ahb3.sv
     │   └── mux
-    │       └── ahb3_mux.sv
+    │       └── soc_mux_ahb3.sv
     ├── main
-    │   └── riscv_tile.sv
+    │   └── soc_riscv_tile.sv
     └── spram
-        ├── ahb32sram.sv
-        ├── ahb3_sram_sp.sv
-        ├── sram_sp_impl_plain.sv
-        └── sram_sp.sv
+        ├── soc_ahb32sram.sv
+        ├── soc_sram_sp_ahb3.sv
+        ├── soc_sram_sp_impl_plain.sv
+        └── soc_sram_sp.sv
 
 14 directories, 16 files

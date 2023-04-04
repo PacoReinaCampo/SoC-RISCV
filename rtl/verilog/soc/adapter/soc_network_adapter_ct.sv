@@ -40,9 +40,9 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-import optimsoc_config::*;
+import soc_optimsoc_configuration::*;
 
-module networkadapter_ct #(
+module soc_network_adapter_ct #(
   parameter PLEN = 32,
   parameter XLEN = 32,
 
@@ -164,7 +164,7 @@ module networkadapter_ct #(
   // Module Body
   //
 
-  ahb3_decode #(
+  soc_decode_ahb3 #(
     .SLAVES        (3),
     .XLEN          (32),
     .PLEN          (24),
@@ -207,7 +207,7 @@ module networkadapter_ct #(
     .s_hresp_i (ahb3if_hresp_o)
   );
 
-  networkadapter_conf #(
+  soc_network_adapter_configuration #(
     .CONFIG  (CONFIG),
     .TILEID  (TILEID),
     .COREBASE(COREBASE)

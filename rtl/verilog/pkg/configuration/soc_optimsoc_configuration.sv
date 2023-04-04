@@ -42,9 +42,9 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-package optimsoc_config;
+package soc_optimsoc_configuration;
 
-  import optimsoc_functions::*;
+  import soc_optimsoc_functions::*;
 
   typedef enum {
     EXTERNAL,

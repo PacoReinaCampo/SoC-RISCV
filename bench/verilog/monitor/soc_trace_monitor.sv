@@ -33,7 +33,7 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-module trace_monitor (
+module soc_trace_monitor (
   // Outputs
   termination,
   // Inputs
@@ -81,12 +81,12 @@ module trace_monitor (
     is_newline = 1;
 
     stdout     = $fopen(STDOUT_FILENAME, "w");
-    $fwrite(stdout, "# OpTiMSoC trace_monitor stdout file\n");
+    $fwrite(stdout, "# OpTiMSoC soc_trace_monitor stdout file\n");
     $fwrite(stdout, "# [TIME, CORE] MESSAGE\n");
 
     if (ENABLE_TRACE) begin
       tracefile = $fopen(TRACEFILE_FILENAME, "w");
-      $fwrite(tracefile, "# OpTiMSoC trace_monitor trace file\n");
+      $fwrite(tracefile, "# OpTiMSoC soc_trace_monitor trace file\n");
       $fwrite(tracefile, "# [TIME, CORE] COUNT, INSTRUCTION\n");
     end
     termination = 0;

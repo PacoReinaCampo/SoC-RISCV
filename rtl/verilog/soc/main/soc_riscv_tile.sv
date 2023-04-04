@@ -42,10 +42,10 @@
 
 import dii_package::dii_flit;
 import opensocdebug::mriscv_trace_exec;
-import optimsoc_config::*;
-import optimsoc_functions::*;
+import soc_optimsoc_configuration::*;
+import soc_optimsoc_functions::*;
 
-module riscv_tile #(
+module soc_riscv_tile #(
   parameter PLEN = 32,
   parameter XLEN = 32,
 
@@ -419,7 +419,7 @@ module riscv_tile #(
     end
   endgenerate
 
-  ahb3_bus_b3 #(
+  soc_b3_ahb3 #(
     .MASTERS       (NR_MASTERS),
     .SLAVES        (NR_SLAVES),
     .S0_ENABLE     (CONFIG.ENABLE_DM),
@@ -585,7 +585,7 @@ module riscv_tile #(
 
   generate
     if ((CONFIG.ENABLE_DM) && (CONFIG.LMEM_STYLE == PLAIN)) begin : gen_sram
-      ahb3_sram_sp #(
+      soc_sram_sp_ahb3 #(
         .XLEN         (XLEN),
         .PLEN         (clog2_width(CONFIG.LMEM_SIZE)),
         .MEM_SIZE_BYTE(CONFIG.LMEM_SIZE),
@@ -627,7 +627,7 @@ module riscv_tile #(
     end
   endgenerate
 
-  networkadapter_ct #(
+  soc_network_adapter_ct #(
     .CONFIG  (CONFIG),
     .TILEID  (ID),
     .COREBASE(COREBASE)
@@ -685,8 +685,8 @@ module riscv_tile #(
   );
 
   generate
-    if (CONFIG.ENABLE_BOOTROM) begin : gen_bootrom
-      bootrom u_bootrom (
+    if (CONFIG.ENABLE_BOOTROM) begin : gen_soc_bootrom
+      soc_bootrom u_bootrom (
         .clk(clk),
         .rst(rst_sys),
 

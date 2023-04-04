@@ -40,9 +40,9 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-import optimsoc_functions::*;
+import soc_optimsoc_functions::*;
 
-module ahb32sram #(
+module soc_ahb32sram #(
   // Memory parameters
   // data width (word size)
   // Valid values: 32, 16 and 8

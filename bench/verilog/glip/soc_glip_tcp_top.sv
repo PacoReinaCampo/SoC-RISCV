@@ -25,7 +25,7 @@
  *   Wei Song <wsong83@gmail.com>
  */
 
-module glip_tcp_toplevel #(
+module soc_glip_tcp_top #(
   parameter WIDTH     = 16,
   parameter PORT      = 23000,
   parameter UART_LIKE = 0
@@ -36,8 +36,8 @@ module glip_tcp_toplevel #(
   input rst,
 
   // GLIP FIFO Interface
-  glip_channel.slave  fifo_out,
-  glip_channel.master fifo_in,
+  soc_glip_channel.slave  fifo_out,
+  soc_glip_channel.master fifo_in,
 
   // GLIP Control Interface
   output reg logic_rst,

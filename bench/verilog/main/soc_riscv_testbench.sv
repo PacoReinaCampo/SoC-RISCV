@@ -42,8 +42,8 @@
 
 import dii_package::dii_flit;
 import opensocdebug::mriscv_trace_exec;
-import optimsoc_config::*;
-import optimsoc_functions::*;
+import soc_optimsoc_configuration::*;
+import soc_optimsoc_functions::*;
 
 module soc_riscv_testbench;
 
@@ -163,7 +163,7 @@ module soc_riscv_testbench;
 
 
   // The actual system: a single compute tile
-  riscv_tile #(
+  soc_riscv_tile #(
     .CONFIG      (CONFIG),
     .ID          (0),
     .MEM_FILE    ("ct.vmem"),

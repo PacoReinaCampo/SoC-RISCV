@@ -78,9 +78,9 @@
  * +----------------------------+
  */
 
-import optimsoc_config::*;
+import soc_optimsoc_configuration::*;
 
-module networkadapter_conf #(
+module soc_network_adapter_configuration #(
   parameter          XLEN     = 32,
   parameter config_t CONFIG   = 'x,
   parameter          TILEID   = 'x,
