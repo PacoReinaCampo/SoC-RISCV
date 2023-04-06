@@ -42,6 +42,7 @@
 ##                                                                               ##
 ###################################################################################
 
+# Remove Submodule
 git rm -rf dbg
 git rm -rf dma
 git rm -rf gpio
@@ -54,6 +55,10 @@ git rm -rf uart
 
 git rm -rf pu
 
+# Update Submodule
+git submodule update --init --recursive
+
+# Add Submodule
 git submodule add --force https://github.com/PacoReinaCampo/MPSoC-DBG.git dbg
 git submodule add --force https://github.com/PacoReinaCampo/MPSoC-DMA.git dma
 git submodule add --force https://github.com/PacoReinaCampo/MPSoC-GPIO.git gpio
