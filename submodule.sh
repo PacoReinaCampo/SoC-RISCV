@@ -56,7 +56,7 @@ git rm -rf uart
 git rm -rf pu
 
 # Update Submodule
-git submodule update --init --recursive
+git submodule update --recursive --remote
 
 # Add Submodule
 git submodule add --force https://github.com/PacoReinaCampo/MPSoC-DBG.git dbg
