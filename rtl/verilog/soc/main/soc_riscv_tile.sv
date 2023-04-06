@@ -40,8 +40,8 @@
  *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
  */
 
-import dii_package::dii_flit;
-import opensocdebug::mriscv_trace_exec;
+import peripheral_dbg_soc_dii_channel::dii_flit;
+import opensocdebug::peripheral_dbg_soc_mriscv_trace_exec;
 import soc_optimsoc_configuration::*;
 import soc_optimsoc_functions::*;
 
@@ -121,7 +121,7 @@ module soc_riscv_tile #(
   // Variables
   //
 
-  mriscv_trace_exec [                                        CONFIG.CORES_PER_TILE-1:0] trace;
+  peripheral_dbg_soc_mriscv_trace_exec [                                        CONFIG.CORES_PER_TILE-1:0] trace;
 
   logic                                                                                 ahb3_mem_clk_i;
   logic                                                                                 ahb3_mem_rst_i;
@@ -240,7 +240,7 @@ module soc_riscv_tile #(
         assign id_map[i][15:0] = 16'(DEBUG_BASEID + i);
       end
 
-      debug_ring_expand #(
+      peripheral_dbg_soc_debug_ring_expand #(
         .BUFFER_SIZE(CONFIG.DEBUG_ROUTER_BUFFER_SIZE),
         .PORTS      (CONFIG.DEBUG_MODS_PER_TILE)
       ) u_debug_ring_segment (
@@ -301,7 +301,7 @@ module soc_riscv_tile #(
 
   generate
     for (c = 0; c < CONFIG.CORES_PER_TILE; c = c + 1) begin : gen_cores
-      riscv_module_ahb3 #(
+      pu_riscv_module_ahb3 #(
         .XLEN(XLEN),
         .PLEN(PLEN)
       ) u_core (
@@ -361,7 +361,7 @@ module soc_riscv_tile #(
       );
 
       if (CONFIG.USE_DEBUG == 1) begin : gen_ctm_stm
-        osd_stm_mriscv #(
+        peripheral_dbg_soc_osd_stm_mriscv #(
           .MAX_PKT_LEN(CONFIG.DEBUG_MAX_PKT_LEN)
         ) u_stm (
           .clk            (clk),
@@ -374,7 +374,7 @@ module soc_riscv_tile #(
           .trace_port     (trace[c])
         );
 
-        osd_ctm_mriscv #(
+        peripheral_dbg_soc_osd_ctm_mriscv #(
           .MAX_PKT_LEN(CONFIG.DEBUG_MAX_PKT_LEN)
         ) u_ctm (
           .clk            (clk),
@@ -392,7 +392,7 @@ module soc_riscv_tile #(
 
   generate
     if (CONFIG.USE_DEBUG != 0 && CONFIG.DEBUG_DEM_UART != 0) begin : gen_dem_uart
-      osd_dem_uart_ahb3 u_dem_uart (
+      peripheral_dbg_soc_osd_dem_uart_ahb3 u_dem_uart (
         .clk            (clk),
         .rst            (rst_sys),
         .id             (16'(DEBUG_BASEID + CONFIG.DEBUG_MODS_PER_TILE - 1)),
@@ -479,7 +479,7 @@ module soc_riscv_tile #(
 
   if (CONFIG.USE_DEBUG == 1) begin : gen_mam_dm_ahb3
     //MAM
-    osd_mam_ahb3 #(
+    peripheral_dbg_soc_osd_mam_ahb3 #(
       .PLEN(16),
       .XLEN(XLEN),
 
@@ -512,11 +512,11 @@ module soc_riscv_tile #(
     );
   end
 
-  if (CONFIG.ENABLE_DM) begin : gen_mam_ahb3_adapter
-    mam_ahb3_adapter #(
+  if (CONFIG.ENABLE_DM) begin : gen_mam_adapter_ahb3
+    peripheral_dbg_soc_mam_adapter_ahb3 #(
       .PLEN(PLEN),
       .XLEN(XLEN)
-    ) u_mam_ahb3_adapter_dm (
+    ) u_mam_adapter_ahb3_dm (
       .ahb3_mam_hsel_o     (mam_dm_hsel_o),
       .ahb3_mam_haddr_o    (mam_dm_haddr_o),
       .ahb3_mam_hwdata_o   (mam_dm_hwdata_o),

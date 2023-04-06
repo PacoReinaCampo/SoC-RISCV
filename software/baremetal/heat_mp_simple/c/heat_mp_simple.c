@@ -160,7 +160,7 @@ int main() {
 
   optimsoc_mp_simple_init();
 
-  // Add a handler for class 0 packets to the mpsimple message passing
+  // Add a handler for class 0 packets to the mp_simple message passing
   // driver. The driver will execute recv (see definition above) each
   // time a packet arrives.
   optimsoc_mp_simple_addhandler(0, & recv);

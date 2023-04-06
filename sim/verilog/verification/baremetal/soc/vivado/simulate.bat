@@ -43,10 +43,9 @@
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 @echo off
-call ../../../../settings64_vivado.bat
+call ../../../../../../settings64_vivado.bat
 
 xvlog -prj soc.prj \
--i ../../../../pu/rtl/verilog/pkg \
 -i ../../../../rtl/verilog/soc/soc_bootrom \
 -i ../../../../dma/rtl/verilog/ahb3/pkg
 xelab soc_riscv_testbench

@@ -41,7 +41,7 @@
 ##                                                                               ##
 ###################################################################################
 
-PROGRAM=heat_mpsimple
+PROGRAM=heat_mp_simple
 
 BUILDSCRIPTS=$(shell pkg-config --variable=buildscriptdir optimsoc-baremetal)
 include $(BUILDSCRIPTS)/Makefile.inc
