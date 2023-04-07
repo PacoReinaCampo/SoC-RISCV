@@ -12,7 +12,7 @@ verilog
     ├── adapter
     │   ├── soc_network_adapter_configuration.sv
     │   └── soc_network_adapter_ct.sv
-    ├── soc_bootrom
+    ├── bootrom
     │   ├── soc_bootrom_code.sv
     │   └── soc_bootrom.sv
     ├── interconnection
