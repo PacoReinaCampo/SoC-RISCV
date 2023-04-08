@@ -46,8 +46,7 @@
 call ../../../../../../settings64_vivado.bat
 
 xvlog -prj soc.prj \
--i ../../../../rtl/verilog/soc/soc_bootrom \
--i ../../../../dma/rtl/verilog/ahb3/pkg
+-i ../../../../../../rtl/verilog/soc/soc_bootrom
 xelab soc_riscv_testbench
 xsim -R soc_riscv_testbench
 pause
