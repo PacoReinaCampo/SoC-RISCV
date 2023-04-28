@@ -1,47 +1,25 @@
 library
 ├── bfm
 │   ├── ahb3
-│   │   └── peripheral.m
+│   │   └── peripheral_design.m
 │   ├── apb4
-│   │   └── peripheral.m
+│   │   └── peripheral_design.m
 │   ├── axi4
-│   │   └── peripheral.m
+│   │   └── peripheral_design.m
 │   ├── bb
-│   │   └── peripheral.m
+│   │   └── peripheral_design.m
 │   └── wb
-│       └── peripheral.m
-├── core
-│   ├── ahb3
-│   │   └── peripheral.m
-│   ├── apb4
-│   │   └── peripheral.m
-│   ├── axi4
-│   │   └── peripheral.m
-│   ├── bb
-│   │   └── peripheral.m
-│   └── wb
-│       └── peripheral.m
-├── pu
-│   ├── ahb3
-│   │   └── peripheral.m
-│   ├── apb4
-│   │   └── peripheral.m
-│   ├── axi4
-│   │   └── peripheral.m
-│   ├── bb
-│   │   └── peripheral.m
-│   └── wb
-│       └── peripheral.m
-└── soc
+│       └── peripheral_design.m
+└── core
     ├── ahb3
-    │   └── peripheral.m
+    │   └── peripheral_design.m
     ├── apb4
-    │   └── peripheral.m
+    │   └── peripheral_design.m
     ├── axi4
-    │   └── peripheral.m
+    │   └── peripheral_design.m
     ├── bb
-    │   └── peripheral.m
+    │   └── peripheral_design.m
     └── wb
-        └── peripheral.m
+        └── peripheral_design.m
 
-24 directories, 20 files
+12 directories, 10 files
