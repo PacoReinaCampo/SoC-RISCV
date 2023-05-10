@@ -1,47 +1,47 @@
 library
 ├── bfm
 │   ├── ahb3
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── apb4
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── axi4
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── bb
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   └── wb
-│       └── peripheral.py
+│       └── peripheral_design.py
 ├── core
 │   ├── ahb3
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── apb4
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── axi4
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── bb
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   └── wb
-│       └── peripheral.py
+│       └── peripheral_design.py
 ├── pu
 │   ├── ahb3
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── apb4
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── axi4
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   ├── bb
-│   │   └── peripheral.py
+│   │   └── peripheral_design.py
 │   └── wb
-│       └── peripheral.py
+│       └── peripheral_design.py
 └── soc
     ├── ahb3
-    │   └── peripheral.py
+    │   └── peripheral_design.py
     ├── apb4
-    │   └── peripheral.py
+    │   └── peripheral_design.py
     ├── axi4
-    │   └── peripheral.py
+    │   └── peripheral_design.py
     ├── bb
-    │   └── peripheral.py
+    │   └── peripheral_design.py
     └── wb
-        └── peripheral.py
+        └── peripheral_design.py
 
 24 directories, 20 files
