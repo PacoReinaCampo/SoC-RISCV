@@ -1,47 +1,47 @@
 library
 ├── bfm
 │   ├── ahb3
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── apb4
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── axi4
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── bb
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   └── wb
-│       └── peripheral.rs
+│       └── peripheral_design.rs
 ├── core
 │   ├── ahb3
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── apb4
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── axi4
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── bb
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   └── wb
-│       └── peripheral.rs
+│       └── peripheral_design.rs
 ├── pu
 │   ├── ahb3
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── apb4
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── axi4
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   ├── bb
-│   │   └── peripheral.rs
+│   │   └── peripheral_design.rs
 │   └── wb
-│       └── peripheral.rs
+│       └── peripheral_design.rs
 └── soc
     ├── ahb3
-    │   └── peripheral.rs
+    │   └── peripheral_design.rs
     ├── apb4
-    │   └── peripheral.rs
+    │   └── peripheral_design.rs
     ├── axi4
-    │   └── peripheral.rs
+    │   └── peripheral_design.rs
     ├── bb
-    │   └── peripheral.rs
+    │   └── peripheral_design.rs
     └── wb
-        └── peripheral.rs
+        └── peripheral_design.rs
 
 24 directories, 20 files

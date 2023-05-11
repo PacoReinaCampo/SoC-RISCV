@@ -1,67 +1,67 @@
 library
 ├── bfm
 │   ├── ahb3
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── apb4
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── axi4
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── bb
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   └── wb
-│       ├── peripheral.cpp
-│       └── peripheral.hpp
+│       ├── peripheral_design.cpp
+│       └── peripheral_design.hpp
 ├── core
 │   ├── ahb3
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── apb4
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── axi4
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── bb
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   └── wb
-│       ├── peripheral.cpp
-│       └── peripheral.hpp
+│       ├── peripheral_design.cpp
+│       └── peripheral_design.hpp
 ├── pu
 │   ├── ahb3
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── apb4
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── axi4
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   ├── bb
-│   │   ├── peripheral.cpp
-│   │   └── peripheral.hpp
+│   │   ├── peripheral_design.cpp
+│   │   └── peripheral_design.hpp
 │   └── wb
-│       ├── peripheral.cpp
-│       └── peripheral.hpp
+│       ├── peripheral_design.cpp
+│       └── peripheral_design.hpp
 └── soc
     ├── ahb3
-    │   ├── peripheral.cpp
-    │   └── peripheral.hpp
+    │   ├── peripheral_design.cpp
+    │   └── peripheral_design.hpp
     ├── apb4
-    │   ├── peripheral.cpp
-    │   └── peripheral.hpp
+    │   ├── peripheral_design.cpp
+    │   └── peripheral_design.hpp
     ├── axi4
-    │   ├── peripheral.cpp
-    │   └── peripheral.hpp
+    │   ├── peripheral_design.cpp
+    │   └── peripheral_design.hpp
     ├── bb
-    │   ├── peripheral.cpp
-    │   └── peripheral.hpp
+    │   ├── peripheral_design.cpp
+    │   └── peripheral_design.hpp
     └── wb
-        ├── peripheral.cpp
-        └── peripheral.hpp
+        ├── peripheral_design.cpp
+        └── peripheral_design.hpp
 
 24 directories, 40 files
