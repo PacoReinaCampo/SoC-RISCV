@@ -13,6 +13,6 @@ clean-vivado:
 	rm -f vivado.jou vivado.log
 	rm -f *.backup.jou
 	rm -f *.backup.log
-	rm -rf .Xil
+	rm -rf *.vcd .Xil
 	rm -f ipc_tcp_xilinx_srv.log ipc_tcp_xilinx.log
 

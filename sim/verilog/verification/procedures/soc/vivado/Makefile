@@ -53,4 +53,4 @@ simulate:
 	xsim -R soc_riscv_testbench
 
 clean:
-	rm -rf .Xil *.dir *.jou *.log *.pb
+	rm -rf *.vcd .Xil *.dir *.jou *.log *.pb
