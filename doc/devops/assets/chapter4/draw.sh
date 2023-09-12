@@ -9,14 +9,14 @@
 ##                  |_|                                                          ##
 ##                                                                               ##
 ##                                                                               ##
-##              Architecture                                                     ##
 ##              QueenField                                                       ##
+##              Multi-Processor System on Chip                                   ##
 ##                                                                               ##
 ###################################################################################
 
 ###################################################################################
 ##                                                                               ##
-## Copyright (c) 2019-2020 by the author(s)                                      ##
+## Copyright (c) 2022-2025 by the author(s)                                      ##
 ##                                                                               ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
 ## of this software and associated documentation files (the "Software"), to deal ##
@@ -42,4 +42,8 @@
 ##                                                                               ##
 ###################################################################################
 
-export PATH=$PATH:/opt/intelFPGA_pro/20.4/modelsim_ase/linuxaloem/
+dot -Tsvg hardware-validation.dot > hardware-validation.svg
+dot -Tsvg software-validation.dot > software-validation.svg
+
+dot -Tsvg hardware-verification.dot > hardware-verification.svg
+dot -Tsvg software-verification.dot > software-verification.svg
