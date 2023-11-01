@@ -33,41 +33,31 @@
  *   Stefan Wallentowitz <stefan.wallentowitz@tum.de>
  */
 
-module soc_trace_monitor (
-  // Outputs
-  termination,
-  // Inputs
-  clk,
-  enable,
-  wb_pc,
-  wb_insn,
-  r3,
-  termination_all
-);
+module soc_trace_monitor #(
+  parameter ID = 0,
+  parameter ENABLE_TRACE = 0,
 
-  parameter ID = 0;
-  parameter ENABLE_TRACE = 0;
-
-  parameter STDOUT_FILENAME = "stdout";
-  parameter TRACEFILE_FILENAME = "trace";
+  parameter STDOUT_FILENAME = "stdout",
+  parameter TRACEFILE_FILENAME = "trace",
 
   // The trace monitor terminates the simulation when a configured
   // number of trace monitors has seen the termination command. The
   // number of trace monitors that track processors is defined by
   // this parameter
-  parameter TERM_CROSS_NUM = 1;
+  parameter TERM_CROSS_NUM = 1
+) (
+  input clk,
+  input enable,
 
-  input clk;
-  input enable;
-
-  input [31:0] wb_pc;
-  input [31:0] wb_insn;
-  input [31:0] r3;
+  input [31:0] wb_pc,
+  input [31:0] wb_insn,
+  input [31:0] r3,
 
   // This trace monitor wants to terminate
-  output reg termination;
+  output reg termination,
   // Signals of all termination requests of all monitors
-  input [TERM_CROSS_NUM-1:0] termination_all;
+  input [TERM_CROSS_NUM-1:0] termination_all
+);
 
   reg     [31:0] wb_pc_prev;
   integer        count;
