@@ -209,7 +209,7 @@ module soc_riscv_tile #(
   wire  [ NR_SLAVES-1:0]           bussl_hready_o_flat;
   wire  [ NR_SLAVES-1:0]           bussl_hresp_o_flat;
 
-  //MAM - AHB3 adapter signals
+  // MAM - AHB3 adapter signals
   logic                            mam_dm_hsel_o;
   logic [      PLEN-1:0]           mam_dm_haddr_o;
   logic [      XLEN-1:0]           mam_dm_hwdata_o;
@@ -305,15 +305,15 @@ module soc_riscv_tile #(
         .XLEN(XLEN),
         .PLEN(PLEN)
       ) u_core (
-        //Common signals
+        // Common signals
         .HRESETn(rst_cpu),
         .HCLK   (clk),
 
-        //PMA configuration
+        // PMA configuration
         .pma_cfg_i('0),
         .pma_adr_i('0),
 
-        //AHB instruction
+        // AHB instruction
         .ins_HSEL     (busms_hsel_o[2*c]),
         .ins_HADDR    (busms_haddr_o[2*c][PLEN-1:0]),
         .ins_HWDATA   (busms_hwdata_o[2*c][XLEN-1:0]),
@@ -328,7 +328,7 @@ module soc_riscv_tile #(
         .ins_HREADY(busms_hready_i[2*c]),
         .ins_HRESP (busms_hresp_i[2*c]),
 
-        //AHB data
+        // AHB data
         .dat_HSEL     (busms_hsel_o[2*c+1]),
         .dat_HADDR    (busms_haddr_o[2*c+1][PLEN-1:0]),
         .dat_HWDATA   (busms_hwdata_o[2*c+1][XLEN-1:0]),
@@ -343,13 +343,13 @@ module soc_riscv_tile #(
         .dat_HREADY(busms_hready_i[2*c+1]),
         .dat_HRESP (busms_hresp_i[2*c+1]),
 
-        //Interrupts Interface
+        // Interrupts Interface
         .ext_nmi ('0),
         .ext_tint('0),
         .ext_sint('0),
         .ext_int ('0),
 
-        //Debug Interface
+        // Debug Interface
         .dbg_stall('0),
         .dbg_strb ('0),
         .dbg_we   ('0),
@@ -478,7 +478,7 @@ module soc_riscv_tile #(
   );
 
   if (CONFIG.USE_DEBUG == 1) begin : gen_mam_dm_ahb3
-    //MAM
+    // MAM
     peripheral_dbg_soc_osd_mam_ahb3 #(
       .PLEN(16),
       .XLEN(XLEN),
