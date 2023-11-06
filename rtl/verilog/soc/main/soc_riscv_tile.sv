@@ -98,7 +98,7 @@ module soc_riscv_tile #(
 
   //////////////////////////////////////////////////////////////////////////////
   //
-  // Constans
+  // Constants
   //
 
   localparam NR_MASTERS = CONFIG.CORES_PER_TILE * 2 + 1;
@@ -117,9 +117,8 @@ module soc_riscv_tile #(
   localparam DEBUG_MODS_PER_TILE_NONZERO = (CONFIG.DEBUG_MODS_PER_TILE == 0) ? 1 : CONFIG.DEBUG_MODS_PER_TILE;
 
   //////////////////////////////////////////////////////////////////////////////
-  //
   // Variables
-  //
+  //////////////////////////////////////////////////////////////////////////////
 
   peripheral_dbg_soc_mriscv_trace_exec [                                        CONFIG.CORES_PER_TILE-1:0] trace;
 
@@ -225,9 +224,8 @@ module soc_riscv_tile #(
   logic                            mam_dm_hresp_i;
 
   //////////////////////////////////////////////////////////////////////////////
-  //
   // Module Body
-  //
+  //////////////////////////////////////////////////////////////////////////////
 
   assign pic_ints_i[0][31:5] = 27'h0;
   assign pic_ints_i[0][1:0]  = 2'b00;
