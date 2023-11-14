@@ -74,7 +74,7 @@ module soc_sram_sp_impl_plain #(
   // Module Body
   //////////////////////////////////////////////////////////////////////////////
 
-  (* ram_style = "block" *) reg [XLEN-1:0] mem[MEM_SIZE_WORDS-1:0]  //synthesis syn_ramstyle = "block_ram";
+  (* ram_style = "block" *) reg [XLEN-1:0] mem[MEM_SIZE_WORDS-1:0]  /*synthesis syn_ramstyle = "block_ram" */;
 
   always_ff @(posedge clk) begin
     if (we) begin
