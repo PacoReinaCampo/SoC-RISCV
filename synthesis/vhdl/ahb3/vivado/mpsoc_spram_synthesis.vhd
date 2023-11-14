@@ -1,6 +1,3 @@
--- Converted from bench/verilog/regression/mpsoc_spram_testbench.sv
--- by verilog2vhdl - QueenField
-
 --------------------------------------------------------------------------------
 --                                            __ _      _     _               --
 --                                           / _(_)    | |   | |              --
@@ -41,7 +38,6 @@
 --------------------------------------------------------------------------------
 -- Author(s):
 --   Paco Reina Campo <pacoreinacampo@queenfield.tech>
---
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -52,8 +48,8 @@ use work.mpsoc_spram_ahb3_pkg.all;
 
 entity mpsoc_spram_synthesis is
   generic (
-    MEM_SIZE          : integer := 256;  --Memory in Bytes
-    MEM_DEPTH         : integer := 256;  --Memory depth
+    MEM_SIZE          : integer := 256;  -- Memory in Bytes
+    MEM_DEPTH         : integer := 256;  -- Memory depth
     PLEN              : integer := 8;
     XLEN              : integer := 32;
     TECHNOLOGY        : string  := "GENERIC";
@@ -63,8 +59,8 @@ entity mpsoc_spram_synthesis is
     HRESETn : in std_logic;
     HCLK    : in std_logic;
 
-    --AHB3 Slave Interfaces (receive data from AHB Masters)
-    --AHB3 Masters connect to these ports
+    -- AHB3 Slave Interfaces (receive data from AHB Masters)
+    -- AHB3 Masters connect to these ports
     HSEL      : in  std_logic;
     HADDR     : in  std_logic_vector(PLEN-1 downto 0);
     HWDATA    : in  std_logic_vector(XLEN-1 downto 0);
@@ -88,8 +84,8 @@ architecture rtl of mpsoc_spram_synthesis is
   ------------------------------------------------------------------------------
   component mpsoc_ahb3_spram
     generic (
-      MEM_SIZE          : integer := 256;  --Memory in Bytes
-      MEM_DEPTH         : integer := 256;  --Memory depth
+      MEM_SIZE          : integer := 256;  -- Memory in Bytes
+      MEM_DEPTH         : integer := 256;  -- Memory depth
       PLEN              : integer := 8;
       XLEN              : integer := 32;
       TECHNOLOGY        : string  := "GENERIC";
@@ -99,8 +95,8 @@ architecture rtl of mpsoc_spram_synthesis is
       HRESETn : in std_logic;
       HCLK    : in std_logic;
 
-      --AHB3 Slave Interfaces (receive data from AHB Masters)
-      --AHB3 Masters connect to these ports
+      -- AHB3 Slave Interfaces (receive data from AHB Masters)
+      -- AHB3 Masters connect to these ports
       HSEL      : in  std_logic;
       HADDR     : in  std_logic_vector(PLEN-1 downto 0);
       HWDATA    : in  std_logic_vector(XLEN-1 downto 0);
@@ -122,7 +118,7 @@ begin
   -- Module Body
   ------------------------------------------------------------------------------
 
-  --DUT AHB3
+  -- DUT AHB3
   ahb3_spram : mpsoc_ahb3_spram
     generic map (
       MEM_SIZE          => MEM_SIZE,

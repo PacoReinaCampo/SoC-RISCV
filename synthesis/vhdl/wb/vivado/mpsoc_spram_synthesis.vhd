@@ -1,6 +1,3 @@
--- Converted from mpsoc_spram_synthesis.sv
--- by verilog2vhdl - QueenField
-
 --------------------------------------------------------------------------------
 --                                            __ _      _     _               --
 --                                           / _(_)    | |   | |              --
@@ -41,7 +38,6 @@
 --------------------------------------------------------------------------------
 -- Author(s):
 --   Paco Reina Campo <pacoreinacampo@queenfield.tech>
---
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -52,10 +48,10 @@ use work.mpsoc_spram_wb_pkg.all;
 
 entity mpsoc_spram_synthesis is
   generic (
-    --Memory parameters
+    -- Memory parameters
     DEPTH   : integer := 256;
     MEMFILE : string  := "";
-    --Wishbone parameters
+    -- Wishbone parameters
     DW      : integer := 32;
     AW      : integer := integer(log2(real(DEPTH)))
   );
@@ -86,10 +82,10 @@ architecture rtl of mpsoc_spram_synthesis is
 
   component mpsoc_wb_spram
     generic (
-      --Memory parameters
+      -- Memory parameters
       DEPTH   : integer := 256;
       MEMFILE : string  := "";
-      --Wishbone parameters
+      -- Wishbone parameters
       DW      : integer := 32;
       AW      : integer := integer(log2(real(DEPTH)))
     );
@@ -118,7 +114,7 @@ begin
   -- Module Body
   ------------------------------------------------------------------------------
 
-  --DUT WB
+  -- DUT WB
   wb_spram : mpsoc_wb_spram
     generic map (
       DEPTH   => DEPTH,
