@@ -14,69 +14,66 @@
 //              AMBA3 AHB-Lite Bus Interface                                  //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2019-2020 by the author(s)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+////////////////////////////////////////////////////////////////////////////////
+// Author(s):
+//   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-/* Copyright (c) 2019-2020 by the author(s)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * =============================================================================
- * Author(s):
- *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
- */
-
-/*
- * BASE+
- * +----------------------------+
- * | 0x0 R: tile id             |
- * +----------------------------+
- * | 0x4 R: number of tiles     |
- * +----------------------------+
- * | 0x8 R:                     |
- * +----------------------------+
- * | 0xc R: configuration       |
- * |        bit 0: mp_simple    |
- * |        bit 1: dma          |
- * +----------------------------+
- * | 0x10 R: core base id       |
- * +----------------------------+
- * | 0x14 R:                    |
- * +----------------------------+
- * | 0x18 R: domain core number |
- * +----------------------------+
- * | 0x1c R: global memory size |
- * +----------------------------+
- * | 0x20 R: global memory tile |
- * +----------------------------+
- * | 0x24 R: local memory size  |
- * +----------------------------+
- * | 0x28 R: number of compute  |
- * |         tiles              |
- * +----------------------------+
- * | 0x2c R: read a random seed |
- * +----------------------------+
- * .
- * .
- * +----------------------------+
- * | 0x200 R: list of compute   |
- * |          tiles             |
- * +----------------------------+
- */
+//
+// BASE+
+// +----------------------------+
+// | 0x0 R: tile id             |
+// +----------------------------+
+// | 0x4 R: number of tiles     |
+// +----------------------------+
+// | 0x8 R:                     |
+// +----------------------------+
+// | 0xc R: configuration       |
+// |        bit 0: mp_simple    |
+// |        bit 1: dma          |
+// +----------------------------+
+// | 0x10 R: core base id       |
+// +----------------------------+
+// | 0x14 R:                    |
+// +----------------------------+
+// | 0x18 R: domain core number |
+// +----------------------------+
+// | 0x1c R: global memory size |
+// +----------------------------+
+// | 0x20 R: global memory tile |
+// +----------------------------+
+// | 0x24 R: local memory size  |
+// +----------------------------+
+// | 0x28 R: number of compute  |
+// |         tiles              |
+// +----------------------------+
+// | 0x2c R: read a random seed |
+// +----------------------------+
+// .
+// .
+// +----------------------------+
+// | 0x200 R: list of compute   |
+// |          tiles             |
+// +----------------------------+
 
 import soc_optimsoc_configuration::*;
 

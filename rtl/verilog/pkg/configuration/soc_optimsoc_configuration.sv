@@ -15,32 +15,30 @@
 //              WishBone Bus Interface                                        //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
-
-/* Copyright (c) 2018-2019 by the author(s)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * =============================================================================
- * Author(s):
- *   Stefan Wallentowitz <stefan@wallentowitz.de>
- *   Paco Reina Campo <pacoreinacampo@queenfield.tech>
- */
+// Copyright (c) 2018-2019 by the author(s)
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+////////////////////////////////////////////////////////////////////////////////
+// Author(s):
+//   Stefan Wallentowitz <stefan@wallentowitz.de>
+//   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
 package soc_optimsoc_configuration;
 
@@ -197,8 +195,8 @@ package soc_optimsoc_configuration;
     derive_config.PGAS_RANGE_MATCH         = conf.PGAS_BASE >> (32 - derive_config.PGAS_RANGE_WIDTH);
 
     derive_config.DEBUG_MODS_PER_CORE      = (int'(conf.DEBUG_STM) + int'(conf.DEBUG_CTM)) * int'(conf.USE_DEBUG);
-    derive_config.DEBUG_MODS_PER_TILE      = conf.USE_DEBUG * (1  /* MAM */ + int'(conf.DEBUG_DEM_UART) + derive_config.DEBUG_MODS_PER_CORE * conf.CORES_PER_TILE);
-    derive_config.DEBUG_NUM_MODS           = conf.USE_DEBUG * (1  /* SCM */ + conf.NUMCTS * derive_config.DEBUG_MODS_PER_TILE);
+    derive_config.DEBUG_MODS_PER_TILE      = conf.USE_DEBUG * (1  // MAM + int'(conf.DEBUG_DEM_UART) + derive_config.DEBUG_MODS_PER_CORE * conf.CORES_PER_TILE);
+    derive_config.DEBUG_NUM_MODS           = conf.USE_DEBUG * (1  // SCM + conf.NUMCTS * derive_config.DEBUG_MODS_PER_TILE);
 
     // Those are supposed to be variables, but are constant at least for now
     derive_config.NOC_CHANNELS             = 2;
