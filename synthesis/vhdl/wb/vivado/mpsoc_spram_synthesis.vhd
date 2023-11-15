@@ -80,7 +80,7 @@ architecture rtl of mpsoc_spram_synthesis is
   -- Components
   ------------------------------------------------------------------------------
 
-  component mpsoc_wb_spram
+  component peripheral_spram_wb
     generic (
       -- Memory parameters
       DEPTH   : integer := 256;
@@ -115,7 +115,7 @@ begin
   ------------------------------------------------------------------------------
 
   -- DUT WB
-  wb_spram : mpsoc_wb_spram
+  wb_spram : peripheral_spram_wb
     generic map (
       DEPTH   => DEPTH,
       MEMFILE => MEMFILE,

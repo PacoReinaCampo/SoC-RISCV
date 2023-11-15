@@ -42,8 +42,8 @@
 ##                                                                               ##
 ###################################################################################
 
-read_verilog -sv ../../../../rtl/verilog/wb/core/mpsoc_wb_ram_generic.sv
-read_verilog -sv ../../../../rtl/verilog/wb/core/mpsoc_wb_spram.sv
+read_verilog -sv ../../../../rtl/verilog/wb/core/peripheral_ram_generic_wb.sv
+read_verilog -sv ../../../../rtl/verilog/wb/core/peripheral_spram_wb.sv
 
 read_verilog -sv mpsoc_spram_synthesis.sv
 

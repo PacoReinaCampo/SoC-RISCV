@@ -69,7 +69,7 @@ module mpsoc_spram_synthesis #(
   //////////////////////////////////////////////////////////////////////////////
 
   // DUT WB
-  mpsoc_wb_spram #(
+  peripheral_spram_wb #(
     // Memory parameters
     .DEPTH  (DEPTH),
     .MEMFILE(MEMFILE),

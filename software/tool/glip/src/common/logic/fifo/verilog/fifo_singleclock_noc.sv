@@ -46,7 +46,6 @@ module fifo_singleclock_noc #(
   input              out_ready
 );
 
-
   wire [(WIDTH-1):0] din;
   wire               wr_en;
   wire               full;

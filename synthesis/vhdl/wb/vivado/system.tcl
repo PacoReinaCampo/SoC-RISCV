@@ -42,8 +42,8 @@
 ##                                                                               ##
 ###################################################################################
 
-read_vhdl -vhdl2008 ../../../../rtl/vhdl/wb/core/mpsoc_wb_ram_generic.vhd
-read_vhdl -vhdl2008 ../../../../rtl/vhdl/wb/core/mpsoc_wb_spram.vhd
+read_vhdl -vhdl2008 ../../../../rtl/vhdl/wb/core/peripheral_ram_generic_wb.vhd
+read_vhdl -vhdl2008 ../../../../rtl/vhdl/wb/core/peripheral_spram_wb.vhd
 
 read_vhdl -vhdl2008 ../../../../rtl/vhdl/wb/pkg/mpsoc_spram_wb_pkg.vhd
 

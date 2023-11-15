@@ -246,7 +246,6 @@ module soc_b3_ahb3 #(
     .m_hready_o(bus_hready),
     .m_hresp_o (bus_hresp),
 
-
     // Slaves
     .s_hsel_o     (s_hsel_o),
     .s_haddr_o    (s_haddr_o),

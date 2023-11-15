@@ -170,7 +170,6 @@ module soc_ahb32sram #(
     end
   end
 
-
   // Register it locally
   always @(posedge ahb3_clk_i) begin
     ahb3_htrans_i_r <= ahb3_htrans_i;

@@ -156,7 +156,6 @@ module soc_riscv_testbench;
     end
   endgenerate
 
-
   // The actual system: a single compute tile
   soc_riscv_tile #(
     .CONFIG      (CONFIG),
