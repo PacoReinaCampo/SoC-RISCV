@@ -117,63 +117,63 @@ module soc_riscv_tile #(
   // Variables
   //////////////////////////////////////////////////////////////////////////////
 
-  peripheral_dbg_soc_mriscv_trace_exec [                                        CONFIG.CORES_PER_TILE-1:0] trace;
+  peripheral_dbg_soc_mriscv_trace_exec [CONFIG.CORES_PER_TILE-1:0] trace;
 
-  logic                                                                                 ahb3_mem_clk_i;
-  logic                                                                                 ahb3_mem_rst_i;
+  logic            ahb3_mem_clk_i;
+  logic            ahb3_mem_rst_i;
 
-  logic                                                                                 ahb3_mem_hsel_i;
-  logic               [                       PLEN-1:0]                                 ahb3_mem_haddr_i;
-  logic               [                       XLEN-1:0]                                 ahb3_mem_hwdata_i;
-  logic                                                                                 ahb3_mem_hwrite_i;
-  logic               [                            2:0]                                 ahb3_mem_hsize_i;
-  logic               [                            2:0]                                 ahb3_mem_hburst_i;
-  logic               [                            3:0]                                 ahb3_mem_hprot_i;
-  logic               [                            1:0]                                 ahb3_mem_htrans_i;
-  logic                                                                                 ahb3_mem_hmastlock_i;
+  logic            ahb3_mem_hsel_i;
+  logic [PLEN-1:0] ahb3_mem_haddr_i;
+  logic [XLEN-1:0] ahb3_mem_hwdata_i;
+  logic            ahb3_mem_hwrite_i;
+  logic [     2:0] ahb3_mem_hsize_i;
+  logic [     2:0] ahb3_mem_hburst_i;
+  logic [     3:0] ahb3_mem_hprot_i;
+  logic [     1:0] ahb3_mem_htrans_i;
+  logic            ahb3_mem_hmastlock_i;
 
-  logic               [                       XLEN-1:0]                                 ahb3_mem_hrdata_o;
-  logic                                                                                 ahb3_mem_hready_o;
-  logic                                                                                 ahb3_mem_hresp_o;
+  logic [XLEN-1:0] ahb3_mem_hrdata_o;
+  logic            ahb3_mem_hready_o;
+  logic            ahb3_mem_hresp_o;
 
-  dii_flit          [                                  DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_in;
-  dii_flit          [                                  DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_out;
+  dii_flit [DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_in;
+  dii_flit [DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_out;
 
-  logic               [DEBUG_MODS_PER_TILE_NONZERO-1:0]                                 dii_in_ready;
-  logic               [DEBUG_MODS_PER_TILE_NONZERO-1:0]                                 dii_out_ready;
+  logic [DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_in_ready;
+  logic [DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_out_ready;
 
-  wire                                                                                  busms_hsel_o         [           0:NR_MASTERS-1];
-  wire                [                       PLEN-1:0]                                 busms_haddr_o        [           0:NR_MASTERS-1];
-  wire                [                       XLEN-1:0]                                 busms_hwdata_o       [           0:NR_MASTERS-1];
-  wire                                                                                  busms_hwrite_o       [           0:NR_MASTERS-1];
-  wire                [                            2:0]                                 busms_hsize_o        [           0:NR_MASTERS-1];
-  wire                [                            2:0]                                 busms_hburst_o       [           0:NR_MASTERS-1];
-  wire                [                            3:0]                                 busms_hprot_o        [           0:NR_MASTERS-1];
-  wire                [                            1:0]                                 busms_htrans_o       [           0:NR_MASTERS-1];
-  wire                                                                                  busms_hmastlock_o    [           0:NR_MASTERS-1];
+  wire            busms_hsel_o      [0:NR_MASTERS-1];
+  wire [PLEN-1:0] busms_haddr_o     [0:NR_MASTERS-1];
+  wire [XLEN-1:0] busms_hwdata_o    [0:NR_MASTERS-1];
+  wire            busms_hwrite_o    [0:NR_MASTERS-1];
+  wire [     2:0] busms_hsize_o     [0:NR_MASTERS-1];
+  wire [     2:0] busms_hburst_o    [0:NR_MASTERS-1];
+  wire [     3:0] busms_hprot_o     [0:NR_MASTERS-1];
+  wire [     1:0] busms_htrans_o    [0:NR_MASTERS-1];
+  wire            busms_hmastlock_o [0:NR_MASTERS-1];
 
-  wire                [                       XLEN-1:0]                                 busms_hrdata_i       [           0:NR_MASTERS-1];
-  wire                                                                                  busms_hready_i       [           0:NR_MASTERS-1];
-  wire                                                                                  busms_hresp_i        [           0:NR_MASTERS-1];
+  wire [XLEN-1:0] busms_hrdata_i    [0:NR_MASTERS-1];
+  wire            busms_hready_i    [0:NR_MASTERS-1];
+  wire            busms_hresp_i     [0:NR_MASTERS-1];
 
-  wire                                                                                  bussl_hsel_i         [            0:NR_SLAVES-1];
-  wire                [                       PLEN-1:0]                                 bussl_haddr_i        [            0:NR_SLAVES-1];
-  wire                [                       XLEN-1:0]                                 bussl_hwdata_i       [            0:NR_SLAVES-1];
-  wire                                                                                  bussl_hwrite_i       [            0:NR_SLAVES-1];
-  wire                [                            2:0]                                 bussl_hsize_i        [            0:NR_SLAVES-1];
-  wire                [                            2:0]                                 bussl_hburst_i       [            0:NR_SLAVES-1];
-  wire                [                            3:0]                                 bussl_hprot_i        [            0:NR_SLAVES-1];
-  wire                [                            1:0]                                 bussl_htrans_i       [            0:NR_SLAVES-1];
-  wire                                                                                  bussl_hmastlock_i    [            0:NR_SLAVES-1];
+  wire            bussl_hsel_i      [0:NR_SLAVES-1];
+  wire [PLEN-1:0] bussl_haddr_i     [0:NR_SLAVES-1];
+  wire [XLEN-1:0] bussl_hwdata_i    [0:NR_SLAVES-1];
+  wire            bussl_hwrite_i    [0:NR_SLAVES-1];
+  wire [     2:0] bussl_hsize_i     [0:NR_SLAVES-1];
+  wire [     2:0] bussl_hburst_i    [0:NR_SLAVES-1];
+  wire [     3:0] bussl_hprot_i     [0:NR_SLAVES-1];
+  wire [     1:0] bussl_htrans_i    [0:NR_SLAVES-1];
+  wire            bussl_hmastlock_i [0:NR_SLAVES-1];
 
-  wire                [                       XLEN-1:0]                                 bussl_hrdata_o       [            0:NR_SLAVES-1];
-  wire                                                                                  bussl_hready_o       [            0:NR_SLAVES-1];
-  wire                                                                                  bussl_hresp_o        [            0:NR_SLAVES-1];
+  wire [XLEN-1:0] bussl_hrdata_o    [0:NR_SLAVES-1];
+  wire            bussl_hready_o    [0:NR_SLAVES-1];
+  wire            bussl_hresp_o     [0:NR_SLAVES-1];
 
-  wire                                                                                  snoop_enable;
-  wire                [                           31:0]                                 snoop_adr;
+  wire        snoop_enable;
+  wire [31:0] snoop_adr;
 
-  wire                [                           31:0]                                 pic_ints_i           [0:CONFIG.CORES_PER_TILE-1];
+  wire [31:0] pic_ints_i [0:CONFIG.CORES_PER_TILE-1];
 
   genvar c, m, s;
 
