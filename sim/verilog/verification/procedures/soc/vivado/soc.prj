@@ -42,7 +42,7 @@
 //                                                                               //
 ///////////////////////////////////////////////////////////////////////////////////
 
-sv work ../../../../../../dma/rtl/verilog/code/pkg/core/peripheral_dma_pkg.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/pkg/core/peripheral_dma_pkg.sv
 
 sv work ../../../../../../pu/rtl/verilog/pkg/peripheral_ahb3_pkg.sv
 sv work ../../../../../../pu/rtl/verilog/pkg/peripheral_biu_pkg.sv
@@ -53,69 +53,69 @@ sv work ../../../../../../rtl/verilog/pkg/functions/soc_optimsoc_functions.sv
 sv work ../../../../../../rtl/verilog/pkg/configuration/soc_optimsoc_configuration.sv
 sv work ../../../../../../rtl/verilog/pkg/constants/soc_optimsoc_constants.sv
 
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interfaces/common/peripheral_dbg_soc_dii_channel_flat.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interfaces/common/peripheral_dbg_soc_dii_channel.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interfaces/riscv/peripheral_dbg_soc_mriscv_trace_exec.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/common/peripheral_dbg_soc_dii_channel_flat.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/common/peripheral_dbg_soc_dii_channel.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/riscv/peripheral_dbg_soc_mriscv_trace_exec.sv
 
 sv work ../../../../../../bench/verilog/glip/soc_glip_channel.sv
 
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_dii_buffer.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_osd_fifo.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/eventpacket/peripheral_dbg_soc_osd_event_packetization_fixedwidth.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/eventpacket/peripheral_dbg_soc_osd_event_packetization.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/regaccess/peripheral_dbg_soc_osd_regaccess_demux.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/regaccess/peripheral_dbg_soc_osd_regaccess_layer.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/regaccess/peripheral_dbg_soc_osd_regaccess.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/timestamp/peripheral_dbg_soc_osd_timestamp.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/blocks/tracesample/peripheral_dbg_soc_osd_tracesample.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_debug_ring_expand.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_debug_ring.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_demux.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_gateway_demux.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_gateway_mux.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_gateway.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_mux_rr.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_mux.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/ctm/common/peripheral_dbg_soc_osd_ctm.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/ctm/riscv/peripheral_dbg_soc_osd_ctm_mriscv.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_16550.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_ahb3.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/him/peripheral_dbg_soc_osd_him.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/mam/common/peripheral_dbg_soc_osd_mam.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_mam_adapter_ahb3.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_osd_mam_if_ahb3.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_osd_mam_ahb3.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/scm/peripheral_dbg_soc_osd_scm.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/stm/common/peripheral_dbg_soc_osd_stm.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/modules/stm/riscv/mriscv/peripheral_dbg_soc_osd_stm_mriscv.sv
-sv work ../../../../../../dbg/rtl/soc/verilog/code/peripheral/top/peripheral_dbg_soc_interface.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_dii_buffer.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_osd_fifo.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/eventpacket/peripheral_dbg_soc_osd_event_packetization_fixedwidth.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/eventpacket/peripheral_dbg_soc_osd_event_packetization.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/regaccess/peripheral_dbg_soc_osd_regaccess_demux.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/regaccess/peripheral_dbg_soc_osd_regaccess_layer.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/regaccess/peripheral_dbg_soc_osd_regaccess.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/timestamp/peripheral_dbg_soc_osd_timestamp.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/tracesample/peripheral_dbg_soc_osd_tracesample.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_debug_ring_expand.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_debug_ring.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_demux.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_gateway_demux.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_gateway_mux.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_gateway.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_mux_rr.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router_mux.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interconnect/peripheral_dbg_soc_ring_router.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/ctm/common/peripheral_dbg_soc_osd_ctm.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/ctm/riscv/peripheral_dbg_soc_osd_ctm_mriscv.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_16550.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_ahb3.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/him/peripheral_dbg_soc_osd_him.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/common/peripheral_dbg_soc_osd_mam.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_mam_adapter_ahb3.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_osd_mam_if_ahb3.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_osd_mam_ahb3.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/scm/peripheral_dbg_soc_osd_scm.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/stm/common/peripheral_dbg_soc_osd_stm.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/stm/riscv/mriscv/peripheral_dbg_soc_osd_stm_mriscv.sv
+sv work ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/top/peripheral_dbg_soc_interface.sv
 
-sv work ../../../../../../dma/rtl/verilog/code/core/peripheral_dma_initiator_nocreq.sv
-sv work ../../../../../../dma/rtl/verilog/code/core/peripheral_dma_packet_buffer.sv
-sv work ../../../../../../dma/rtl/verilog/code/core/peripheral_dma_request_table.sv
-sv work ../../../../../../dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_nocres_ahb3.sv
-sv work ../../../../../../dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_req_ahb3.sv
-sv work ../../../../../../dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_ahb3.sv
-sv work ../../../../../../dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_interface_ahb3.sv
-sv work ../../../../../../dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_target_ahb3.sv
-sv work ../../../../../../dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_top_ahb3.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/core/peripheral_dma_initiator_nocreq.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/core/peripheral_dma_packet_buffer.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/core/peripheral_dma_request_table.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_nocres_ahb3.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_req_ahb3.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_ahb3.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_interface_ahb3.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_target_ahb3.sv
+sv work ../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_top_ahb3.sv
 
-sv work ../../../../../../mpi/rtl/verilog/code/core/peripheral_mpi_buffer.sv
-sv work ../../../../../../mpi/rtl/verilog/code/core/peripheral_mpi_buffer_endpoint.sv
-sv work ../../../../../../mpi/rtl/verilog/code/peripheral/ahb3/peripheral_mpi_ahb3.sv
+sv work ../../../../../../peripheral/mpi/rtl/verilog/code/core/peripheral_mpi_buffer.sv
+sv work ../../../../../../peripheral/mpi/rtl/verilog/code/core/peripheral_mpi_buffer_endpoint.sv
+sv work ../../../../../../peripheral/mpi/rtl/verilog/code/peripheral/ahb3/peripheral_mpi_ahb3.sv
 
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/main/peripheral_arbiter_rr.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/main/peripheral_noc_buffer.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/main/peripheral_noc_demux.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/main/peripheral_noc_mux.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/main/peripheral_noc_vchannel_mux.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_input.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_lookup_slice.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_lookup.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_output.sv
-sv work ../../../../../../noc/rtl/verilog/code/peripheral/router/peripheral_noc_router.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_arbiter_rr.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_buffer.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_demux.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_mux.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_vchannel_mux.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_input.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_lookup_slice.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_lookup.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_output.sv
+sv work ../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router.sv
 
 sv work ../../../../../../pu/rtl/verilog/core/cache/pu_riscv_dcache_core.sv
 sv work ../../../../../../pu/rtl/verilog/core/cache/pu_riscv_dext.sv
