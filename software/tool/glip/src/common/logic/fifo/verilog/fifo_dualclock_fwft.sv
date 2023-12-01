@@ -83,7 +83,7 @@ module fifo_dualclock_fwft #(
 
   // create FWFT FIFO out of non-FWFT FIFO
   // public domain code from Eli Billauer
-  // see http:// www.billauer.co.il/reg_fifo.html
+  // see http://www.billauer.co.il/reg_fifo.html
   assign will_update_middle = fifo_valid && (middle_valid == will_update_dout);
   assign will_update_dout   = (middle_valid || fifo_valid) && (rd_en || !dout_valid);
   assign fifo_rd_en         = (!fifo_empty) && !(middle_valid && dout_valid && fifo_valid);
