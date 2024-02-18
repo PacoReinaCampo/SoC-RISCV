@@ -12,6 +12,9 @@ application
 │   ├── bb
 │   │   └── src
 │   │       └── main.rs
+│   ├── biu
+│   │   └── src
+│   │       └── main.rs
 │   └── wb
 │       └── src
 │           └── main.rs
@@ -26,6 +29,9 @@ application
 │   │   └── src
 │   │       └── main.rs
 │   ├── bb
+│   │   └── src
+│   │       └── main.rs
+│   ├── biu
 │   │   └── src
 │   │       └── main.rs
 │   └── wb
@@ -44,6 +50,9 @@ application
 │   ├── bb
 │   │   └── src
 │   │       └── main.rs
+│   ├── biu
+│   │   └── src
+│   │       └── main.rs
 │   └── wb
 │       └── src
 │           └── main.rs
@@ -60,8 +69,11 @@ application
     ├── bb
     │   └── src
     │       └── main.rs
+    ├── biu
+    │   └── src
+    │       └── main.rs
     └── wb
         └── src
             └── main.rs
 
-44 directories, 20 files
+52 directories, 24 files
