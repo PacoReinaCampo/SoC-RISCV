@@ -47,10 +47,10 @@
 
 +incdir+../../../../../../rtl/verilog/soc/bootrom
 -CFLAGS -I../../../../../../rtl/verilog/soc/bootrom
-+incdir+../../../../../../bench/cpp/verilator/inc
--CFLAGS -I../../../../../../bench/cpp/verilator/inc
-+incdir+../../../../../../bench/cpp/glip
--CFLAGS -I../../../../../../bench/cpp/glip
++incdir+../../../../../../verification/tasks/library/cpp/verilator/inc
+-CFLAGS -I../../../../../../verification/tasks/library/cpp/verilator/inc
++incdir+../../../../../../verification/tasks/library/cpp/glip
+-CFLAGS -I../../../../../../verification/tasks/library/cpp/glip
 
 ../../../../../../peripheral/dma/rtl/verilog/code/pkg/core/peripheral_dma_pkg.sv
 
@@ -67,7 +67,7 @@
 ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/common/peripheral_dbg_soc_dii_channel.sv
 ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/riscv/peripheral_dbg_soc_mriscv_trace_exec.sv
 
-../../../../../../bench/verilog/glip/soc_glip_channel.sv
+../../../../../../verification/tasks/library/verilog/glip/soc_glip_channel.sv
 
 ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_dii_buffer.sv
 ../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_osd_fifo.sv
@@ -175,18 +175,18 @@
 ../../../../../../rtl/verilog/soc/spram/soc_sram_sp_ahb3.sv
 ../../../../../../rtl/verilog/soc/spram/soc_ahb32sram.sv
 
-../../../../../../bench/verilog/glip/soc_glip_tcp_top.sv
-../../../../../../bench/verilog/monitor/soc_r3_checker.sv
-../../../../../../bench/verilog/monitor/soc_trace_monitor.sv
-../../../../../../bench/verilog/main/soc_riscv_tile_testbench.sv
+../../../../../../verification/tasks/library/verilog/glip/soc_glip_tcp_top.sv
+../../../../../../verification/tasks/library/verilog/monitor/soc_r3_checker.sv
+../../../../../../verification/tasks/library/verilog/monitor/soc_trace_monitor.sv
+../../../../../../verification/tasks/library/verilog/main/soc_riscv_tile_testbench.sv
 
 --top-module soc_riscv_tile_testbench
 --exe
 
-../../../../../../bench/cpp/glip/glip_tcp_dpi.cpp
-../../../../../../bench/cpp/glip/GlipTcp.cpp
-../../../../../../bench/cpp/main/soc_riscv_tile_testbench.cpp
-../../../../../../bench/cpp/verilator/src/OptionsParser.cpp
-../../../../../../bench/cpp/verilator/src/VerilatedControl.cpp
+../../../../../../verification/tasks/library/cpp/glip/glip_tcp_dpi.cpp
+../../../../../../verification/tasks/library/cpp/glip/GlipTcp.cpp
+../../../../../../verification/tasks/library/cpp/main/soc_riscv_tile_testbench.cpp
+../../../../../../verification/tasks/library/cpp/verilator/src/OptionsParser.cpp
+../../../../../../verification/tasks/library/cpp/verilator/src/VerilatedControl.cpp
 -GNUM_CORES=2
 -GUSE_DEBUG=1
