@@ -1,9 +1,5 @@
 # INSTRUCTION
 
-This directory contains MetaData for the RISC-V 32 IMAC  Instruction Set Architecture
-
-![RV32IMAC](assets/RV32IMAC.svg){width=10cm}
-
 This directory contains MetaData for the RISC-V Instruction Set Architecture
 
 | File                           | Description                             |
@@ -14,3 +10,9 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `compression`                  | `Compressed Instruction`                |
 | `pseudos`                      | `Pseudo Instructions`                   |
 : Instruction Directory
+
+![RV32IMAC](assets/RV32IMAC.svg){width=10cm}
+
+![RV64IMAC](assets/RV64IMAC.svg){width=10cm}
+
+![RV128IMAC](assets/RV128IMAC.svg){width=10cm}
