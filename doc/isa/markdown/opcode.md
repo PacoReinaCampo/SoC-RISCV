@@ -1,4 +1,4 @@
-# OPCODE
+# DESIGN OF OPCODES
 
 This directory contains MetaData for the RISC-V Instruction Set Architecture
 

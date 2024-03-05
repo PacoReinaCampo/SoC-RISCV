@@ -1,4 +1,4 @@
-# INSTRUCTION
+# DESIGN OF INSTRUCTIONS
 
 This directory contains MetaData for the RISC-V Instruction Set Architecture
 

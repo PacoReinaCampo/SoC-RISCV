@@ -1,4 +1,4 @@
-# REGISTER
+# DESIGN OF REGISTERS
 
 This directory contains MetaData for the RISC-V Instruction Set Architecture
 
