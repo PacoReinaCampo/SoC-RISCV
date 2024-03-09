@@ -243,7 +243,7 @@ Format of a line in the table:
 | `fcvt.q.w`   | `Convert the 64-bit signed integer in rs1 to a quadruple-precision value, then write the result to frd`                          |
 | `fcvt.q.wu`  | `Convert the 64-bit unsigned integer in rs1 to a quadruple-precision value, then write the result to frd`                        |
 | `fclass.q`   | `Set rd to a 10-bit mask indicating the class of the quadruple-precision value in frs1`                                          |
-: RV32Q - "RV32D Standard Extension for Quadruple-Precision Floating-Point"
+: RV32Q - "RV32Q Standard Extension for Quadruple-Precision Floating-Point"
 
 | ins name     | instruction description                                                                                                          |
 |--------------|:---------------------------------------------------------------------------------------------------------------------------------|
