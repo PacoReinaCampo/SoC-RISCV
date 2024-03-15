@@ -1,4 +1,4 @@
-## Opcode Encoding Information
+## Opcode Encoding Structured Information
 
 Format of a line in the table:
 

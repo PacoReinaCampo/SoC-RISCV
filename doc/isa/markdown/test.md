@@ -430,24 +430,185 @@ Format of a line in the table:
 
 | test rv32                | status      |
 |--------------------------|:------------|
-| `rv32si-p-csr`           | `no passed` |
-| `rv32si-p-dirty`         | `no passed` |
-| `rv32si-p-ma_fetch`      | `no passed` |
-| `rv32si-p-sbreak`        | `no passed` |
-| `rv32si-p-scall`         | `no passed` |
-| `rv32si-p-wfi`           | `no passed` |
-: RV32S - "RV32S Standard Extension for Supervisor-level Instructions"
+| `rv32uzba-p-sh1add`      | `no passed` |
+| `rv32uzba-p-sh2add`      | `no passed` |
+| `rv32uzba-p-sh3add`      | `no passed` |
+| `rv32uzba-v-sh1add`      | `no passed` |
+| `rv32uzba-v-sh2add`      | `no passed` |
+| `rv32uzba-v-sh3add`      | `no passed` |
+: RV32ZBA - "RV32ZBA Standard Extension)"
 
 | test rv64                | status      |
 |--------------------------|:------------|
-| `rv64si-p-csr`           | `no passed` |
-| `rv64si-p-dirty`         | `no passed` |
-| `rv64si-p-icache-alias`  | `no passed` |
-| `rv64si-p-ma_fetch`      | `no passed` |
-| `rv64si-p-sbreak`        | `no passed` |
-| `rv64si-p-scall`         | `no passed` |
-| `rv64si-p-wfi`           | `no passed` |
-: RV64S - "RV64S Standard Extension for Supervisor-level Instructions (+ RV32S)"
+| `rv64uzba-p-add_uw`      | `no passed` |
+| `rv64uzba-p-sh1add`      | `no passed` |
+| `rv64uzba-p-sh1add_uw`   | `no passed` |
+| `rv64uzba-p-sh2add`      | `no passed` |
+| `rv64uzba-p-sh2add_uw`   | `no passed` |
+| `rv64uzba-p-sh3add`      | `no passed` |
+| `rv64uzba-p-sh3add_uw`   | `no passed` |
+| `rv64uzba-p-slli_uw`     | `no passed` |
+| `rv64uzba-v-add_uw`      | `no passed` |
+| `rv64uzba-v-sh1add`      | `no passed` |
+| `rv64uzba-v-sh1add_uw`   | `no passed` |
+| `rv64uzba-v-sh2add`      | `no passed` |
+| `rv64uzba-v-sh2add_uw`   | `no passed` |
+| `rv64uzba-v-sh3add`      | `no passed` |
+| `rv64uzba-v-sh3add_uw`   | `no passed` |
+| `rv64uzba-v-slli_uw`     | `no passed` |
+: RV64ZBA - "RV64ZBA Standard Extension (+ RV32ZBA)"
+
+| test rv32                | status      |
+|--------------------------|:------------|
+| `rv32uzbb-p-andn`        | `no passed` |
+| `rv32uzbb-p-clz`         | `no passed` |
+| `rv32uzbb-p-cpop`        | `no passed` |
+| `rv32uzbb-p-ctz`         | `no passed` |
+| `rv32uzbb-p-max`         | `no passed` |
+| `rv32uzbb-p-maxu`        | `no passed` |
+| `rv32uzbb-p-min`         | `no passed` |
+| `rv32uzbb-p-minu`        | `no passed` |
+| `rv32uzbb-p-orc_b`       | `no passed` |
+| `rv32uzbb-p-orn`         | `no passed` |
+| `rv32uzbb-p-rev8`        | `no passed` |
+| `rv32uzbb-p-rol`         | `no passed` |
+| `rv32uzbb-p-ror`         | `no passed` |
+| `rv32uzbb-p-rori`        | `no passed` |
+| `rv32uzbb-p-sext_b`      | `no passed` |
+| `rv32uzbb-p-sext_h`      | `no passed` |
+| `rv32uzbb-p-xnor`        | `no passed` |
+| `rv32uzbb-p-zext_h`      | `no passed` |
+| `rv32uzbb-v-andn`        | `no passed` |
+| `rv32uzbb-v-clz`         | `no passed` |
+| `rv32uzbb-v-cpop`        | `no passed` |
+| `rv32uzbb-v-ctz`         | `no passed` |
+| `rv32uzbb-v-max`         | `no passed` |
+| `rv32uzbb-v-maxu`        | `no passed` |
+| `rv32uzbb-v-min`         | `no passed` |
+| `rv32uzbb-v-minu`        | `no passed` |
+| `rv32uzbb-v-orc_b`       | `no passed` |
+| `rv32uzbb-v-orn`         | `no passed` |
+| `rv32uzbb-v-rev8`        | `no passed` |
+| `rv32uzbb-v-rol`         | `no passed` |
+| `rv32uzbb-v-ror`         | `no passed` |
+| `rv32uzbb-v-rori`        | `no passed` |
+| `rv32uzbb-v-sext_b`      | `no passed` |
+| `rv32uzbb-v-sext_h`      | `no passed` |
+| `rv32uzbb-v-xnor`        | `no passed` |
+| `rv32uzbb-v-zext_h`      | `no passed` |
+: RV32ZBB - "RV32ZBB Standard Extension)"
+
+| test rv64                | status      |
+|--------------------------|:------------|
+| `rv64uzbb-p-andn`        | `no passed` |
+| `rv64uzbb-p-clz`         | `no passed` |
+| `rv64uzbb-p-clzw`        | `no passed` |
+| `rv64uzbb-p-cpop`        | `no passed` |
+| `rv64uzbb-p-cpopw`       | `no passed` |
+| `rv64uzbb-p-ctz`         | `no passed` |
+| `rv64uzbb-p-ctzw`        | `no passed` |
+| `rv64uzbb-p-max`         | `no passed` |
+| `rv64uzbb-p-maxu`        | `no passed` |
+| `rv64uzbb-p-min`         | `no passed` |
+| `rv64uzbb-p-minu`        | `no passed` |
+| `rv64uzbb-p-orc_b`       | `no passed` |
+| `rv64uzbb-p-orn`         | `no passed` |
+| `rv64uzbb-p-rev8`        | `no passed` |
+| `rv64uzbb-p-rol`         | `no passed` |
+| `rv64uzbb-p-rolw`        | `no passed` |
+| `rv64uzbb-p-ror`         | `no passed` |
+| `rv64uzbb-p-rori`        | `no passed` |
+| `rv64uzbb-p-roriw`       | `no passed` |
+| `rv64uzbb-p-rorw`        | `no passed` |
+| `rv64uzbb-p-sext_b`      | `no passed` |
+| `rv64uzbb-p-sext_h`      | `no passed` |
+| `rv64uzbb-p-xnor`        | `no passed` |
+| `rv64uzbb-p-zext_h`      | `no passed` |
+| `rv64uzbb-v-andn`        | `no passed` |
+| `rv64uzbb-v-clz`         | `no passed` |
+| `rv64uzbb-v-clzw`        | `no passed` |
+| `rv64uzbb-v-cpop`        | `no passed` |
+| `rv64uzbb-v-cpopw`       | `no passed` |
+| `rv64uzbb-v-ctz`         | `no passed` |
+| `rv64uzbb-v-ctzw`        | `no passed` |
+| `rv64uzbb-v-max`         | `no passed` |
+| `rv64uzbb-v-maxu`        | `no passed` |
+| `rv64uzbb-v-min`         | `no passed` |
+| `rv64uzbb-v-minu`        | `no passed` |
+| `rv64uzbb-v-orc_b`       | `no passed` |
+| `rv64uzbb-v-orn`         | `no passed` |
+| `rv64uzbb-v-rev8`        | `no passed` |
+| `rv64uzbb-v-rol`         | `no passed` |
+| `rv64uzbb-v-rolw`        | `no passed` |
+| `rv64uzbb-v-ror`         | `no passed` |
+| `rv64uzbb-v-rori`        | `no passed` |
+| `rv64uzbb-v-roriw`       | `no passed` |
+| `rv64uzbb-v-rorw`        | `no passed` |
+| `rv64uzbb-v-sext_b`      | `no passed` |
+| `rv64uzbb-v-sext_h`      | `no passed` |
+| `rv64uzbb-v-xnor`        | `no passed` |
+| `rv64uzbb-v-zext_h`      | `no passed` |
+: RV64ZBB - "RV64ZBB Standard Extension (+ RV32ZBB)"
+
+| test rv32                | status      |
+|--------------------------|:------------|
+| `rv32uzbc-p-clmul`       | `no passed` |
+| `rv32uzbc-p-clmulh`      | `no passed` |
+| `rv32uzbc-p-clmulr`      | `no passed` |
+| `rv32uzbc-v-clmul`       | `no passed` |
+| `rv32uzbc-v-clmulh`      | `no passed` |
+| `rv32uzbc-v-clmulr`      | `no passed` |
+: RV32ZBC - "RV32ZBC Standard Extension)"
+
+| test rv64                | status      |
+|--------------------------|:------------|
+| `rv64uzbc-p-clmul`       | `no passed` |
+| `rv64uzbc-p-clmulh`      | `no passed` |
+| `rv64uzbc-p-clmulr`      | `no passed` |
+| `rv64uzbc-v-clmul`       | `no passed` |
+| `rv64uzbc-v-clmulh`      | `no passed` |
+| `rv64uzbc-v-clmulr`      | `no passed` |
+: RV64ZBC - "RV64ZBC Standard Extension (+ RV32ZBC)"
+
+| test rv32                | status      |
+|--------------------------|:------------|
+| `rv32uzbs-p-bclr`        | `no passed` |
+| `rv32uzbs-p-bclri`       | `no passed` |
+| `rv32uzbs-p-bext`        | `no passed` |
+| `rv32uzbs-p-bexti`       | `no passed` |
+| `rv32uzbs-p-binv`        | `no passed` |
+| `rv32uzbs-p-binvi`       | `no passed` |
+| `rv32uzbs-p-bset`        | `no passed` |
+| `rv32uzbs-p-bseti`       | `no passed` |
+| `rv32uzbs-v-bclr`        | `no passed` |
+| `rv32uzbs-v-bclri`       | `no passed` |
+| `rv32uzbs-v-bext`        | `no passed` |
+| `rv32uzbs-v-bexti`       | `no passed` |
+| `rv32uzbs-v-binv`        | `no passed` |
+| `rv32uzbs-v-binvi`       | `no passed` |
+| `rv32uzbs-v-bset`        | `no passed` |
+| `rv32uzbs-v-bseti`       | `no passed` |
+: RV32ZBS - "RV32ZBS Standard Extension)"
+
+| test rv64                | status      |
+|--------------------------|:------------|
+| `rv64uzbs-p-bclr`        | `no passed` |
+| `rv64uzbs-p-bclri`       | `no passed` |
+| `rv64uzbs-p-bext`        | `no passed` |
+| `rv64uzbs-p-bexti`       | `no passed` |
+| `rv64uzbs-p-binv`        | `no passed` |
+| `rv64uzbs-p-binvi`       | `no passed` |
+| `rv64uzbs-p-bset`        | `no passed` |
+| `rv64uzbs-p-bseti`       | `no passed` |
+| `rv64uzbs-v-bclr`        | `no passed` |
+| `rv64uzbs-v-bclri`       | `no passed` |
+| `rv64uzbs-v-bext`        | `no passed` |
+| `rv64uzbs-v-bexti`       | `no passed` |
+| `rv64uzbs-v-binv`        | `no passed` |
+| `rv64uzbs-v-binvi`       | `no passed` |
+| `rv64uzbs-v-bset`        | `no passed` |
+| `rv64uzbs-v-bseti`       | `no passed` |
+: RV64ZBS - "RV64ZBS Standard Extension (+ RV32ZBS)"
 
 | test rv32                | status      |
 |--------------------------|:------------|
@@ -473,7 +634,7 @@ Format of a line in the table:
 | `rv32uzfh-v-ldst`        | `no passed` |
 | `rv32uzfh-v-move`        | `no passed` |
 | `rv32uzfh-v-recoding`    | `no passed` |
-: RV32H - "RV32H Standard Extension for Hypervisor-level Instructions"
+: RV32ZFH - "RV32ZFH Standard Extension"
 
 | test rv64                | status      |
 |--------------------------|:------------|
@@ -499,7 +660,33 @@ Format of a line in the table:
 | `rv64uzfh-v-ldst`        | `no passed` |
 | `rv64uzfh-v-move`        | `no passed` |
 | `rv64uzfh-v-recoding`    | `no passed` |
-: RV64H - "RV64H Standard Extension for Hypervisor-level Instructions (+ RV32H)"
+: RV64ZFH - "RV64ZFH Standard Extension (+ RV32ZFH)"
+
+| test rv32                | status      |
+|--------------------------|:------------|
+| `rv32si-p-csr`           | `no passed` |
+| `rv32si-p-dirty`         | `no passed` |
+| `rv32si-p-ma_fetch`      | `no passed` |
+| `rv32si-p-sbreak`        | `no passed` |
+| `rv32si-p-scall`         | `no passed` |
+| `rv32si-p-wfi`           | `no passed` |
+: RV32I - "RV32I Standard Extension for Integer Instructions for Supervisor-level Instructions"
+
+| test rv64                | status      |
+|--------------------------|:------------|
+| `rv64si-p-csr`           | `no passed` |
+| `rv64si-p-dirty`         | `no passed` |
+| `rv64si-p-icache-alias`  | `no passed` |
+| `rv64si-p-ma_fetch`      | `no passed` |
+| `rv64si-p-sbreak`        | `no passed` |
+| `rv64si-p-scall`         | `no passed` |
+| `rv64si-p-wfi`           | `no passed` |
+: RV64I - "RV64I Standard Extension for Integer Instructions for Supervisor-level Instructions (+ RV32I)"
+
+| test rv64                | status      |
+|--------------------------|:------------|
+| `rv64ssvnapot-p-napot`   | `no passed` |
+: RV64SVNAPOT - "RV64SVNAPOT Standard Extension for Supervisor-level Instructions"
 
 | test rv32                | status      |
 |--------------------------|:------------|
@@ -517,7 +704,7 @@ Format of a line in the table:
 | `rv32mi-p-sh-misaligned` | `no passed` |
 | `rv32mi-p-sw-misaligned` | `no passed` |
 | `rv32mi-p-zicntr`        | `no passed` |
-: RV32M - "RV32M Standard Extension for Machine-level Instructions"
+: RV32I - "RV32I Standard Extension for Integer Instructions for Machine-level Instructions"
 
 | test rv64                | status      |
 |--------------------------|:------------|
@@ -537,10 +724,9 @@ Format of a line in the table:
 | `rv64mi-p-sh-misaligned` | `no passed` |
 | `rv64mi-p-sw-misaligned` | `no passed` |
 | `rv64mi-p-zicntr`        | `no passed` |
-: RV64M - "RV64M Standard Extension for Machine-level Instructions (+ RV32M)"
+: RV64I - "RV64I Standard Extension for Integer Instructions for Machine-level Instructions (+ RV32I)"
 
 | test rv64                | status      |
 |--------------------------|:------------|
 | `rv64mzicbo-p-zero`      | `no passed` |
-| `rv64ssvnapot-p-napot`   | `no passed` |
-: RV64 - "RV64 Standard Extension (+ RV32)"
+: RV64ZICBO - "RV64ZICBO Standard Extension for Machine-level Instructions"

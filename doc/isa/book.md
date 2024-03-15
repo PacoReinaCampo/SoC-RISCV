@@ -17,7 +17,8 @@ markdown/opcode.md
 markdown/opcode-fullnames.md
 markdown/opcode-descriptions.md
 markdown/opcode-classes.md
-markdown/opcodes.md
+markdown/opcodes-structured.md
+markdown/opcodes-machine.md
 markdown/opcode-pseudocode-c.md
 markdown/opcode-pseudocode-alternative.md
 markdown/formats.md

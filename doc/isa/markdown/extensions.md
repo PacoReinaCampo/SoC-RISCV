@@ -15,9 +15,6 @@ Format of a line in the table:
 | `rv`   | `32`      | `a`        | `32`              | `RV32A Standard Extension for Atomic Instructions`                           |
 | `rv`   | `64`      | `a`        | `32`              | `RV64A Standard Extension for Atomic Instructions (+ RV32A)`                 |
 | `rv`   | `128`     | `a`        | `32`              | `RV128A Standard Extension for Atomic Instructions (+ RV64A)`                |
-| `rv`   | `32`      | `s`        | `32`              | `RV32S Standard Extension for Supervisor-level Instructions`                 |
-| `rv`   | `64`      | `s`        | `32`              | `RV64S Standard Extension for Supervisor-level Instructions`                 |
-| `rv`   | `128`     | `s`        | `32`              | `RV128S Standard Extension for Supervisor-level Instructions`                |
 | `rv`   | `32`      | `f`        | `32`              | `RV32F Standard Extension for Single-Precision Floating-Point`               |
 | `rv`   | `64`      | `f`        | `32`              | `RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)`     |
 | `rv`   | `128`     | `f`        | `32`              | `RV128F Standard Extension for Single-Precision Floating-Point (+ RV64F)`    |
@@ -30,4 +27,7 @@ Format of a line in the table:
 | `rv`   | `32`      | `c`        | `16`              | `RV32C Standard Extension for Compressed Instructions`                       |
 | `rv`   | `64`      | `c`        | `16`              | `RV64C Standard Extension for Compressed Instructions (+ RV32C)`             |
 | `rv`   | `128`     | `c`        | `16`              | `RV128C Standard Extension for Compressed Instructions (+ RV64C)`            |
+| `rv`   | `32`      | `s`        | `32`              | `RV32S Standard Extension for Supervisor-level Instructions`                 |
+| `rv`   | `64`      | `s`        | `32`              | `RV64S Standard Extension for Supervisor-level Instructions (+ RV32S)`       |
+| `rv`   | `128`     | `s`        | `32`              | `RV128S Standard Extension for Supervisor-level Instructions (+ RV64S)`      |
 : Instruction Set Extensions
