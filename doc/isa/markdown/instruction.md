@@ -11,6 +11,8 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `pseudos`                      | `Pseudo Instructions`                   |
 : Instruction Directory
 
+![Dependences](assets/dependences-global.svg){width=10cm}
+
 ![RV32IMAC](assets/RV32IMAC.svg){width=10cm}
 
 ![RV64IMAC](assets/RV64IMAC.svg){width=10cm}
