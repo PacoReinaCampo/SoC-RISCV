@@ -18,16 +18,16 @@ digraph Project {
 
   // Architecture Blocks
   subgraph "cluster ArchitectureBlocks" { label = "Architecture Blocks";
-    MPSoC_RISCV[label="MPSoC_RISCV\nArchitecture\nrv64-pvt-gc"];
-    SoC_RISCV[label="SoC_RISCV\nArchitecture\nrv64-pv-gc"];
-    PU_RISCV[label="PU_RISCV\nArchitecture\nrv64-p-gc"];
+    MPSoC_RISCV[label="MPSoC_RISCV\nArchitecture\nrv64-pvt-gcfdq"];
+    SoC_RISCV[label="SoC_RISCV\nArchitecture\nrv64-pv-gcfdq"];
+    PU_RISCV[label="PU_RISCV\nArchitecture\nrv64-p-gcfdq"];
   }
 
   // Environment Blocks
   subgraph "cluster EnvironmentBlocks" { label = "Environment Blocks";
-    MPSoC_DV[label="MPSoC_DV\nEnvironment\nrv64-pvt-gc"];
-    SoC_DV[label="SoC_DV\nEnvironment\nrv64-pv-gc"];
-    PU_DV[label="PU_DV\nEnvironment\nrv64-p-gc"];
+    MPSoC_DV[label="MPSoC_DV\nEnvironment\nrv64-pvt-gcfdq"];
+    SoC_DV[label="SoC_DV\nEnvironment\nrv64-pv-gcfdq"];
+    PU_DV[label="PU_DV\nEnvironment\nrv64-p-gcfdq"];
   }
 
   // Peripheral -> Architecture

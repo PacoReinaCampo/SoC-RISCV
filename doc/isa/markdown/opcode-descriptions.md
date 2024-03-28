@@ -215,6 +215,18 @@ Format of a line in the table:
 
 | ins name     | instruction description                                                                                                          |
 |--------------|:---------------------------------------------------------------------------------------------------------------------------------|
+| `frcsr`      | `Read FP Control and Status Register`                                                                                            |
+| `frrm`       | `Read FP Rounding Mode (Bits 7:5 of fcsr Control and Status Register)`                                                           |
+| `frflags`    | `Read FP Accrued Exception Flags (Bits 4:0 of fcsr Control and Status Register)`                                                 |
+| `fscsr`      | `Read FP Control and Status Register`                                                                                            |
+| `fsrm`       | `Set FP Rounding Mode (Bits 7:5 of fcsr Control and Status Register)`                                                            |
+| `fsflags`    | `Set FP Accrued Exception Flags (Bits 4:0 of fcsr Control and Status Register)`                                                  |
+| `fsrmi`      | `Set FP Rounding Mode Immediate (Bits 7:5 of fcsr Control and Status Register)`                                                  |
+| `fsflagsi`   | `Set FP Accrued Exception Flags Immediate (Bits 4:0 of fcsr Control and Status Register)`                                        |
+: RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
+
+| ins name     | instruction description                                                                                                          |
+|--------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `flq`        | `Loads a quadruple-precision foating-point value from memory into foating-point register frd`                                    |
 | `fsq`        | `Stores a quadruple-precision foating-point value from foating-point register frs2 to memory`                                    |
 | `fmadd.q`    | `Multiply the quadruple-precision values in frs1 and frs2, then add rs3 and write the result to frd`                             |
@@ -258,18 +270,6 @@ Format of a line in the table:
 | `fmv.x.q`    | `Write the sign extended quadruple-precision value in frs1 into integer register rd`                                             |
 | `fmv.q.x`    | `Write the 64-bit integer register rs1 into the quadruple-precision register frd`                                                |
 : RV128Q - "RV128Q Standard Extension for Quadruple-Precision Floating-Point (+ RV64Q)"
-
-| ins name     | instruction description                                                                                                          |
-|--------------|:---------------------------------------------------------------------------------------------------------------------------------|
-| `frcsr`      | `Read FP Control and Status Register`                                                                                            |
-| `frrm`       | `Read FP Rounding Mode (Bits 7:5 of fcsr Control and Status Register)`                                                           |
-| `frflags`    | `Read FP Accrued Exception Flags (Bits 4:0 of fcsr Control and Status Register)`                                                 |
-| `fscsr`      | `Read FP Control and Status Register`                                                                                            |
-| `fsrm`       | `Set FP Rounding Mode (Bits 7:5 of fcsr Control and Status Register)`                                                            |
-| `fsflags`    | `Set FP Accrued Exception Flags (Bits 4:0 of fcsr Control and Status Register)`                                                  |
-| `fsrmi`      | `Set FP Rounding Mode Immediate (Bits 7:5 of fcsr Control and Status Register)`                                                  |
-| `fsflagsi`   | `Set FP Accrued Exception Flags Immediate (Bits 4:0 of fcsr Control and Status Register)`                                        |
-: RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
 
 | ins name     | instruction description                                                                                                          |
 |--------------|:---------------------------------------------------------------------------------------------------------------------------------|

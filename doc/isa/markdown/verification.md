@@ -10,17 +10,17 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `Architecture 32 bit`    | `PU`           | `SoC`           | `MPSoC`          |
 |--------------------------|:---------------|:----------------|:-----------------|
 | `Base ISA`               | `rv32-p-i`     | `rv32-pv-i`     | `rv32-pvt-i`     |
-| `Standard ISA`           | `rv32-p-gc`    | `rv32-pv-gc`    | `rv32-pvt-gc`    |
+| `Standard ISA`           | `rv32-p-imac`  | `rv32-pv-imac`  | `rv32-pvt-imac`  |
 : Architecture 32 bit
 
 | `Architecture 64 bit`    | `PU`           | `SoC`           | `MPSoC`          |
 |--------------------------|:---------------|:----------------|:-----------------|
 | `Base ISA`               | `rv64-p-i`     | `rv64-pv-i`     | `rv64-pvt-i`     |
-| `Standard ISA`           | `rv64-p-gc`    | `rv64-pv-gc`    | `rv64-pvt-gc`    |
+| `Standard ISA`           | `rv64-p-imac`  | `rv64-pv-imac`  | `rv64-pvt-imac`  |
 : Architecture 64 bit
 
 | `Architecture 128 bit`   | `PU`            | `SoC`            | `MPSoC`           |
 |--------------------------|:----------------|:-----------------|:------------------|
 | `Base ISA`               | `rv128-p-i`     | `rv128-pv-i`     | `rv128-pvt-i`     |
-| `Standard ISA`           | `rv128-p-gc`    | `rv128-pv-gc`    | `rv128-pvt-gc`    |
+| `Standard ISA`           | `rv128-p-imac`  | `rv128-pv-imac`  | `rv128-pvt-imac`  |
 : Architecture 128 bit
