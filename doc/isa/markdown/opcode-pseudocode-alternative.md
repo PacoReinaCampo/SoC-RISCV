@@ -219,6 +219,18 @@ Format of a line in the table:
 
 | ins name     | instruction pseudo code                                             |
 |--------------|:--------------------------------------------------------------------|
+| `frcsr`      |                                                                     |
+| `frrm`       |                                                                     |
+| `frflags`    |                                                                     |
+| `fscsr`      |                                                                     |
+| `fsrm`       |                                                                     |
+| `fsflags`    |                                                                     |
+| `fsrmi`      |                                                                     |
+| `fsflagsi`   |                                                                     |
+: RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
+
+| ins name     | instruction pseudo code                                             |
+|--------------|:--------------------------------------------------------------------|
 | `flq`        | `frd = f128[rs1 + imm]`                                             |
 | `fsq`        | `f128[rs1 + imm] = f128(frs2)`                                      |
 | `fmadd.q`    | `frm = rm ; frd = f128(frs1) * f128(frs2) + f128(frs3)`             |
@@ -262,15 +274,3 @@ Format of a line in the table:
 | `fmv.x.q`    | `rd = s64(frs1)`                                                    |
 | `fmv.q.x`    | `frd = u64(rs1)`                                                    |
 : RV128Q - "RV128Q Standard Extension for Quadruple-Precision Floating-Point (+ RV64Q)"
-
-| ins name     | instruction pseudo code                                             |
-|--------------|:--------------------------------------------------------------------|
-| `frcsr`      |                                                                     |
-| `frrm`       |                                                                     |
-| `frflags`    |                                                                     |
-| `fscsr`      |                                                                     |
-| `fsrm`       |                                                                     |
-| `fsflags`    |                                                                     |
-| `fsrmi`      |                                                                     |
-| `fsflagsi`   |                                                                     |
-: RV32FD - "RV32F and RV32D Common Floating-Point Instructions"

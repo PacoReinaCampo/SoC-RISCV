@@ -215,7 +215,19 @@ Format of a line in the table:
 | `fcvt.d.l`   | `FP Convert Double Word to Float (DP)`                              |
 | `fcvt.d.lu`  | `FP Convert Double Word Unsigned Float (DP)`                        |
 | `fmv.d.x`    | `FP Move from Integer Register (DP)`                                |
-: RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32F)"
+: RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
+
+| ins name     | instruction full name                                               |
+|--------------|:--------------------------------------------------------------------|
+| `frcsr`      | `Read FP Control and Status Register`                               |
+| `frrm`       | `Read FP Rounding Mode`                                             |
+| `frflags`    | `Read FP Accrued Exception Flags`                                   |
+| `fscsr`      | `Set FP Control and Status Register`                                |
+| `fsrm`       | `Set FP Rounding Mode`                                              |
+| `fsflags`    | `Set FP Accrued Exception Flags`                                    |
+| `fsrmi`      | `Set FP Rounding Mode Immediate`                                    |
+| `fsflagsi`   | `Set FP Accrued Exception Flags Immediate`                          |
+: RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
 
 | ins name     | instruction full name                                               |
 |--------------|:--------------------------------------------------------------------|
@@ -262,18 +274,6 @@ Format of a line in the table:
 | `fmv.x.q`    | `FP Move to Integer Register (QP)`                                  |
 | `fmv.q.x`    | `FP Move from Integer Register (QP)`                                |
 : RV128Q - "RV128Q Standard Extension for Quadruple-Precision Floating-Point (+ RV64Q)"
-
-| ins name     | instruction full name                                               |
-|--------------|:--------------------------------------------------------------------|
-| `frcsr`      | `Read FP Control and Status Register`                               |
-| `frrm`       | `Read FP Rounding Mode`                                             |
-| `frflags`    | `Read FP Accrued Exception Flags`                                   |
-| `fscsr`      | `Set FP Control and Status Register`                                |
-| `fsrm`       | `Set FP Rounding Mode`                                              |
-| `fsflags`    | `Set FP Accrued Exception Flags`                                    |
-| `fsrmi`      | `Set FP Rounding Mode Immediate`                                    |
-| `fsflagsi`   | `Set FP Accrued Exception Flags Immediate`                          |
-: RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
 
 | ins name     | instruction full name                                               |
 |--------------|:--------------------------------------------------------------------|
