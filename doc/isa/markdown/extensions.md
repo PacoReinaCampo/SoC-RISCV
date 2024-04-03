@@ -46,3 +46,5 @@ Format of a line in the table:
 | `rv`   | `64`      | `t`        | `32`              | `RV64T Standard Extension for Transactional Memory (+ RV32T)`                |
 | `rv`   | `128`     | `t`        | `32`              | `RV128T Standard Extension for Transactional Memory (+ RV64T)`               |
 : Instruction Set Extensions
+
+![Extensions](assets/extensions.svg){width=10cm}

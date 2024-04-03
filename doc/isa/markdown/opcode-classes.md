@@ -4,7 +4,7 @@ Format of a line in the table:
 
 `<ins name> <class>`
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `lui`        | `alu`           |
 | `auipc`      | `alu`           |
@@ -48,7 +48,7 @@ Format of a line in the table:
 | `fence.i`    | `fence`         |
 : RV32I - "RV32I Base Integer Instruction Set"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `ld`         | `load`          |
 | `sd`         | `store`         |
@@ -63,7 +63,7 @@ Format of a line in the table:
 | `sraw`       | `alu`           |
 : RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `mul`        | `alu,multiply`  |
 | `mulh`       | `alu,multiply`  |
@@ -75,7 +75,7 @@ Format of a line in the table:
 | `remu`       | `alu,divide`    |
 : RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `mulw`       | `alu,multiply`  |
 | `divw`       | `alu,multiply`  |
@@ -84,7 +84,7 @@ Format of a line in the table:
 | `remuw`      | `alu,divide`    |
 : RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `lr.w`       | `atomic`        |
 | `sc.w`       | `atomic`        |
@@ -99,7 +99,7 @@ Format of a line in the table:
 | `amomaxu.w`  | `atomic`        |
 : RV32A - "RV32A Standard Extension for Atomic Instructions"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `lr.d`       | `atomic`        |
 | `sc.d`       | `atomic`        |
@@ -114,7 +114,7 @@ Format of a line in the table:
 | `amomaxu.d`  | `atomic`        |
 : RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `ecall`      | `system`        |
 | `ebreak`     | `system`        |
@@ -139,7 +139,7 @@ Format of a line in the table:
 | `csrrci`     | `csr`           |
 : RV32S - "RV32S Standard Extension for Supervisor-level Instructions"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `flw`        | `fpu,load`      |
 | `fsw`        | `fpu,store`     |
@@ -169,7 +169,7 @@ Format of a line in the table:
 | `fmv.s.x`    | `fpu,fmove`     |
 : RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `fcvt.l.s`   | `fpu,fcvt`      |
 | `fcvt.lu.s`  | `fpu,fcvt`      |
@@ -177,7 +177,7 @@ Format of a line in the table:
 | `fcvt.s.lu`  | `fpu,fcvt`      |
 : RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `fld`        | `fpu,load`      |
 | `fsd`        | `fpu,store`     |
@@ -207,7 +207,7 @@ Format of a line in the table:
 | `fclass.d`   | `fpu`           |
 : RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `fcvt.l.d`   | `fpu,fcvt`      |
 | `fcvt.lu.d`  | `fpu,fcvt`      |
@@ -217,7 +217,7 @@ Format of a line in the table:
 | `fmv.d.x`    | `fpu,fmove`     |
 : RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
 
-| ins name     | class           |
+| instruction  | class           |
 |--------------|:----------------|
 | `frcsr`      | `csr`           |
 | `frrm`       | `csr`           |
