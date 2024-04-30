@@ -42,7 +42,7 @@
 ##                                                                               ##
 ###################################################################################
 
-read_verilog -sv ../../../../rtl/verilog/biu/core/mpsoc_ahb3_spram.sv
+read_verilog -sv ../../../../rtl/verilog/biu/core/mpsoc_biu_spram.sv
 read_verilog -sv ../../../../rtl/verilog/biu/core/mpsoc_ram_1r1w.sv
 read_verilog -sv ../../../../rtl/verilog/biu/core/mpsoc_ram_1r1w_generic.sv
 

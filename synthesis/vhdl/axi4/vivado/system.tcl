@@ -42,11 +42,11 @@
 ##                                                                               ##
 ###################################################################################
 
-read_vhdl -vhdl2008 ../../../../rtl/vhdl/ahb3/core/mpsoc_ahb3_spram.vhd
-read_vhdl -vhdl2008 ../../../../rtl/vhdl/ahb3/core/mpsoc_ram_1r1w.vhd
-read_vhdl -vhdl2008 ../../../../rtl/vhdl/ahb3/core/mpsoc_ram_1r1w_generic.vhd
+read_vhdl -vhdl2008 ../../../../rtl/vhdl/axi4/core/mpsoc_axi4_spram.vhd
+read_vhdl -vhdl2008 ../../../../rtl/vhdl/axi4/core/mpsoc_ram_1r1w.vhd
+read_vhdl -vhdl2008 ../../../../rtl/vhdl/axi4/core/mpsoc_ram_1r1w_generic.vhd
 
-read_vhdl -vhdl2008 ../../../../rtl/vhdl/ahb3/pkg/mpsoc_spram_ahb3_pkg.vhd
+read_vhdl -vhdl2008 ../../../../rtl/vhdl/axi4/pkg/mpsoc_spram_axi4_pkg.vhd
 
 read_vhdl -vhdl2008 mpsoc_spram_synthesis.vhd
 
