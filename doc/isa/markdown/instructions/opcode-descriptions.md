@@ -1,4 +1,4 @@
-## Instruction Descriptions
+## INSTRUCTION DESCRIPTIONS
 
 Format of a line in the table:
 

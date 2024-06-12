@@ -1,4 +1,4 @@
-## Operand Bit Encodings
+## OPERAND BIT ENCODINGS
 
 Format of a line in the table:
 

@@ -1,4 +1,4 @@
-## Instruction Full Names
+## INSTRUCTION FULL NAMES
 
 Format of a line in the table:
 

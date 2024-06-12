@@ -1,4 +1,4 @@
-## Opcode Encoding Machine Information
+## OPCODE ENCODING MACHINE INFORMATION
 
 Format of a line in the table:
 

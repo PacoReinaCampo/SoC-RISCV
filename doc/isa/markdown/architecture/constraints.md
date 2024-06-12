@@ -1,4 +1,4 @@
-## Constraint Definitions
+## CONSTRAINT DEFINITIONS
 
 Format of a line in the table:
 

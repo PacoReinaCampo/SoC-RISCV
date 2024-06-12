@@ -1,4 +1,4 @@
-## Test
+## TEST
 
 Format of a line in the table:
 

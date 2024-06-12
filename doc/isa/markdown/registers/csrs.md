@@ -1,4 +1,4 @@
-## Control and Status Registers
+## CONTROL AND STATUS REGISTERS
 
 Format of a line in the table:
 `<csr number> <csr access> <csr name> "<csr description>" <version>`

@@ -1,4 +1,4 @@
-## Instruction Encodings
+## INSTRUCTION ENCODINGS
 
 Format of a line in the table:
 

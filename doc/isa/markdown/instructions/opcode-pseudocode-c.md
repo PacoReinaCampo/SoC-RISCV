@@ -1,4 +1,4 @@
-## Instruction Pseudo Code (C)
+## INSTRUCTION PSEUDO CODE (C)
 
 Format of a line in the table:
 

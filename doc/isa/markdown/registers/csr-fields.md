@@ -1,4 +1,4 @@
-## Control and Status Register Fields
+## CONTROL AND STATUS REGISTER FIELDS
 
 Format of a line in the table:
 

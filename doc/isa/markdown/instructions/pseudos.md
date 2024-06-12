@@ -1,4 +1,4 @@
-## Pseudo Instructions
+## PSEUDO INSTRUCTIONS
 
 Format of a line in the table:
 

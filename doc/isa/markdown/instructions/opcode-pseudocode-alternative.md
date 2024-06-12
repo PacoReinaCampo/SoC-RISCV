@@ -1,4 +1,4 @@
-## Instruction Pseudo Code (Alternative)
+## INSTRUCTION PSEUDO CODE (ALTERNATIVE)
 
 Format of a line in the table:
 

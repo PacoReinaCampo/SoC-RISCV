@@ -1,4 +1,4 @@
-## Descriptions
+## DESCRIPTIONS
 
 Format of a line in the table:
 

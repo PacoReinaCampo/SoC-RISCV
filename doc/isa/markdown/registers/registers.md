@@ -1,4 +1,4 @@
-## Registers ABI Definitions
+## REGISTERS ABI DEFINITIONS
 
 Format of a line in the table:
 

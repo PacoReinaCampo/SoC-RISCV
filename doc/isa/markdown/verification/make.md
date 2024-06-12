@@ -35,7 +35,7 @@ HAS_H64 = 1
 HAS_M32 = 1
 HAS_M64 = 1
 
-# User Mode RV64I Tests
+# USER MODE RV64I TESTS
 USER_RV32I_TESTS = \
 add \
 addi \
@@ -78,7 +78,7 @@ sw \
 xor \
 xori
 
-# User Mode RV32I Tests
+# USER MODE RV32I TESTS
 USER_RV64I_TESTS = \
 add \
 addi \
@@ -133,7 +133,7 @@ sw \
 xor \
 xori
 
-# User Mode RV32M Tests
+# USER MODE RV32M TESTS
 USER_RV32M_TESTS = \
 div \
 divu \
@@ -144,7 +144,7 @@ mulhu \
 rem \
 remu
 
-# User Mode RV64M Tests
+# USER MODE RV64M TESTS
 USER_RV64M_TESTS = \
 div \
 divu \
@@ -160,7 +160,7 @@ remu \
 remuw \
 remw
 
-# User Mode RV32A Tests
+# USER MODE RV32A TESTS
 USER_RV32A_TESTS = \
 amoadd_w \
 amoand_w \
@@ -173,7 +173,7 @@ amoswap_w \
 amoxor_w \
 lrsc
 
-# User Mode RV64A Tests
+# USER MODE RV64A TESTS
 USER_RV64A_TESTS = \
 amoadd_d \
 amoadd_w \
@@ -195,15 +195,15 @@ amoxor_d \
 amoxor_w \
 lrsc
 
-# User Mode RV32C Tests
+# USER MODE RV32C TESTS
 USER_RV32C_TESTS = \
 rvc
 
-# User Mode RV64C Tests
+# USER MODE RV64C TESTS
 USER_RV64C_TESTS = \
 rvc
 
-# User Mode RV32F Tests
+# USER MODE RV32F TESTS
 USER_RV32F_TESTS = \
 fadd \
 fclass \
@@ -217,7 +217,7 @@ ldst \
 move \
 recoding
 
-# User Mode RV64F Tests
+# USER MODE RV64F TESTS
 USER_RV64F_TESTS = \
 fadd \
 fclass \
@@ -231,7 +231,7 @@ ldst \
 move \
 recoding
 
-# User Mode RV32D Tests
+# USER MODE RV32D TESTS
 USER_RV32D_TESTS = \
 fadd \
 fclass \
@@ -244,7 +244,7 @@ fmin \
 ldst \
 recoding
 
-# User Mode RV64D Tests
+# USER MODE RV64D TESTS
 USER_RV64D_TESTS = \
 fadd \
 fclass \
@@ -259,13 +259,13 @@ move \
 recoding \
 structural
 
-# User Mode RV32ZBA Tests
+# USER MODE RV32ZBA TESTS
 USER_RV32ZBA_TESTS = \
 sh1add \
 sh2add \
 sh3add
 
-# User Mode RV64ZBA Tests
+# USER MODE RV64ZBA TESTS
 USER_RV64ZBA_TESTS = \
 add_uw \
 sh1add \
@@ -276,7 +276,7 @@ sh3add \
 sh3add_uw \
 slli_uw
 
-# User Mode RV32ZBB Tests
+# USER MODE RV32ZBB TESTS
 USER_RV32ZBB_TESTS = \
 andn \
 clz \
@@ -297,7 +297,7 @@ sext_h \
 xnor \
 zext_h
 
-# User Mode RV64ZBB Tests
+# USER MODE RV64ZBB TESTS
 USER_RV64ZBB_TESTS = \
 andn \
 clz \
@@ -324,19 +324,19 @@ sext_h \
 xnor \
 zext_h
 
-# User Mode RV32ZBC Tests
+# USER MODE RV32ZBC TESTS
 USER_RV32ZBC_TESTS = \
 clmul \
 clmulh \
 clmulr
 
-# User Mode RV64ZBC Tests
+# USER MODE RV64ZBC TESTS
 USER_RV64ZBC_TESTS = \
 clmul \
 clmulh \
 clmulr
 
-# User Mode RV32ZBS Tests
+# USER MODE RV32ZBS TESTS
 USER_RV32ZBS_TESTS = \
 bclr \
 bclri \
@@ -347,7 +347,7 @@ binvi \
 bset \
 bseti
 
-# User Mode RV64ZBS Tests
+# USER MODE RV64ZBS TESTS
 USER_RV64ZBS_TESTS = \
 bclr \
 bclri \
@@ -358,7 +358,7 @@ binvi \
 bset \
 bseti
 
-# User Mode RV32ZFH Tests
+# USER MODE RV32ZFH TESTS
 USER_RV32ZFH_TESTS = \
 fadd \
 fclass \
@@ -372,7 +372,7 @@ ldst \
 move \
 recoding
 
-# User Mode RV64ZFH Tests
+# USER MODE RV64ZFH TESTS
 USER_RV64ZFH_TESTS = \
 fadd \
 fclass \
@@ -387,7 +387,7 @@ move \
 recoding
 
 
-# Supervisor Mode RV32I Tests
+# SUPERVISOR MODE RV32I TESTS
 SUPERVISOR_RV32I_TESTS = \
 csr \
 dirty \
@@ -396,7 +396,7 @@ sbreak \
 scall \
 wfi
 
-# Supervisor Mode RV64I Tests
+# SUPERVISOR MODE RV64I TESTS
 SUPERVISOR_RV64I_TESTS = \
 csr \
 dirty \
@@ -406,12 +406,12 @@ sbreak \
 scall \
 wfi
 
-# Supervisor Mode RV64SVNAPOT Tests
+# SUPERVISOR MODE RV64SVNAPOT TESTS
 SUPERVISOR_RV64SVNAPOT_TESTS = \
 napot
 
 
-# Machine Mode RV32I Tests
+# MACHINE MODE RV32I TESTS
 MACHINE_RV32I_TESTS = \
 breakpoint \
 csr \
@@ -428,7 +428,7 @@ sh-misaligned \
 sw-misaligned \
 zicntr
 
-# Machine Mode RV64I Tests
+# MACHINE MODE RV64I TESTS
 MACHINE_RV64I_TESTS = \
 access \
 breakpoint \
@@ -447,114 +447,114 @@ sh-misaligned \
 sw-misaligned \
 zicntr
 
-# Machine Mode RV64ZICBO Tests
+# MACHINE MODE RV64ZICBO TESTS
 MACHINE_RV64ZICBO_TESTS = \
 zero
 
 
-# User Mode RV32I Tests
+# USER MODE RV32I TESTS
 u32itst_lst += $(if $(HAS_RV32I) > 0, $(foreach t, $(USER_RV32I_TESTS),rv32ui-p-$t))
 
-# User Mode RV64I Tests
+# USER MODE RV64I TESTS
 u64itst_lst += $(if $(HAS_RV64I) > 0, $(foreach t, $(USER_RV64I_TESTS),rv64ui-p-$t))
 
-# User Mode RV32M Tests
+# USER MODE RV32M TESTS
 u32mtst_lst += $(if $(HAS_RV32M) > 0, $(foreach t, $(USER_RV32M_TESTS),rv32um-p-$t))
 
-# User Mode RV64M Tests
+# USER MODE RV64M TESTS
 u64mtst_lst += $(if $(HAS_RV64M) > 0, $(foreach t, $(USER_RV64M_TESTS),rv64um-p-$t))
 
-# User Mode RV32A Tests
+# USER MODE RV32A TESTS
 u32atst_lst += $(if $(HAS_RV32A) > 0, $(foreach t, $(USER_RV32A_TESTS),rv32ua-p-$t))
 
-# User Mode RV64A Tests
+# USER MODE RV64A TESTS
 u64atst_lst += $(if $(HAS_RV64A) > 0, $(foreach t, $(USER_RV64A_TESTS),rv64ua-p-$t))
 
-# User Mode RV32F Tests
+# USER MODE RV32F TESTS
 u32ftst_lst += $(if $(HAS_RV32F) > 0, $(foreach t, $(USER_RV32F_TESTS),rv32uf-p-$t))
 
-# User Mode RV64F Tests
+# USER MODE RV64F TESTS
 u64ftst_lst += $(if $(HAS_RV64F) > 0, $(foreach t, $(USER_RV64F_TESTS),rv64uf-p-$t))
 
-# User Mode RV32D Tests
+# USER MODE RV32D TESTS
 u32dtst_lst += $(if $(HAS_RV32D) > 0, $(foreach t, $(USER_RV32D_TESTS),rv32ud-p-$t))
 
-# User Mode RV64D Tests
+# USER MODE RV64D TESTS
 u64dtst_lst += $(if $(HAS_RV64D) > 0, $(foreach t, $(USER_RV64D_TESTS),rv64ud-p-$t))
 
-# User Mode RV32C Tests
+# USER MODE RV32C TESTS
 u32ctst_lst += $(if $(HAS_RV32C) > 0, $(foreach t, $(USER_RV32C_TESTS),rv32uc-p-$t))
 
-# User Mode RV64C Tests
+# USER MODE RV64C TESTS
 u64ctst_lst += $(if $(HAS_RV64C) > 0, $(foreach t, $(USER_RV64C_TESTS),rv64uc-p-$t))
 
-# User Mode RV32ZBA Tests
+# USER MODE RV32ZBA TESTS
 u64zbatst_lst += $(if $(HAS_RV32ZBA) > 0, $(foreach t, $(USER_RV32ZBA_TESTS),rv32uzba-p-$t))
 
-# User Mode RV64ZBA Tests
+# USER MODE RV64ZBA TESTS
 u64zbatst_lst += $(if $(HAS_RV64ZBA) > 0, $(foreach t, $(USER_RV64ZBA_TESTS),rv64uzba-p-$t))
 
-# User Mode RV32ZBB Tests
+# USER MODE RV32ZBB TESTS
 u64zbbtst_lst += $(if $(HAS_RV32ZBB) > 0, $(foreach t, $(USER_RV32ZBB_TESTS),rv32uzbb-p-$t))
 
-# User Mode RV64ZBB Tests
+# USER MODE RV64ZBB TESTS
 u64zbbtst_lst += $(if $(HAS_RV64ZBB) > 0, $(foreach t, $(USER_RV64ZBB_TESTS),rv64uzbb-p-$t))
 
-# User Mode RV32ZBC Tests
+# USER MODE RV32ZBC TESTS
 u64zbctst_lst += $(if $(HAS_RV32ZBC) > 0, $(foreach t, $(USER_RV32ZBC_TESTS),rv32uzbc-p-$t))
 
-# User Mode RV64ZBC Tests
+# USER MODE RV64ZBC TESTS
 u64zbctst_lst += $(if $(HAS_RV64ZBC) > 0, $(foreach t, $(USER_RV64ZBC_TESTS),rv64uzbc-p-$t))
 
-# User Mode RV32ZFH Tests
+# USER MODE RV32ZFH TESTS
 u64zfhtst_lst += $(if $(HAS_RV32ZFH) > 0, $(foreach t, $(USER_RV32ZFH_TESTS),rv32uzfh-p-$t))
 
-# User Mode RV64ZFH Tests
+# USER MODE RV64ZFH TESTS
 u64zfhtst_lst += $(if $(HAS_RV64ZFH) > 0, $(foreach t, $(USER_RV64ZFH_TESTS),rv64uzfh-p-$t))
 
-# User Mode
+# USER MODE
 u32tests = $(if $(HAS_U32) > 0, $(u32itst_lst) $(u32mtst_lst) $(u32atst_lst) $(u32ftst_lst))
 u64tests = $(if $(HAS_U64) > 0, $(u64itst_lst) $(u64mtst_lst) $(u64atst_lst) $(u64ftst_lst))
 
 
-# Supervisor Mode RV32I Tests
+# SUPERVISOR MODE RV32I TESTS
 s32itst_lst = $(if $(HAS_S32) > 0, $(foreach t, $(SUPERVISOR_RV32I_TESTS),rv32si-p-$t))
 
-# Supervisor Mode RV64I Tests
+# SUPERVISOR MODE RV64I TESTS
 s64itst_lst = $(if $(HAS_S64) > 0, $(foreach t, $(SUPERVISOR_RV64I_TESTS),rv64si-p-$t))
 
-# Supervisor Mode RV64SVNAPOT Tests
+# SUPERVISOR MODE RV64SVNAPOT TESTS
 s64svnapottst_lst = $(if $(HAS_RV64SVNAPOT) > 0, $(foreach t, $(SUPERVISOR_RV64SVNAPOT_TESTS),rv64ssvnapot-p-$t))
 
-# Supervisor Mode
+# SUPERVISOR MODE
 s32tests = $(if $(HAS_M32) > 0, $(s32itst_lst))
 s64tests = $(if $(HAS_M64) > 0, $(s64itst_lst) $(s64svnapottst_lst))
 
 
-# Hypervisor Mode RV32I Tests
+# HYPERVISOR MODE RV32I TESTS
 h32itst_lst = $(if $(HAS_H32) > 0, $(foreach t, $(HYPERVISOR_RV32I_TESTS),rv32hi-p-$t))
 
-# Hypervisor Mode RV64I Tests
+# HYPERVISOR MODE RV64I TESTS
 h64itst_lst = $(if $(HAS_H64) > 0, $(foreach t, $(HYPERVISOR_RV64I_TESTS),rv64hi-p-$t))
 
-# Hypervisor Mode
+# HYPERVISOR MODE
 h32tests = $(if $(HAS_M32) > 0, $(h32itst_lst))
 h64tests = $(if $(HAS_M64) > 0, $(h64itst_lst))
 
 
-# Machine Mode RV32I Tests
+# MACHINE MODE RV32I TESTS
 m32itst_lst = $(if $(HAS_M32) > 0, $(foreach t, $(MACHINE_RV32I_TESTS),rv32mi-p-$t))
 
-# Machine Mode RV64I Tests
+# MACHINE MODE RV64I TESTS
 m64itst_lst = $(if $(HAS_M64) > 0, $(foreach t, $(MACHINE_RV64I_TESTS),rv64mi-p-$t))
 
-# Machine Mode RV64ZICBO Tests
+# MACHINE MODE RV64ZICBO TESTS
 m64zicbotst_lst = $(if $(HAS_RV64ZICBO) > 0, $(foreach t, $(MACHINE_RV64ZICBO_TESTS),rv64mzicbo-p-$t))
 
-# Machine Mode
+# MACHINE MODE
 m32tests = $(if $(HAS_M32) > 0, $(m32itst_lst))
 m64tests = $(if $(HAS_M64) > 0, $(m64itst_lst) $(m64zicbotst_lst))
 
 
-# All Tests
+# ALL TESTS
 tests = $(u32tests) $(m32tests)

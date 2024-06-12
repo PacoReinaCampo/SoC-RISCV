@@ -1,4 +1,4 @@
-## Instruction Set Extensions
+## INSTRUCTION SET EXTENSIONS
 
 Format of a line in the table:
 

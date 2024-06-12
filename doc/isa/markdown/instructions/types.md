@@ -1,4 +1,4 @@
-## Instruction Types
+## INSTRUCTION TYPES
 
 Format of a line in the table:
 

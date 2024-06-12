@@ -1,4 +1,4 @@
-## Compressed Instruction
+## COMPRESSED INSTRUCTION
 
 Format of a line in the table:
 

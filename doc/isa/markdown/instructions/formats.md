@@ -1,4 +1,4 @@
-## Disassembly Formats
+## DISASSEMBLY FORMATS
 
 Format of a line in the table:
 

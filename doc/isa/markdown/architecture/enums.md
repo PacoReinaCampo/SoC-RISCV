@@ -1,4 +1,4 @@
-## Enumerated Types
+## ENUMERATED TYPES
 
 Format of a line in the table:
 
@@ -95,6 +95,7 @@ Format of a line in the table:
 | `ext`     | `A`                    | `1`       | `Atomic Extension`                                   | `1.7-`        |
 | `ext`     | `F`                    | `32`      | `Single-precision foating-point extension`           | `1.7-`        |
 | `ext`     | `D`                    | `8`       | `Double-precision foating-point extension`           | `1.7-`        |
+| `ext`     | `Q`                    | `2`       | `Quadruple-precision foating-point extension`        | `1.7-`        |
 | `ext`     | `C`                    | `4`       | `Compressed extension`                               | `1.7-`        |
 : ISA Extensions (misa)
 

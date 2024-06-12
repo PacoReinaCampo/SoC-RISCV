@@ -1,4 +1,4 @@
-## Notation
+## NOTATION
 
 Format of a line in the table:
 

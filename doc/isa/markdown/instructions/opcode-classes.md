@@ -1,4 +1,4 @@
-## Instruction Classes
+## INSTRUCTION CLASSES
 
 Format of a line in the table:
 
