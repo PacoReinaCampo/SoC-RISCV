@@ -1,5 +1,7 @@
 ## CONTROL AND STATUS REGISTER FIELDS
 
+Control and Status Register Fields (CSRFs) define specific bit-fields within CSRs, encoding various control and status information. These fields are used to enable or disable features, set mode flags, and report processor status to software. CSRFs are carefully defined to provide fine-grained control over processor behavior while maintaining compatibility across different RISC-V implementations. They are essential for implementing features such as virtual memory management, interrupt handling, and power management within the processor architecture.
+
 Format of a line in the table:
 
 `<csr> <field> <bitspec> <modes> "<field description>" <version>`
@@ -41,6 +43,8 @@ Format of a line in the table:
 | `status`    | `vm`      | `28:24`   | `m`       | `Virtual Memory Mode`                     | `1.9-1.9.1`      |
 : Machine Status
 
+ The status registers available at the machine privilege level, including their configuration and usage details, are outlined in this part.
+ 
 | csr         | field     | bitspec   | modes     | field description                         | version          |
 |-------------|:----------|:----------|:----------|:------------------------------------------|:-----------------|
 | `ptbr`      | `base`    | `31:12`   | `s`       | `Page Table Base Register`                | `1.7,rv32`       |
@@ -57,6 +61,8 @@ Format of a line in the table:
 | `atp`       | `mode`    | `63:60`   | `s`       | `Address Translation Register (Mode)`     | `1.10,rv64`      |
 : Address Translation
 
+ This section provides details on the address translation mechanisms supported by the RISC-V ISA across different privilege levels.
+ 
 | csr         | field     | bitspec   | modes     | field description                         | version          |
 |-------------|:----------|:----------|:----------|:------------------------------------------|:-----------------|
 | `ip`        | `usip`    | `0`       | `mhsu`    | `User Software Interrupt Pending`         | `1.9-`           |
@@ -73,6 +79,8 @@ Format of a line in the table:
 | `ip`        | `meip`    | `11`      | `m`       | `Machine External Interrupt Pending`      | `1.9-`           |
 : Machine Interrupt Pending
 
+ Registers indicating pending interrupts at the machine privilege level are listed and described in this table.
+ 
 | csr         | field     | bitspec   | modes     | field description                         | version          |
 |-------------|:----------|:----------|:----------|:------------------------------------------|:-----------------|
 | `ie`        | `usie`    | `0`       | `mhsu`    | `User Software Interrupt Enable`          | `1.9-`           |
@@ -88,3 +96,5 @@ Format of a line in the table:
 | `ie`        | `heie`    | `10`      | `mh`      | `Hypervisor External Interrupt Enable`    | `1.9-`           |
 | `ie`        | `meie`    | `11`      | `m`       | `Machine External Interrupt Enable`       | `1.9-`           |
 : Machine Interrupt Enable
+
+ This section covers registers that control interrupt enablement and masking at the machine privilege level in the RISC-V ISA.

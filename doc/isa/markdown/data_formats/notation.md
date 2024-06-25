@@ -1,5 +1,14 @@
 ## NOTATION
 
+Throughout the RISC-V ISA documentation, the following notations are commonly used:
+
+- `rd`, `rs1`, `rs2`, `rs3`: Destination register, source registers 1, 2, and 3, respectively.
+- `imm`: Immediate value used as an operand in certain instructions.
+- `funct3`, `funct7`: Fields within instructions used to differentiate between similar operations.
+- `rs1`, `rs2`: Register specifiers used for source operands.
+- `rd`: Register specifier used for the destination operand.
+- `imm[11:0]`: Immediate value field with specific bit ranges.
+
 Format of a line in the table:
 
 `<symbol> <alias> <arity> <description> <LaTeX code>`
@@ -32,3 +41,5 @@ Format of a line in the table:
 | `f(x...)`     | `f(x...)`     | `n`     | `Function Call`         | `f(x...)`    |
 | `inf`         | `inf`         | `0`     | `Infinity`              | `\infty`     |
 : Notation
+
+The notation table provides a guide to the symbols, abbreviations, and conventions used in the RISC-V ISA documentation for clarity and consistency.

@@ -1,5 +1,7 @@
 ## INSTRUCTION DESCRIPTIONS
 
+Instructions in RISC-V are designed to perform specific operations ranging from basic arithmetic and logical computations to memory access and control flow. Each instruction description outlines its functionality, including operands (registers or immediates), effects on status flags, memory access patterns, and control flow implications. Descriptions provide a clear understanding of how instructions interact with processor state and contribute to program execution.
+
 Format of a line in the table:
 
 `<instruction name> "<instruction description>"`
@@ -48,6 +50,8 @@ Format of a line in the table:
 | `fence.i`        | `Synchronize the instruction and data streams`                                                                                   |
 : RV32I - "RV32I Base Integer Instruction Set"
 
+The RV32I table details the base integer instruction set for the 32-bit RISC-V architecture, encompassing essential operations and functionalities supported at the machine level.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `ld`             | `Load 64-bit value from addr in rs1 plus 12-bit signed immediate and place sign-extended result into rd`                         |
@@ -63,6 +67,8 @@ Format of a line in the table:
 | `sraw`           | `Shift 32-bit value in rs1 right by the by the lower 5 bits in rs2 and place the 32-bit result into rd while retaining the sign` |
 : RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
 
+Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, maintaining compatibility with RV32I while adding support for larger data and addressing spaces.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `mul`            | `Multiply rs1 by rs2 and place the result in rd`                                                                                 |
@@ -75,6 +81,8 @@ Format of a line in the table:
 | `remu`           | `Divide rs1 (dividend) by rs2 (divisor) and place the remainder in rd (unsigned)`                                                |
 : RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
 
+This table outlines the standard extension for integer multiplication and division operations in the 32-bit RISC-V architecture, enhancing computational capabilities with dedicated instructions.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `mulw`           | `Multiply with lower 32-bits of rs1 by the lower 32-bits of rs2 and place the result in rd`                                      |
@@ -83,6 +91,8 @@ Format of a line in the table:
 | `remw`           | `Divide lower 32-bits of rs1 (dividend) by lower 32-bits of rs2 (divisor) and place the remainder in rd (signed)`                |
 | `remuw`          | `Divide lower 32-bits of rs1 (dividend) by lower 32-bits of rs2 (divisor) and place the remainder in rd (unsigned)`              |
 : RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
+
+Extending RV32M to 64-bit, RV64M introduces support for integer multiplication and division operations, catering to applications requiring larger data processing capabilities.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -99,6 +109,8 @@ Format of a line in the table:
 | `amomaxu.w`      | `Load word from address in rs1 into rd, find maximum of rd and rs2, write the result to the address in rs1 (unsigned)`           |
 : RV32A - "RV32A Standard Extension for Atomic Instructions"
 
+Detailed here are the atomic instruction set extensions for the 32-bit RISC-V architecture, providing concurrency control primitives essential for synchronization in multi-threaded environments.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `lr.d`           | `Load double word from address in rs1, place the sign-extended result in rd and register a reservation on the memory word`       |
@@ -113,6 +125,8 @@ Format of a line in the table:
 | `amominu.d`      | `Load double word from address in rs1 into rd, find minimum of rd and rs2, write the result to the address in rs1 (unsigned)`    |
 | `amomaxu.d`      | `Load double word from address in rs1 into rd, find maximum of rd and rs2, write the result to the address in rs1 (unsigned)`    |
 : RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
+
+Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomic instructions for manipulating memory in a thread-safe manner across larger data sets.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -134,6 +148,8 @@ Format of a line in the table:
 | `csrrsi`         | `CSR Atomic Set Bit Immediate reads the CSR, sets CSR bits set in the immediate, and writes previous value to rd`                |
 | `csrrci`         | `CSR Atomic Clear Bit Immediate reads the CSR, clears CSR bits set in the immediate, and writes previous value to rd`            |
 : RV32S - "RV32S Standard Extension for Supervisor-level Instructions"
+
+This section covers supervisor-level instructions tailored for the 32-bit RISC-V architecture, including privileged operations and management functions for system-level tasks.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -163,6 +179,8 @@ Format of a line in the table:
 | `fclass.s`       | `Set rd to a 10-bit mask indicating the class of the single-precision value in frs1`                                             |
 : RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
 
+The RV32F table details the single-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 32-bit floating-point numbers according to IEEE 754 standards.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `fcvt.l.s`       | `Convert the single-precision value in frs1 to a 64-bit signed integer, then write the result to rd`                             |
@@ -172,6 +190,8 @@ Format of a line in the table:
 | `fcvt.s.lu`      | `Convert the 64-bit unsigned integer in rs1 to a single-precision value, then write the result to frd`                           |
 | `fmv.s.x`        | `Write the lower 32-bits of the integer register rs1 into the single-precision register frd`                                     |
 : RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
+
+ Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -205,6 +225,8 @@ Format of a line in the table:
 | `fmv.d.x`        | `Write the 64-bit integer register rs1 into the double-precision register frd`                                                   |
 : RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
 
+ This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `fcvt.l.d`       | `Convert the double-precision value in frs1 to a 64-bit signed integer, then write the result to rd`                             |
@@ -212,6 +234,8 @@ Format of a line in the table:
 | `fcvt.d.l`       | `Convert the 64-bit signed integer in rs1 to a double-precision value, then write the result to frd`                             |
 | `fcvt.d.lu`      | `Convert the 64-bit unsigned integer in rs1 to a double-precision value, then write the result to frd`                           |
 : RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
+
+ Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -224,6 +248,8 @@ Format of a line in the table:
 | `fsrmi`          | `Set FP Rounding Mode Immediate (Bits 7:5 of fcsr Control and Status Register)`                                                  |
 | `fsflagsi`       | `Set FP Accrued Exception Flags Immediate (Bits 4:0 of fcsr Control and Status Register)`                                        |
 : RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
+
+ RV32FD documents the common floating-point instructions shared between the RV32F (single-precision) and RV32D (double-precision) floating-point extensions, optimizing instruction set usage.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -257,6 +283,8 @@ Format of a line in the table:
 | `fclass.q`       | `Set rd to a 10-bit mask indicating the class of the quadruple-precision value in frs1`                                          |
 : RV32Q - "RV32Q Standard Extension for Quadruple-Precision Floating-Point"
 
+ This table outlines the quadruple-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 128-bit floating-point numbers with extended precision.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `fcvt.l.q`       | `Convert the quadruple-precision value in frs1 to a 64-bit signed integer, then write the result to rd`                          |
@@ -265,11 +293,15 @@ Format of a line in the table:
 | `fcvt.q.lu`      | `Convert the 64-bit unsigned integer in rs1 to a quadruple-precision value, then write the result to frd`                        |
 : RV64Q - "RV64Q Standard Extension for Quadruple-Precision Floating-Point (+ RV32Q)"
 
+ Extending RV32Q to 64-bit, RV64Q introduces support for quadruple-precision floating-point operations in the RISC-V architecture, catering to applications requiring ultra-high precision.
+
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `fmv.x.q`        | `Write the sign extended quadruple-precision value in frs1 into integer register rd`                                             |
 | `fmv.q.x`        | `Write the 64-bit integer register rs1 into the quadruple-precision register frd`                                                |
 : RV128Q - "RV128Q Standard Extension for Quadruple-Precision Floating-Point (+ RV64Q)"
+
+ Building upon RV64Q, RV128Q extends quadruple-precision floating-point support to the 128-bit RISC-V architecture, enabling even higher precision computations.
 
 | instruction name | instruction description                                                                                                          |
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
@@ -303,3 +335,5 @@ Format of a line in the table:
 | `jr`             | `Jump register`                                                                                                                  |
 | `ret`            | `Return from subroutine`                                                                                                         |
 : Pseudo Instructions
+
+The Pseudo Instructions table documents pseudo instructions in the RISC-V ISA, which are assembler-level constructs that expand into one or more actual instructions during assembly or compilation, providing convenience or abstraction to programmers.

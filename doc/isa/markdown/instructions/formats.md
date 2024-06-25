@@ -1,5 +1,7 @@
 ## DISASSEMBLY FORMATS
 
+Disassembly formats specify how machine code instructions are translated back into human-readable mnemonic representations during program analysis or debugging. Formats include opcode mnemonics, operand values, and additional contextual information such as memory addresses and control flow targets. Disassembly aids in reverse engineering, performance profiling, and software optimization for RISC-V-based systems.
+
 Format of a line in the table:
 
 `<format> <format description>`
@@ -37,6 +39,8 @@ Format of a line in the table:
 | `aqrl,rd,(rs1)`         |
 : Base Opcode Formats
 
+ This table provides a detailed breakdown of the fundamental opcode formats used in the RISC-V instruction set architecture, essential for understanding instruction encoding and decoding.
+ 
 | format                  |
 |:------------------------|
 | `rd`                    |
@@ -46,3 +50,5 @@ Format of a line in the table:
 | `rs1,offset`            |
 | `rs2,offset`            |
 : Pseudo Opcode Formats
+
+ Detailed here are the opcode formats used for pseudo instructions in the RISC-V ISA, providing compatibility and flexibility in software development across different implementations.

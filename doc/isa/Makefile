@@ -58,9 +58,8 @@ PANDOC_OPTIONS=-f markdown       \
     -V fontsize="10pt"           \
     -V documentclass=report      \
     -V papersize=A4              \
-    -V classoption=landscape     \
     -V linestretch='1'           \
-    -V geometry:margin=0.5cm     \
+    -V geometry:margin=2cm       \
     -V links-as-notes=true       \
     --metadata-file=metadata.md
 

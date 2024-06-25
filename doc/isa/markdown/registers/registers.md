@@ -1,5 +1,7 @@
 ## REGISTERS ABI DEFINITIONS
 
+RISC-V specifies a standard Application Binary Interface (ABI) that defines conventions for register usage across software and hardware interfaces. The ABI standardizes how registers are used for passing arguments to functions, returning values, and preserving state across function calls. It also defines callee-saved and caller-saved registers, ensuring compatibility and interoperability between different compilers and operating systems targeting RISC-V processors.
+
 Format of a line in the table:
 
 `<name> <alias> <type> <save> <description>`
@@ -42,6 +44,7 @@ Format of a line in the table:
 | `x29`  | `t4`    | `ireg`  | `caller`  | `Temporaries Caller`                  |
 | `x30`  | `t5`    | `ireg`  | `caller`  | `Temporaries Caller`                  |
 | `x31`  | `t6`    | `ireg`  | `caller`  | `Temporaries Caller`                  |
+: Base Registers
 
 | name   | alias   | type    | save      |  description                          |
 |--------|:--------|:--------|:----------|:--------------------------------------|
@@ -77,3 +80,4 @@ Format of a line in the table:
 | `f29`  | `ft9`   | `freg`  | `caller`  | `FP temporaries Caller`               |
 | `f30`  | `ft10`  | `freg`  | `caller`  | `FP temporaries Caller`               |
 | `f31`  | `ft11`  | `freg`  | `caller`  | `FP temporaries Caller`               |
+: Float-Point Registers

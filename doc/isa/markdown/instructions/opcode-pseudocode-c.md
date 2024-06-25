@@ -1,5 +1,7 @@
 ## INSTRUCTION PSEUDO CODE (C)
 
+Pseudo Code in C-like syntax provides a high-level representation of RISC-V instructions, illustrating their behavior and operational flow without delving into specific machine-level details. This abstraction aids in software development, algorithm design, and understanding of instruction semantics across different implementations and extensions of the RISC-V ISA.
+
 Format of a line in the table:
 
 `<instruction name> "<instruction pseudo code>"`
@@ -48,6 +50,8 @@ Format of a line in the table:
 | `fence.i`    |                                                                                                             |                                     |
 : RV32I - "RV32I Base Integer Instruction Set"
 
+The RV32I table details the base integer instruction set for the 32-bit RISC-V architecture, encompassing essential operations and functionalities supported at the machine level.
+
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
 | `ld`         | `s64 t; mmu.load<s64>(rs1 + imm, t); rd = t`                                                                | `rd = sx(*(s64*)ptr(rs1 + imm))`    |
@@ -63,6 +67,8 @@ Format of a line in the table:
 | `sraw`       | `rd = s32(s32(rs1) >> (rs2 & 0b11111))`                                                                     |                                     |
 : RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
 
+Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, maintaining compatibility with RV32I while adding support for larger data and addressing spaces.
+
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
 | `mul`        | `rd = sx(rs1) * sx(rs2)`                                                                                    |                                     |
@@ -75,6 +81,8 @@ Format of a line in the table:
 | `remu`       | `rd = sx(rs2) == 0 ? sx(rs1) : sx(ux(rs1) % ux(rs2))`                                                       |                                     |
 : RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
 
+This table outlines the standard extension for integer multiplication and division operations in the 32-bit RISC-V architecture, enhancing computational capabilities with dedicated instructions.
+
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
 | `mulw`       | `rd = s32(u32(rs1) * u32(rs2))`                                                                             |                                     |
@@ -83,6 +91,8 @@ Format of a line in the table:
 | `remw`       | `rd = s32(rs1) == s32(INT_MIN) && s32(rs2) == -1 ? 0 : s32(rs2) == 0 ? s32(rs1) : s32(rs1) % s32(rs2)`      |                                     |
 | `remuw`      | `rd = s32(rs2) == 0 ? s32(rs1) : s32(u32(rs1) % u32(rs2))`                                                  |                                     |
 : RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
+
+Extending RV32M to 64-bit, RV64M introduces support for integer multiplication and division operations, catering to applications requiring larger data processing capabilities.
 
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
@@ -99,6 +109,8 @@ Format of a line in the table:
 | `amomaxu.w`  | `s32 t1, t2 = s32(rs2); mmu.amo<s32>(amomaxu, rs1, t1, t2); rd = t1`                                        |                                     |
 : RV32A - "RV32A Standard Extension for Atomic Instructions"
 
+Detailed here are the atomic instruction set extensions for the 32-bit RISC-V architecture, providing concurrency control primitives essential for synchronization in multi-threaded environments.
+
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
 | `lr.d`       | `lr = rs1; s64 t; mmu.load<s64>(rs1, t); rd = t`                                                            |                                     |
@@ -113,6 +125,8 @@ Format of a line in the table:
 | `amominu.d`  | `s64 t1, t2 = s64(rs2); mmu.amo<s64>(amominu, rs1, t1, t2); rd = t1`                                        |                                     |
 | `amomaxu.d`  | `s64 t1, t2 = s64(rs2); mmu.amo<s64>(amomaxu, rs1, t1, t2); rd = t1`                                        |                                     |
 : RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
+
+Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomic instructions for manipulating memory in a thread-safe manner across larger data sets.
 
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
@@ -139,6 +153,8 @@ Format of a line in the table:
 | `csrrci`     |                                                                                                             |                                     |
 : RV32S - "RV32S Standard Extension for Supervisor-level Instructions"
 
+This section covers supervisor-level instructions tailored for the 32-bit RISC-V architecture, including privileged operations and management functions for system-level tasks.
+
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
 | `flw`        | `u32 t; mmu.load<u32>(rs1 + imm, t); u32(frd) = t`                                                          | `f32(frd) = *(f32*)ptr(rs1 + imm)`  |
@@ -151,11 +167,11 @@ Format of a line in the table:
 | `fsub.s`     | `fenv_setrm(rm); f32(frd) = f32(frs1) - f32(frs2)`                                                          |                                     |
 | `fmul.s`     | `fenv_setrm(rm); f32(frd) = f32(frs1) * f32(frs2)`                                                          |                                     |
 | `fdiv.s`     | `fenv_setrm(rm); f32(frd) = f32(frs1) / f32(frs2)`                                                          |                                     |
-| `fsgnj.s`    | `u32(frd) = (u32(frs1) & u32(~(1U<<31))) | (u32(frs2) & u32(1U<<31))`                                       |                                     |
-| `fsgnjn.s`   | `u32(frd) = (u32(frs1) & u32(~(1U<<31))) | (~u32(frs2) & u32(1U<<31))`                                      |                                     |
+| `fsgnj.s`    | `u32(frd) = (u32(frs1) & u32(~(1U<<31))) \| (u32(frs2) & u32(1U<<31))`                                      |                                     |
+| `fsgnjn.s`   | `u32(frd) = (u32(frs1) & u32(~(1U<<31))) \| (~u32(frs2) & u32(1U<<31))`                                     |                                     |
 | `fsgnjx.s`   | `u32(frd) = u32(frs1) ^ (u32(frs2) & u32(1U<<31))`                                                          |                                     |
-| `fmin.s`     | `f32(frd) = (f32(frs1) < f32(frs2)) || isnan(f32(frs2)) ? f32(frs1) : f32(frs2)`                            |                                     |
-| `fmax.s`     | `f32(frd) = (f32(frs1) > f32(frs2)) || isnan(f32(frs2)) ? f32(frs1) : f32(frs2)`                            |                                     |
+| `fmin.s`     | `f32(frd) = (f32(frs1) < f32(frs2)) \|\| isnan(f32(frs2)) ? f32(frs1) : f32(frs2)`                          |                                     |
+| `fmax.s`     | `f32(frd) = (f32(frs1) > f32(frs2)) \|\| isnan(f32(frs2)) ? f32(frs1) : f32(frs2)`                          |                                     |
 | `fsqrt.s`    | `fenv_setrm(rm); f32(frd) = riscv::f32_sqrt(f32(frs1))`                                                     |                                     |
 | `fle.s`      | `rd = f32(frs1) <= f32(frs2)`                                                                               |                                     |
 | `flt.s`      | `rd = f32(frs1) < f32(frs2)`                                                                                |                                     |
@@ -169,6 +185,8 @@ Format of a line in the table:
 | `fmv.s.x`    | `u32(frd) = u32(rs1)`                                                                                       |                                     |
 : RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
 
+The RV32F table details the single-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 32-bit floating-point numbers according to IEEE 754 standards.
+
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
 | `fcvt.l.s`   | `fenv_setrm(rm); rd = riscv::fcvt_l(fcsr, f32(frs1))`                                                       | `s64(f32(frs1))`                    |
@@ -176,6 +194,8 @@ Format of a line in the table:
 | `fcvt.s.l`   | `fenv_setrm(rm); f32(frd) = f32(s64(rs1))`                                                                  |                                     |
 | `fcvt.s.lu`  | `fenv_setrm(rm); f32(frd) = f32(u64(rs1))`                                                                  |                                     |
 : RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
+
+ Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
 
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
@@ -189,11 +209,11 @@ Format of a line in the table:
 | `fsub.d`     | `fenv_setrm(rm); f64(frd) = f64(frs1) - f64(frs2)`                                                          |                                     |
 | `fmul.d`     | `fenv_setrm(rm); f64(frd) = f64(frs1) * f64(frs2)`                                                          |                                     |
 | `fdiv.d`     | `fenv_setrm(rm); f64(frd) = f64(frs1) / f64(frs2)`                                                          |                                     |
-| `fsgnj.d`    | `u64(frd) = (u64(frs1) & u64(~(1ULL<<63))) | (u64(frs2) & u64(1ULL<<63))`                                   |                                     |
-| `fsgnjn.d`   | `u64(frd) = (u64(frs1) & u64(~(1ULL<<63))) | (~u64(frs2) & u64(1ULL<<63))`                                  |                                     |
+| `fsgnj.d`    | `u64(frd) = (u64(frs1) & u64(~(1ULL<<63))) \| (u64(frs2) & u64(1ULL<<63))`                                  |                                     |
+| `fsgnjn.d`   | `u64(frd) = (u64(frs1) & u64(~(1ULL<<63))) \| (~u64(frs2) & u64(1ULL<<63))`                                 |                                     |
 | `fsgnjx.d`   | `u64(frd) = u64(frs1) ^ (u64(frs2) & u64(1ULL<<63))`                                                        |                                     |
-| `fmin.d`     | `f64(frd) = (f64(frs1) < f64(frs2)) || isnan(f64(frs2)) ? f64(frs1) : f64(frs2)`                            |                                     |
-| `fmax.d`     | `f64(frd) = (f64(frs1) > f64(frs2)) || isnan(f64(frs2)) ? f64(frs1) : f64(frs2)`                            |                                     |
+| `fmin.d`     | `f64(frd) = (f64(frs1) < f64(frs2)) \|\| isnan(f64(frs2)) ? f64(frs1) : f64(frs2)`                          |                                     |
+| `fmax.d`     | `f64(frd) = (f64(frs1) > f64(frs2)) \|\| isnan(f64(frs2)) ? f64(frs1) : f64(frs2)`                          |                                     |
 | `fcvt.s.d`   | `fenv_setrm(rm); f32(frd) = f32(f64(frs1))`                                                                 |                                     |
 | `fcvt.d.s`   | `fenv_setrm(rm); f64(frd) = f64(f32(frs1))`                                                                 |                                     |
 | `fsqrt.d`    | `fenv_setrm(rm); f64(frd) = riscv::f64_sqrt(f64(frs1))`                                                     |                                     |
@@ -206,6 +226,8 @@ Format of a line in the table:
 | `fcvt.d.wu`  | `fenv_setrm(rm); f64(frd) = f64(u32(rs1))`                                                                  |                                     |
 | `fclass.d`   | `rd = f64_classify(f64(frs1))`                                                                              |                                     |
 : RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
+
+ This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
 
 | instruction  | instruction pseudo code                                                                                     |                                     |
 |--------------|:------------------------------------------------------------------------------------------------------------|:------------------------------------|
@@ -228,3 +250,5 @@ Format of a line in the table:
 | `fsrmi`      |                                                                                                             |                                     |
 | `fsflagsi`   |                                                                                                             |                                     |
 : RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
+
+ RV32FD documents the common floating-point instructions shared between the RV32F (single-precision) and RV32D (double-precision) floating-point extensions, optimizing instruction set usage.

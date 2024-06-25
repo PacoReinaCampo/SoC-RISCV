@@ -1,5 +1,7 @@
 ## INSTRUCTION ENCODINGS
 
+RISC-V instructions are encoded using fixed-length formats (32 or 64 bits) to simplify decoding and execution. The encoding specifies fields such as opcode, register specifiers (`rs1`, `rs2`, `rd`), immediate values, and function codes (`funct3`, `funct7`) where applicable. This structured approach enables straightforward instruction fetch and decode stages in the processor pipeline, contributing to overall performance efficiency.
+
 Format of a line in the table:
 
 `<codec> <format> [<argument> ... ]`
@@ -86,3 +88,5 @@ Format of a line in the table:
 | `css·swsp+f` | `frs2,offset(rs1)`       | `cfrs2 cimmswsp`        |
 | `css·sdsp+f` | `frs2,offset(rs1)`       | `cfrs2 cimmsdsp`        |
 : Instruction Encodings
+
+This table provides an overview of the encoding formats used for representing instructions in the RISC-V ISA, including their bit-level structures, opcode assignments, operand fields, and any additional control bits necessary for proper execution.

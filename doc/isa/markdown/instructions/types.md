@@ -1,5 +1,16 @@
 ## INSTRUCTION TYPES
 
+Instructions in RISC-V are categorized into several types based on their functionality:
+
+- **R-Type**: Arithmetic/logical instructions with register operands.
+- **I-Type**: Immediate instructions with an immediate value and one register operand.
+- **S-Type**: Store instructions that store a register value into memory.
+- **B-Type**: Branch instructions for conditional jumps.
+- **U-Type**: Upper immediate instructions for setting upper bits of a register.
+- **J-Type**: Jump instructions for unconditional jumps.
+
+Each type is designed with specific operand formats and encodings to efficiently perform common computational tasks and control flow operations.
+
 Format of a line in the table:
 
 `<type> <type name> <bit encoding>[=<name>] ...`
@@ -16,6 +27,8 @@ Format of a line in the table:
 | `uj`   | `Jump`                 | `31:12[20|10:1|11|19:12]=imm                                11:7=rd           6:0=opcode` |
 : Base Instruction Type
 
+The base instruction type table categorizes and describes the fundamental instructions that constitute the core of the RISC-V ISA, covering essential operations such as arithmetic, logical, control flow, and memory access.
+
 | type   | type name              | bit encoding                                                                              |
 |--------|:-----------------------|:------------------------------------------------------------------------------------------|
 | `16`   | `Compressed`           | `15:13        12:10             9:7        6:5     4:2      1:0`                          |
@@ -28,3 +41,5 @@ Format of a line in the table:
 | `cb`   | `Branch`               | `15:13=funct3 12:10=imm         9:7=rs1'   6:2=imm          1:0=op`                       |
 | `cj`   | `Jump`                 | `15:13=funct3 12:2=imm                                      1:0=op`                       |
 : Compressed Instruction Type
+
+The compressed instruction type table details the subset of instructions available in compressed format within the RISC-V ISA, offering reduced code size benefits while maintaining compatibility with the base instruction set.
