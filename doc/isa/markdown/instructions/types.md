@@ -22,9 +22,9 @@ Format of a line in the table:
 | `r4`   | `Register`             | `31:27=rs3    26:25=funct2 24:20=rs2 19:15=rs1 14:12=funct3 11:7=rd           6:0=opcode` |
 | `i`    | `Immediate`            | `31:20[11:0]=imm                     19:15=rs1 14:12=funct3 11:7=rd           6:0=opcode` |
 | `s`    | `Store`                | `31:25[11:5]=imm           24:20=rs2 19:15=rs1 14:12=funct3 11:7[4:0]=imm     6:0=opcode` |
-| `sb`   | `Branch`               | `31:25[12|10:5]=imm        24:20=rs2 19:15=rs1 14:12=funct3 11:7[4:1|11]=imm  6:0=opcode` |
+| `sb`   | `Branch`               | `31:25[12\|10:5]=imm       24:20=rs2 19:15=rs1 14:12=funct3 11:7[4:1\|11]=imm 6:0=opcode` |
 | `u`    | `Upper`                | `31:12[31:12]=imm                                           11:7=rd           6:0=opcode` |
-| `uj`   | `Jump`                 | `31:12[20|10:1|11|19:12]=imm                                11:7=rd           6:0=opcode` |
+| `uj`   | `Jump`                 | `31:12[20\|10:1\|11\|19:12]=imm                             11:7=rd           6:0=opcode` |
 : Base Instruction Type
 
 The base instruction type table categorizes and describes the fundamental instructions that constitute the core of the RISC-V ISA, covering essential operations such as arithmetic, logical, control flow, and memory access.

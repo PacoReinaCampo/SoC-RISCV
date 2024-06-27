@@ -26,7 +26,7 @@ Format of a line in the table:
 | `=`           | `=`           | `2`     | `Assignment`            | `\leftarrow` |
 | `~`           | `~`           | `1`     | `Bitwise Not`           | `\neg`       |
 | `&`           | `&`           | `2`     | `Bitwise And`           | `\wedge`     |
-| `|`           | `|`           | `2`     | `Bitwise Or`            | `\vee`       |
+| `\|`          | `\|`          | `2`     | `Bitwise Or`            | `\vee`       |
 | `^`           | `^`           | `2`     | `Bitwise Xor`           | `\oplus`     |
 | `-`           | `-`           | `1`     | `Arithmetic Negate`     | `-`          |
 | `-`           | `-`           | `2`     | `Subtract`              | `-`          |

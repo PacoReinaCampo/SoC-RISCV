@@ -31,7 +31,7 @@ Format of a line in the table:
 | `slti`       | `rd = sx(rs1) < sx(imm)`                                            |
 | `sltiu`      | `rd = ux(rs1) < ux(imm)`                                            |
 | `xori`       | `rd = ux(rs1) ^ ux(imm)`                                            |
-| `ori`        | `rd = ux(rs1) | ux(imm)`                                            |
+| `ori`        | `rd = ux(rs1) \| ux(imm)`                                           |
 | `andi`       | `rd = ux(rs1) & ux(imm)`                                            |
 | `slli`       | `rd = ux(rs1) << ux(imm)`                                           |
 | `srli`       | `rd = ux(rs1) >> ux(imm)`                                           |
@@ -44,7 +44,7 @@ Format of a line in the table:
 | `xor`        | `rd = ux(rs1) ^ ux(rs2)`                                            |
 | `srl`        | `rd = ux(rs1) >> rs2`                                               |
 | `sra`        | `rd = sx(rs1) >> rs2`                                               |
-| `or`         | `rd = ux(rs1) | ux(rs2)`                                            |
+| `or`         | `rd = ux(rs1) \| ux(rs2)`                                           |
 | `and`        | `rd = ux(rs1) & ux(rs2)`                                            |
 | `fence`      |                                                                     |
 | `fence.i`    |                                                                     |
