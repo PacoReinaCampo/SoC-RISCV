@@ -9,14 +9,14 @@
 ##                  |_|                                                          ##
 ##                                                                               ##
 ##                                                                               ##
+##              MPSoC-NTM (T-DNC/NTM-SoC)                                        ##
 ##              QueenField                                                       ##
-##              Multi-Processor System on Chip                                   ##
 ##                                                                               ##
 ###################################################################################
 
 ###################################################################################
 ##                                                                               ##
-## Copyright (c) 2022-2025 by the author(s)                                      ##
+## Copyright (c) 2022-2023 by the author(s)                                      ##
 ##                                                                               ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
 ## of this software and associated documentation files (the "Software"), to deal ##
@@ -42,27 +42,41 @@
 ##                                                                               ##
 ###################################################################################
 
-java application/bfm/ahb3/peripheral_test.scala
-java application/bfm/apb4/peripheral_test.scala
-java application/bfm/axi4/peripheral_test.scala
-java application/bfm/bb/peripheral_test.scala
-java application/bfm/biu/peripheral_test.scala
-java application/bfm/wb/peripheral_test.scala
-java application/core/ahb3/peripheral_test.scala
-java application/core/apb4/peripheral_test.scala
-java application/core/axi4/peripheral_test.scala
-java application/core/bb/peripheral_test.scala
-java application/core/biu/peripheral_test.scala
-java application/core/wb/peripheral_test.scala
-java application/pu/ahb3/peripheral_test.scala
-java application/pu/apb4/peripheral_test.scala
-java application/pu/axi4/peripheral_test.scala
-java application/pu/bb/peripheral_test.scala
-java application/pu/biu/peripheral_test.scala
-java application/pu/wb/peripheral_test.scala
-java application/soc/ahb3/peripheral_test.scala
-java application/soc/apb4/peripheral_test.scala
-java application/soc/axi4/peripheral_test.scala
-java application/soc/bb/peripheral_test.scala
-java application/soc/biu/peripheral_test.scala
-java application/soc/wb/peripheral_test.scala
+SOURCE_DOCS := $(wildcard *.md)
+SOURCE_DOCS := $(filter-out metadata.md, $(SOURCE_DOCS))
+
+EXPORTED_DOCS=\
+ $(SOURCE_DOCS:.md=.pdf)
+
+PANDOC_OPTIONS=-f markdown       \
+    --table-of-contents          \
+    --toc-depth=6                \
+    --number-sections            \
+    --pdf-engine=xelatex         \
+    -V lof=yes                   \
+    -V lot=yes                   \
+    -V fontsize="10pt"           \
+    -V documentclass=report      \
+    -V papersize=A4              \
+    -V linestretch='1'           \
+    -V geometry:margin=2cm       \
+    -V links-as-notes=true       \
+    --metadata-file=metadata.md
+
+PANDOC_HTML_OPTIONS=--to html5
+PANDOC_PDF_OPTIONS=
+PANDOC_DOCX_OPTIONS=
+PANDOC_ODT_OPTIONS=
+PANDOC_EPUB_OPTIONS=--to epub3
+
+# Pattern-Matching Rules
+
+%.pdf : %.md
+	pandoc -s $(shell cat $<) $(PANDOC_OPTIONS) $(PANDOC_PDF_OPTIONS) -o $@
+
+all : $(EXPORTED_DOCS)
+
+clean:
+	-rm -f $(EXPORTED_DOCS)
+
+.PHONY: clean
