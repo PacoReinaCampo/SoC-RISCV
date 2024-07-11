@@ -1,4 +1,4 @@
-# Processing Unit
+# ARCHITECTURE
 
 | `Name` | `Value` |
 | :----- | :------ |
@@ -60,23 +60,6 @@
 | `BP_LOCAL_BITS`     | `10`    |
 | `BP_LOCAL_BITS_LSB` | ` 2`    |
 
-| `Name`               | `Value` | `Description`             |
-| :------------------- | :------ | :------------------------ |
-| `ICACHE_SIZE`        | `64`    | `in KBytes`               |
-| `ICACHE_BLOCK_SIZE`  | `64`    | `in Bytes`                |
-| `ICACHE_WAYS`        | `2`     | `'n'-way set associative` |
-| `ICACHE_REPLACE_ALG` | `0`     |                           |
-| `ITCM_SIZE`          | `0`     |                           |
-
-| `Name`               | `Value` | `Description`             |
-| :------------------- | :------ | :------------------------ |
-| `DCACHE_SIZE`        | `64`    | `in KBytes`               |
-| `DCACHE_BLOCK_SIZE`  | `64`    | `in Bytes`                |
-| `DCACHE_WAYS`        | `2`     | `'n'-way set associative` |
-| `DCACHE_REPLACE_ALG` | `0`     |                           |
-| `DTCM_SIZE`          | `0`     |                           |
-| `WRITEBUFFER_SIZE`   | `8`     |                           |
-
 | `Name`       | `Value`     |
 | :----------- | :---------- |
 | `TECHNOLOGY` | `"GENERIC"` |
@@ -130,3 +113,105 @@
 | `REVUSR_MAJOR` | `2`     |
 | `REVUSR_MINOR` | `2`     |
 : Definitions Package
+
+## MAIN
+
+| `Component`       |
+| :---------------- |
+| `pu_riscv_core`   |
+: Implementation - Main
+
+### PU RISCV CORE
+
+## FETCH
+
+| `Component`   |
+| :------------ |
+| `pu_riscv_if` |
+: Implementation - Fetch
+
+### PU RISCV IF
+
+## DECODE
+
+| `Component`   |
+| :------------ |
+| `pu_riscv_id` |
+: Implementation - Decode
+
+### PU RISCV ID
+
+## EXECUTE
+
+| `Component`           |
+| :-------------------- |
+| `pu_riscv_execution`  |
+| `pu_riscv_alu`        |
+| `pu_riscv_lsu`        |
+| `pu_riscv_bu`         |
+| `pu_riscv_divider`    |
+| `pu_riscv_multiplier` |
+: Implementation - Execute
+
+### PU RISCV EXECUTION
+### PU RISCV ALU
+### PU RISCV LSU
+### PU RISCV BU
+### PU RISCV MULTIPLIER
+### PU RISCV DIVIDER
+
+## MEMORY
+
+| `Component`       |
+| :---------------- |
+| `pu_riscv_memory` |
+: Implementation - Memory
+
+### PU RISCV MEMORY
+
+## CONTROL
+
+| `Component`      |
+| :--------------- |
+| `pu_riscv_state` |
+| `pu_riscv_bp`    |
+| `pu_riscv_du`    |
+: Implementation - Control
+
+### PU RISCV STATE
+### PU RISCV BP
+### PU RISCV DU
+
+## PERIPHERAL
+
+| `Component`            |
+| :--------------------- |
+| `pu_riscv_dcache_core` |
+| `pu_riscv_dmem_ctrl`   |
+| `pu_riscv_icache_core` |
+| `pu_riscv_imem_ctrl`   |
+: Implementation - Cache
+
+### PU RISCV DCACHE-CORE
+
+| `Name`               | `Value` | `Description`             |
+| :------------------- | :------ | :------------------------ |
+| `ICACHE_SIZE`        | `64`    | `in KBytes`               |
+| `ICACHE_BLOCK_SIZE`  | `64`    | `in Bytes`                |
+| `ICACHE_WAYS`        | `2`     | `'n'-way set associative` |
+| `ICACHE_REPLACE_ALG` | `0`     |                           |
+| `ITCM_SIZE`          | `0`     |                           |
+
+### PU RISCV DMEM-CTRL
+
+| `Name`               | `Value` | `Description`             |
+| :------------------- | :------ | :------------------------ |
+| `DCACHE_SIZE`        | `64`    | `in KBytes`               |
+| `DCACHE_BLOCK_SIZE`  | `64`    | `in Bytes`                |
+| `DCACHE_WAYS`        | `2`     | `'n'-way set associative` |
+| `DCACHE_REPLACE_ALG` | `0`     |                           |
+| `DTCM_SIZE`          | `0`     |                           |
+| `WRITEBUFFER_SIZE`   | `8`     |                           |
+
+### PU RISCV ICACHE-CORE
+### PU RISCV IMEM-CTRL

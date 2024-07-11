@@ -1,4 +1,8 @@
-# Debug Unit
+# TRAPS
+
+## MAIN
+
+### PU RISCV CORE
 
 | `Name`         | `Value` | `Description`                 |
 | :------------- | :------ | :---------------------------- |
@@ -106,3 +110,37 @@
 Bank2 - CSRs
 
 Direct mapping to the 12-bit CSR address space
+
+## FETCH
+
+### PU RISCV IF
+
+## DECODE
+
+### PU RISCV ID
+
+## EXECUTE
+
+### PU RISCV EXECUTION
+### PU RISCV ALU
+### PU RISCV LSU
+### PU RISCV BU
+### PU RISCV MULTIPLIER
+### PU RISCV DIVIDER
+
+## MEMORY
+
+### PU RISCV MEMORY
+
+## CONTROL
+
+### PU RISCV STATE
+### PU RISCV BP
+### PU RISCV DU
+
+## PERIPHERAL
+
+### PU RISCV DCACHE-CORE
+### PU RISCV DMEM-CTRL
+### PU RISCV ICACHE-CORE
+### PU RISCV IMEM-CTRL

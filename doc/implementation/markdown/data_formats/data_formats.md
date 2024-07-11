@@ -1,4 +1,27 @@
-# Memory Unit
+# DATA FORMATS
+
+## MAIN
+
+### PU RISCV CORE
+
+## FETCH
+
+### PU RISCV IF
+
+## DECODE
+
+### PU RISCV ID
+
+## EXECUTE
+
+### PU RISCV EXECUTION
+### PU RISCV ALU
+### PU RISCV LSU
+### PU RISCV BU
+### PU RISCV MULTIPLIER
+### PU RISCV DIVIDER
+
+## MEMORY
 
 | `Name`           | `Value` |
 | :--------------- | :------ |
@@ -13,3 +36,18 @@
 | `AMO_TYPE_SWAP`       | `2'h1`  |
 | `AMO_TYPE_LOGICAL`    | `2'h2`  |
 | `AMO_TYPE_ARITHMETIC` | `2'h3`  |
+
+### PU RISCV MEMORY
+
+## CONTROL
+
+### PU RISCV STATE
+### PU RISCV BP
+### PU RISCV DU
+
+## PERIPHERAL
+
+### PU RISCV DCACHE-CORE
+### PU RISCV DMEM-CTRL
+### PU RISCV ICACHE-CORE
+### PU RISCV IMEM-CTRL

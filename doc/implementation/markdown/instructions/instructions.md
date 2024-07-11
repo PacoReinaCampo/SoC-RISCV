@@ -1,4 +1,25 @@
-# Execution Unit
+# INSTRUCTIONS
+
+## MAIN
+
+### PU RISCV CORE
+
+## FETCH
+
+### PU RISCV IF
+
+## DECODE
+
+### PU RISCV ID
+
+## EXECUTE
+
+### PU RISCV EXECUTION
+### PU RISCV ALU
+### PU RISCV LSU
+### PU RISCV BU
+### PU RISCV MULTIPLIER
+### PU RISCV DIVIDER
 
 | `Name` | `Value` |
 | :----- | :------ |
@@ -34,7 +55,7 @@
 | `OPC_SYSTEM`   | `5'b11_100` |
 : Opcodes
 
-## RV32/RV64 Base Instructions
+#### RV32/RV64 Base Instructions
 
 | `Name`  | `Value`                 |
 | :------ | :---------------------- |
@@ -122,7 +143,7 @@
 | `CSRRCI` | `15'b???????_111_11100` |
 : F7-F3 Opcode
 
-## RV32/RV64 A-Extensions Instructions
+#### RV32/RV64 A-Extensions Instructions
 
 | `Name`     | `Value`                 |
 | :--------- | :---------------------- |
@@ -154,7 +175,7 @@
 | `AMOMAXUD` | `15'b11100??_011_01011` |
 : F7-F3 Opcode A-Extensions Instructions D
 
-## RV32/RV64 M-Extensions Instructions
+#### RV32/RV64 M-Extensions Instructions
 
 | `Name`   | `Value`                 |
 | :------- | :---------------------- |
@@ -172,3 +193,20 @@
 | `REMU`   | `15'b0000001_111_01100` |
 | `REMUW`  | `15'b0000001_111_01110` |
 : F7-F3 Opcode M-Extensions Instructions
+
+## MEMORY
+
+### PU RISCV MEMORY
+
+## CONTROL
+
+### PU RISCV STATE
+### PU RISCV BP
+### PU RISCV DU
+
+## PERIPHERAL
+
+### PU RISCV DCACHE-CORE
+### PU RISCV DMEM-CTRL
+### PU RISCV ICACHE-CORE
+### PU RISCV IMEM-CTRL

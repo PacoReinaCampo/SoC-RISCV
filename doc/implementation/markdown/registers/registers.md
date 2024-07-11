@@ -1,131 +1,6 @@
-# State Unit
+# REGISTERS
 
-## Per Supervisor Spec Draft 1.10
-
-| `Name`  | `Value` |
-| :------ | :------ |
-| `OFF`   | `2'd0`  |
-| `TOR`   | `2'd1`  |
-| `NA4`   | `2'd2`  |
-| `NAPOT` | `2'd3`  |
-: PMP-CFG Register
-
-## CSR Mapping
-
-### User
-
-| `Name`    | `Value` |
-| :-------- | :------ |
-| `USTATUS` | `'h000` |
-| `UIE`     | `'h004` |
-| `UTVEC`   | `'h005` |
-: User Trap Setup
-
-| `Name`     | `Value` |
-| :--------- | :------ |
-| `USCRATCH` | `'h040` |
-| `UEPC`     | `'h041` |
-| `UCAUSE`   | `'h042` |
-| `UBADADDR` | `'h043` |
-| `UTVAL`    | `'h043` |
-| `UIP`      | `'h044` |
-: User Trap Handling
-
-| `Name`   | `Value` |
-| :------- | :------ |
-| `FFLAGS` | `'h001` |
-| `FRM`    | `'h002` |
-| `FCSR`   | `'h003` |
-: User Floating-Point CSRs
-
-| `Name`         | `Value` | `Observation`              |
-| :------------- | :------ | :------------------------- |
-| `CYCLE`        | `'hC00` |                            |
-| `TIMEX`        | `'hC01` |                            |
-| `INSTRET`      | `'hC02` |                            |
-| `HPMCOUNTER3`  | `'hC03` | `until HPMCOUNTER31='hC1F` |
-| `CYCLEH`       | `'hC80` |                            |
-| `TIMEH`        | `'hC81` |                            |
-| `INSTRETH`     | `'hC82` |                            |
-| `HPMCOUNTER3H` | `'hC83` | `until HPMCONTER31='hC9F`  |
-: User Counters/Timers
-
-### Supervisor
-
-| `Name`       | `Value` |
-| :----------- | :------ |
-| `SSTATUS`    | `'h100` |
-| `SEDELEG`    | `'h102` |
-| `SIDELEG`    | `'h103` |
-| `SIE`        | `'h104` |
-| `STVEC`      | `'h105` |
-| `SCOUNTEREN` | `'h106` |
-: Supervisor Trap Setup
-
-| `Name`     | `Value` |
-| :--------- | :------ |
-| `SSCRATCH` | `'h140` |
-| `SEPC`     | `'h141` |
-| `SCAUSE`   | `'h142` |
-| `STVAL`    | `'h143` |
-| `SIP`      | `'h144` |
-: Supervisor Trap Handling
-
-| `Name` | `Value` |
-| :----- | :------ |
-| `SATP` | `'h180` |
-: Supervisor Protection and Translation
-
-### Hypervisor
-
-| `Name`    | `Value` |
-| :-------- | :------ |
-| `HSTATUS` | `'h200` |
-| `HEDELEG` | `'h202` |
-| `HIDELEG` | `'h203` |
-| `HIE`     | `'h204` |
-| `HTVEC`   | `'h205` |
-: Hypervisor trap setup
-
-| `Name`     | `Value` |
-| :--------- | :------ |
-| `HSCRATCH` | `'h240` |
-| `HEPC`     | `'h241` |
-| `HCAUSE`   | `'h242` |
-| `HTVAL`    | `'h243` |
-| `HIP`      | `'h244` |
-: Hypervisor Trap Handling
-
-### Machine
-
-| `Name`      | `Value` |
-| :---------- | :------ |
-| `MVENDORID` | `'hF11` |
-| `MARCHID`   | `'hF12` |
-| `MIMPID`    | `'hF13` |
-| `MHARTID`   | `'hF14` |
-: Machine Information
-
-| `Name`       | `Value` | `Observation` |
-| :----------- | :------ | :------------ |
-| `MSTATUS`    | `'h300` |               |
-| `MISA`       | `'h301` |               |
-| `MEDELEG`    | `'h302` |               |
-| `MIDELEG`    | `'h303` |               |
-| `MIE`        | `'h304` |               |
-| `MNMIVEC`    | `'h7C0` | `NMI Vector`  |
-| `MTVEC`      | `'h305` |               |
-| `MCOUNTEREN` | `'h306` |               |
-: Machine Trap Setup
-
-| `Name`     | `Value` |
-| :--------- | :------ |
-| `MSCRATCH` | `'h340` |
-| `MEPC`     | `'h341` |
-| `MCAUSE`   | `'h342` |
-| `MTVAL`    | `'h343` |
-| `MIP`      | `'h344` |
-: Machine Trap Handling
+## MAIN
 
 | `Name`    | `Value` | `Observation` |
 | :-------- | :------ | :------------ |
@@ -266,3 +141,162 @@
 | `CAUSE_SEINT` | `9`     |
 | `CAUSE_HEINT` | `10`    |
 | `CAUSE_MEINT` | `11`    |
+
+### PU RISCV CORE
+
+| `Name`  | `Value` |
+| :------ | :------ |
+| `OFF`   | `2'd0`  |
+| `TOR`   | `2'd1`  |
+| `NA4`   | `2'd2`  |
+| `NAPOT` | `2'd3`  |
+: PMP-CFG Register
+
+## FETCH
+
+### PU RISCV IF
+
+## DECODE
+
+### PU RISCV ID
+
+## EXECUTE
+
+### PU RISCV EXECUTION
+### PU RISCV ALU
+### PU RISCV LSU
+### PU RISCV BU
+### PU RISCV MULTIPLIER
+### PU RISCV DIVIDER
+
+#### User
+
+| `Name`    | `Value` |
+| :-------- | :------ |
+| `USTATUS` | `'h000` |
+| `UIE`     | `'h004` |
+| `UTVEC`   | `'h005` |
+: User Trap Setup
+
+| `Name`     | `Value` |
+| :--------- | :------ |
+| `USCRATCH` | `'h040` |
+| `UEPC`     | `'h041` |
+| `UCAUSE`   | `'h042` |
+| `UBADADDR` | `'h043` |
+| `UTVAL`    | `'h043` |
+| `UIP`      | `'h044` |
+: User Trap Handling
+
+| `Name`   | `Value` |
+| :------- | :------ |
+| `FFLAGS` | `'h001` |
+| `FRM`    | `'h002` |
+| `FCSR`   | `'h003` |
+: User Floating-Point CSRs
+
+| `Name`         | `Value` | `Observation`              |
+| :------------- | :------ | :------------------------- |
+| `CYCLE`        | `'hC00` |                            |
+| `TIMEX`        | `'hC01` |                            |
+| `INSTRET`      | `'hC02` |                            |
+| `HPMCOUNTER3`  | `'hC03` | `until HPMCOUNTER31='hC1F` |
+| `CYCLEH`       | `'hC80` |                            |
+| `TIMEH`        | `'hC81` |                            |
+| `INSTRETH`     | `'hC82` |                            |
+| `HPMCOUNTER3H` | `'hC83` | `until HPMCONTER31='hC9F`  |
+: User Counters/Timers
+
+#### Supervisor
+
+| `Name`       | `Value` |
+| :----------- | :------ |
+| `SSTATUS`    | `'h100` |
+| `SEDELEG`    | `'h102` |
+| `SIDELEG`    | `'h103` |
+| `SIE`        | `'h104` |
+| `STVEC`      | `'h105` |
+| `SCOUNTEREN` | `'h106` |
+: Supervisor Trap Setup
+
+| `Name`     | `Value` |
+| :--------- | :------ |
+| `SSCRATCH` | `'h140` |
+| `SEPC`     | `'h141` |
+| `SCAUSE`   | `'h142` |
+| `STVAL`    | `'h143` |
+| `SIP`      | `'h144` |
+: Supervisor Trap Handling
+
+| `Name` | `Value` |
+| :----- | :------ |
+| `SATP` | `'h180` |
+: Supervisor Protection and Translation
+
+#### Hypervisor
+
+| `Name`    | `Value` |
+| :-------- | :------ |
+| `HSTATUS` | `'h200` |
+| `HEDELEG` | `'h202` |
+| `HIDELEG` | `'h203` |
+| `HIE`     | `'h204` |
+| `HTVEC`   | `'h205` |
+: Hypervisor trap setup
+
+| `Name`     | `Value` |
+| :--------- | :------ |
+| `HSCRATCH` | `'h240` |
+| `HEPC`     | `'h241` |
+| `HCAUSE`   | `'h242` |
+| `HTVAL`    | `'h243` |
+| `HIP`      | `'h244` |
+: Hypervisor Trap Handling
+
+#### Machine
+
+| `Name`      | `Value` |
+| :---------- | :------ |
+| `MVENDORID` | `'hF11` |
+| `MARCHID`   | `'hF12` |
+| `MIMPID`    | `'hF13` |
+| `MHARTID`   | `'hF14` |
+: Machine Information
+
+| `Name`       | `Value` | `Observation` |
+| :----------- | :------ | :------------ |
+| `MSTATUS`    | `'h300` |               |
+| `MISA`       | `'h301` |               |
+| `MEDELEG`    | `'h302` |               |
+| `MIDELEG`    | `'h303` |               |
+| `MIE`        | `'h304` |               |
+| `MNMIVEC`    | `'h7C0` | `NMI Vector`  |
+| `MTVEC`      | `'h305` |               |
+| `MCOUNTEREN` | `'h306` |               |
+: Machine Trap Setup
+
+| `Name`     | `Value` |
+| :--------- | :------ |
+| `MSCRATCH` | `'h340` |
+| `MEPC`     | `'h341` |
+| `MCAUSE`   | `'h342` |
+| `MTVAL`    | `'h343` |
+| `MIP`      | `'h344` |
+: Machine Trap Handling
+
+## MEMORY
+
+### PU RISCV MEMORY
+
+## CONTROL
+
+### PU RISCV STATE
+### PU RISCV BP
+### PU RISCV DU
+
+## PERIPHERAL
+
+### PU RISCV DCACHE-CORE
+### PU RISCV DMEM-CTRL
+### PU RISCV ICACHE-CORE
+### PU RISCV IMEM-CTRL

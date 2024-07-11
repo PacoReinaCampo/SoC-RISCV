@@ -1,5 +1,5 @@
 ---
-title: 'RISC-V ISA'
+title: 'RISC-V Implementation'
 subtitle: '![](riscv.png){width=5cm}'
 
 author: Paco Reina Campo
