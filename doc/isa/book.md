@@ -2,6 +2,9 @@ markdown/architecture/definition.md
 markdown/architecture/enums.md
 markdown/architecture/constraints.md
 markdown/architecture/operands.md
+markdown/data_formats/glossary.md
+markdown/data_formats/descriptions.md
+markdown/data_formats/notation.md
 markdown/registers/register.md
 markdown/registers/registers.md
 markdown/registers/csrs.md
@@ -11,7 +14,6 @@ markdown/instructions/extensions.md
 markdown/instructions/types.md
 markdown/instructions/codecs.md
 markdown/instructions/compression.md
-markdown/instructions/pseudos.md
 markdown/instructions/opcode.md
 markdown/instructions/opcode-fullnames.md
 markdown/instructions/opcode-descriptions.md
@@ -22,9 +24,8 @@ markdown/instructions/opcode-pseudocode-c.md
 markdown/instructions/opcode-pseudocode-alternative.md
 markdown/instructions/formats.md
 markdown/instructions/opcode-majors.md
+markdown/traps/traps.md
+markdown/traps/pseudos.md
 markdown/verification/verification.md
 markdown/verification/test-32.md
 markdown/verification/test-64.md
-markdown/data_formats/glossary.md
-markdown/data_formats/descriptions.md
-markdown/data_formats/notation.md
