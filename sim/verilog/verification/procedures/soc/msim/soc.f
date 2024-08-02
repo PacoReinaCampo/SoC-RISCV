@@ -139,7 +139,7 @@
 ../../../../../../pu/rtl/verilog/core/main/pu_riscv_memory.sv
 ../../../../../../pu/rtl/verilog/core/main/pu_riscv_rf.sv
 ../../../../../../pu/rtl/verilog/core/main/pu_riscv_state.sv
-../../../../../../pu/rtl/verilog/core/main/pu_riscv_wb.sv
+../../../../../../pu/rtl/verilog/core/main/pu_riscv_writeback.sv
 ../../../../../../pu/rtl/verilog/core/memory/pu_riscv_dmem_ctrl.sv
 ../../../../../../pu/rtl/verilog/core/memory/pu_riscv_imem_ctrl.sv
 ../../../../../../pu/rtl/verilog/core/memory/pu_riscv_membuf.sv
