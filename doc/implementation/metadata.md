@@ -1,5 +1,5 @@
 ---
-title: 'RISC-V Implementation'
+title: '**RISC-V Implementation**'
 subtitle: '![](riscv.png){width=5cm}'
 
 author: Paco Reina Campo
