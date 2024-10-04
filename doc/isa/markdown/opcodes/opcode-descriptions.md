@@ -308,9 +308,9 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `nop`            | `No operation`                                                                                                                   |
 | `#li`            | `Load immediate`                                                                                                                 |
 | `mv`             | `Copy register`                                                                                                                  |
-| `not`            | `One’s complement`                                                                                                               |
-| `neg`            | `Two’s complement`                                                                                                               |
-| `negw`           | `Two’s complement Word`                                                                                                          |
+| `not`            | `One's complement`                                                                                                               |
+| `neg`            | `Two's complement`                                                                                                               |
+| `negw`           | `Two's complement Word`                                                                                                          |
 | `sext.w`         | `Sign extend Word`                                                                                                               |
 | `seqz`           | `Set if = zero`                                                                                                                  |
 | `snez`           | `Set if != zero`                                                                                                                 |
