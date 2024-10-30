@@ -5,29 +5,29 @@ digraph Project {
 
   // Peripheral Blocks
   subgraph "cluster PeripheralBlocks" { label = "Peripheral Blocks";
-    MPSoC_DBG[label="MPSoC_DBG\nPeripheral"];
-    MPSoC_DMA[label="MPSoC_DMA\nPeripheral"];
-    MPSoC_GPIO[label="MPSoC_GPIO\nPeripheral"];
-    MPSoC_MPI[label="MPSoC_MPI\nPeripheral"];
-    MPSoC_MPRAM[label="MPSoC_MPRAM\nPeripheral"];
-    MPSoC_MSI[label="MPSoC_MSI\nPeripheral"];
-    MPSoC_NoC[label="MPSoC_NoC\nPeripheral"];
-    MPSoC_SPRAM[label="MPSoC_SPRAM\nPeripheral"];
-    MPSoC_UART[label="MPSoC_UART\nPeripheral"];
+    MPSoC_DBG[label="MPSoC-DBG\nPeripheral"];
+    MPSoC_DMA[label="MPSoC-DMA\nPeripheral"];
+    MPSoC_GPIO[label="MPSoC-GPIO\nPeripheral"];
+    MPSoC_MPI[label="MPSoC-MPI\nPeripheral"];
+    MPSoC_MPRAM[label="MPSoC-MPRAM\nPeripheral"];
+    MPSoC_MSI[label="MPSoC-MSI\nPeripheral"];
+    MPSoC_NoC[label="MPSoC-NoC\nPeripheral"];
+    MPSoC_SPRAM[label="MPSoC-SPRAM\nPeripheral"];
+    MPSoC_UART[label="MPSoC-UART\nPeripheral"];
   }
 
   // Architecture Blocks
   subgraph "cluster ArchitectureBlocks" { label = "Architecture Blocks";
-    MPSoC_RISCV[label="MPSoC_RISCV\nArchitecture\nrv64-pvt-gcfdq"];
-    SoC_RISCV[label="SoC_RISCV\nArchitecture\nrv64-pv-gcfdq"];
-    PU_RISCV[label="PU_RISCV\nArchitecture\nrv64-p-gcfdq"];
+    MPSoC_RISCV[label="MPSoC-RISCV\nArchitecture\nrv64-pvt-gcfdq"];
+    SoC_RISCV[label="SoC-RISCV\nArchitecture\nrv64-pv-gcfdq"];
+    PU_RISCV[label="PU-RISCV\nArchitecture\nrv64-p-gcfdq"];
   }
 
   // Environment Blocks
   subgraph "cluster EnvironmentBlocks" { label = "Environment Blocks";
-    MPSoC_DV[label="MPSoC_DV\nEnvironment\nrv64-pvt-gcfdq"];
-    SoC_DV[label="SoC_DV\nEnvironment\nrv64-pv-gcfdq"];
-    PU_DV[label="PU_DV\nEnvironment\nrv64-p-gcfdq"];
+    MPSoC_DV[label="MPSoC-DV\nEnvironment\nrv64-pvt-gcfdq"];
+    SoC_DV[label="SoC-DV\nEnvironment\nrv64-pv-gcfdq"];
+    PU_DV[label="PU-DV\nEnvironment\nrv64-p-gcfdq"];
   }
 
   // Peripheral -> Architecture

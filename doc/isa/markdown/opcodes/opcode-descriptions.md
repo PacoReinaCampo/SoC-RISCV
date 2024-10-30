@@ -48,6 +48,7 @@ Format of a line in the table:
 | `and`            | `Set rd to the bitwise and of rs1 and rs2`                                                                                       |
 | `fence`          | `Order device I/O and memory accesses viewed by other threads and devices`                                                       |
 | `fence.i`        | `Synchronize the instruction and data streams`                                                                                   |
+
 : RV32I - "RV32I Base Integer Instruction Set"
 
 The RV32I table details the base integer instruction set for the 32-bit RISC-V architecture, encompassing essential operations and functionalities supported at the machine level.
@@ -65,6 +66,7 @@ The RV32I table details the base integer instruction set for the 32-bit RISC-V a
 | `sllw`           | `Shift 32-bit value in rs1 left by the by the lower 5 bits in rs2 and place the 32-bit result into rd`                           |
 | `srlw`           | `Shift 32-bit value in rs1 right by the by the lower 5 bits in rs2 and place the 32-bit result into rd`                          |
 | `sraw`           | `Shift 32-bit value in rs1 right by the by the lower 5 bits in rs2 and place the 32-bit result into rd while retaining the sign` |
+
 : RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
 
 Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, maintaining compatibility with RV32I while adding support for larger data and addressing spaces.
@@ -79,6 +81,7 @@ Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, m
 | `divu`           | `Divide rs1 (dividend) by rs2 (divisor) and place the quotient in rd (unsigned)`                                                 |
 | `rem`            | `Divide rs1 (dividend) by rs2 (divisor) and place the remainder in rd (signed)`                                                  |
 | `remu`           | `Divide rs1 (dividend) by rs2 (divisor) and place the remainder in rd (unsigned)`                                                |
+
 : RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
 
 This table outlines the standard extension for integer multiplication and division operations in the 32-bit RISC-V architecture, enhancing computational capabilities with dedicated instructions.
@@ -90,6 +93,7 @@ This table outlines the standard extension for integer multiplication and divisi
 | `divuw`          | `Divide lower 32-bits of rs1 (dividend) by lower 32-bits of rs2 (divisor) and place the quotient in rd (unsigned)`               |
 | `remw`           | `Divide lower 32-bits of rs1 (dividend) by lower 32-bits of rs2 (divisor) and place the remainder in rd (signed)`                |
 | `remuw`          | `Divide lower 32-bits of rs1 (dividend) by lower 32-bits of rs2 (divisor) and place the remainder in rd (unsigned)`              |
+
 : RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
 
 Extending RV32M to 64-bit, RV64M introduces support for integer multiplication and division operations, catering to applications requiring larger data processing capabilities.
@@ -107,6 +111,7 @@ Extending RV32M to 64-bit, RV64M introduces support for integer multiplication a
 | `amomax.w`       | `Load word from address in rs1 into rd, find maximum of rd and rs2, write the result to the address in rs1 (signed)`             |
 | `amominu.w`      | `Load word from address in rs1 into rd, find minimum of rd and rs2, write the result to the address in rs1 (unsigned)`           |
 | `amomaxu.w`      | `Load word from address in rs1 into rd, find maximum of rd and rs2, write the result to the address in rs1 (unsigned)`           |
+
 : RV32A - "RV32A Standard Extension for Atomic Instructions"
 
 Detailed here are the atomic instruction set extensions for the 32-bit RISC-V architecture, providing concurrency control primitives essential for synchronization in multi-threaded environments.
@@ -124,6 +129,7 @@ Detailed here are the atomic instruction set extensions for the 32-bit RISC-V ar
 | `amomax.d`       | `Load double word from address in rs1 into rd, find maximum of rd and rs2, write the result to the address in rs1 (signed)`      |
 | `amominu.d`      | `Load double word from address in rs1 into rd, find minimum of rd and rs2, write the result to the address in rs1 (unsigned)`    |
 | `amomaxu.d`      | `Load double word from address in rs1 into rd, find maximum of rd and rs2, write the result to the address in rs1 (unsigned)`    |
+
 : RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
 
 Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomic instructions for manipulating memory in a thread-safe manner across larger data sets.
@@ -147,6 +153,7 @@ Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomi
 | `csrrwi`         | `CSR Atomic Read Write Immediate writes the immediate value to the CSR, and writes previous value to rd`                         |
 | `csrrsi`         | `CSR Atomic Set Bit Immediate reads the CSR, sets CSR bits set in the immediate, and writes previous value to rd`                |
 | `csrrci`         | `CSR Atomic Clear Bit Immediate reads the CSR, clears CSR bits set in the immediate, and writes previous value to rd`            |
+
 : RV32S - "RV32S Standard Extension for Supervisor-level Instructions"
 
 This section covers supervisor-level instructions tailored for the 32-bit RISC-V architecture, including privileged operations and management functions for system-level tasks.
@@ -177,6 +184,7 @@ This section covers supervisor-level instructions tailored for the 32-bit RISC-V
 | `fcvt.s.w`       | `Convert the 32-bit signed integer in rs1 to a single-precision value, then write the result to frd`                             |
 | `fcvt.s.wu`      | `Convert the 32-bit unsigned integer in rs1 to a single-precision value, then write the result to frd`                           |
 | `fclass.s`       | `Set rd to a 10-bit mask indicating the class of the single-precision value in frs1`                                             |
+
 : RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
 
 The RV32F table details the single-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 32-bit floating-point numbers according to IEEE 754 standards.
@@ -189,6 +197,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.s.l`       | `Convert the 64-bit signed integer in rs1 to a single-precision value, then write the result to frd`                             |
 | `fcvt.s.lu`      | `Convert the 64-bit unsigned integer in rs1 to a single-precision value, then write the result to frd`                           |
 | `fmv.s.x`        | `Write the lower 32-bits of the integer register rs1 into the single-precision register frd`                                     |
+
 : RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
 
  Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
@@ -223,6 +232,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fmv.x.d`        | `Write the sign extended double-precision value in frs1 into integer register rd`                                                |
 | `fclass.d`       | `Set rd to a 10-bit mask indicating the class of the double-precision value in frs1`                                             |
 | `fmv.d.x`        | `Write the 64-bit integer register rs1 into the double-precision register frd`                                                   |
+
 : RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
 
  This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
@@ -233,6 +243,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.lu.d`      | `Convert the double-precision value in frs1 to a 64-bit unsigned integer, then write the result to rd`                           |
 | `fcvt.d.l`       | `Convert the 64-bit signed integer in rs1 to a double-precision value, then write the result to frd`                             |
 | `fcvt.d.lu`      | `Convert the 64-bit unsigned integer in rs1 to a double-precision value, then write the result to frd`                           |
+
 : RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
 
  Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.
@@ -247,6 +258,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fsflags`        | `Set FP Accrued Exception Flags (Bits 4:0 of fcsr Control and Status Register)`                                                  |
 | `fsrmi`          | `Set FP Rounding Mode Immediate (Bits 7:5 of fcsr Control and Status Register)`                                                  |
 | `fsflagsi`       | `Set FP Accrued Exception Flags Immediate (Bits 4:0 of fcsr Control and Status Register)`                                        |
+
 : RV32FD - "RV32F and RV32D Common Floating-Point Instructions"
 
  RV32FD documents the common floating-point instructions shared between the RV32F (single-precision) and RV32D (double-precision) floating-point extensions, optimizing instruction set usage.
@@ -281,6 +293,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.q.w`       | `Convert the 64-bit signed integer in rs1 to a quadruple-precision value, then write the result to frd`                          |
 | `fcvt.q.wu`      | `Convert the 64-bit unsigned integer in rs1 to a quadruple-precision value, then write the result to frd`                        |
 | `fclass.q`       | `Set rd to a 10-bit mask indicating the class of the quadruple-precision value in frs1`                                          |
+
 : RV32Q - "RV32Q Standard Extension for Quadruple-Precision Floating-Point"
 
  This table outlines the quadruple-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 128-bit floating-point numbers with extended precision.
@@ -291,6 +304,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.lu.q`      | `Convert the quadruple-precision value in frs1 to a 64-bit unsigned integer, then write the result to rd`                        |
 | `fcvt.q.l`       | `Convert the 64-bit signed integer in rs1 to a quadruple-precision value, then write the result to frd`                          |
 | `fcvt.q.lu`      | `Convert the 64-bit unsigned integer in rs1 to a quadruple-precision value, then write the result to frd`                        |
+
 : RV64Q - "RV64Q Standard Extension for Quadruple-Precision Floating-Point (+ RV32Q)"
 
  Extending RV32Q to 64-bit, RV64Q introduces support for quadruple-precision floating-point operations in the RISC-V architecture, catering to applications requiring ultra-high precision.
@@ -299,6 +313,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 |------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 | `fmv.x.q`        | `Write the sign extended quadruple-precision value in frs1 into integer register rd`                                             |
 | `fmv.q.x`        | `Write the 64-bit integer register rs1 into the quadruple-precision register frd`                                                |
+
 : RV128Q - "RV128Q Standard Extension for Quadruple-Precision Floating-Point (+ RV64Q)"
 
  Building upon RV64Q, RV128Q extends quadruple-precision floating-point support to the 128-bit RISC-V architecture, enabling even higher precision computations.
@@ -334,6 +349,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `j`              | `Jump`                                                                                                                           |
 | `jr`             | `Jump register`                                                                                                                  |
 | `ret`            | `Return from subroutine`                                                                                                         |
+
 : Pseudo Instructions
 
 The Pseudo Instructions table documents pseudo instructions in the RISC-V ISA, which are assembler-level constructs that expand into one or more actual instructions during assembly or compilation, providing convenience or abstraction to programmers.

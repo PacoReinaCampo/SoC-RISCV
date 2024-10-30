@@ -55,6 +55,7 @@ Format of a line in the table:
 | `and`        | `rd rs1 rs2`          | `31..25=0  14..12=7 6..2=0x0C 1..0=3`                                              | `r`          | `rv32i rv64i rv128i` |
 | `fence`      |                       | `31..28=ignore pred succ     19..15=ignore 14..12=0 11..7=ignore 6..2=0x03 1..0=3` | `r·f`        | `rv32i rv64i rv128i` |
 | `fence.i`    |                       | `31..28=ignore 27..20=ignore 19..15=ignore 14..12=1 11..7=ignore 6..2=0x03 1..0=3` | `none`       | `rv32i rv64i rv128i` |
+
 : RV32I - "RV32I Base Integer Instruction Set"
 
 The RV32I table details the base integer instruction set for the 32-bit RISC-V architecture, encompassing essential operations and functionalities supported at the machine level.
@@ -76,6 +77,7 @@ The RV32I table details the base integer instruction set for the 32-bit RISC-V a
 | `sllw`       | `rd rs1 rs2`          | `31..25=0  14..12=1 6..2=0x0E 1..0=3`                                              | `r`          |       `rv64i rv128i` |
 | `srlw`       | `rd rs1 rs2`          | `31..25=0  14..12=5 6..2=0x0E 1..0=3`                                              | `r`          |       `rv64i rv128i` |
 | `sraw`       | `rd rs1 rs2`          | `31..25=32 14..12=5 6..2=0x0E 1..0=3`                                              | `r`          |       `rv64i rv128i` |
+
 : RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
 
 Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, maintaining compatibility with RV32I while adding support for larger data and addressing spaces.
@@ -97,6 +99,7 @@ Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, m
 | `slld`       | `rd rs1 rs2`          | `31..25=0  14..12=1 6..2=0x1E 1..0=3`                                              | `r`          |             `rv128i` |
 | `srld`       | `rd rs1 rs2`          | `31..25=0  14..12=5 6..2=0x1E 1..0=3`                                              | `r`          |             `rv128i` |
 | `srad`       | `rd rs1 rs2`          | `31..25=32 14..12=5 6..2=0x1E 1..0=3`                                              | `r`          |             `rv128i` |
+
 : RV128I - "RV128I Base Integer Instruction Set (+ RV64I)"
 
 | instruction  | argument              | opcode                                                                             | codec        | extension            |
@@ -109,6 +112,7 @@ Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, m
 | `divu`       | `rd rs1 rs2`          | `31..25=1 14..12=5 6..2=0x0C 1..0=3`                                               | `r`          | `rv32m rv64m rv128m` |
 | `rem`        | `rd rs1 rs2`          | `31..25=1 14..12=6 6..2=0x0C 1..0=3`                                               | `r`          | `rv32m rv64m rv128m` |
 | `remu`       | `rd rs1 rs2`          | `31..25=1 14..12=7 6..2=0x0C 1..0=3`                                               | `r`          | `rv32m rv64m rv128m` |
+
 : RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
 
 This table outlines the standard extension for integer multiplication and division operations in the 32-bit RISC-V architecture, enhancing computational capabilities with dedicated instructions.
@@ -120,6 +124,7 @@ This table outlines the standard extension for integer multiplication and divisi
 | `divuw`      | `rd rs1 rs2`          | `31..25=1 14..12=5 6..2=0x0E 1..0=3`                                               | `r`          |       `rv64m rv128m` |
 | `remw`       | `rd rs1 rs2`          | `31..25=1 14..12=6 6..2=0x0E 1..0=3`                                               | `r`          |       `rv64m rv128m` |
 | `remuw`      | `rd rs1 rs2`          | `31..25=1 14..12=7 6..2=0x0E 1..0=3`                                               | `r`          |       `rv64m rv128m` |
+
 : RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
 
 Extending RV32M to 64-bit, RV64M introduces support for integer multiplication and division operations, catering to applications requiring larger data processing capabilities.
@@ -131,6 +136,7 @@ Extending RV32M to 64-bit, RV64M introduces support for integer multiplication a
 | `divud`      | `rd rs1 rs2`          | `31..25=1 14..12=5 6..2=0x1E 1..0=3`                                               | `r`          |             `rv128m` |
 | `remd`       | `rd rs1 rs2`          | `31..25=1 14..12=6 6..2=0x1E 1..0=3`                                               | `r`          |             `rv128m` |
 | `remud`      | `rd rs1 rs2`          | `31..25=1 14..12=7 6..2=0x1E 1..0=3`                                               | `r`          |             `rv128m` |
+
 : RV128M - "RV128M Standard Extension for Integer Multiply and Divide (+ RV64M)"
 
 | instruction  | argument              | opcode                                                                             | codec        | extension            |
@@ -146,6 +152,7 @@ Extending RV32M to 64-bit, RV64M introduces support for integer multiplication a
 | `amomax.w`   | `rd rs1 rs2`          | `aq rl 31..29=5 28..27=0 14..12=2 6..2=0x0B 1..0=3`                                | `r·a`        | `rv32a rv64a rv128a` |
 | `amominu.w`  | `rd rs1 rs2`          | `aq rl 31..29=6 28..27=0 14..12=2 6..2=0x0B 1..0=3`                                | `r·a`        | `rv32a rv64a rv128a` |
 | `amomaxu.w`  | `rd rs1 rs2`          | `aq rl 31..29=7 28..27=0 14..12=2 6..2=0x0B 1..0=3`                                | `r·a`        | `rv32a rv64a rv128a` |
+
 : RV32A - "RV32A Standard Extension for Atomic Instructions"
 
 Detailed here are the atomic instruction set extensions for the 32-bit RISC-V architecture, providing concurrency control primitives essential for synchronization in multi-threaded environments.
@@ -163,6 +170,7 @@ Detailed here are the atomic instruction set extensions for the 32-bit RISC-V ar
 | `amomax.d`   | `rd rs1 rs2`          | `aq rl 31..29=5 28..27=0 14..12=3 6..2=0x0B 1..0=3`                                | `r·a`        |       `rv64a rv128a` |
 | `amominu.d`  | `rd rs1 rs2`          | `aq rl 31..29=6 28..27=0 14..12=3 6..2=0x0B 1..0=3`                                | `r·a`        |       `rv64a rv128a` |
 | `amomaxu.d`  | `rd rs1 rs2`          | `aq rl 31..29=7 28..27=0 14..12=3 6..2=0x0B 1..0=3`                                | `r·a`        |       `rv64a rv128a` |
+
 : RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
 
 Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomic instructions for manipulating memory in a thread-safe manner across larger data sets.
@@ -180,6 +188,7 @@ Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomi
 | `amomax.q`   | `rd rs1 rs2`          | `aq rl 31..29=5 28..27=0 14..12=4 6..2=0x0B 1..0=3`                                | `r·a`        |             `rv128a` |
 | `amominu.q`  | `rd rs1 rs2`          | `aq rl 31..29=6 28..27=0 14..12=4 6..2=0x0B 1..0=3`                                | `r·a`        |             `rv128a` |
 | `amomaxu.q`  | `rd rs1 rs2`          | `aq rl 31..29=7 28..27=0 14..12=4 6..2=0x0B 1..0=3`                                | `r·a`        |             `rv128a` |
+
 : RV128A - "RV128A Standard Extension for Atomic Instructions (+ RV64A)"
 
 | instruction  | argument              | opcode                                                                             | codec        | extension            |
@@ -206,6 +215,7 @@ Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomi
 | `csrrwi`     | `rd      zimm`        | `csr12             14..12=5 6..2=0x1C 1..0=3`                                      | `i·csr+i`    | `rv32s rv64s rv128s` |
 | `csrrsi`     | `rd      zimm`        | `csr12             14..12=6 6..2=0x1C 1..0=3`                                      | `i·csr+i`    | `rv32s rv64s rv128s` |
 | `csrrci`     | `rd      zimm`        | `csr12             14..12=7 6..2=0x1C 1..0=3`                                      | `i·csr+i`    | `rv32s rv64s rv128s` |
+
 : RV32S - "RV32S Standard Extension for Supervisor-level Instructions"
 
 This section covers supervisor-level instructions tailored for the 32-bit RISC-V architecture, including privileged operations and management functions for system-level tasks.
@@ -238,6 +248,7 @@ This section covers supervisor-level instructions tailored for the 32-bit RISC-V
 | `fmv.x.s`    | `rd frs1  24..20=0`   | `31..27=0x1C 14..12=0 26..25=0 6..2=0x14 1..0=3`                                   | `r+rf`       | `rv32f rv64f rv128f` |
 | `fclass.s`   | `rd frs1  24..20=0`   | `31..27=0x1C 14..12=1 26..25=0 6..2=0x14 1..0=3`                                   | `r+rf`       | `rv32f rv64f rv128f` |
 | `fmv.s.x`    | `frd rs1  24..20=0`   | `31..27=0x1E 14..12=0 26..25=0 6..2=0x14 1..0=3`                                   | `r+fr`       | `rv32f rv64f rv128f` |
+
 : RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
 
 The RV32F table details the single-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 32-bit floating-point numbers according to IEEE 754 standards.
@@ -248,6 +259,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.lu.s`  | `rd frs1  24..20=3`   | `31..27=0x18 rm       26..25=0 6..2=0x14 1..0=3`                                   | `r·m+rf`     |       `rv64f rv128f` |
 | `fcvt.s.l`   | `frd rs1  24..20=2`   | `31..27=0x1A rm       26..25=0 6..2=0x14 1..0=3`                                   | `r·m+fr`     |       `rv64f rv128f` |
 | `fcvt.s.lu`  | `frd rs1  24..20=3`   | `31..27=0x1A rm       26..25=0 6..2=0x14 1..0=3`                                   | `r·m+fr`     |       `rv64f rv128f` |
+
 : RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
 
  Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
@@ -280,6 +292,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.d.w`   | `frd rs1  24..20=0`   | `31..27=0x1A rm       26..25=1 6..2=0x14 1..0=3`                                   | `r·m+fr`     | `rv32d rv64d rv128d` |
 | `fcvt.d.wu`  | `frd rs1  24..20=1`   | `31..27=0x1A rm       26..25=1 6..2=0x14 1..0=3`                                   | `r·m+fr`     | `rv32d rv64d rv128d` |
 | `fclass.d`   | `rd frs1  24..20=0`   | `31..27=0x1C 14..12=1 26..25=1 6..2=0x14 1..0=3`                                   | `r+rf`       | `rv32d rv64d rv128d` |
+
 : RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
 
  This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
@@ -292,6 +305,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.d.l`   | `frd rs1  24..20=2`   | `31..27=0x1A rm       26..25=1 6..2=0x14 1..0=3`                                   | `r·m+fr`     |       `rv64d rv128d` |
 | `fcvt.d.lu`  | `frd rs1  24..20=3`   | `31..27=0x1A rm       26..25=1 6..2=0x14 1..0=3`                                   | `r·m+fr`     |       `rv64d rv128d` |
 | `fmv.d.x`    | `frd rs1  24..20=0`   | `31..27=0x1E 14..12=0 26..25=1 6..2=0x14 1..0=3`                                   | `r+fr`       |       `rv64d rv128d` |
+
 : RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
 
  Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.
@@ -306,6 +320,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `#fsflags`   | `rd       rs1`        | `31..20=0x001 14..12=1 6..2=0x1C 1..0=3`                                           | `i·csr`      | `rv32f rv64f rv128f` |
 | `#fsrmi`     | `rd       zimm`       | `31..20=0x002 14..12=5 6..2=0x1C 1..0=3`                                           | `i·csri`     | `rv32f rv64f rv128f` |
 | `#fsflagsi`  | `rd       zimm`       | `31..20=0x001 14..12=5 6..2=0x1C 1..0=3`                                           | `i·csri`     | `rv32f rv64f rv128f` |
+
 : RV32FD - "RV32F and RV32D common Floating-Point Instructions"
 
  RV32FD documents the common floating-point instructions shared between the RV32F (single-precision) and RV32D (double-precision) floating-point extensions, optimizing instruction set usage.
@@ -340,6 +355,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.q.w`   | `frd rs1    24..20=0` | `31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3`                                   | `r·m+fr`     | `rv32q rv64q rv128q` |
 | `fcvt.q.wu`  | `frd rs1    24..20=1` | `31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3`                                   | `r·m+fr`     | `rv32q rv64q rv128q` |
 | `fclass.q`   | `rd frs1    24..20=0` | `31..27=0x1C 14..12=1 26..25=3 6..2=0x14 1..0=3`                                   | `r+rf`       | `rv32q rv64q rv128q` |
+
 : RV32Q - "RV32Q Standard Extension for Quad-Precision Floating-Point"
 
  This table outlines the quadruple-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 128-bit floating-point numbers with extended precision.
@@ -350,6 +366,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `fcvt.lu.q`  | `rd frs124..20=3`     | `31..27=0x18 rm       26..25=3 6..2=0x14 1..0=3`                                   | `r·m+rf`     |       `rv64q rv128q` |
 | `fcvt.q.l`   | `frd rs124..20=2`     | `31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3`                                   | `r·m+fr`     |       `rv64q rv128q` |
 | `fcvt.q.lu`  | `frd rs124..20=3`     | `31..27=0x1A rm       26..25=3 6..2=0x14 1..0=3`                                   | `r·m+fr`     |       `rv64q rv128q` |
+
 : RV64Q - "RV64Q Standard Extension for Quad-Precision Floating-Point (+ RV32Q)"
 
  Extending RV32Q to 64-bit, RV64Q introduces support for quadruple-precision floating-point operations in the RISC-V architecture, catering to applications requiring ultra-high precision.
@@ -358,6 +375,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 |--------------|:----------------------|:-----------------------------------------------------------------------------------|:-------------|:---------------------|
 | `fmv.x.q`    | `rd frs124..20=0`     | `31..27=0x1C 14..12=0 26..25=3 6..2=0x14 1..0=3`                                   | `r+rf`       |       `rv64q rv128q` |
 | `fmv.q.x`    | `frd rs124..20=0`     | `31..27=0x1E 14..12=0 26..25=3 6..2=0x14 1..0=3`                                   | `r+fr`       |       `rv64q rv128q` |
+
 : RV128Q - "RV128Q Standard Extension for Quadruple-Precision Floating-Point (+ RV64Q)"
 
 | instruction  | argument              | opcode                                                                             | codec        | extension            |
@@ -399,6 +417,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `c.fsdsp`    | `cfrs2      cimmsdsp` | `1..0=2 15..13=5`                                                                  | `css·sdsp+f` | `rv32c rv64c`        |
 | `c.swsp`     | `crs2       cimmswsp` | `1..0=2 15..13=6`                                                                  | `css·swsp`   | `rv32c rv64c`        |
 | `c.fswsp`    | `cfrs2      cimmswsp` | `1..0=2 15..13=7`                                                                  | `css·swsp+f` | `rv32c`              |
+
 : RV32C - "RV32C Standard Extension for Compressed Instructions"
 
 This table outlines the RV32C extension, which introduces compressed instruction formats to reduce code size while maintaining compatibility with the base RV32I instruction set, optimizing program memory usage.
@@ -413,6 +432,7 @@ This table outlines the RV32C extension, which introduces compressed instruction
 | `c.slli`     | `crs1rd      cimmsh6` | `1..0=2 15..13=0`                                                                  | `ci·sh6`     |       `rv64c`        |
 | `c.ldsp`     | `crd        cimmldsp` | `1..0=2 15..13=3`                                                                  | `ci·ldsp`    |       `rv64c`        |
 | `c.sdsp`     | `crs2       cimmsdsp` | `1..0=2 15..13=7`                                                                  | `css·sdsp`   |       `rv64c`        |
+
 : RV64C - "RV64C Standard Extension for Compressed Instructions (+ RV32C)"
 
 The RV64C table extends the RV32C compression to 64-bit implementations by including additional compressed instructions, optimizing code density and memory usage.
@@ -423,6 +443,7 @@ The RV64C table extends the RV32C compression to 64-bit implementations by inclu
 | `c.sq`       | `crs1q crs2q   cimmq` | `1..0=0 15..13=5`                                                                  | `cs·sq`      |             `rv128c` |
 | `c.lqsp`     | `crd        cimmlqsp` | `1..0=2 15..13=1`                                                                  | `ci·lqsp`    |             `rv128c` |
 | `c.sqsp`     | `crs2       cimmsqsp` | `1..0=2 15..13=5`                                                                  | `css·sqsp`   |             `rv128c` |
+
 : RV128C - "RV128C Standard Extension for Compressed Instructions (+ RV64C)"
 
 The RV128C table extends the RV32C compression to 128-bit implementations by including additional compressed instructions, optimizing code density and memory usage.

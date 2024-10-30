@@ -58,6 +58,7 @@ Format of a line in the table:
 | `u128,cu`     | `Unsigned 128-bit Word`                                 |
 | `sx`          | `Signed Full Width Word (32, 64 or 128-bit)`            |
 | `ux`          | `Unsigned Full width Word (32, 64 or 128-bit)`          |
+
 : Word Type
 
 This table categorizes and defines the different data types supported by the RISC-V ISA, ranging from integers of various sizes to floating-point numbers with different precisions. Understanding word types is essential for programming and optimizing applications across different RISC-V implementations.
@@ -67,6 +68,7 @@ This table categorizes and defines the different data types supported by the RIS
 | `f32,s`       | `Single Precision Floating-point`                       |
 | `f64,d`       | `Double Precision Floating-point`                       |
 | `f128,q`      | `Quadruple Precision Floating-point`                    |
+
 : Precision Floating-point
 
 Precision Floating-point describes the various levels of precision available for floating-point operations in the RISC-V ISA. It details the standards and formats supported, such as single-precision, double-precision, and quadruple-precision, crucial for applications requiring precise numerical computations.
@@ -75,6 +77,7 @@ Precision Floating-point describes the various levels of precision available for
 |---------------|:--------------------------------------------------------|
 | `XLEN`        | `Integer Register Width in Bits (32, 64 or 128)`        |
 | `FLEN`        | `Floating-point Register Width in Bits (32, 64 or 128)` |
+
 : Register Width in Bits
 
 This table outlines the bit-widths of registers used in the RISC-V ISA, including integer and floating-point registers. Understanding register widths is fundamental for optimizing performance and memory utilization in software development.
@@ -83,6 +86,7 @@ This table outlines the bit-widths of registers used in the RISC-V ISA, includin
 |---------------|:--------------------------------------------------------|
 | `rd`          | `Integer Register Destination`                          |
 | `rs[n]`       | `Integer Register Source [n]`                           |
+
 : Integer Register
 
 Integer Registers in the RISC-V ISA are fundamental to storing and manipulating integer data. This table provides an overview of the integer registers available at different privilege levels, detailing their usage and functionalities within the instruction set architecture.
@@ -91,6 +95,7 @@ Integer Registers in the RISC-V ISA are fundamental to storing and manipulating 
 |---------------|:--------------------------------------------------------|
 | `frd`         | `Floating-Point Register Destination`                   |
 | `frs[n]`      | `Floating-Point Register Source [n]`                    |
+
 : Floating-Point Register
 
 Floating-Point Registers are specialized registers designed for storing floating-point data in the RISC-V ISA. This table enumerates the floating-point registers available, their formats, and how they facilitate efficient computation of real numbers with varying precisions.
@@ -102,6 +107,7 @@ Floating-Point Registers are specialized registers designed for storing floating
 | `imm`         | `Immediate Value encoded in an instruction`             |
 | `offset`      | `Immediate Value decoded as a relative offset`          |
 | `shamt`       | `Immediate Value decoded as a shift amount`             |
+
 : Values
 
 The Values table catalogues the permissible ranges and representations of data values that can be stored and manipulated within the RISC-V ISA. It provides insights into the limits and capabilities of data handling across different data types and register sizes.
@@ -111,6 +117,7 @@ The Values table catalogues the permissible ranges and representations of data v
 | `SP`          | `Single Precision`                                      |
 | `DP`          | `Double Precision`                                      |
 | `QP`          | `Quadruple Precision`                                   |
+
 : Precision
 
 Precision refers to the level of detail or accuracy in representing numeric values within the RISC-V ISA. This table elucidates the precision standards upheld for both integer and floating-point operations, aiding in selecting appropriate data types for specific computational needs.
@@ -121,6 +128,7 @@ Precision refers to the level of detail or accuracy in representing numeric valu
 | `U`           | `User`                                                  |
 | `S`           | `Supervisor`                                            |
 | `H`           | `Hypervisor`                                            |
+
 : Privilege Modes I
 
 Privilege Modes I delineates the various privilege levels or modes supported by the RISC-V ISA. This table outlines the distinct modes, such as User, Supervisor, Hypervisor, and Machine modes, each offering different levels of access and control over system resources.
@@ -133,6 +141,7 @@ Privilege Modes I delineates the various privilege levels or modes supported by 
 | `SEE`         | `Supervisor Execution Environment`                      |
 | `HBI`         | `Hypervisor Binary Interface`                           |
 | `HEE`         | `Hypervisor Execution Environment`                      |
+
 : Privilege Modes II
 
 Building upon Privilege Modes I, Privilege Modes II delves deeper into the specific attributes and functionalities associated with each privilege mode in the RISC-V ISA. It details how these modes govern system operations and facilitate secure and efficient execution of software.
@@ -140,6 +149,7 @@ Building upon Privilege Modes I, Privilege Modes II delves deeper into the speci
 | symbol        | description                                             |
 |---------------|:--------------------------------------------------------|
 | `CSR`         | `Control and Status Register`                           |
+
 : Control and Status Register
 
 Control and Status Registers (CSRs) are critical components of the RISC-V ISA, responsible for managing system control and providing status information. This table enumerates the CSRs available at various privilege levels, elucidating their roles in system configuration and operation.
@@ -149,6 +159,7 @@ Control and Status Registers (CSRs) are critical components of the RISC-V ISA, r
 | `PA`          | `Physical Address`                                      |
 | `VA`          | `Virtual Address`                                       |
 | `PPN`         | `Physical Page Number`                                  |
+
 : Address & Page Number
 
 Address & Page Number table provides an overview of addressing schemes and page numbering conventions used in the RISC-V ISA. It clarifies how memory addresses are structured and managed, including mechanisms for virtual memory and paging.
@@ -162,6 +173,7 @@ Address & Page Number table provides an overview of addressing schemes and page 
 | `PPN`         | `Physical Page Number`                                  |
 | `VPN`         | `Virtual Page Number`                                   |
 | `VCLN`        | `Virtual Cache Line Number`                             |
+
 : Physical & Virtual
 
 Physical & Virtual table contrasts the concepts of physical and virtual memory as implemented in the RISC-V ISA. It details how virtual memory addresses are mapped to physical memory locations, enhancing system efficiency and enabling memory management features.

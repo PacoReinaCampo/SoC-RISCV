@@ -28,6 +28,7 @@
 | `Name`      | `Value`  |
 | :---------- | :------- |
 | `INSTR_NOP` | `64'h13` |
+
 : RISCV Opcodes Package
 
 | `Name`         | `Value`     |
@@ -53,6 +54,7 @@
 | `OPC_JALR`     | `5'b11_001` |
 | `OPC_JAL`      | `5'b11_011` |
 | `OPC_SYSTEM`   | `5'b11_100` |
+
 : Opcodes
 
 #### RV32/RV64 Base Instructions
@@ -108,12 +110,14 @@
 | `SRAIW` | `15'b0100000_101_00110` |
 | `SRAX`  | `15'b0100000_101_01100` |
 | `SRAW`  | `15'b0100000_101_01110` |
+
 : F7-F3 Opcode Base Instructions
 
 | `Name`    | `Value`                 | `Description`                 |
 | :-------- | :---------------------- | :---------------------------- |
 | `SYSTEM`  | `15'b???????_000_11100` | `excludes RDxxx instructions` |
 | `MISCMEM` | `15'b???????_???_00011` |                               |
+
 : Pseudo Instructions
 
 | `Name`      | `Value`                                    |
@@ -131,6 +135,7 @@
 | `MRTH`      | `32'b001100000110_00000_000_00000_1110011` |
 | `HRTS`      | `32'b001000000101_00000_000_00000_1110011` |
 | `WFI`       | `32'b000100000101_00000_000_00000_1110011` |
+
 : SYSTEM/MISC_MEM Opcodes
 
 | `Name`   | `Value`                 |
@@ -141,6 +146,7 @@
 | `CSRRWI` | `15'b???????_101_11100` |
 | `CSRRSI` | `15'b???????_110_11100` |
 | `CSRRCI` | `15'b???????_111_11100` |
+
 : F7-F3 Opcode
 
 #### RV32/RV64 A-Extensions Instructions
@@ -158,6 +164,7 @@
 | `AMOMAXW`  | `15'b10100??_010_01011` |
 | `AMOMINUW` | `15'b11000??_010_01011` |
 | `AMOMAXUW` | `15'b11100??_010_01011` |
+
 : F7-F3 Opcode A-Extensions Instructions W
 
 | `Name`     | `Value`                 |
@@ -173,6 +180,7 @@
 | `AMOMAXD`  | `15'b10100??_011_01011` |
 | `AMOMINUD` | `15'b11000??_011_01011` |
 | `AMOMAXUD` | `15'b11100??_011_01011` |
+
 : F7-F3 Opcode A-Extensions Instructions D
 
 #### RV32/RV64 M-Extensions Instructions
@@ -192,6 +200,7 @@
 | `REMW`   | `15'b0000001_110_01110` |
 | `REMU`   | `15'b0000001_111_01100` |
 | `REMUW`  | `15'b0000001_111_01110` |
+
 : F7-F3 Opcode M-Extensions Instructions
 
 ## MEMORY

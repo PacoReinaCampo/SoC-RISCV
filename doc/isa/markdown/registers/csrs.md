@@ -14,6 +14,7 @@ Format of a line in the table:
 | `0x000`  | `urw`  | `ustatus`         | `User status register`                            | `1.9-`           |
 | `0x004`  | `urw`  | `uie`             | `User interrupt-enable register`                  | `1.9-`           |
 | `0x005`  | `urw`  | `utvec`           | `User trap handler base address`                  | `1.9-`           |
+
 : User Trap Setup
 
 The configuration and setup details for traps and exceptions at the user level in the RISC-V architecture.
@@ -26,6 +27,7 @@ The configuration and setup details for traps and exceptions at the user level i
 | `0x043`  | `urw`  | `ubadaddr`        | `User bad address`                                | `1.7-1.9.1`      |
 | `0x043`  | `urw`  | `utval`           | `User bad address or instruction`                 | `1.10-`          |
 | `0x044`  | `urw`  | `uip`             | `User interrupt pending`                          | `1.9-`           |
+
 : User Trap Handling
 
 Details in this table cover how traps and exceptions are handled specifically within the user privilege level of the RISC-V ISA.
@@ -35,6 +37,7 @@ Details in this table cover how traps and exceptions are handled specifically wi
 | `0x001`  | `urw`  | `fflags`          | `Floating-Point Accrued Exceptions`               | `1.7-`           |
 | `0x002`  | `urw`  | `frm`             | `Floating-Point Dynamic Rounding Mode`            | `1.7-`           |
 | `0x003`  | `urw`  | `fcsr`            | `Floating-Point Control and Status (frm + fflags)`| `1.7-`           |
+
 : User Floating-Point CSRs
 
 This section lists the Control and Status Registers (CSRs) related to floating-point operations that are accessible at the user level.
@@ -47,6 +50,7 @@ This section lists the Control and Status Registers (CSRs) related to floating-p
 | `0xC80`  | `uro`  | `cycleh`          | `Upper 32 bits of cycle, RV32I only`              | `1.7-,rv32`      |
 | `0xC81`  | `uro`  | `timeh`           | `Upper 32 bits of time, RV32I only`               | `1.7-,rv32`      |
 | `0xC82`  | `uro`  | `instreth`        | `Upper 32 bits of instret, RV32I only`            | `1.7-,rv32`      |
+
 : User Timers and Counters
 
 The timers and counters available to user-level programs are outlined and described in this table of the RISC-V ISA.
@@ -59,6 +63,7 @@ The timers and counters available to user-level programs are outlined and descri
 | `0x104`  | `src`  | `sie`             | `Supervisor interrupt-enable register`            | `1.7-`           |
 | `0x105`  | `srw`  | `stvec`           | `Supervisor trap handler base address`            | `1.7-`           |
 | `0x106`  | `swr`  | `scounteren`      | `Supervisor counter enable`                       | `1.10-`          |
+
 : Supervisor Trap Setup
 
 Configuration specifics for traps and exceptions at the supervisor privilege level are detailed in this part of the RISC-V ISA documentation.
@@ -71,6 +76,7 @@ Configuration specifics for traps and exceptions at the supervisor privilege lev
 | `0x143`  | `srw`  | `sbadaddr`        | `Supervisor bad address`                          | `1.7-1.9.1`      |
 | `0x143`  | `srw`  | `stval`           | `Supervisor bad address or instruction`           | `1.10-`          |
 | `0x144`  | `srw`  | `sip`             | `Supervisor interrupt pending`                    | `1.7-`           |
+
 : Supervisor Trap Handling
 
 The procedures and mechanisms for handling traps and exceptions at the supervisor privilege level are documented comprehensively.
@@ -79,6 +85,7 @@ The procedures and mechanisms for handling traps and exceptions at the superviso
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x180`  | `srw`  | `sptbr`           | `Page-table base register`                        | `1.7-1.9.1`      |
 | `0x180`  | `srw`  | `satp`            | `Supervisor address translation and protection`   | `1.10-`          |
+
 : Supervisor Protection and Translation
 
 This table covers the protection and translation mechanisms available to the supervisor mode in the RISC-V ISA.
@@ -91,6 +98,7 @@ This table covers the protection and translation mechanisms available to the sup
 | `0xD80`  | `sro`  | `scycleh`         | `Upper 32 bits of scycle, RV32I only`             | `1.9-,rv32`      |
 | `0xD81`  | `sro`  | `stimeh`          | `Upper 32 bits of stime, RV32I only`              | `1.7-,rv32`      |
 | `0xD82`  | `sro`  | `sinstreth`       | `Upper 32 bits of sinstret, RV32I only`           | `1.9-,rv32`      |
+
 : Supervisor Timers and Counters
 
 Detailed descriptions of timers and counters accessible to supervisor-level software are provided in this section of the RISC-V ISA specification.
@@ -102,6 +110,7 @@ Detailed descriptions of timers and counters accessible to supervisor-level soft
 | `0x203`  | `mrw`  | `hideleg`         | `Hypervisor interrupt delegation register`        | `1.9-1.9.1`      |
 | `0x204`  | `mrw`  | `hie`             | `Hypervisor interrupt-enable register`            | `1.7-1.9.1`      |
 | `0x205`  | `hrw`  | `htvec`           | `Hypervisor trap handler base address`            | `1.7-1.9.1`      |
+
 : Hypervisor Trap Setup
 
 Configuration details for traps and exceptions in the context of hypervisor mode are detailed in this part of the RISC-V ISA documentation.
@@ -113,6 +122,7 @@ Configuration details for traps and exceptions in the context of hypervisor mode
 | `0x242`  | `hrw`  | `hcause`          | `Hypervisor trap cause`                           | `1.7-1.9.1`      |
 | `0x243`  | `hrw`  | `hbadaddr`        | `Hypervisor bad address`                          | `1.7-1.9.1`      |
 | `0x244`  | `hrw`  | `hip`             | `Hypervisor interrupt pending`                    | `1.7-1.9.1`      |
+
 : Hypervisor Trap Handling
 
 The procedures and methods for handling traps and exceptions in hypervisor mode are outlined and explained in this section.
@@ -125,6 +135,7 @@ The procedures and methods for handling traps and exceptions in hypervisor mode 
 | `0xE80`  | `sro`  | `hcycleh`         | `Upper 32 bits of hcycle, RV32I only`             | `1.7-1.9.1,rv32` |
 | `0xE81`  | `sro`  | `htimeh`          | `Upper 32 bits of htime, RV32I only`              | `1.7-1.9,rv32`   |
 | `0xE82`  | `sro`  | `hinstreth`       | `Upper 32 bits of hinstret, RV32I only`           | `1.9-1.9.1,rv32` |
+
 : Hypervisor Timers and Counters
 
 This section provides information on timers and counters available for use within the hypervisor mode of the RISC-V architecture.
@@ -135,6 +146,7 @@ This section provides information on timers and counters available for use withi
 | `0xF12`  | `mro`  | `marchid`         | `Architecture ID`                                 | `1.9-`           |
 | `0xF13`  | `mro`  | `mimpid`          | `Implementation ID`                               | `1.9-`           |
 | `0xF14`  | `mro`  | `mhartid`         | `Hardware thread ID`                              | `1.7-`           |
+
 : Machine Information Registers
 
 Registers containing essential machine information are listed and described in this table of the RISC-V ISA.
@@ -148,6 +160,7 @@ Registers containing essential machine information are listed and described in t
 | `0x304`  | `mrw`  | `mie`             | `Machine interrupt-enable register`               | `1.7-`           |
 | `0x305`  | `mrw`  | `mtvec`           | `Machine trap-handler base address`               | `1.7-`           |
 | `0x306`  | `mrw`  | `mcounteren`      | `Machine counter enable`                          | `1.10-`          |
+
 : Machine Trap Setup
 
 Configuration specifics for setting up traps and exceptions at the machine privilege level are detailed in this part of the RISC-V ISA documentation.
@@ -180,6 +193,7 @@ Configuration specifics for setting up traps and exceptions at the machine privi
 | `0x3BE`  | `mrw`  | `pmpaddr13`       | `Physical memory protection address register`     | `1.10-`          |
 | `0x3BD`  | `mrw`  | `pmpaddr14`       | `Physical memory protection address register`     | `1.10-`          |
 | `0x3BF`  | `mrw`  | `pmpaddr15`       | `Physical memory protection address register`     | `1.10-`          |
+
 : Machine Trap Handling
 
 This section covers the handling mechanisms and procedures for traps and exceptions at the machine privilege level of the RISC-V ISA.
@@ -192,6 +206,7 @@ This section covers the handling mechanisms and procedures for traps and excepti
 | `0x383`  | `mrw`  | `mibound`         | `Instruction bound register`                      | `1.7-`           |
 | `0x384`  | `mrw`  | `mdbase`          | `Data base register`                              | `1.7-`           |
 | `0x385`  | `mrw`  | `mdbound`         | `Data bound register`                             | `1.7-`           |
+
 : Machine Protection and Translation
 
 Details on the protection and translation mechanisms available to the machine mode are documented comprehensively in this table.
@@ -262,6 +277,7 @@ Details on the protection and translation mechanisms available to the machine mo
 | `0xB9D`  | `mrw`  | `mhpmcounter29h`  | `Upper 32 bits of mhpmcounter29, RV32I only`      | `1.9.1-`         |
 | `0xB9E`  | `mrw`  | `mhpmcounter30h`  | `Upper 32 bits of mhpmcounter30, RV32I only`      | `1.9.1-`         |
 | `0xB9F`  | `mrw`  | `mhpmcounter31h`  | `Upper 32 bits of mhpmcounter31, RV32I only`      | `1.9.1-`         |
+
 : Machine Counters / Timers
 
 The RISC-V ISA provides various counters and timers that are accessible at the machine privilege level, detailed here for reference.
@@ -300,6 +316,7 @@ The RISC-V ISA provides various counters and timers that are accessible at the m
 | `0x33D`  | `mrw`  | `mhpmevent29`     | `Machine performance-monitoring event selector`   | `1.9.1-`         |
 | `0x33E`  | `mrw`  | `mhpmevent30`     | `Machine performance-monitoring event selector`   | `1.9.1-`         |
 | `0x33F`  | `mrw`  | `mhpmevent31`     | `Machine performance-monitoring event selector`   | `1.9.1-`         |
+
 : Machine Counter Setup
 
 Setup and configuration details for the counters in the RISC-V ISA, applicable at the machine privilege level, are provided in this section.
@@ -310,6 +327,7 @@ Setup and configuration details for the counters in the RISC-V ISA, applicable a
 | `0x7A1`  | `mrw`  | `tdata1`          | `First Debug/Trace trigger data register`         | `1.9.1-`         |
 | `0x7A2`  | `mrw`  | `tdata2`          | `Second Debug/Trace trigger data register`        | `1.9.1-`         |
 | `0x7A3`  | `mrw`  | `tdata3`          | `Third Debug/Trace trigger data register`         | `1.9.1-`         |
+
 : Debug/Trace Registers (shared with Debug Mode)
 
 Registers used for debugging and tracing purposes, which are shared with the Debug Mode of the RISC-V ISA, are detailed in this table.
@@ -319,6 +337,7 @@ Registers used for debugging and tracing purposes, which are shared with the Deb
 | `0x7B0`  | `mrw`  | `dcsr`            | `Debug control and status register`               | `1.9.1-`         |
 | `0x7B1`  | `mrw`  | `dpc`             | `Debug program counter`                           | `1.9.1-`         |
 | `0x7B2`  | `mrw`  | `dscratch`        | `Debug scratch register`                          | `1.9.1-`         |
+
 : Debug Mode Registers
 
 This section details the registers specific to the Debug Mode of the RISC-V ISA, outlining their functionalities and usage.
@@ -330,6 +349,7 @@ This section details the registers specific to the Debug Mode of the RISC-V ISA,
 | `0x782`  | `mrw`  | `mreset`          | `Reset`                                           | `1.7-`           |
 | `0x783`  | `mrw`  | `mipi`            | `Inter Processor Interrupt`                       | `1.7-`           |
 | `0x784`  | `mrw`  | `miobase`         | `IO Base`                                         | `1.7-`           |
+
 : NonStandard
 
 Registers or features that deviate from standard RISC-V specifications are documented in this section for completeness and reference.

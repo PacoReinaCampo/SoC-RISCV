@@ -44,6 +44,7 @@ Format of a line in the table:
 | `x29`  | `t4`    | `ireg`  | `caller`  | `Temporaries Caller`                  |
 | `x30`  | `t5`    | `ireg`  | `caller`  | `Temporaries Caller`                  |
 | `x31`  | `t6`    | `ireg`  | `caller`  | `Temporaries Caller`                  |
+
 : Base Registers
 
 | name   | alias   | type    | save      |  description                          |
@@ -80,4 +81,5 @@ Format of a line in the table:
 | `f29`  | `ft9`   | `freg`  | `caller`  | `FP temporaries Caller`               |
 | `f30`  | `ft10`  | `freg`  | `caller`  | `FP temporaries Caller`               |
 | `f31`  | `ft11`  | `freg`  | `caller`  | `FP temporaries Caller`               |
+
 : Float-Point Registers

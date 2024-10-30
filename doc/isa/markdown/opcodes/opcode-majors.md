@@ -36,6 +36,7 @@ Major opcodes in RISC-V encompass essential instruction categories such as arith
 | `6..5=3` | `4..2=5` | `reserved`       |
 | `6..5=3` | `4..2=6` | `custom-3,rv128` |
 | `6..5=3` | `4..2=7` | `>80-bit`        |
+
 : Major Opcodes
 
  The major opcodes table categorizes and lists the primary opcodes utilized in the RISC-V instruction set architecture, essential for navigating and comprehending the instruction set's core functionalities.

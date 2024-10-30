@@ -27,6 +27,7 @@
 | `PMPADDR13` | `'h3BD` |
 | `PMPADDR14` | `'h3BE` |
 | `PMPADDR15` | `'h3BF` |
+
 : Machine Protection and Translation
 
 | `Name`          | `Value` | `Observation`                |
@@ -37,11 +38,13 @@
 | `MCYCLEH`       | `'hB80` |                              |
 | `MINSTRETH`     | `'hB82` |                              |
 | `MHPMCOUNTER3H` | `'hB83` | `until MHPMCOUNTER31H='hB9F` |
+
 : Machine Counters/Timers
 
 | `Name`      | `Value` | `Observation`            |
 | :---------- | :------ | :----------------------- |
 | `MHPEVENT3` | `'h323` | `until MHPEVENT31 'h33f` |
+
 : Machine Counter Setup
 
 | `Name`     | `Value` |
@@ -53,6 +56,7 @@
 | `DCSR`     | `'h7B0` |
 | `DPC`      | `'h7B1` |
 | `DSCRATCH` | `'h7B2` |
+
 : Debug
 
 | `Name`   | `Value` |
@@ -61,6 +65,7 @@
 | `RV32E`  | `2'b01` |
 | `RV64I`  | `2'b10` |
 | `RV128I` | `2'b11` |
+
 : MXL mapping
 
 | `Name`  | `Value` |
@@ -69,6 +74,7 @@
 | `PRV_H` | `2'b10` |
 | `PRV_S` | `2'b01` |
 | `PRV_U` | `2'b00` |
+
 : Privilege Levels
 
 | `Name`     | `Value` |
@@ -79,6 +85,7 @@
 | `VM_SV48`  | `4'd9`  |
 | `VM_SV57`  | `4'd10` |
 | `VM_SV64`  | `4'd11` |
+
 : Virtualisation
 
 | `Name` | `Value` |
@@ -95,6 +102,7 @@
 | `HSI`  | `2`     |
 | `SSI`  | `1`     |
 | `USI`  | `0`     |
+
 : MIE MIP
 
 | `Name` | `Value` |
@@ -102,6 +110,7 @@
 | `CY`   | `0`     |
 | `TM`   | `1`     |
 | `IR`   | `2`     |
+
 : Performance Counters
 
 | `Name`           | `Value` |
@@ -125,6 +134,7 @@
 | `CAUSE_INSTRUCTION_PAGE_FAULT`   | `12`    |
 | `CAUSE_LOAD_PAGE_FAULT`          | `13`    |
 | `CAUSE_STORE_PAGE_FAULT`         | `15`    |
+
 : Exception Causes
 
 | `Name`        | `Value` |
@@ -150,6 +160,7 @@
 | `TOR`   | `2'd1`  |
 | `NA4`   | `2'd2`  |
 | `NAPOT` | `2'd3`  |
+
 : PMP-CFG Register
 
 ## FETCH
@@ -176,6 +187,7 @@
 | `USTATUS` | `'h000` |
 | `UIE`     | `'h004` |
 | `UTVEC`   | `'h005` |
+
 : User Trap Setup
 
 | `Name`     | `Value` |
@@ -186,6 +198,7 @@
 | `UBADADDR` | `'h043` |
 | `UTVAL`    | `'h043` |
 | `UIP`      | `'h044` |
+
 : User Trap Handling
 
 | `Name`   | `Value` |
@@ -193,6 +206,7 @@
 | `FFLAGS` | `'h001` |
 | `FRM`    | `'h002` |
 | `FCSR`   | `'h003` |
+
 : User Floating-Point CSRs
 
 | `Name`         | `Value` | `Observation`              |
@@ -205,6 +219,7 @@
 | `TIMEH`        | `'hC81` |                            |
 | `INSTRETH`     | `'hC82` |                            |
 | `HPMCOUNTER3H` | `'hC83` | `until HPMCONTER31='hC9F`  |
+
 : User Counters/Timers
 
 #### Supervisor
@@ -217,6 +232,7 @@
 | `SIE`        | `'h104` |
 | `STVEC`      | `'h105` |
 | `SCOUNTEREN` | `'h106` |
+
 : Supervisor Trap Setup
 
 | `Name`     | `Value` |
@@ -226,11 +242,13 @@
 | `SCAUSE`   | `'h142` |
 | `STVAL`    | `'h143` |
 | `SIP`      | `'h144` |
+
 : Supervisor Trap Handling
 
 | `Name` | `Value` |
 | :----- | :------ |
 | `SATP` | `'h180` |
+
 : Supervisor Protection and Translation
 
 #### Hypervisor
@@ -242,6 +260,7 @@
 | `HIDELEG` | `'h203` |
 | `HIE`     | `'h204` |
 | `HTVEC`   | `'h205` |
+
 : Hypervisor trap setup
 
 | `Name`     | `Value` |
@@ -251,6 +270,7 @@
 | `HCAUSE`   | `'h242` |
 | `HTVAL`    | `'h243` |
 | `HIP`      | `'h244` |
+
 : Hypervisor Trap Handling
 
 #### Machine
@@ -261,6 +281,7 @@
 | `MARCHID`   | `'hF12` |
 | `MIMPID`    | `'hF13` |
 | `MHARTID`   | `'hF14` |
+
 : Machine Information
 
 | `Name`       | `Value` | `Observation` |
@@ -273,6 +294,7 @@
 | `MNMIVEC`    | `'h7C0` | `NMI Vector`  |
 | `MTVEC`      | `'h305` |               |
 | `MCOUNTEREN` | `'h306` |               |
+
 : Machine Trap Setup
 
 | `Name`     | `Value` |
@@ -282,6 +304,7 @@
 | `MCAUSE`   | `'h342` |
 | `MTVAL`    | `'h343` |
 | `MIP`      | `'h344` |
+
 : Machine Trap Handling
 
 ## MEMORY

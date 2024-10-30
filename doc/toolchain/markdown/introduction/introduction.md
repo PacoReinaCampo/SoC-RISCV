@@ -54,6 +54,7 @@ sudo make linux
 | `qemu`     | `https://gitlab.com/qemu-project/qemu.git`                |
 | `spike`    | `https://github.com/riscv-software-src/riscv-isa-sim.git` |
 | `uclibc`   | `https://git.uclibc-ng.org/git/uclibc-ng.git`             |
+
 : GNU ToolChain
 
 Here is the list of configure option for specify source tree:
@@ -75,6 +76,7 @@ Here is the list of configure option for specify source tree:
 |-----------------|
 | `riscv32-elf`   |
 | `riscv32-glibc` |
+
 : Compilation 32-Bit
 
 | Tool            |
@@ -82,4 +84,5 @@ Here is the list of configure option for specify source tree:
 | `riscv64-elf`   |
 | `riscv64-glibc` |
 | `riscv64-musl`  |
+
 : Compilation 64-Bit

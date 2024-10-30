@@ -11,6 +11,7 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `codecs`                       | `Instruction Encodings`                 |
 | `compression`                  | `Compressed Instruction`                |
 | `pseudos`                      | `Pseudo Instructions`                   |
+
 : Instruction Directory
 
 The instruction directory provides a comprehensive listing and categorization of all instructions defined in the RISC-V ISA, organized by their types and functionalities, facilitating easy reference and understanding of their usage.

@@ -9,6 +9,7 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `enums`                        | `Enumerated Types`                      |
 | `constraints`                  | `Constraint Definitions`                |
 | `operands`                     | `Operand Bit Encodings`                 |
+
 : Definition Directory
 
 This table outlines the definitions and explanations of key terms and concepts used throughout the RISC-V ISA specification.

@@ -87,6 +87,7 @@ Format of a line in the table:
 | `css·sqsp`   | `rs2,offset(rs1)`        | `crs2 cimmsqsp`         |
 | `css·swsp+f` | `frs2,offset(rs1)`       | `cfrs2 cimmswsp`        |
 | `css·sdsp+f` | `frs2,offset(rs1)`       | `cfrs2 cimmsdsp`        |
+
 : Instruction Encodings
 
 This table provides an overview of the encoding formats used for representing instructions in the RISC-V ISA, including their bit-level structures, opcode assignments, operand fields, and any additional control bits necessary for proper execution.

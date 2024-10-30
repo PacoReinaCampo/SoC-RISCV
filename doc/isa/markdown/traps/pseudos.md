@@ -64,6 +64,7 @@ Format of a line in the table:
 | `fsflags`     | `csrrw`                  | `rd,rs1`         | `csr_eq_0x001`                   |
 | `fsrmi`       | `csrrwi`                 | `rd,zimm`        | `csr_eq_0x002`                   |
 | `fsflagsi`    | `csrrwi`                 | `rd,zimm`        | `csr_eq_0x001`                   |
+
 : Pseudo Instructions
 
 The pseudo instructions table documents pseudo instructions in the RISC-V ISA, which are assembler-level constructs that expand into one or more actual instructions during assembly or compilation, providing convenience or abstraction to programmers.

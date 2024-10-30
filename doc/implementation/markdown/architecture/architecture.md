@@ -29,6 +29,7 @@
 | `HAS_RVT`       | `1`       |
 | `HAS_RVP`       | `1`       |
 | `HAS_EXT`       | `1`       |
+
 : Core Parameters
 
 | `Name`       | `Value`   |
@@ -99,6 +100,7 @@
 | `RDPORTS` | `1`     |
 | `WRPORTS` | `1`     |
 | `AR_BITS` | `5`     |
+
 : RF Access
 
 | `Name`        | `Value` |
@@ -112,6 +114,7 @@
 | `REVPRV_MINOR` | `10`    |
 | `REVUSR_MAJOR` | `2`     |
 | `REVUSR_MINOR` | `2`     |
+
 : Definitions Package
 
 ## MAIN
@@ -119,6 +122,7 @@
 | `Component`       |
 | :---------------- |
 | `pu_riscv_core`   |
+
 : Implementation - Main
 
 ### PU RISCV CORE
@@ -128,6 +132,7 @@
 | `Component`   |
 | :------------ |
 | `pu_riscv_if` |
+
 : Implementation - Fetch
 
 ### PU RISCV IF
@@ -137,6 +142,7 @@
 | `Component`   |
 | :------------ |
 | `pu_riscv_id` |
+
 : Implementation - Decode
 
 ### PU RISCV ID
@@ -151,6 +157,7 @@
 | `pu_riscv_bu`         |
 | `pu_riscv_divider`    |
 | `pu_riscv_multiplier` |
+
 : Implementation - Execute
 
 ### PU RISCV EXECUTION
@@ -165,6 +172,7 @@
 | `Component`       |
 | :---------------- |
 | `pu_riscv_memory` |
+
 : Implementation - Memory
 
 ### PU RISCV MEMORY
@@ -176,6 +184,7 @@
 | `pu_riscv_state` |
 | `pu_riscv_bp`    |
 | `pu_riscv_du`    |
+
 : Implementation - Control
 
 ### PU RISCV STATE
@@ -190,6 +199,7 @@
 | `pu_riscv_dmem_ctrl`   |
 | `pu_riscv_icache_core` |
 | `pu_riscv_imem_ctrl`   |
+
 : Implementation - Cache
 
 ### PU RISCV DCACHE-CORE
