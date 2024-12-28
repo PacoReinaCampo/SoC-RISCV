@@ -8,7 +8,7 @@
 | :------------- | :------ | :---------------------------- |
 | `DU_ADDR_SIZE` | `12`    | `12-bit internal address bus` |
 
-: One Debug Unit per Hardware Thread (hart)
+:One Debug Unit per Hardware Thread (hart)
 
 | `Name`            | `Value` |
 | :---------------- | :------ |
@@ -19,7 +19,7 @@
 | `15-12` | `Debug bank`          |
 | `11- 0` | `Address inside bank` |
 
-: Debug Unit Memory Map
+:Debug Unit Memory Map
 
 | `Name`     | `Value`            |
 | :--------- | :----------------- |
@@ -41,7 +41,7 @@
 | `0` | `00` | `10` | `ie`    |
 | `0` | `00` | `11` | `cause` |
 
-: Control registers - Reserved
+:Control registers - Reserved
 
 | `1` | `XXXX` | `BPX` | `Type` |
 | :-- | :----- | :---- | :----- |
@@ -83,7 +83,7 @@
 | `DEBUG_SINGLE_STEP_TRACE` | `0`     |
 | `DEBUG_BRANCH_TRACE`      | `1`     |
 
-: Debug Codes
+:Debug Codes
 
 | `Name`        | `Value` |
 | :------------ | :------ |

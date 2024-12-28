@@ -34,7 +34,7 @@
 | `riscv32-unknown-linux-gnu-strings`    |
 | `riscv32-unknown-linux-gnu-strip`      |
 
-: Application Tools 32-Bit
+:Application Tools 32-Bit
 
 | Tool 64-Bit                            |
 |----------------------------------------|
@@ -70,11 +70,11 @@
 | `riscv64-unknown-linux-gnu-strings`    |
 | `riscv64-unknown-linux-gnu-strip`      |
 
-: Application Tools 64-Bit
+:Application Tools 64-Bit
 
 | Tool           |
 |----------------|
 | `qemu-riscv32` |
 | `qemu-riscv64` |
 
-: Simulation
+:Simulation

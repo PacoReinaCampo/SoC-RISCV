@@ -26,7 +26,7 @@ Format of a line in the table:
 | `u`    | `Upper`                | `31:12[31:12]=imm                                           11:7=rd           6:0=opcode` |
 | `uj`   | `Jump`                 | `31:12[20\|10:1\|11\|19:12]=imm                             11:7=rd           6:0=opcode` |
 
-: Base Instruction Type
+:Base Instruction Type
 
 The base instruction type table categorizes and describes the fundamental instructions that constitute the core of the RISC-V ISA, covering essential operations such as arithmetic, logical, control flow, and memory access.
 
@@ -42,6 +42,6 @@ The base instruction type table categorizes and describes the fundamental instru
 | `cb`   | `Branch`               | `15:13=funct3 12:10=imm         9:7=rs1'   6:2=imm          1:0=op`                       |
 | `cj`   | `Jump`                 | `15:13=funct3 12:2=imm                                      1:0=op`                       |
 
-: Compressed Instruction Type
+:Compressed Instruction Type
 
 The compressed instruction type table details the subset of instructions available in compressed format within the RISC-V ISA, offering reduced code size benefits while maintaining compatibility with the base instruction set.

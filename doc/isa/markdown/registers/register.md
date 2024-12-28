@@ -10,6 +10,6 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `csrs`                         | `Control and Status Registers`          |
 | `csr-fields`                   | `Control and Status Register Fields`    |
 
-: Register Directory
+:Register Directory
 
 This table provides an overview and detailed descriptions of the registers available for various privilege levels in the RISC-V architecture.

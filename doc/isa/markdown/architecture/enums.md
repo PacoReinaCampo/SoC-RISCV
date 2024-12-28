@@ -22,7 +22,7 @@ Format of a line in the table:
 | `type`    | `simm`                 | `6`       | `Sign Extended Immediate`                            | `1.7-`        |
 | `type`    | `uimm`                 | `7`       | `Zero Extended Immediate`                            | `1.7-`        |
 
-: Types
+:Types
 
 This table categorizes and defines the various data types supported by the RISC-V instruction set architecture, including integers, floating-point numbers, and vectors.
 
@@ -35,7 +35,7 @@ This table categorizes and defines the various data types supported by the RISC-
 | `rm`      | `rmm`                  | `0b100`   | `Round to Nearest, ties to Max Magnitude`            | `1.7-`        |
 | `rm`      | `dyn`                  | `0b111`   | `Dynamic Rounding Mode`                              | `1.7-`        |
 
-: Round Mode
+:Round Mode
 
 The round mode table specifies the different rounding modes available for floating-point operations in compliance with IEEE 754 standards.
 
@@ -46,7 +46,7 @@ The round mode table specifies the different rounding modes available for floati
 | `aqrl`    | `release`              | `1`       | `Release - subsequent reads visible to other harts`  | `1.7-`        |
 | `aqrl`    | `acq_rel`              | `3`       | `Acquire-Release - global order of reads and writes` | `1.7-`        |
 
-: Memory Order (AMO aqrl Argument)
+:Memory Order (AMO aqrl Argument)
 
 This table clarifies the memory order arguments (`aq` and `rl`) used in atomic memory operations (AMO) within the RISC-V ISA.
 
@@ -57,7 +57,7 @@ This table clarifies the memory order arguments (`aq` and `rl`) used in atomic m
 | `fence`   | `r`                    | `2`       | `Read`                                               | `1.7-`        |
 | `fence`   | `w`                    | `1`       | `Write`                                              | `1.7-`        |
 
-: Fence (pred and succ Values)
+:Fence (pred and succ Values)
 
 The fence table details the semantics and usage of the `pred` and `succ` values in fence instructions for memory ordering in RISC-V.
 
@@ -69,7 +69,7 @@ The fence table details the semantics and usage of the `pred` and `succ` values 
 | `fcsr`    | `DZ`                   | `8`       | `Divide by Zero`                                     | `1.7-`        |
 | `fcsr`    | `NV`                   | `16`      | `Invalid Operation`                                  | `1.7-`        |
 
-: Floating Point Exception Register (fcsr)
+:Floating Point Exception Register (fcsr)
 
 This table describes the fields and bit assignments in the floating-point control and status register (`fcsr`), handling exceptions and flags.
 
@@ -86,7 +86,7 @@ This table describes the fields and bit assignments in the floating-point contro
 | `fclass`  | `signaling_nan`        | `256`     | `signaling NaN`                                      | `1.7-`        |
 | `fclass`  | `quiet_nan`            | `512`     | `quiet NaN`                                          | `1.7-`        |
 
-: Floating Point Types Returned by fclass
+:Floating Point Types Returned by fclass
 
 The table enumerates the specific types of floating-point values returned by the `fclass` instruction based on IEEE 754 classifications.
 
@@ -97,7 +97,7 @@ The table enumerates the specific types of floating-point values returned by the
 | `fs`      | `clean`                | `2`       | `Clean`                                              | `1.7-`        |
 | `fs`      | `dirty`                | `3`       | `Dirty`                                              | `1.7-`        |
 
-: FPU Status (mstatus.fs)
+:FPU Status (mstatus.fs)
 
 This table outlines the fields and meanings associated with the floating-point unit (FPU) status in the `mstatus` register of the RISC-V ISA.
 
@@ -108,7 +108,7 @@ This table outlines the fields and meanings associated with the floating-point u
 | `xs`      | `clean`                | `2`       | `None dirty, some clean`                             | `1.7-`        |
 | `xs`      | `dirty`                | `3`       | `Some dirty`                                         | `1.7-`        |
 
-: Extension Status (mstatus.xs)
+:Extension Status (mstatus.xs)
 
 The extension status table details the fields in the `mstatus` register that indicate the presence and status of ISA extensions.
 
@@ -118,7 +118,7 @@ The extension status table details the fields in the `mstatus` register that ind
 | `isa`     | `rv64`                 | `2`       | `RV64`                                               | `1.7-`        |
 | `isa`     | `rv128`                | `3`       | `RV128`                                              | `1.7-`        |
 
-: Base ISA Field (misa)
+:Base ISA Field (misa)
 
 The table specifies the format and interpretation of the `misa` register, which indicates the base instruction set architecture supported by the processor.
 
@@ -132,7 +132,7 @@ The table specifies the format and interpretation of the `misa` register, which 
 | `ext`     | `Q`                    | `2`       | `Quadruple-precision foating-point extension`        | `1.7-`        |
 | `ext`     | `C`                    | `4`       | `Compressed extension`                               | `1.7-`        |
 
-: ISA Extensions (misa)
+:ISA Extensions (misa)
 
 This table lists and defines the various optional ISA extensions that can be supported by processors implementing the RISC-V architecture.
 
@@ -143,7 +143,7 @@ This table lists and defines the various optional ISA extensions that can be sup
 | `mode`    | `H`                    | `2`       | `Hypervisor mode`                                    | `1.7-`        |
 | `mode`    | `M`                    | `3`       | `Machine mode`                                       | `1.7-`        |
 
-: Privilege Mode
+:Privilege Mode
 
 The privilege mode table categorizes and defines the different privilege levels (machine mode, supervisor mode, user mode) in the RISC-V ISA.
 
@@ -158,7 +158,7 @@ The privilege mode table categorizes and defines the different privilege levels 
 | `vm`      | `sv57`                 | `11`      | `Reserved for page-based 48-bit virtual addressing`  | `1.7-1.9.1`   |
 | `vm`      | `sv64`                 | `12`      | `Reserved for page-based 48-bit virtual addressing`  | `1.7-1.9.1`   |
 
-: Virtualization Management Field (mstatus.vm)
+:Virtualization Management Field (mstatus.vm)
 
 The table describes the virtualization management field within the `mstatus` register, governing virtual memory access and behavior.
 
@@ -171,7 +171,7 @@ The table describes the virtualization management field within the `mstatus` reg
 | `svm`     | `sv57`                 | `10`      | `Reserved for page-based 48-bit virtual addressing`  | `1.10,rv64`   |
 | `svm`     | `sv64`                 | `11`      | `Reserved for page-based 48-bit virtual addressing`  | `1.10,rv64`   |
 
-: Virtualization Management Field (satp.vm)
+:Virtualization Management Field (satp.vm)
 
 This table details the virtualization management field within the `satp` register, specifically related to page-based virtual memory translation.
 
@@ -193,7 +193,7 @@ This table details the virtualization management field within the `satp` registe
 | `cause`   | `load_page_fault`      | `13`      | `Load page fault`                                    | `1.10-`       |
 | `cause`   | `store_page_fault`     | `15`      | `Store/AMO page fault`                               | `1.10-`       |
 
-: Machine Cause Register Faults (mcause), Interrupt Bit Clear
+:Machine Cause Register Faults (mcause), Interrupt Bit Clear
 
 The table explains the encoding and meaning of the `mcause` register when a fault occurs, and how interrupt bits are cleared.
 
@@ -212,7 +212,7 @@ The table explains the encoding and meaning of the `mcause` register when a faul
 | `intr`    | `h_external`           | `10`      | `Hypervisor external interrupt`                      | `1.7-1.9.1`   |
 | `intr`    | `m_external`           | `11`      | `Machine external interrupt`                         | `1.7-1.9.1`   |
 
-: Machine Cause Register Interrupts (mcause) Interrupt Bit Set
+:Machine Cause Register Interrupts (mcause) Interrupt Bit Set
 
 The table details the encoding and interpretation of the `mcause` register when an interrupt occurs, including how interrupt bits are set.
 

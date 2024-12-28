@@ -28,7 +28,7 @@
 | `PMPADDR14` | `'h3BE` |
 | `PMPADDR15` | `'h3BF` |
 
-: Machine Protection and Translation
+:Machine Protection and Translation
 
 | `Name`          | `Value` | `Observation`                |
 | :-------------- | :------ | :--------------------------- |
@@ -39,13 +39,13 @@
 | `MINSTRETH`     | `'hB82` |                              |
 | `MHPMCOUNTER3H` | `'hB83` | `until MHPMCOUNTER31H='hB9F` |
 
-: Machine Counters/Timers
+:Machine Counters/Timers
 
 | `Name`      | `Value` | `Observation`            |
 | :---------- | :------ | :----------------------- |
 | `MHPEVENT3` | `'h323` | `until MHPEVENT31 'h33f` |
 
-: Machine Counter Setup
+:Machine Counter Setup
 
 | `Name`     | `Value` |
 | :--------- | :------ |
@@ -57,7 +57,7 @@
 | `DPC`      | `'h7B1` |
 | `DSCRATCH` | `'h7B2` |
 
-: Debug
+:Debug
 
 | `Name`   | `Value` |
 | :------- | :------ |
@@ -66,7 +66,7 @@
 | `RV64I`  | `2'b10` |
 | `RV128I` | `2'b11` |
 
-: MXL mapping
+:MXL mapping
 
 | `Name`  | `Value` |
 | :------ | :------ |
@@ -75,7 +75,7 @@
 | `PRV_S` | `2'b01` |
 | `PRV_U` | `2'b00` |
 
-: Privilege Levels
+:Privilege Levels
 
 | `Name`     | `Value` |
 | :--------- | :------ |
@@ -86,7 +86,7 @@
 | `VM_SV57`  | `4'd10` |
 | `VM_SV64`  | `4'd11` |
 
-: Virtualisation
+:Virtualisation
 
 | `Name` | `Value` |
 | :----- | :------ |
@@ -103,7 +103,7 @@
 | `SSI`  | `1`     |
 | `USI`  | `0`     |
 
-: MIE MIP
+:MIE MIP
 
 | `Name` | `Value` |
 | :----- | :------ |
@@ -111,7 +111,7 @@
 | `TM`   | `1`     |
 | `IR`   | `2`     |
 
-: Performance Counters
+:Performance Counters
 
 | `Name`           | `Value` |
 | :--------------- | :------ |
@@ -135,7 +135,7 @@
 | `CAUSE_LOAD_PAGE_FAULT`          | `13`    |
 | `CAUSE_STORE_PAGE_FAULT`         | `15`    |
 
-: Exception Causes
+:Exception Causes
 
 | `Name`        | `Value` |
 | :------------ | :------ |
@@ -161,7 +161,7 @@
 | `NA4`   | `2'd2`  |
 | `NAPOT` | `2'd3`  |
 
-: PMP-CFG Register
+:PMP-CFG Register
 
 ## FETCH
 
@@ -188,7 +188,7 @@
 | `UIE`     | `'h004` |
 | `UTVEC`   | `'h005` |
 
-: User Trap Setup
+:User Trap Setup
 
 | `Name`     | `Value` |
 | :--------- | :------ |
@@ -199,7 +199,7 @@
 | `UTVAL`    | `'h043` |
 | `UIP`      | `'h044` |
 
-: User Trap Handling
+:User Trap Handling
 
 | `Name`   | `Value` |
 | :------- | :------ |
@@ -207,7 +207,7 @@
 | `FRM`    | `'h002` |
 | `FCSR`   | `'h003` |
 
-: User Floating-Point CSRs
+:User Floating-Point CSRs
 
 | `Name`         | `Value` | `Observation`              |
 | :------------- | :------ | :------------------------- |
@@ -220,7 +220,7 @@
 | `INSTRETH`     | `'hC82` |                            |
 | `HPMCOUNTER3H` | `'hC83` | `until HPMCONTER31='hC9F`  |
 
-: User Counters/Timers
+:User Counters/Timers
 
 #### Supervisor
 
@@ -233,7 +233,7 @@
 | `STVEC`      | `'h105` |
 | `SCOUNTEREN` | `'h106` |
 
-: Supervisor Trap Setup
+:Supervisor Trap Setup
 
 | `Name`     | `Value` |
 | :--------- | :------ |
@@ -243,13 +243,13 @@
 | `STVAL`    | `'h143` |
 | `SIP`      | `'h144` |
 
-: Supervisor Trap Handling
+:Supervisor Trap Handling
 
 | `Name` | `Value` |
 | :----- | :------ |
 | `SATP` | `'h180` |
 
-: Supervisor Protection and Translation
+:Supervisor Protection and Translation
 
 #### Hypervisor
 
@@ -261,7 +261,7 @@
 | `HIE`     | `'h204` |
 | `HTVEC`   | `'h205` |
 
-: Hypervisor trap setup
+:Hypervisor trap setup
 
 | `Name`     | `Value` |
 | :--------- | :------ |
@@ -271,7 +271,7 @@
 | `HTVAL`    | `'h243` |
 | `HIP`      | `'h244` |
 
-: Hypervisor Trap Handling
+:Hypervisor Trap Handling
 
 #### Machine
 
@@ -282,7 +282,7 @@
 | `MIMPID`    | `'hF13` |
 | `MHARTID`   | `'hF14` |
 
-: Machine Information
+:Machine Information
 
 | `Name`       | `Value` | `Observation` |
 | :----------- | :------ | :------------ |
@@ -295,7 +295,7 @@
 | `MTVEC`      | `'h305` |               |
 | `MCOUNTEREN` | `'h306` |               |
 
-: Machine Trap Setup
+:Machine Trap Setup
 
 | `Name`     | `Value` |
 | :--------- | :------ |
@@ -305,7 +305,7 @@
 | `MTVAL`    | `'h343` |
 | `MIP`      | `'h344` |
 
-: Machine Trap Handling
+:Machine Trap Handling
 
 ## MEMORY
 

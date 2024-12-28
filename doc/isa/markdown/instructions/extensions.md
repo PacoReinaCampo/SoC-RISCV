@@ -50,7 +50,7 @@ Format of a line in the table:
 | `rv`   | `64`      | `t`        | `32`              | `RV64T Standard Extension for Transactional Memory (+ RV32T)`                |
 | `rv`   | `128`     | `t`        | `32`              | `RV128T Standard Extension for Transactional Memory (+ RV64T)`               |
 
-: Instruction Set Extensions
+:Instruction Set Extensions
 
 This table outlines the various instruction set extensions available in the RISC-V architecture, each introducing additional functionality beyond the base ISA to cater to specific application domains or performance optimizations.
 

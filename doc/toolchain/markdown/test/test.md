@@ -99,7 +99,7 @@ Format of a line in the table:
 | `rv32ui-v-xor`           | `no passed` |
 | `rv32ui-v-xori`          | `no passed` |
 
-: RV32I - "RV32I Base Integer Instruction Set"
+:RV32I - "RV32I Base Integer Instruction Set"
 
 The RV32I table details the base integer instruction set of the RISC-V ISA for 32-bit implementations, encompassing fundamental arithmetic, logical, and control instructions essential for basic computation.
 
@@ -122,7 +122,7 @@ The RV32I table details the base integer instruction set of the RISC-V ISA for 3
 | `rv32um-v-rem`           | `no passed` |
 | `rv32um-v-remu`          | `no passed` |
 
-: RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
+:RV32M - "RV32M Standard Extension for Integer Multiply and Divide"
 
 This table specifies the RV32M extension, which adds support for integer multiplication and division instructions to the base RV32I instruction set, enhancing computational capabilities.
 
@@ -149,7 +149,7 @@ This table specifies the RV32M extension, which adds support for integer multipl
 | `rv32ua-v-amoxor_w`      | `no passed` |
 | `rv32ua-v-lrsc`          | `no passed` |
 
-: RV32A - "RV32A Standard Extension for Atomic Instructions"
+:RV32A - "RV32A Standard Extension for Atomic Instructions"
 
 The RV32A table outlines the RV32A extension, which introduces atomic memory operations to ensure thread-safe execution in multi-threaded environments, enhancing concurrency control.
 
@@ -178,7 +178,7 @@ The RV32A table outlines the RV32A extension, which introduces atomic memory ope
 | `rv32uf-v-move`          | `no passed` |
 | `rv32uf-v-recoding`      | `no passed` |
 
-: RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
+:RV32F - "RV32F Standard Extension for Single-Precision Floating-Point"
 
 This table describes the RV32F extension, which adds support for single-precision floating-point arithmetic and operations to the RISC-V ISA, enabling computation with floating-point numbers.
 
@@ -205,7 +205,7 @@ This table describes the RV32F extension, which adds support for single-precisio
 | `rv32ud-v-ldst`          | `no passed` |
 | `rv32ud-v-recoding`      | `no passed` |
 
-: RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
+:RV32D - "RV32D Standard Extension for Double-Precision Floating-Point"
 
 The RV32D table details the RV32D extension, which extends the RISC-V ISA to support double-precision floating-point arithmetic and operations, facilitating higher precision calculations.
 
@@ -214,7 +214,7 @@ The RV32D table details the RV32D extension, which extends the RISC-V ISA to sup
 | `rv32uc-p-rvc`           | `no passed` |
 | `rv32uc-v-rvc`           | `no passed` |
 
-: RV32C - "RV32C Standard Extension for Compressed Instructions"
+:RV32C - "RV32C Standard Extension for Compressed Instructions"
 
 This table outlines the RV32C extension, which introduces compressed instruction formats to reduce code size while maintaining compatibility with the base RV32I instruction set, optimizing program memory usage.
 
@@ -227,7 +227,7 @@ This table outlines the RV32C extension, which introduces compressed instruction
 | `rv32uzba-v-sh2add`      | `no passed` |
 | `rv32uzba-v-sh3add`      | `no passed` |
 
-: RV32ZBA - "RV32ZBA Standard Extension)"
+:RV32ZBA - "RV32ZBA Standard Extension)"
 
 The RV32ZBA table specifies the RV32ZBA extension, which adds bit manipulation and bit field instructions to the RISC-V ISA, enhancing support for bitwise operations and compact data structures.
 
@@ -270,7 +270,7 @@ The RV32ZBA table specifies the RV32ZBA extension, which adds bit manipulation a
 | `rv32uzbb-v-xnor`        | `no passed` |
 | `rv32uzbb-v-zext_h`      | `no passed` |
 
-: RV32ZBB - "RV32ZBB Standard Extension)"
+:RV32ZBB - "RV32ZBB Standard Extension)"
 
 This table details the RV32ZBB extension, which introduces byte and half-word instructions to efficiently manipulate data at finer granularity, optimizing memory and computational resources.
 
@@ -283,7 +283,7 @@ This table details the RV32ZBB extension, which introduces byte and half-word in
 | `rv32uzbc-v-clmulh`      | `no passed` |
 | `rv32uzbc-v-clmulr`      | `no passed` |
 
-: RV32ZBC - "RV32ZBC Standard Extension)"
+:RV32ZBC - "RV32ZBC Standard Extension)"
 
 The RV32ZBC table describes the RV32ZBC extension, which enhances support for population count and bit count operations within the RISC-V ISA, aiding in various algorithmic optimizations.
 
@@ -306,7 +306,7 @@ The RV32ZBC table describes the RV32ZBC extension, which enhances support for po
 | `rv32uzbs-v-bset`        | `no passed` |
 | `rv32uzbs-v-bseti`       | `no passed` |
 
-: RV32ZBS - "RV32ZBS Standard Extension)"
+:RV32ZBS - "RV32ZBS Standard Extension)"
 
 The RV32ZBS table outlines the RV32ZBS extension, which introduces support for specialized instructions related to byte swap operations, optimizing data processing in specific use cases.
 
@@ -335,7 +335,7 @@ The RV32ZBS table outlines the RV32ZBS extension, which introduces support for s
 | `rv32uzfh-v-move`        | `no passed` |
 | `rv32uzfh-v-recoding`    | `no passed` |
 
-: RV32ZFH - "RV32ZFH Standard Extension"
+:RV32ZFH - "RV32ZFH Standard Extension"
 
 This table details the RV32ZFH extension, which enhances support for hardware floating-point features in the RISC-V ISA, improving performance and precision in floating-point arithmetic.
 
@@ -348,7 +348,7 @@ This table details the RV32ZFH extension, which enhances support for hardware fl
 | `rv32si-p-scall`         | `no passed` |
 | `rv32si-p-wfi`           | `no passed` |
 
-: RV32I - "RV32I Standard Extension for Integer Instructions for Supervisor-level Instructions"
+:RV32I - "RV32I Standard Extension for Integer Instructions for Supervisor-level Instructions"
 
 The RV32I table specifies the RV32I extension tailored for supervisor-level instructions, adding specific integer operations and capabilities for privileged execution modes.
 
@@ -369,7 +369,7 @@ The RV32I table specifies the RV32I extension tailored for supervisor-level inst
 | `rv32mi-p-sw-misaligned` | `no passed` |
 | `rv32mi-p-zicntr`        | `no passed` |
 
-: RV32I - "RV32I Standard Extension for Integer Instructions for Machine-level Instructions"
+:RV32I - "RV32I Standard Extension for Integer Instructions for Machine-level Instructions"
 
 This table describes the RV32I extension for machine-level instructions, introducing integer operations and functionalities tailored for the highest privilege execution mode in the RISC-V ISA.
 
@@ -496,7 +496,7 @@ Format of a line in the table:
 | `rv64ui-v-xor`           | `no passed` |
 | `rv64ui-v-xori`          | `no passed` |
 
-: RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
+:RV64I - "RV64I Base Integer Instruction Set (+ RV32I)"
 
 The RV64I table details the base integer instruction set of the RISC-V ISA for 64-bit implementations, including all instructions from RV32I while supporting wider registers and extended addressing.
 
@@ -529,7 +529,7 @@ The RV64I table details the base integer instruction set of the RISC-V ISA for 6
 | `rv64um-v-remuw`         | `no passed` |
 | `rv64um-v-remw`          | `no passed` |
 
-: RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
+:RV64M - "RV64M Standard Extension for Integer Multiply and Divide (+ RV32M)"
 
 This table outlines the RV64M extension, which extends RV32M to support integer multiplication and division instructions in 64-bit implementations, enhancing computational capabilities.
 
@@ -574,7 +574,7 @@ This table outlines the RV64M extension, which extends RV32M to support integer 
 | `rv64ua-v-amoxor_w`      | `no passed` |
 | `rv64ua-v-lrsc`          | `no passed` |
 
-: RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
+:RV64A - "RV64A Standard Extension for Atomic Instructions (+ RV32A)"
 
 The RV64A table describes the RV64A extension, which adds atomic memory operations to ensure thread-safe execution in 64-bit environments, enhancing concurrency control.
 
@@ -603,7 +603,7 @@ The RV64A table describes the RV64A extension, which adds atomic memory operatio
 | `rv64uf-v-move`          | `no passed` |
 | `rv64uf-v-recoding`      | `no passed` |
 
-: RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
+:RV64F - "RV64F Standard Extension for Single-Precision Floating-Point (+ RV32F)"
 
 The RV64F table specifies the RV64F extension, which introduces support for single-precision floating-point arithmetic and operations in 64-bit implementations, enabling computation with floating-point numbers.
 
@@ -634,7 +634,7 @@ The RV64F table specifies the RV64F extension, which introduces support for sing
 | `rv64ud-v-recoding`      | `passed`    |
 | `rv64ud-v-structural`    | `no passed` |
 
-: RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
+:RV64D - "RV64D Standard Extension for Double-Precision Floating-Point (+ RV32D)"
 
 This table details the RV64D extension, which extends the RISC-V ISA to support double-precision floating-point arithmetic and operations in 64-bit implementations, facilitating higher precision calculations.
 
@@ -643,7 +643,7 @@ This table details the RV64D extension, which extends the RISC-V ISA to support 
 | `rv64uc-p-rvc`           | `no passed` |
 | `rv64uc-v-rvc`           | `no passed` |
 
-: RV64C - "RV64C Standard Extension for Compressed Instructions (+ RV32C)"
+:RV64C - "RV64C Standard Extension for Compressed Instructions (+ RV32C)"
 
 The RV64C table extends the RV32C compression to 64-bit implementations by including additional compressed instructions, optimizing code density and memory usage.
 
@@ -666,7 +666,7 @@ The RV64C table extends the RV32C compression to 64-bit implementations by inclu
 | `rv64uzba-v-sh3add_uw`   | `no passed` |
 | `rv64uzba-v-slli_uw`     | `no passed` |
 
-: RV64ZBA - "RV64ZBA Standard Extension (+ RV32ZBA)"
+:RV64ZBA - "RV64ZBA Standard Extension (+ RV32ZBA)"
 
 The RV64ZBA table outlines the RV64ZBA extension, which includes bit manipulation and bit field instructions optimized for 64-bit implementations, enhancing support for bitwise operations and compact data structures.
 
@@ -721,7 +721,7 @@ The RV64ZBA table outlines the RV64ZBA extension, which includes bit manipulatio
 | `rv64uzbb-v-xnor`        | `no passed` |
 | `rv64uzbb-v-zext_h`      | `no passed` |
 
-: RV64ZBB - "RV64ZBB Standard Extension (+ RV32ZBB)"
+:RV64ZBB - "RV64ZBB Standard Extension (+ RV32ZBB)"
 
 This table describes the RV64ZBB extension, which introduces byte and half-word instructions optimized for 64-bit implementations, facilitating efficient data manipulation at finer granularity.
 
@@ -734,7 +734,7 @@ This table describes the RV64ZBB extension, which introduces byte and half-word 
 | `rv64uzbc-v-clmulh`      | `no passed` |
 | `rv64uzbc-v-clmulr`      | `no passed` |
 
-: RV64ZBC - "RV64ZBC Standard Extension (+ RV32ZBC)"
+:RV64ZBC - "RV64ZBC Standard Extension (+ RV32ZBC)"
 
 The RV64ZBC table details the RV64ZBC extension, which enhances support for population count and bit count operations within the RISC-V ISA for 64-bit implementations, aiding in algorithmic optimizations.
 
@@ -757,7 +757,7 @@ The RV64ZBC table details the RV64ZBC extension, which enhances support for popu
 | `rv64uzbs-v-bset`        | `no passed` |
 | `rv64uzbs-v-bseti`       | `no passed` |
 
-: RV64ZBS - "RV64ZBS Standard Extension (+ RV32ZBS)"
+:RV64ZBS - "RV64ZBS Standard Extension (+ RV32ZBS)"
 
 The RV64ZBS table specifies the RV64ZBS extension, which introduces specialized instructions for byte swap operations optimized for 64-bit implementations, improving data processing efficiency in specific scenarios.
 
@@ -786,7 +786,7 @@ The RV64ZBS table specifies the RV64ZBS extension, which introduces specialized 
 | `rv64uzfh-v-move`        | `no passed` |
 | `rv64uzfh-v-recoding`    | `no passed` |
 
-: RV64ZFH - "RV64ZFH Standard Extension (+ RV32ZFH)"
+:RV64ZFH - "RV64ZFH Standard Extension (+ RV32ZFH)"
 
 The RV64ZFH table outlines the RV64ZFH extension, which enhances support for hardware floating-point features in 64-bit implementations of the RISC-V ISA, improving performance and precision in floating-point arithmetic.
 
@@ -800,7 +800,7 @@ The RV64ZFH table outlines the RV64ZFH extension, which enhances support for har
 | `rv64si-p-scall`         | `no passed` |
 | `rv64si-p-wfi`           | `no passed` |
 
-: RV64I - "RV64I Standard Extension for Integer Instructions for Supervisor-level Instructions (+ RV32I)"
+:RV64I - "RV64I Standard Extension for Integer Instructions for Supervisor-level Instructions (+ RV32I)"
 
 This table details the RV64I extension for supervisor-level instructions, adding specific integer operations and functionalities tailored for privileged execution modes in 64-bit implementations.
 
@@ -808,7 +808,7 @@ This table details the RV64I extension for supervisor-level instructions, adding
 |--------------------------|:------------|
 | `rv64ssvnapot-p-napot`   | `no passed` |
 
-: RV64SVNAPOT - "RV64SVNAPOT Standard Extension for Supervisor-level Instructions"
+:RV64SVNAPOT - "RV64SVNAPOT Standard Extension for Supervisor-level Instructions"
 
 The RV64SVNAPOT table specifies the RV64SVNAPOT extension, which introduces supervisor-level instructions tailored for handling non-potentially aligned instructions in 64-bit environments.
 
@@ -831,7 +831,7 @@ The RV64SVNAPOT table specifies the RV64SVNAPOT extension, which introduces supe
 | `rv64mi-p-sw-misaligned` | `no passed` |
 | `rv64mi-p-zicntr`        | `no passed` |
 
-: RV64I - "RV64I Standard Extension for Integer Instructions for Machine-level Instructions (+ RV32I)"
+:RV64I - "RV64I Standard Extension for Integer Instructions for Machine-level Instructions (+ RV32I)"
 
 The RV64I table describes the RV64I extension for machine-level instructions, introducing integer operations and functionalities optimized for the highest privilege execution mode in 64-bit implementations.
 
@@ -840,6 +840,6 @@ The RV64I table describes the RV64I extension for machine-level instructions, in
 |--------------------------|:------------|
 | `rv64mzicbo-p-zero`      | `no passed` |
 
-: RV64ZICBO - "RV64ZICBO Standard Extension for Machine-level Instructions"
+:RV64ZICBO - "RV64ZICBO Standard Extension for Machine-level Instructions"
 
 The RV64ZICBO table outlines the RV64ZICBO extension, which introduces machine-level instructions optimized for handling cache block operations in 64-bit environments.

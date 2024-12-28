@@ -14,6 +14,6 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `formats`                      | `Disassembly Formats`                    |
 | `opcode-majors`                | `Major Opcodes`                          |
 
-: Opcode Directory
+:Opcode Directory
 
 This directory provides a comprehensive listing and description of all major opcodes used in the RISC-V instruction set architecture (ISA), categorized for easy reference and understanding.

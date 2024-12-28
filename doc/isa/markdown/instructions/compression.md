@@ -57,6 +57,6 @@ Format of a line in the table:
 | `c.lqsp`     | `lq     imm_10 imm_x16`        | `rs1_eq_sp`                     |
 | `c.sqsp`     | `sq     imm_10 imm_x16`        | `rs1_eq_sp`                     |
 
-: Compressed Instruction
+:Compressed Instruction
 
 The compressed instruction table lists specific examples and encodings of instructions that are available in compressed form, demonstrating how these instructions are encoded and decoded within the RISC-V architecture.

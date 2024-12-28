@@ -29,7 +29,7 @@
 | :---------- | :------- |
 | `INSTR_NOP` | `64'h13` |
 
-: RISCV Opcodes Package
+:RISCV Opcodes Package
 
 | `Name`         | `Value`     |
 | :------------- | :---------- |
@@ -55,7 +55,7 @@
 | `OPC_JAL`      | `5'b11_011` |
 | `OPC_SYSTEM`   | `5'b11_100` |
 
-: Opcodes
+:Opcodes
 
 #### RV32/RV64 Base Instructions
 
@@ -111,14 +111,14 @@
 | `SRAX`  | `15'b0100000_101_01100` |
 | `SRAW`  | `15'b0100000_101_01110` |
 
-: F7-F3 Opcode Base Instructions
+:F7-F3 Opcode Base Instructions
 
 | `Name`    | `Value`                 | `Description`                 |
 | :-------- | :---------------------- | :---------------------------- |
 | `SYSTEM`  | `15'b???????_000_11100` | `excludes RDxxx instructions` |
 | `MISCMEM` | `15'b???????_???_00011` |                               |
 
-: Pseudo Instructions
+:Pseudo Instructions
 
 | `Name`      | `Value`                                    |
 | :---------- | :----------------------------------------- |
@@ -136,7 +136,7 @@
 | `HRTS`      | `32'b001000000101_00000_000_00000_1110011` |
 | `WFI`       | `32'b000100000101_00000_000_00000_1110011` |
 
-: SYSTEM/MISC_MEM Opcodes
+:SYSTEM/MISC_MEM Opcodes
 
 | `Name`   | `Value`                 |
 | :------- | :---------------------- |
@@ -147,7 +147,7 @@
 | `CSRRSI` | `15'b???????_110_11100` |
 | `CSRRCI` | `15'b???????_111_11100` |
 
-: F7-F3 Opcode
+:F7-F3 Opcode
 
 #### RV32/RV64 A-Extensions Instructions
 
@@ -165,7 +165,7 @@
 | `AMOMINUW` | `15'b11000??_010_01011` |
 | `AMOMAXUW` | `15'b11100??_010_01011` |
 
-: F7-F3 Opcode A-Extensions Instructions W
+:F7-F3 Opcode A-Extensions Instructions W
 
 | `Name`     | `Value`                 |
 | :--------- | :---------------------- |
@@ -181,7 +181,7 @@
 | `AMOMINUD` | `15'b11000??_011_01011` |
 | `AMOMAXUD` | `15'b11100??_011_01011` |
 
-: F7-F3 Opcode A-Extensions Instructions D
+:F7-F3 Opcode A-Extensions Instructions D
 
 #### RV32/RV64 M-Extensions Instructions
 
@@ -201,7 +201,7 @@
 | `REMU`   | `15'b0000001_111_01100` |
 | `REMUW`  | `15'b0000001_111_01110` |
 
-: F7-F3 Opcode M-Extensions Instructions
+:F7-F3 Opcode M-Extensions Instructions
 
 ## MEMORY
 

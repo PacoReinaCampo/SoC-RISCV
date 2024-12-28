@@ -83,7 +83,7 @@ Format of a line in the table:
 | `cimmd`      | `12:10[5:3],6:5[7:6]`                | `uimm`    | `uimm`                             |
 | `cimmq`      | `12:10[5:4\|8],6:5[7:6]`             | `uimm`    | `uimm`                             |
 
-: Operand Bit Encodings
+:Operand Bit Encodings
 
 The operand bit encodings table provides detailed information on the bit-level representations and formats of operands used in RISC-V instructions.
 

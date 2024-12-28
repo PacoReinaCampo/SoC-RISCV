@@ -48,7 +48,7 @@ Format of a line in the table:
 | `ECALL`             | `0000000`  | `00000`  | `00000`  | `000`   | `00000`  | `1110011` |
 | `EBREAK`            | `0000000`  | `00001`  | `00000`  | `000`   | `00000`  | `1110011` |
 
-: RV32I - Base Integer Instruction Set (32 bit)
+:RV32I - Base Integer Instruction Set (32 bit)
 
 The RV32I table details the base integer instruction set for the 32-bit RISC-V architecture, encompassing essential operations and functionalities supported at the machine level.
 
@@ -70,7 +70,7 @@ The RV32I table details the base integer instruction set for the 32-bit RISC-V a
 | `SRLW  RD, RS1,RS2` | `0000000`  | `RS24:0` | `RS14:0` | `101`   | `RD4:0`  | `0111011` |
 | `SRAW  RD, RS1,RS2` | `0100000`  | `RS24:0` | `RS14:0` | `101`   | `RD4:0`  | `0111011` |
 
-: RV64I - Base Integer Instruction Set (64 bit)
+:RV64I - Base Integer Instruction Set (64 bit)
 
 Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, maintaining compatibility with RV32I while adding support for larger data and addressing spaces.
 
@@ -85,7 +85,7 @@ Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, m
 | `REM    RD,RS1,RS2` | `0000001`  | `RS24:0` | `RS14:0` | `110`   | `RD4:0`  | `0110011` |
 | `REMU   RD,RS1,RS2` | `0000001`  | `RS24:0` | `RS14:0` | `111`   | `RD4:0`  | `0110011` |
 
-: RV32M - Standard Extension for Integer Multiply and Divide (32 bit)
+:RV32M - Standard Extension for Integer Multiply and Divide (32 bit)
 
 This table outlines the standard extension for integer multiplication and division operations in the 32-bit RISC-V architecture, enhancing computational capabilities with dedicated instructions.
 
@@ -97,7 +97,7 @@ This table outlines the standard extension for integer multiplication and divisi
 | `REMW  RD,RS1,RS2`   | `0000001`  | `RS24:0` | `RS14:0` | `110`   | `RD4:0`  | `0111011` |
 | `REMUW RD,RS1,RS2`   | `0000001`  | `RS24:0` | `RS14:0` | `111`   | `RD4:0`  | `0111011` |
 
-: RV64M - Standard Extension for Integer Multiply and Divide (64 bit)
+:RV64M - Standard Extension for Integer Multiply and Divide (64 bit)
 
 Extending RV32M to 64-bit, RV64M introduces support for integer multiplication and division operations, catering to applications requiring larger data processing capabilities.
 
@@ -115,7 +115,7 @@ Extending RV32M to 64-bit, RV64M introduces support for integer multiplication a
 | `AMOMINU.W AQRL,RD,RS2,RS1` | `11000AQRL` | `RS24:0` | `RS14:0` | `010`   | `RD4:0`  | `0101111` |
 | `AMOMAXU.W AQRL,RD,RS2,RS1` | `11100AQRL` | `RS24:0` | `RS14:0` | `010`   | `RD4:0`  | `0101111` |
 
-: RV32A - Standard Extension for Atomic Instructions (32 bit)
+:RV32A - Standard Extension for Atomic Instructions (32 bit)
 
 Detailed here are the atomic instruction set extensions for the 32-bit RISC-V architecture, providing concurrency control primitives essential for synchronization in multi-threaded environments.
 
@@ -133,7 +133,7 @@ Detailed here are the atomic instruction set extensions for the 32-bit RISC-V ar
 | `AMOMINU.D AQRL,RD,RS2,RS1` | `11000AQRL` | `RS24:0` | `RS14:0` | `011`   | `RD4:0`  | `0101111` |
 | `AMOMAXU.D AQRL,RD,RS2,RS1` | `11100AQRL` | `RS24:0` | `RS14:0` | `011`   | `RD4:0`  | `0101111` |
 
-: RV64A - Standard Extension for Atomic Instructions (64 bit)
+:RV64A - Standard Extension for Atomic Instructions (64 bit)
 
 Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomic instructions for manipulating memory in a thread-safe manner across larger data sets.
 
@@ -174,7 +174,7 @@ Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomi
 | `FSRMI`                          | `0000000`   | `00010`  | `00000`  | `101`   | `RD`     | `1110011` |
 | `FSFLAGSI`                       | `0000000`   | `00001`  | `00000`  | `101`   | `RD`     | `1110011` |
 
-: RV32F - Standard Extension for Single-Precision Floating-Point (32 bit)
+:RV32F - Standard Extension for Single-Precision Floating-Point (32 bit)
 
 The RV32F table details the single-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 32-bit floating-point numbers according to IEEE 754 standards.
 
@@ -185,7 +185,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `FCVT.S.L RM,RD,FRS1`            | `1101000`   | `00010`  | `FRS1`   | `RM`    | `FRD`    | `1010011` |
 | `FCVT.S.LU RM,RD,FRS1`           | `1101000`   | `00011`  | `FRS1`   | `RM`    | `FRD`    | `1010011` |
 
-: RV64F - Standard Extension for Single-Precision Floating-Point (64 bit)
+:RV64F - Standard Extension for Single-Precision Floating-Point (64 bit)
 
  Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
  
@@ -220,7 +220,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `FCVT.D.W`                       | `1101001`   | `00000`  | `FRS1`   | `RM`    | `RD`     | `1010011` |
 | `FCVT.D.WU`                      | `1101001`   | `00001`  | `FRS1`   | `RM`    | `RD`     | `1010011` |
 
-: RV32D - Standard Extension for Double-Precision Floating-Point (32 bit)
+:RV32D - Standard Extension for Double-Precision Floating-Point (32 bit)
 
  This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
 
@@ -233,6 +233,6 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `FMV.X.D RD,FRS1`                | `1110001`   | `00000`  | `FRS1`   | `000`   | `RD`     | `1010011` |
 | `FMV.D.X RD,FRS1`                | `1111001`   | `00000`  | `RS1`    | `000`   | `FRD`    | `1010011` |
 
-: RV64D - Standard Extension for Double-Precision Floating-Point (64 bit)
+:RV64D - Standard Extension for Double-Precision Floating-Point (64 bit)
 
  Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.

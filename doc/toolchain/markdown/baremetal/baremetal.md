@@ -33,7 +33,7 @@
 | `riscv32-unknown-elf-strings`    |
 | `riscv32-unknown-elf-strip`      |
 
-: Baremetal Tools 32-Bit
+:Baremetal Tools 32-Bit
 
 | Tool 64-Bit                      |
 |----------------------------------|
@@ -68,11 +68,11 @@
 | `riscv64-unknown-elf-strings`    |
 | `riscv64-unknown-elf-strip`      |
 
-: Baremetal Tools 64-Bit
+:Baremetal Tools 64-Bit
 
 | Tool            |
 |-----------------|
 | `spike-riscv32` |
 | `spike-riscv64` |
 
-: Simulation
+:Simulation
