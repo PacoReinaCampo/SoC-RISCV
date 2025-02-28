@@ -46,7 +46,7 @@ all: build simulate
 
 build:
 	xvlog -prj soc.prj \
-	-i ../../../../../../rtl/verilog/soc/soc_bootrom
+	-i ../../../../../../rtl/verilog/soc/optimsoc/soc_bootrom
 
 simulate:
 	xelab soc_riscv_testbench
