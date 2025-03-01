@@ -61,25 +61,25 @@ hardware-mpsoc4d:
 	make -f Vmpsoc4d_riscv_testbench.mk
 
 software-tile:
-	./Vsoc_riscv_tile_testbench --meminit=../../../../../../software/procedures/heat_mp_simple/c/heat_mp_simple.vmem
-	./Vsoc_riscv_tile_testbench --meminit=../../../../../../software/procedures/hello/c/hello.vmem
-	./Vsoc_riscv_tile_testbench --meminit=../../../../../../software/procedures/hello_mp/c/hello_mp.vmem
-	./Vsoc_riscv_tile_testbench --meminit=../../../../../../software/procedures/hello_mp_simple/c/hello_mp_simple.vmem
+	./Vsoc_riscv_tile_testbench --meminit=../../../../../../../software/baremetal/optimsoc/heat_mp_simple/c/heat_mp_simple.vmem
+	./Vsoc_riscv_tile_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello/c/hello.vmem
+	./Vsoc_riscv_tile_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp/c/hello_mp.vmem
+	./Vsoc_riscv_tile_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp_simple/c/hello_mp_simple.vmem
 
 software-mpsoc2d:
-	./Vmpsoc2d_riscv_testbench --meminit=../../../../../../software/procedures/hello/c/hello.vmem
-	./Vmpsoc2d_riscv_testbench --meminit=../../../../../../software/procedures/hello_mp/c/hello_mp.vmem
-	./Vmpsoc2d_riscv_testbench --meminit=../../../../../../software/procedures/hello_mp_simple/c/hello_mp_simple.vmem
+	./Vmpsoc2d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello/c/hello.vmem
+	./Vmpsoc2d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp/c/hello_mp.vmem
+	./Vmpsoc2d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp_simple/c/hello_mp_simple.vmem
 
 software-mpsoc3d:
-	./Vmpsoc3d_riscv_testbench --meminit=../../../../../../software/procedures/hello/c/hello.vmem
-	./Vmpsoc3d_riscv_testbench --meminit=../../../../../../software/procedures/hello_mp/c/hello_mp.vmem
-	./Vmpsoc3d_riscv_testbench --meminit=../../../../../../software/procedures/hello_mp_simple/c/hello_mp_simple.vmem
+	./Vmpsoc3d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello/c/hello.vmem
+	./Vmpsoc3d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp/c/hello_mp.vmem
+	./Vmpsoc3d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp_simple/c/hello_mp_simple.vmem
 
 software-mpsoc4d:
-	./Vmpsoc4d_riscv_testbench --meminit=../../../../../../software/procedures/hello/c/hello.vmem
-	./Vmpsoc4d_riscv_testbench --meminit=../../../../../../software/procedures/hello_mp/c/hello_mp.vmem
-	./Vmpsoc4d_riscv_testbench --meminit=../../../../../../software/procedures/hello_mp_simple/c/hello_mp_simple.vmem
+	./Vmpsoc4d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello/c/hello.vmem
+	./Vmpsoc4d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp/c/hello_mp.vmem
+	./Vmpsoc4d_riscv_testbench --meminit=../../../../../../../software/baremetal/optimsoc/hello_mp_simple/c/hello_mp_simple.vmem
 
 clear:
 	rm -rf *.a *.cpp *.d *.dat *.h *.o *.mk
