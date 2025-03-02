@@ -43,8 +43,8 @@
 ###################################################################################
 
 +incdir+../../../../../../../rtl/verilog/soc/optimsoc/bootrom
-+incdir+../../../../../../../bench/cpp/verilator/inc
-+incdir+../../../../../../../bench/cpp/glip
++incdir+../../../../../../../verification/tasks/library/cpp/verilator/inc
++incdir+../../../../../../../verification/tasks/library/cpp/glip
 
 ../../../../../../../peripheral/dma/rtl/verilog/code/pkg/core/peripheral_dma_pkg.sv
 
@@ -61,7 +61,7 @@
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/common/peripheral_dbg_soc_dii_channel.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/interfaces/riscv/peripheral_dbg_soc_mriscv_trace_exec.sv
 
-../../../../../../../bench/verilog/glip/soc_glip_channel.sv
+../../../../../../../verification/tasks/library/verilog/optimsoc/glip/soc_glip_channel.sv
 
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_dii_buffer.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/blocks/buffer/peripheral_dbg_soc_osd_fifo.sv
@@ -169,4 +169,4 @@
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_ahb3.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_ahb32sram.sv
 
-../../../../../../../bench/verilog/main/soc_riscv_testbench.sv
+../../../../../../../verification/tasks/library/verilog/optimsoc/main/soc_riscv_testbench.sv
