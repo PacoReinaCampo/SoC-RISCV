@@ -44,7 +44,7 @@
 
 export PATH=/opt/riscv-elf-gcc/bin:${PATH}
 
-source ../../build.sh
+source ../../../../tool/optimsoc/build.sh
 
 make clean
 make

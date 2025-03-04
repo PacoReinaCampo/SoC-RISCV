@@ -48,9 +48,9 @@
 
 ../../../../../../../peripheral/dma/rtl/verilog/code/pkg/core/peripheral_dma_pkg.sv
 
-../../../../../../../pu/rtl/verilog/pkg/optimsoc/peripheral_ahb3_pkg.sv
-../../../../../../../pu/rtl/verilog/pkg/optimsoc/peripheral_biu_pkg.sv
-../../../../../../../pu/rtl/verilog/pkg/optimsoc/pu_riscv_pkg.sv
+../../../../../../../pu/rtl/verilog/pkg/peripheral_ahb3_pkg.sv
+../../../../../../../pu/rtl/verilog/pkg/peripheral_biu_pkg.sv
+../../../../../../../pu/rtl/verilog/pkg/pu_riscv_pkg.sv
 
 ../../../../../../../rtl/verilog/pkg/optimsoc/arbiter/soc_arbiter_rr.sv
 ../../../../../../../rtl/verilog/pkg/optimsoc/functions/soc_optimsoc_functions.sv
@@ -110,16 +110,16 @@
 ../../../../../../../peripheral/mpi/rtl/verilog/code/core/peripheral_mpi_buffer_endpoint.sv
 ../../../../../../../peripheral/mpi/rtl/verilog/code/peripheral/ahb3/peripheral_mpi_ahb3.sv
 
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_arbiter_rr.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_buffer.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_demux.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_mux.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/main/peripheral_noc_vchannel_mux.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_input.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_lookup_slice.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_lookup.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router_output.sv
-../../../../../../../peripheral/noc/rtl/verilog/code/peripheral/router/peripheral_noc_router.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_arbiter_rr.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_noc_buffer.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_noc_demux.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_noc_mux.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_noc_vchannel_mux.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/router/peripheral_noc_router_input.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/router/peripheral_noc_router_lookup_slice.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/router/peripheral_noc_router_lookup.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/router/peripheral_noc_router_output.sv
+../../../../../../../peripheral/noc/rtl/verilog/code/core/router/peripheral_noc_router.sv
 
 ../../../../../../../pu/rtl/verilog/core/cache/pu_riscv_dcache_core.sv
 ../../../../../../../pu/rtl/verilog/core/cache/pu_riscv_dext.sv
