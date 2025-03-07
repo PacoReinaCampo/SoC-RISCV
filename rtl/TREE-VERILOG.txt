@@ -10,6 +10,12 @@ verilog
 │   │   └── functions
 │   │       └── soc_optimsoc_functions.sv
 │   └── standard
+│       ├── peripheral_ahb3_verilog_pkg.sv
+│       ├── peripheral_apb4_verilog_pkg.sv
+│       ├── peripheral_axi4_verilog_pkg.sv
+│       ├── peripheral_biu_verilog_pkg.sv
+│       ├── peripheral_wb_verilog_pkg.sv
+│       └── pu_riscv_verilog_pkg.sv
 └── soc
     ├── optimsoc
     │   ├── adapter
@@ -34,6 +40,10 @@ verilog
     │       └── soc_sram_sp.sv
     └── standard
         ├── pu
+        │   ├── pu_riscv_ahb3.sv
+        │   ├── pu_riscv_slaves_32b_apb4.sv
+        │   └── pu_riscv_slaves_8b_apb4.sv
         └── top
+            └── soc_riscv_ahb3.sv
 
-20 directories, 16 files
+20 directories, 26 files

@@ -1,0 +1,235 @@
+###################################################################################
+##                                            __ _      _     _                  ##
+##                                           / _(_)    | |   | |                 ##
+##                __ _ _   _  ___  ___ _ __ | |_ _  ___| | __| |                 ##
+##               / _` | | | |/ _ \/ _ \ '_ \|  _| |/ _ \ |/ _` |                 ##
+##              | (_| | |_| |  __/  __/ | | | | | |  __/ | (_| |                 ##
+##               \__, |\__,_|\___|\___|_| |_|_| |_|\___|_|\__,_|                 ##
+##                  | |                                                          ##
+##                  |_|                                                          ##
+##                                                                               ##
+##                                                                               ##
+##              MPSoC-RV64 CPU                                                   ##
+##              Regression Test Makefile                                         ##
+##                                                                               ##
+###################################################################################
+
+###################################################################################
+##                                                                               ##
+## Copyright (c) 2017-2018 by the author(s)                                      ##
+##                                                                               ##
+## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
+## of this software and associated documentation files (the "Software"), to deal ##
+## in the Software without restriction, including without limitation the rights  ##
+## to use, copy, modify, merge, publish, distribute, sublicense, and/or sell     ##
+## copies of the Software, and to permit persons to whom the Software is         ##
+## furnished to do so, subject to the following conditions:                      ##
+##                                                                               ##
+## The above copyright notice and this permission notice shall be included in    ##
+## all copies or substantial portions of the Software.                           ##
+##                                                                               ##
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR    ##
+## IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,      ##
+## FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE   ##
+## AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER        ##
+## LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, ##
+## OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN     ##
+## THE SOFTWARE.                                                                 ##
+##                                                                               ##
+## ============================================================================= ##
+## Author(s):                                                                    ##
+##   Francisco Javier Reina Campo <pacoreinacampo@queenfield.tech>               ##
+##                                                                               ##
+###################################################################################
+
+#####################################################################
+# Implementation details
+#####################################################################
+TARGET     =
+busif      = ahb3lite
+
+#User VPI or file based JTAG model or OPENOCD VPI (OPENOCD)
+#JTAG_DBG = OPENOCD
+#JTAG_DBG = VPI
+JTAG_DBG = NONE
+
+#####################################################################
+# OVL checker
+# This can be changed on the command line
+#####################################################################
+OVL_ASSERT   = OFF
+OVL_INIT_MSG = ON
+STD_OVL_DIR  = /projects/OVL/std_ovl
+
+#####################################################################
+# Design constants
+#####################################################################
+INCDIRS:=
+DEFINES:=SIM
+#DEFINES+=USE_SDRAM_CONTROLLER
+#DEFINES+=RV_NO_X_ON_LOAD
+
+ifneq (,$(findstring USE_SDRAM_CONTROLLER, $(DEFINES)))
+  #Verilog Format
+  HEX_SUFFIX:=hex.ver
+else
+  #Intel HEX Format
+  HEX_SUFFIX:=hex
+endif
+
+#####################################################################
+# Design Sources
+#####################################################################
+SUBMODULES_DIR= $(ROOT_DIR)/submodules
+RV_SRC_DIR    = $(SUBMODULES_DIR)/rv12/rtl/verilog
+MEM_SRC_DIR   = $(SUBMODULES_DIR)/memory/rtl/verilog
+JTAG_SRC_DIR  = $(SUBMODULES_DIR)/universal_jtag_tap/rtl/verilog
+DBG_SRC_DIR   = $(SUBMODULES_DIR)/adv_dbg_if/verilog
+SYS_SRC_DIR   = $(ROOT_DIR)/rtl/verilog/$(busif)
+
+DUT_SRC_DIR=$(ROOT_DIR)/rtl/verilog
+RTL_TOP   = rv_soc_top
+
+RTL_VLOG  = $(SUBMODULES_DIR)/$(busif)_pkg/rtl/verilog/$(busif)_pkg.sv
+
+RTL_VLOG += $(RV_SRC_DIR)/pkg/riscv_rv12_pkg.sv								\
+	    $(RV_SRC_DIR)/pkg/riscv_opcodes_pkg.sv							\
+	    $(RV_SRC_DIR)/pkg/riscv_state1.10_pkg.sv							\
+	    $(RV_SRC_DIR)/pkg/riscv_pma_pkg.sv								\
+	    $(RV_SRC_DIR)/pkg/riscv_du_pkg.sv								\
+	    $(RV_SRC_DIR)/pkg/biu_constants_pkg.sv							\
+	    $(RV_SRC_DIR)/core/riscv_parcel_queue.sv							\
+	    $(RV_SRC_DIR)/core/riscv_if.sv								\
+	    $(RV_SRC_DIR)/core/riscv_pd.sv								\
+	    $(RV_SRC_DIR)/core/riscv_id.sv								\
+	    $(RV_SRC_DIR)/core/ex/riscv_alu.sv								\
+	    $(RV_SRC_DIR)/core/ex/riscv_bu.sv								\
+	    $(RV_SRC_DIR)/core/ex/riscv_lsu.sv								\
+	    $(RV_SRC_DIR)/core/ex/riscv_mul.sv								\
+	    $(RV_SRC_DIR)/core/ex/riscv_div.sv								\
+	    $(RV_SRC_DIR)/core/riscv_ex.sv								\
+	    $(RV_SRC_DIR)/core/riscv_mem.sv								\
+	    $(RV_SRC_DIR)/core/riscv_wb.sv								\
+	    $(RV_SRC_DIR)/core/riscv_dwb.sv								\
+	    $(RV_SRC_DIR)/core/riscv_rf.sv								\
+	    $(RV_SRC_DIR)/core/riscv_state1.10.sv							\
+	    $(RV_SRC_DIR)/core/riscv_bp.sv								\
+	    $(RV_SRC_DIR)/core/riscv_du.sv								\
+	    $(RV_SRC_DIR)/core/riscv_core.sv								\
+	    $(MEM_SRC_DIR)/rl_ram_1r1w.sv								\
+	    $(MEM_SRC_DIR)/rl_ram_1r1w_generic.sv							\
+	    $(MEM_SRC_DIR)/rl_ram_1rw.sv								\
+	    $(MEM_SRC_DIR)/rl_ram_1rw_generic.sv							\
+	    $(MEM_SRC_DIR)/rl_queue.sv									\
+	    $(RV_SRC_DIR)/pkg/riscv_cache_pkg.sv							\
+	    $(RV_SRC_DIR)/core/cache/riscv_cache_setup.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_cache_tag.sv							\
+	    $(RV_SRC_DIR)/core/cache/riscv_cache_memory.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_icache_fsm.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_icache_core.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_noicache_core.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_dcache_fsm.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_dcache_core.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_nodcache_core.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_cache_biu_ctrl.sv						\
+	    $(RV_SRC_DIR)/core/memory/riscv_memmisaligned.sv						\
+	    $(RV_SRC_DIR)/core/memory/riscv_membuf.sv							\
+	    $(RV_SRC_DIR)/core/memory/riscv_pmachk.sv							\
+	    $(RV_SRC_DIR)/core/memory/riscv_pmpchk.sv							\
+	    $(RV_SRC_DIR)/core/memory/riscv_imem_ctrl.sv						\
+	    $(RV_SRC_DIR)/core/memory/riscv_dmem_ctrl.sv						\
+	    $(RV_SRC_DIR)/core/mmu/riscv_nommu.sv							\
+	    $(RV_SRC_DIR)/$(busif)/biu_$(busif).sv							\
+	    $(RV_SRC_DIR)/$(busif)/riscv_top_$(busif).sv
+
+RTL_VLOG += $(JTAG_SRC_DIR)/altera_virtual_tap.sv							\
+	    $(JTAG_SRC_DIR)/universal_jtag_tap.sv							\
+
+RTL_VLOG += $(DBG_SRC_DIR)/core/syncreg.v								\
+	    $(DBG_SRC_DIR)/core/syncflop.v								\
+	    $(DBG_SRC_DIR)/core/bytefifo.v								\
+	    $(DBG_SRC_DIR)/core/adbg_pkg.sv								\
+	    $(DBG_SRC_DIR)/core/adbg_or1k_status_reg.sv							\
+	    $(DBG_SRC_DIR)/core/adbg_or1k_pkg.sv							\
+	    $(DBG_SRC_DIR)/core/adbg_or1k_module.sv							\
+	    $(DBG_SRC_DIR)/core/adbg_or1k_biu.sv							\
+	    $(DBG_SRC_DIR)/core/adbg_jsp_pkg.sv								\
+	    $(DBG_SRC_DIR)/core/adbg_jsp_module_core.sv							\
+	    $(DBG_SRC_DIR)/core/adbg_crc32.v								\
+	    $(DBG_SRC_DIR)/core/adbg_bus_module_core.sv							\
+	    $(DBG_SRC_DIR)/ahb3/adbg_ahb3_pkg.sv							\
+	    $(DBG_SRC_DIR)/ahb3/adbg_top_ahb3.sv							\
+	    $(DBG_SRC_DIR)/ahb3/adbg_jsp_apb_module.sv							\
+	    $(DBG_SRC_DIR)/ahb3/adbg_jsp_apb_biu.sv							\
+	    $(DBG_SRC_DIR)/ahb3/adbg_ahb3_module.sv							\
+	    $(DBG_SRC_DIR)/ahb3/adbg_ahb3_biu.sv
+
+RTL_VLOG += $(SUBMODULES_DIR)/ahb3lite_interconnect/rtl/verilog/ahb3lite_interconnect_slave_priority.sv	\
+	    $(SUBMODULES_DIR)/ahb3lite_interconnect/rtl/verilog/ahb3lite_interconnect_slave_port.sv	\
+	    $(SUBMODULES_DIR)/ahb3lite_interconnect/rtl/verilog/ahb3lite_interconnect_master_port.sv	\
+	    $(SUBMODULES_DIR)/ahb3lite_interconnect/rtl/verilog/ahb3lite_interconnect.sv		\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/core/plic_dynamic_registers.sv				\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/core/plic_priority_index.sv				\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/core/plic_cell.sv					\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/core/plic_target.sv					\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/core/plic_gateway.sv					\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/core/plic_core.sv					\
+	    $(SUBMODULES_DIR)/plic/rtl/verilog/apb4/apb4_plic_top.sv					\
+	    $(SUBMODULES_DIR)/ahb3lite_timer/rtl/verilog/ahb3lite_timer.sv				\
+	    $(SUBMODULES_DIR)/ahb3lite_apb_bridge/rtl/verilog/ahb3lite_apb_bridge.sv			\
+	    $(SUBMODULES_DIR)/apb4_mux/rtl/verilog/apb_mux.sv						\
+	    $(SUBMODULES_DIR)/ahb3lite_memory/rtl/verilog/ahb3lite_sram1rw.sv				\
+	    $(SUBMODULES_DIR)/apb4_gpio/rtl/verilog/apb_gpio.sv						\
+	    $(SUBMODULES_DIR)/apb4_uart16550/rtl/verilog/uart16550_pkg.sv				\
+	    $(SUBMODULES_DIR)/apb4_uart16550/rtl/verilog/uart16550_rx.sv				\
+	    $(SUBMODULES_DIR)/apb4_uart16550/rtl/verilog/uart16550_tx.sv				\
+	    $(SUBMODULES_DIR)/apb4_uart16550/rtl/verilog/uart16550_regs.sv				\
+	    $(SUBMODULES_DIR)/apb4_uart16550/rtl/verilog/uart16550_fifo.sv				\
+	    $(SUBMODULES_DIR)/apb4_uart16550/rtl/verilog/apb_uart16550.sv				\
+	    $(SUBMODULES_DIR)/ahb3lite_error/rtl/verilog/ahb3lite_error.sv				\
+	    $(SUBMODULES_DIR)/apb_error/rtl/verilog/apb_error.sv
+
+RTL_VLOG += $(SYS_SRC_DIR)/common/riscv_system_top_ahb3lite.sv						\
+            $(SYS_SRC_DIR)/common/rv_soc_apb_8b_slaves.sv						\
+	    $(SYS_SRC_DIR)/common/rv_soc_apb_32b_slaves.sv						\
+            $(SYS_SRC_DIR)/common/rv_soc_top.sv								\
+
+RTL_VHDL =
+
+#####################################################################
+# GateLevel Sources
+#####################################################################
+IMPL_DIR = $(ROOT_DIR)/syn/lattice/impl1
+
+#####################################################################
+# Testbench Sources
+#####################################################################
+TB_PREREQ=
+TB_TOP=rv_soc_tb
+TB_SRC_DIR=$(ROOT_DIR)/bench/verilog/$(busif)
+TB_VLOG=$(TB_SRC_DIR)/rv_soc_tb.sv						\
+	$(TB_SRC_DIR)/uart_sim.sv						\
+	$(TB_SRC_DIR)/freertos_task_mon.sv					\
+	$(TB_SRC_DIR)/models/IS42VM32200M_Rev0_2.v				\
+	$(TB_SRC_DIR)/check_cpu2ahb.sv						\
+	$(TB_SRC_DIR)/check_ahb2apb.sv						\
+	$(SUBMODULES_DIR)/rv12/bench/verilog/ahb3lite/memory_model_ahb3lite.sv
+TB_VHDL=
+
+#####################################################################
+# Technology Libraries
+#####################################################################
+LIBEXT = .v
+
+ifeq ($(JTAG_DBG), VPI)
+  TB_PLI = ../$(TB_SRC_DIR)/jtag_pli/jp-io-vpi.sl
+  TB_VLOG += $(TB_SRC_DIR)/jtag_pli/dbg_comm_vpi.v
+else ifeq ($(JTAG_DBG), OPENOCD)
+  TB_PLI = ../$(TB_SRC_DIR)/jtag_openocd/jtag_vpi.sl
+  TB_VLOG += $(TB_SRC_DIR)/jtag_openocd/jtag_vpi.v
+else ifeq ($(JTAG_DBG), COMM)
+  TB_VLOG += $(TB_SRC_DIR)/jtag_pli/dbg_comm.v
+endif
+
+#Lattice models (fifos etc)
+TECHLIBS = $(shell which vsim | sed -r 's/(.*diamond\/[0-9\.]+).*/\1\/cae_library\/simulation\/verilog\/pmi/')
