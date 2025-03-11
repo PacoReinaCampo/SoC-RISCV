@@ -9,14 +9,14 @@
 ##                  |_|                                                          ##
 ##                                                                               ##
 ##                                                                               ##
-##              Architecture                                                     ##
-##              QueenField                                                       ##
+##              Universal Verification Methodology                               ##
+##              Simulation Test Makefile                                         ##
 ##                                                                               ##
 ###################################################################################
 
 ###################################################################################
 ##                                                                               ##
-## Copyright (c) 2019-2020 by the author(s)                                      ##
+## Copyright (c) 2018-2019 by the author(s)                                      ##
 ##                                                                               ##
 ## Permission is hereby granted, free of charge, to any person obtaining a copy  ##
 ## of this software and associated documentation files (the "Software"), to deal ##
@@ -38,37 +38,18 @@
 ##                                                                               ##
 ## ============================================================================= ##
 ## Author(s):                                                                    ##
-##   Paco Reina Campo <pacoreinacampo@queenfield.tech>                           ##
+##   Francisco Javier Reina Campo <pacoreinacampo@queenfield.tech>               ##
 ##                                                                               ##
 ###################################################################################
 
-# Remove Submodule
-git rm -rf peripheral/bfm
-git rm -rf peripheral/dbg
-git rm -rf peripheral/dma
-git rm -rf peripheral/gpio
-git rm -rf peripheral/mpi
-git rm -rf peripheral/mpram
-git rm -rf peripheral/msi
-git rm -rf peripheral/noc
-git rm -rf peripheral/spram
-git rm -rf peripheral/uart
+all: build simulate
 
-git rm -rf pu
+build:
+	xvlog -prj soc.prj
 
-# Update Submodule
-git submodule update --init --recursive --remote
+simulate:
+	xelab soc_riscv_testbench
+	xsim -R soc_riscv_testbench
 
-# Add Submodule
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-BFM.git peripheral/bfm
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-DBG.git peripheral/dbg
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-DMA.git peripheral/dma
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-GPIO.git peripheral/gpio
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-MPI.git peripheral/mpi
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-MPRAM.git peripheral/mpram
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-MSI.git peripheral/msi
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-NoC.git peripheral/noc
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-SPRAM.git peripheral/spram
-git submodule add --force https://github.com/PacoReinaCampo/MPSoC-UART.git peripheral/uart
-
-git submodule add --force https://github.com/PacoReinaCampo/PU-RISCV.git pu
+clean:
+	rm -rf *.vcd .Xil *.dir *.jou *.log *.pb
