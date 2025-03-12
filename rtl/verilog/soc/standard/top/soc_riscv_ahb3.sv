@@ -557,7 +557,7 @@ module soc_riscv_ahb3 #(
   // - Debug Interface
   // - JSP
 
-  pu_riscv_ahb3 #(
+  pu_riscv_system_ahb3 #(
     .XLEN     (XLEN),
     .PLEN     (PLEN),
     .PC_INIT  (PC_INIT),

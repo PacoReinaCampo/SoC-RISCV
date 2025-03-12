@@ -49,8 +49,6 @@ sv work ../../../../../../../../pu/rtl/verilog/pkg/pu_riscv_verilog_pkg.sv
 sv work ../../../../../../../../rtl/verilog/pkg/standard/peripheral_ahb3_pkg.sv
 sv work ../../../../../../../../rtl/verilog/pkg/standard/peripheral_apb4_pkg.sv
 
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core/peripheral_dbg_pu_riscv_pkg.sv
-
 sv work ../../../../../../../../pu/rtl/verilog/core/cache/pu_riscv_dcache_core.sv
 sv work ../../../../../../../../pu/rtl/verilog/core/cache/pu_riscv_dext.sv
 sv work ../../../../../../../../pu/rtl/verilog/core/cache/pu_riscv_icache_core.sv
@@ -100,20 +98,20 @@ sv work ../../../../../../../../peripheral/bfm/rtl/verilog/code/plic/interface/a
 sv work ../../../../../../../../peripheral/bfm/rtl/verilog/code/plic/interface/apb4/peripheral_plic_apb4.sv
 sv work ../../../../../../../../peripheral/bfm/rtl/verilog/code/timer/ahb3/peripheral_timer_ahb3.sv
 
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_biu.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_bus_module_core.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_bytefifo.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_crc32.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_jsp_module_core.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_module.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_status_reg.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_syncflop.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_syncreg.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_ahb3_ahb3.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_ahb3_ahb3.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_module_ahb3.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_module_ahb3.sv
-sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_top_ahb3.sv
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_biu.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_bus_module_core.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_bytefifo.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_crc32.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_jsp_module_core.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_module.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_status_reg.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_syncflop.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_syncreg.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_ahb3_ahb3.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_ahb3_ahb3.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_module_ahb3.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_module_ahb3.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
+sv work ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_top_ahb3.sv -i ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/pkg/core
 
 sv work ../../../../../../../../peripheral/gpio/rtl/verilog/code/peripheral/ahb3/peripheral_ahb32apb4.sv
 sv work ../../../../../../../../peripheral/gpio/rtl/verilog/code/peripheral/ahb3/peripheral_gpio_ahb3.sv
@@ -129,7 +127,7 @@ sv work ../../../../../../../../peripheral/spram/rtl/verilog/code/peripheral/ahb
 sv work ../../../../../../../../peripheral/spram/rtl/verilog/code/peripheral/ahb3/peripheral_spram_1r1w_generic.sv
 sv work ../../../../../../../../peripheral/spram/rtl/verilog/code/peripheral/ahb3/peripheral_spram_ahb3.sv
 
-sv work ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_ahb3.sv
+sv work ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_system_ahb3.sv
 sv work ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_slaves_8b_apb4.sv
 sv work ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_slaves_32b_apb4.sv
 sv work ../../../../../../../../rtl/verilog/soc/standard/top/soc_riscv_ahb3.sv

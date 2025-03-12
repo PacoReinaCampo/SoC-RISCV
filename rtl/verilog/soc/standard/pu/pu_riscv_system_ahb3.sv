@@ -42,7 +42,7 @@
 import peripheral_ahb3_verilog_pkg::*;
 import pu_riscv_verilog_pkg::*;
 
-module pu_riscv_ahb3 #(
+module pu_riscv_system_ahb3 #(
   parameter TECHNOLOGY = "Generic",
 
   // JTAG options (TAP)
