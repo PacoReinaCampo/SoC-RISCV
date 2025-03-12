@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package pu_riscv_verilog_pkg;
+package pu_riscv_pkg;
 
   //////////////////////////////////////////////////////////////////////////////
   // Processing Unit

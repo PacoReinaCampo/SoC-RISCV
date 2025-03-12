@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_axi4_verilog_pkg;
+package peripheral_axi4_pkg;
 
   localparam AXI_ADDR_WIDTH = 64;
   localparam AXI_DATA_WIDTH = 64;

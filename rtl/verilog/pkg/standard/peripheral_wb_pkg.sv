@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_wb_verilog_pkg;
+package peripheral_wb_pkg;
 
   // WB Package
   localparam CLASSIC_CYCLE = 1'b0;

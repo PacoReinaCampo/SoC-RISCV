@@ -38,10 +38,15 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_ahb3_verilog_pkg;
+package peripheral_ahb3_pkg;
 
   localparam HADDR_SIZE = 64;
   localparam HDATA_SIZE = 64;
+
+  localparam HTRANS_SIZE = 2;
+  localparam HSIZE_SIZE  = 3;
+  localparam HBURST_SIZE = 3;
+  localparam HPROT_SIZE  = 4;
 
   // HTRANS
   localparam HTRANS_IDLE = 2'b00;

@@ -10,12 +10,12 @@ verilog
 │   │   └── functions
 │   │       └── soc_optimsoc_functions.sv
 │   └── standard
-│       ├── peripheral_ahb3_verilog_pkg.sv
-│       ├── peripheral_apb4_verilog_pkg.sv
-│       ├── peripheral_axi4_verilog_pkg.sv
-│       ├── peripheral_biu_verilog_pkg.sv
-│       ├── peripheral_wb_verilog_pkg.sv
-│       └── pu_riscv_verilog_pkg.sv
+│       ├── peripheral_ahb3_pkg.sv
+│       ├── peripheral_apb4_pkg.sv
+│       ├── peripheral_axi4_pkg.sv
+│       ├── peripheral_biu_pkg.sv
+│       ├── peripheral_wb_pkg.sv
+│       └── pu_riscv_pkg.sv
 └── soc
     ├── optimsoc
     │   ├── adapter

@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_apb4_verilog_pkg;
+package peripheral_apb4_pkg;
 
   localparam PADDR_SIZE = 64;
   localparam PDATA_SIZE = 64;

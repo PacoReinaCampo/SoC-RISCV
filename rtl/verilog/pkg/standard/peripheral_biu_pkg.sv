@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_biu_verilog_pkg;
+package peripheral_biu_pkg;
 
   // BIU Constants Package
   localparam BYTE = 3'b000;
