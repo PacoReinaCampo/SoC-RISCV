@@ -129,6 +129,10 @@
 ../../../../../../../../peripheral/spram/rtl/verilog/code/peripheral/ahb3/peripheral_spram_1r1w_generic.sv
 ../../../../../../../../peripheral/spram/rtl/verilog/code/peripheral/ahb3/peripheral_spram_ahb3.sv
 
+../../../../../../../../peripheral/msi/rtl/verilog/code/peripheral/ahb3/peripheral_msi_interface_ahb3.sv
+../../../../../../../../peripheral/msi/rtl/verilog/code/peripheral/ahb3/peripheral_msi_master_port_ahb3.sv
+../../../../../../../../peripheral/msi/rtl/verilog/code/peripheral/ahb3/peripheral_msi_slave_port_ahb3.sv
+
 ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_system_ahb3.sv
 ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_slaves_8b_apb4.sv
 ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_slaves_32b_apb4.sv
