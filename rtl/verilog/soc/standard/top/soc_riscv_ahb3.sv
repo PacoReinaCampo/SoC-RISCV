@@ -628,7 +628,7 @@ module soc_riscv_ahb3 #(
     end
   end
 
-  ahb3lite_interconnect #(
+  peripheral_msi_interface_ahb3 #(
     .HADDR_SIZE(HADDR_SIZE),
     .HDATA_SIZE(XLEN),
     .MASTERS   (AHB_MASTERS),
@@ -682,7 +682,7 @@ module soc_riscv_ahb3 #(
   //`else
   // localparam BOOTROM_TECHNOLOGY = "LATTICE_DPRAM";
   //`endif
-  ahb3lite_sram1rw #(
+  peripheral_spram_ahb3 #(
     .MEM_SIZE         (BOOTROM_SIZE * 1024),
     .HADDR_SIZE       (HADDR_SIZE),
     .HDATA_SIZE       (HDATA_SIZE),
@@ -708,7 +708,7 @@ module soc_riscv_ahb3 #(
   );
 
   // On-Chip RAM
-  ahb3lite_sram1rw #(
+  peripheral_spram_ahb3 #(
     .MEM_SIZE         (RAM_SIZE * 1024),
     .HADDR_SIZE       (HADDR_SIZE),
     .HDATA_SIZE       (HDATA_SIZE),
@@ -733,7 +733,7 @@ module soc_riscv_ahb3 #(
   );
 
   // AHB Timer
-  ahb3lite_timer #(
+  peripheral_timer_ahb3 #(
     .HADDR_SIZE(HADDR_SIZE),
     .HDATA_SIZE(HDATA_SIZE),
     .TIMERS    (TIMERS)
@@ -821,7 +821,7 @@ module soc_riscv_ahb3 #(
   endgenerate
 
   // AHB-2-APB Bridges
-  ahb3lite_apb_bridge #(
+  peripheral_ahb32apb4 #(
     .HADDR_SIZE(HADDR_SIZE),
     .HDATA_SIZE(HDATA_SIZE),
     .PADDR_SIZE(APB32_PADDR_SIZE),
@@ -911,7 +911,7 @@ module soc_riscv_ahb3 #(
     .plic_int_o(plic_int)
   );
 
-  ahb3lite_apb_bridge #(
+  peripheral_ahb32apb4 #(
     .HADDR_SIZE(HADDR_SIZE),
     .HDATA_SIZE(HDATA_SIZE),
     .PADDR_SIZE(APB8_PADDR_SIZE),

@@ -167,7 +167,7 @@ module pu_riscv_slaves_32b_apb4 #(
   end
 
   // Actual bus mux/decoder
-  apb_mux #(
+  peripheral_mux_apb4 #(
     .PADDR_SIZE(PADDR_SIZE),  // number of (MSB) bits to compare
     .PDATA_SIZE(PDATA_SIZE),
     .SLAVES    (APB_SLAVES)
@@ -195,7 +195,7 @@ module pu_riscv_slaves_32b_apb4 #(
   // Hookup Slaves
 
   // PLIC
-  apb4_plic_top #(
+  peripheral_plic_apb4 #(
     .PADDR_SIZE(10),
     .PDATA_SIZE(PDATA_SIZE),
 

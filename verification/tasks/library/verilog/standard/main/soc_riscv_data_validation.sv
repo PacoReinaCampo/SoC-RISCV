@@ -57,7 +57,7 @@ module soc_riscv_data_validation #(
   input            [XLEN-1:0] d_i,
   input            [XLEN-1:0] q_i,
   input                       we_i,
-  input biu_size_t            size_i,
+  input            [     2:0] size_i,
   input                       lock_i,
   input                       ack_i,
   input                       err_i,
@@ -73,7 +73,7 @@ module soc_riscv_data_validation #(
     logic [XLEN-1:0] adr;
     logic [XLEN-1:0] data;
     logic            we;
-    biu_size_t       size;
+    logic [     2:0] size;
     logic            lock;
     logic            ack;
     logic            err;

@@ -208,7 +208,7 @@ module soc_riscv_testbench;
   logic [47:0] expconi, expcono, expconoe;
 
   // Instantiate SoC top level
-  rv_soc_top #(
+  soc_riscv_ahb3 #(
     .TECHNOLOGY  (TECHNOLOGY),
     .BOOTROM_SIZE(BOOTROM_SIZE),
     .RAM_SIZE    (RAM_SIZE),
@@ -496,7 +496,7 @@ module soc_riscv_testbench;
 `else
 
   // Emulate SDRAM as SRAM
-  memory_model_ahb3lite #(
+  pu_riscv_memory_model_ahb3 #(
     .DATA_WIDTH(XLEN),
     .ADDR_WIDTH(SDRAM_HADDR_SIZE + 1),
     .BASE      (0),
@@ -523,7 +523,7 @@ module soc_riscv_testbench;
 `endif
 
   // Emulate external (Flash) AHB as memory
-  memory_model_ahb3lite #(
+  pu_riscv_memory_model_ahb3 #(
     .DATA_WIDTH(XLEN),
     .ADDR_WIDTH(EXT_HADDR_SIZE),
     .BASE      (0),
@@ -546,7 +546,7 @@ module soc_riscv_testbench;
   );
 
   // Simulate User Slave AHB as memory
-  memory_model_ahb3lite #(
+  pu_riscv_memory_model_ahb3 #(
     .DATA_WIDTH(XLEN),
     .ADDR_WIDTH(USR_HADDR_SIZE),
     .BASE      (0),

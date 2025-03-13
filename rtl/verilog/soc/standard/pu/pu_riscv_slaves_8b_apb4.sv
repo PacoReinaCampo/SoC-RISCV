@@ -209,7 +209,7 @@ module pu_riscv_slaves_8b_apb4 #(
   end
 
   // Actual bus mux/decoder
-  apb_mux #(
+  peripheral_mux_apb4 #(
     .PADDR_SIZE(PADDR_SIZE),  //TODO: number of (MSB) bits to compare
     .PDATA_SIZE(PDATA_SIZE),
     .SLAVES    (APB_SLAVES)

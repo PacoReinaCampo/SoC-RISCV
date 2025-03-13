@@ -132,6 +132,8 @@ sv work ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_slaves_8b_a
 sv work ../../../../../../../../rtl/verilog/soc/standard/pu/pu_riscv_slaves_32b_apb4.sv
 sv work ../../../../../../../../rtl/verilog/soc/standard/top/soc_riscv_ahb3.sv
 
+sv work ../../../../../../../../pu/verification/tasks/verilog/library/pu/interface/ahb3/pu_riscv_memory_model_ahb3.sv
+
 sv work ../../../../../../../../verification/tasks/library/verilog/standard/interface/ahb3/soc_riscv_check_ahb2apb.sv
 sv work ../../../../../../../../verification/tasks/library/verilog/standard/interface/ahb3/soc_riscv_check_cpu2ahb.sv
 sv work ../../../../../../../../verification/tasks/library/verilog/standard/interface/ahb3/soc_riscv_testbench.sv
