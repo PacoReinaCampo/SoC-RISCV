@@ -107,8 +107,8 @@ module pu_riscv_system_ahb3 #(
   output jtag_tdo_oe,
 
   // Address map configuration
-  input pmacfg_t                   pma_cfg_i[PMA_CNT],
-  input          [XLEN       -1:0] pma_adr_i[PMA_CNT],
+  input [PMA_CNT-1:0][    13:0] pma_cfg,
+  input [PMA_CNT-1:0][XLEN-1:0] pma_adr,
 
   // AHB interfaces
   input HRESETn,

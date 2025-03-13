@@ -337,8 +337,8 @@ module soc_riscv_ahb3 #(
   logic    [       SPI_CHK     -1:0] int_spi;
 
   // PMA configuration
-  pmacfg_t                           pma_cfg        [PMA_CFG_CNT];
-  logic    [               XLEN-1:0] pma_adr        [PMA_CFG_CNT];
+  logic [PMA_CNT-1:0][    13:0] pma_cfg;
+  logic [PMA_CNT-1:0][XLEN-1:0] pma_adr;
 
   // AHB Buses
 

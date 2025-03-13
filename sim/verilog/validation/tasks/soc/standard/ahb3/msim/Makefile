@@ -46,7 +46,7 @@ all: build simulate
 
 build:
 	if [ ! -e work ]; then vlib work; fi
-	vlog -sv -f soc.f
+	vlog -sv -svinputport=relaxed -f soc.f
 
 simulate:
 	vsim -c -do run.do work.soc_riscv_testbench
