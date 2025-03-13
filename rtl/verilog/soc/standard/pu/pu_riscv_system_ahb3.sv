@@ -187,10 +187,10 @@ module pu_riscv_system_ahb3 #(
   // Constants
   //////////////////////////////////////////////////////////////////////////////
 
-  localparam [3:0] JTAG_SYSREV = 0;  // System Revision
-  localparam [3:0] JTAG_JEDEC_BANK = 9;  // 10th bank
-  localparam [6:0] JTAG_JEDEC_ID = 7'h6E;  // bank10, ID6E = Roa Logic BV. No parity bit
-  localparam [31:0] JTAG_IDCODE = {JTAG_USERIDCODE, JTAG_SYSREV, JTAG_JEDEC_BANK, JTAG_JEDEC_ID, 1'b1};
+  localparam [ 3:0] JTAG_SYSREV     = 0;  // System Revision
+  localparam [ 3:0] JTAG_JEDEC_BANK = 9;  // 10th bank
+  localparam [ 6:0] JTAG_JEDEC_ID   = 7'h6E;  // bank10. No parity bit
+  localparam [31:0] JTAG_IDCODE     = {JTAG_USERIDCODE, JTAG_SYSREV, JTAG_JEDEC_BANK, JTAG_JEDEC_ID, 1'b1};
 
   //////////////////////////////////////////////////////////////////////////////
   // Variables
@@ -226,7 +226,7 @@ module pu_riscv_system_ahb3 #(
   //////////////////////////////////////////////////////////////////////////////
 
   // Instantiate RISC-V core
-  riscv_top_ahb3lite #(
+  pu_riscv_ahb3 #(
     .XLEN     (XLEN),
     .ALEN     (PLEN),
     .PC_INIT  (PC_INIT),

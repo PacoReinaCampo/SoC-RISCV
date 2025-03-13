@@ -39,6 +39,8 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
+import peripheral_ahb3_verilog_pkg::*;
+
 module soc_riscv_check_cpu2ahb #(
   parameter XLEN           = 32,
   parameter PHYS_ADDR_SIZE = XLEN
@@ -73,7 +75,6 @@ module soc_riscv_check_cpu2ahb #(
   //////////////////////////////////////////////////////////////////////////////
   // Constants
   //////////////////////////////////////////////////////////////////////////////
-  import ahb3lite_pkg::*;
 
   typedef struct packed {
     logic [XLEN  -1:0] adr;

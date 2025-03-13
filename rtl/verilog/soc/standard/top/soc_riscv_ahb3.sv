@@ -439,117 +439,36 @@ module soc_riscv_ahb3 #(
 
   // BootROM region
   // pma_adr is for a 34/56bit physical address
-  assign pma_adr[0]          = (BOOTROM_BASE | (~BOOTROM_MASK >> 1)) >> 2;
-  assign pma_cfg[0].mem_type = MEM_TYPE_IO;
-  assign pma_cfg[0].r        = 1'b1;
-  assign pma_cfg[0].w        = 1'b0;
-  assign pma_cfg[0].x        = 1'b1;
-  assign pma_cfg[0].c        = 1'b0;
-  assign pma_cfg[0].cc       = 1'b0;
-  assign pma_cfg[0].ri       = 1'b0;
-  assign pma_cfg[0].wi       = 1'b0;
-  assign pma_cfg[0].m        = 1'b0;
-  assign pma_cfg[0].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[0].a        = NAPOT;
+  assign pma_adr[0] = (BOOTROM_BASE | (~BOOTROM_MASK >> 1)) >> 2;
+  assign pma_cfg[0] = {MEM_TYPE_IO, 8'b0000_0000, AMO_TYPE_NONE, NAPOT};
 
   // RAM Region
-  assign pma_adr[1]          = (RAM_BASE | (~RAM_MASK >> 1)) >> 2;
-  assign pma_cfg[1].mem_type = MEM_TYPE_MAIN;
-  assign pma_cfg[1].r        = 1'b1;
-  assign pma_cfg[1].w        = 1'b1;
-  assign pma_cfg[1].x        = 1'b1;
-  assign pma_cfg[1].c        = 1'b0;
-  assign pma_cfg[1].cc       = 1'b0;
-  assign pma_cfg[1].ri       = 1'b0;
-  assign pma_cfg[1].wi       = 1'b0;
-  assign pma_cfg[1].m        = 1'b0;
-  assign pma_cfg[1].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[1].a        = NAPOT;
+  assign pma_adr[1] = (RAM_BASE | (~RAM_MASK >> 1)) >> 2;
+  assign pma_cfg[1] = {MEM_TYPE_MAIN, 8'b1110_0000, AMO_TYPE_NONE, NAPOT};
 
   // TIMER region
-  assign pma_adr[2]          = (TIMER_BASE | (~TIMER_MASK >> 1)) >> 2;
-  assign pma_cfg[2].mem_type = MEM_TYPE_IO;
-  assign pma_cfg[2].r        = 1'b1;
-  assign pma_cfg[2].w        = 1'b1;
-  assign pma_cfg[2].x        = 1'b0;
-  assign pma_cfg[2].c        = 1'b0;
-  assign pma_cfg[2].cc       = 1'b0;
-  assign pma_cfg[2].ri       = 1'b0;
-  assign pma_cfg[2].wi       = 1'b0;
-  assign pma_cfg[2].m        = 1'b0;
-  assign pma_cfg[2].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[2].a        = NAPOT;
+  assign pma_adr[2] = (TIMER_BASE | (~TIMER_MASK >> 1)) >> 2;
+  assign pma_cfg[2] = {MEM_TYPE_IO, 8'b1100_0000, AMO_TYPE_NONE, NAPOT};
 
   // AHB2APB-8b region
-  assign pma_adr[3]          = (AHB2APB_8b_BASE | (~AHB2APB_8b_MASK >> 1)) >> 2;
-  assign pma_cfg[3].mem_type = MEM_TYPE_IO;
-  assign pma_cfg[3].r        = 1'b1;
-  assign pma_cfg[3].w        = 1'b1;
-  assign pma_cfg[3].x        = 1'b0;
-  assign pma_cfg[3].c        = 1'b0;
-  assign pma_cfg[3].cc       = 1'b0;
-  assign pma_cfg[3].ri       = 1'b0;
-  assign pma_cfg[3].wi       = 1'b0;
-  assign pma_cfg[3].m        = 1'b0;
-  assign pma_cfg[3].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[3].a        = NAPOT;
+  assign pma_adr[3] = (AHB2APB_8b_BASE | (~AHB2APB_8b_MASK >> 1)) >> 2;
+  assign pma_cfg[3] = {MEM_TYPE_IO, 8'b1100_0000, AMO_TYPE_NONE, NAPOT};
 
   // AHB2APB-32b region
-  assign pma_adr[4]          = (AHB2APB_32b_BASE | (~AHB2APB_32b_MASK >> 1)) >> 2;
-  assign pma_cfg[4].mem_type = MEM_TYPE_IO;
-  assign pma_cfg[4].r        = 1'b1;
-  assign pma_cfg[4].w        = 1'b1;
-  assign pma_cfg[4].x        = 1'b0;
-  assign pma_cfg[4].c        = 1'b0;
-  assign pma_cfg[4].cc       = 1'b0;
-  assign pma_cfg[4].ri       = 1'b0;
-  assign pma_cfg[4].wi       = 1'b0;
-  assign pma_cfg[4].m        = 1'b0;
-  assign pma_cfg[4].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[4].a        = NAPOT;
+  assign pma_adr[4] = (AHB2APB_32b_BASE | (~AHB2APB_32b_MASK >> 1)) >> 2;
+  assign pma_cfg[4] = {MEM_TYPE_IO, 8'b1100_0000, AMO_TYPE_NONE, NAPOT};
 
   // EXTAHB region
-  assign pma_adr[5]          = (EXTAHB_BASE | (~EXTAHB_MASK >> 1)) >> 2;
-  assign pma_cfg[5].mem_type = MEM_TYPE_IO;
-  assign pma_cfg[5].r        = 1'b1;
-  assign pma_cfg[5].w        = 1'b1;
-  assign pma_cfg[5].x        = 1'b0;
-  assign pma_cfg[5].c        = 1'b0;
-  assign pma_cfg[5].cc       = 1'b0;
-  assign pma_cfg[5].ri       = 1'b0;
-  assign pma_cfg[5].wi       = 1'b0;
-  assign pma_cfg[5].m        = 1'b0;
-  assign pma_cfg[5].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[5].a        = NAPOT;
+  assign pma_adr[5] = (EXTAHB_BASE | (~EXTAHB_MASK >> 1)) >> 2;
+  assign pma_cfg[5] = {MEM_TYPE_IO, 8'b1100_0000, AMO_TYPE_NONE, NAPOT};
 
   // USRAHB region
-  assign pma_adr[6]          = (USRAHB_BASE | (~USRAHB_PMAMASK >> 1)) >> 2;
-  assign pma_cfg[6].mem_type = MEM_TYPE_IO;
-  assign pma_cfg[6].r        = 1'b1;
-  assign pma_cfg[6].w        = 1'b1;
-  assign pma_cfg[6].x        = 1'b0;
-  assign pma_cfg[6].c        = 1'b0;
-  assign pma_cfg[6].cc       = 1'b0;
-  assign pma_cfg[6].ri       = 1'b0;
-  assign pma_cfg[6].wi       = 1'b0;
-  assign pma_cfg[6].m        = 1'b0;
-  assign pma_cfg[6].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[6].a        = NAPOT;
+  assign pma_adr[6] = (USRAHB_BASE | (~USRAHB_PMAMASK >> 1)) >> 2;
+  assign pma_cfg[6] = {MEM_TYPE_IO, 8'b1100_0000, AMO_TYPE_NONE, NAPOT};
 
   // DRAM region
-  assign pma_adr[7]          = (DRAM_BASE | (~DRAM_MASK >> 1)) >> 2;
-  assign pma_cfg[7].mem_type = MEM_TYPE_MAIN;
-  assign pma_cfg[7].r        = 1'b1;
-  assign pma_cfg[7].w        = 1'b1;
-  assign pma_cfg[7].x        = 1'b1;
-  assign pma_cfg[7].c        = 1'b1;
-  assign pma_cfg[7].cc       = 1'b0;
-  assign pma_cfg[7].ri       = 1'b0;
-  assign pma_cfg[7].wi       = 1'b0;
-  assign pma_cfg[7].m        = 1'b0;
-  assign pma_cfg[7].amo_type = AMO_TYPE_NONE;
-  assign pma_cfg[7].a        = NAPOT;
-
+  assign pma_adr[7] = (DRAM_BASE | (~DRAM_MASK >> 1)) >> 2;
+  assign pma_cfg[7] = {MEM_TYPE_MAIN, 8'b1111_0000, AMO_TYPE_NONE, NAPOT};
 
   // Instantiate RISC-V subsystem
   // - CPU(s)
