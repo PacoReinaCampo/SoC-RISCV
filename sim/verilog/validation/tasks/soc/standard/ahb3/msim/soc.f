@@ -109,9 +109,9 @@
 ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_status_reg.sv
 ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_syncflop.sv
 ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/core/peripheral_dbg_pu_riscv_syncreg.sv
-../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_ahb3_ahb3.sv
-../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_ahb3_ahb3.sv
-../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_module_ahb3.sv
+../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_ahb3_biu.sv
+../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_ahb3_biu.sv
+../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_jsp_module_apb4.sv
 ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_module_ahb3.sv
 ../../../../../../../../peripheral/dbg/rtl/pu/riscv/verilog/code/peripheral/ahb3/peripheral_dbg_pu_riscv_top_ahb3.sv
 
