@@ -42,6 +42,8 @@
 ##                                                                               ##
 ###################################################################################
 
+../../../../../../../rtl/verilog/pkg/peripheral/axi4/peripheral_axi4_pkg.sv
+
 +incdir+../../../../../../../verification/uvm/src
 
 ../../../../../../../verification/uvm/library/core/bb/peripheral_uvm_testbench.sv
