@@ -46,7 +46,7 @@ module peripheral_testbench;
 
   always #2 clk = ~clk;
 
-  add_if vif (
+  peripheral_design_if vif (
     clk,
     rst
   );
