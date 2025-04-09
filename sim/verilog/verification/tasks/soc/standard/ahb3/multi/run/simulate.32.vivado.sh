@@ -44,6 +44,6 @@
 
 source ../../../../../../../../../settings64_vivado.sh
 
-cd ../bin
+cd ../../../../../../../../../bin
 rm -rf vivado
 make XLEN=32 SIM=vivado
