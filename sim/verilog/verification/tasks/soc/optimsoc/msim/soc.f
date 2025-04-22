@@ -48,7 +48,7 @@
 
 ../../../../../../../peripheral/dma/rtl/verilog/code/pkg/core/peripheral_dma_pkg.sv
 
-../../../../../../../pu/rtl/verilog/pkg/peripheral_ahb3_pkg.sv
+../../../../../../../pu/rtl/verilog/pkg/peripheral_ahb4_pkg.sv
 ../../../../../../../pu/rtl/verilog/pkg/peripheral_biu_pkg.sv
 ../../../../../../../pu/rtl/verilog/pkg/pu_riscv_pkg.sv
 
@@ -85,12 +85,12 @@
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/ctm/riscv/peripheral_dbg_soc_osd_ctm_mriscv.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_16550.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart.sv
-../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_ahb3.sv
+../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/dem_uart/peripheral_dbg_soc_osd_dem_uart_ahb4.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/him/peripheral_dbg_soc_osd_him.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/common/peripheral_dbg_soc_osd_mam.sv
-../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_mam_adapter_ahb3.sv
-../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_osd_mam_if_ahb3.sv
-../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb3/peripheral_dbg_soc_osd_mam_ahb3.sv
+../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb4/peripheral_dbg_soc_mam_adapter_ahb4.sv
+../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb4/peripheral_dbg_soc_osd_mam_if_ahb4.sv
+../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/mam/ahb4/peripheral_dbg_soc_osd_mam_ahb4.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/scm/peripheral_dbg_soc_osd_scm.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/stm/common/peripheral_dbg_soc_osd_stm.sv
 ../../../../../../../peripheral/dbg/rtl/soc/verilog/code/peripheral/modules/stm/riscv/mriscv/peripheral_dbg_soc_osd_stm_mriscv.sv
@@ -99,16 +99,16 @@
 ../../../../../../../peripheral/dma/rtl/verilog/code/core/peripheral_dma_initiator_nocreq.sv
 ../../../../../../../peripheral/dma/rtl/verilog/code/core/peripheral_dma_packet_buffer.sv
 ../../../../../../../peripheral/dma/rtl/verilog/code/core/peripheral_dma_request_table.sv
-../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_nocres_ahb3.sv
-../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_req_ahb3.sv
-../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_initiator_ahb3.sv
-../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_interface_ahb3.sv
-../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_target_ahb3.sv
-../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb3/peripheral_dma_top_ahb3.sv
+../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb4/peripheral_dma_initiator_nocres_ahb4.sv
+../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb4/peripheral_dma_initiator_req_ahb4.sv
+../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb4/peripheral_dma_initiator_ahb4.sv
+../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb4/peripheral_dma_interface_ahb4.sv
+../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb4/peripheral_dma_target_ahb4.sv
+../../../../../../../peripheral/dma/rtl/verilog/code/peripheral/ahb4/peripheral_dma_top_ahb4.sv
 
 ../../../../../../../peripheral/mpi/rtl/verilog/code/core/peripheral_mpi_buffer.sv
 ../../../../../../../peripheral/mpi/rtl/verilog/code/core/peripheral_mpi_buffer_endpoint.sv
-../../../../../../../peripheral/mpi/rtl/verilog/code/peripheral/ahb3/peripheral_mpi_ahb3.sv
+../../../../../../../peripheral/mpi/rtl/verilog/code/peripheral/ahb4/peripheral_mpi_ahb4.sv
 
 ../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_arbiter_rr.sv
 ../../../../../../../peripheral/noc/rtl/verilog/code/core/main/peripheral_noc_buffer.sv
@@ -153,20 +153,20 @@
 ../../../../../../../pu/rtl/verilog/memory/pu_riscv_ram_1rw_generic.sv
 ../../../../../../../pu/rtl/verilog/memory/pu_riscv_ram_1rw.sv
 ../../../../../../../pu/rtl/verilog/memory/pu_riscv_ram_queue.sv
-../../../../../../../pu/rtl/verilog/pu/ahb3/pu_riscv_ahb3.sv
-../../../../../../../pu/rtl/verilog/pu/ahb3/pu_riscv_biu2ahb3.sv
-../../../../../../../pu/rtl/verilog/pu/ahb3/pu_riscv_module_ahb3.sv
+../../../../../../../pu/rtl/verilog/pu/ahb4/pu_riscv_ahb4.sv
+../../../../../../../pu/rtl/verilog/pu/ahb4/pu_riscv_biu2ahb4.sv
+../../../../../../../pu/rtl/verilog/pu/ahb4/pu_riscv_module_ahb4.sv
 
 ../../../../../../../rtl/verilog/soc/optimsoc/adapter/soc_network_adapter_configuration.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/adapter/soc_network_adapter_ct.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/bootrom/soc_bootrom.sv
-../../../../../../../rtl/verilog/soc/optimsoc/interconnection/bus/soc_b3_ahb3.sv
-../../../../../../../rtl/verilog/soc/optimsoc/interconnection/decode/soc_decode_ahb3.sv
-../../../../../../../rtl/verilog/soc/optimsoc/interconnection/mux/soc_mux_ahb3.sv
+../../../../../../../rtl/verilog/soc/optimsoc/interconnection/bus/soc_b3_ahb4.sv
+../../../../../../../rtl/verilog/soc/optimsoc/interconnection/decode/soc_decode_ahb4.sv
+../../../../../../../rtl/verilog/soc/optimsoc/interconnection/mux/soc_mux_ahb4.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/main/soc_riscv_tile.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_impl_plain.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp.sv
-../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_ahb3.sv
-../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_ahb32sram.sv
+../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_ahb4.sv
+../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_ahb42sram.sv
 
 ../../../../../../../verification/tasks/library/verilog/optimsoc/main/soc_riscv_testbench.sv

@@ -44,7 +44,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-use work.mpsoc_spram_ahb3_pkg.all;
+use work.mpsoc_spram_ahb4_pkg.all;
 
 entity mpsoc_spram_synthesis is
   generic (
@@ -59,8 +59,8 @@ entity mpsoc_spram_synthesis is
     HRESETn : in std_logic;
     HCLK    : in std_logic;
 
-    -- AHB3 Slave Interfaces (receive data from AHB Masters)
-    -- AHB3 Masters connect to these ports
+    -- AHB4 Slave Interfaces (receive data from AHB Masters)
+    -- AHB4 Masters connect to these ports
     HSEL      : in  std_logic;
     HADDR     : in  std_logic_vector(PLEN-1 downto 0);
     HWDATA    : in  std_logic_vector(XLEN-1 downto 0);
@@ -82,7 +82,7 @@ architecture rtl of mpsoc_spram_synthesis is
   ------------------------------------------------------------------------------
   -- Components
   ------------------------------------------------------------------------------
-  component mpsoc_ahb3_spram
+  component mpsoc_ahb4_spram
     generic (
       MEM_SIZE          : integer := 256;  -- Memory in Bytes
       MEM_DEPTH         : integer := 256;  -- Memory depth
@@ -95,8 +95,8 @@ architecture rtl of mpsoc_spram_synthesis is
       HRESETn : in std_logic;
       HCLK    : in std_logic;
 
-      -- AHB3 Slave Interfaces (receive data from AHB Masters)
-      -- AHB3 Masters connect to these ports
+      -- AHB4 Slave Interfaces (receive data from AHB Masters)
+      -- AHB4 Masters connect to these ports
       HSEL      : in  std_logic;
       HADDR     : in  std_logic_vector(PLEN-1 downto 0);
       HWDATA    : in  std_logic_vector(XLEN-1 downto 0);
@@ -118,8 +118,8 @@ begin
   -- Module Body
   ------------------------------------------------------------------------------
 
-  -- DUT AHB3
-  ahb3_spram : mpsoc_ahb3_spram
+  -- DUT AHB4
+  ahb4_spram : mpsoc_ahb4_spram
     generic map (
       MEM_SIZE          => MEM_SIZE,
       MEM_DEPTH         => MEM_DEPTH,

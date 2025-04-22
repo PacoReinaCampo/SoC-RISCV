@@ -65,19 +65,19 @@ module soc_riscv_tile #(
   output [1:0] debug_ring_in_ready,
   input  [1:0] debug_ring_out_ready,
 
-  output            ahb3_ext_hsel_i,
-  output [PLEN-1:0] ahb3_ext_haddr_i,
-  output [XLEN-1:0] ahb3_ext_hwdata_i,
-  output            ahb3_ext_hwrite_i,
-  output [     2:0] ahb3_ext_hsize_i,
-  output [     2:0] ahb3_ext_hburst_i,
-  output [     3:0] ahb3_ext_hprot_i,
-  output [     1:0] ahb3_ext_htrans_i,
-  output            ahb3_ext_hmastlock_i,
+  output            ahb4_ext_hsel_i,
+  output [PLEN-1:0] ahb4_ext_haddr_i,
+  output [XLEN-1:0] ahb4_ext_hwdata_i,
+  output            ahb4_ext_hwrite_i,
+  output [     2:0] ahb4_ext_hsize_i,
+  output [     2:0] ahb4_ext_hburst_i,
+  output [     3:0] ahb4_ext_hprot_i,
+  output [     1:0] ahb4_ext_htrans_i,
+  output            ahb4_ext_hmastlock_i,
 
-  input [XLEN-1:0] ahb3_ext_hrdata_o,
-  input            ahb3_ext_hready_o,
-  input            ahb3_ext_hresp_o,
+  input [XLEN-1:0] ahb4_ext_hrdata_o,
+  input            ahb4_ext_hready_o,
+  input            ahb4_ext_hresp_o,
 
   input clk,
   input rst_dbg,
@@ -119,22 +119,22 @@ module soc_riscv_tile #(
 
   peripheral_dbg_soc_mriscv_trace_exec [CONFIG.CORES_PER_TILE-1:0] trace;
 
-  logic            ahb3_mem_clk_i;
-  logic            ahb3_mem_rst_i;
+  logic            ahb4_mem_clk_i;
+  logic            ahb4_mem_rst_i;
 
-  logic            ahb3_mem_hsel_i;
-  logic [PLEN-1:0] ahb3_mem_haddr_i;
-  logic [XLEN-1:0] ahb3_mem_hwdata_i;
-  logic            ahb3_mem_hwrite_i;
-  logic [     2:0] ahb3_mem_hsize_i;
-  logic [     2:0] ahb3_mem_hburst_i;
-  logic [     3:0] ahb3_mem_hprot_i;
-  logic [     1:0] ahb3_mem_htrans_i;
-  logic            ahb3_mem_hmastlock_i;
+  logic            ahb4_mem_hsel_i;
+  logic [PLEN-1:0] ahb4_mem_haddr_i;
+  logic [XLEN-1:0] ahb4_mem_hwdata_i;
+  logic            ahb4_mem_hwrite_i;
+  logic [     2:0] ahb4_mem_hsize_i;
+  logic [     2:0] ahb4_mem_hburst_i;
+  logic [     3:0] ahb4_mem_hprot_i;
+  logic [     1:0] ahb4_mem_htrans_i;
+  logic            ahb4_mem_hmastlock_i;
 
-  logic [XLEN-1:0] ahb3_mem_hrdata_o;
-  logic            ahb3_mem_hready_o;
-  logic            ahb3_mem_hresp_o;
+  logic [XLEN-1:0] ahb4_mem_hrdata_o;
+  logic            ahb4_mem_hready_o;
+  logic            ahb4_mem_hresp_o;
 
   dii_flit [DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_in;
   dii_flit [DEBUG_MODS_PER_TILE_NONZERO-1:0] dii_out;
@@ -205,7 +205,7 @@ module soc_riscv_tile #(
   wire  [ NR_SLAVES-1:0]           bussl_hready_o_flat;
   wire  [ NR_SLAVES-1:0]           bussl_hresp_o_flat;
 
-  // MAM - AHB3 adapter signals
+  // MAM - AHB4 adapter signals
   logic                            mam_dm_hsel_o;
   logic [      PLEN-1:0]           mam_dm_haddr_o;
   logic [      XLEN-1:0]           mam_dm_hwdata_o;
@@ -296,7 +296,7 @@ module soc_riscv_tile #(
 
   generate
     for (c = 0; c < CONFIG.CORES_PER_TILE; c = c + 1) begin : gen_cores
-      pu_riscv_module_ahb3 #(
+      pu_riscv_module_ahb4 #(
         .XLEN(XLEN),
         .PLEN(PLEN)
       ) u_core (
@@ -387,7 +387,7 @@ module soc_riscv_tile #(
 
   generate
     if (CONFIG.USE_DEBUG != 0 && CONFIG.DEBUG_DEM_UART != 0) begin : gen_dem_uart
-      peripheral_dbg_soc_osd_dem_uart_ahb3 u_dem_uart (
+      peripheral_dbg_soc_osd_dem_uart_ahb4 u_dem_uart (
         .clk            (clk),
         .rst            (rst_sys),
         .id             (16'(DEBUG_BASEID + CONFIG.DEBUG_MODS_PER_TILE - 1)),
@@ -397,24 +397,24 @@ module soc_riscv_tile #(
         .debug_in_ready (dii_out_ready[CONFIG.DEBUG_MODS_PER_TILE - 1]),
         .debug_out_ready(dii_in_ready[CONFIG.DEBUG_MODS_PER_TILE - 1]),
 
-        .ahb3_hsel_i     (bussl_hsel_i[SLAVE_UART]),
-        .ahb3_haddr_i    (bussl_haddr_i[SLAVE_UART][3:0]),
-        .ahb3_hwdata_i   (bussl_hwdata_i[SLAVE_UART]),
-        .ahb3_hwrite_i   (bussl_hwrite_i[SLAVE_UART]),
-        .ahb3_hsize_i    (bussl_hsize_i[SLAVE_UART]),
-        .ahb3_hburst_i   (bussl_hburst_i[SLAVE_UART]),
-        .ahb3_hprot_i    (bussl_hprot_i[SLAVE_UART]),
-        .ahb3_htrans_i   (bussl_htrans_i[SLAVE_UART]),
-        .ahb3_hmastlock_i(bussl_hmastlock_i[SLAVE_UART]),
+        .ahb4_hsel_i     (bussl_hsel_i[SLAVE_UART]),
+        .ahb4_haddr_i    (bussl_haddr_i[SLAVE_UART][3:0]),
+        .ahb4_hwdata_i   (bussl_hwdata_i[SLAVE_UART]),
+        .ahb4_hwrite_i   (bussl_hwrite_i[SLAVE_UART]),
+        .ahb4_hsize_i    (bussl_hsize_i[SLAVE_UART]),
+        .ahb4_hburst_i   (bussl_hburst_i[SLAVE_UART]),
+        .ahb4_hprot_i    (bussl_hprot_i[SLAVE_UART]),
+        .ahb4_htrans_i   (bussl_htrans_i[SLAVE_UART]),
+        .ahb4_hmastlock_i(bussl_hmastlock_i[SLAVE_UART]),
 
-        .ahb3_hrdata_o(bussl_hrdata_o[SLAVE_UART]),
-        .ahb3_hready_o(bussl_hready_o[SLAVE_UART]),
-        .ahb3_hresp_o (bussl_hresp_o[SLAVE_UART])
+        .ahb4_hrdata_o(bussl_hrdata_o[SLAVE_UART]),
+        .ahb4_hready_o(bussl_hready_o[SLAVE_UART]),
+        .ahb4_hresp_o (bussl_hresp_o[SLAVE_UART])
       );
     end
   endgenerate
 
-  soc_b3_ahb3 #(
+  soc_b3_ahb4 #(
     .MASTERS       (NR_MASTERS),
     .SLAVES        (NR_SLAVES),
     .S0_ENABLE     (CONFIG.ENABLE_DM),
@@ -472,16 +472,16 @@ module soc_riscv_tile #(
     .bus_hold_ack()
   );
 
-  if (CONFIG.USE_DEBUG == 1) begin : gen_mam_dm_ahb3
+  if (CONFIG.USE_DEBUG == 1) begin : gen_mam_dm_ahb4
     // MAM
-    peripheral_dbg_soc_osd_mam_ahb3 #(
+    peripheral_dbg_soc_osd_mam_ahb4 #(
       .PLEN(16),
       .XLEN(XLEN),
 
       .MAX_PKT_LEN(CONFIG.DEBUG_MAX_PKT_LEN),
       .MEM_SIZE0  (CONFIG.LMEM_SIZE),
       .BASE_ADDR0 (0)
-    ) u_mam_dm_ahb3 (
+    ) u_mam_dm_ahb4 (
       .clk_i          (clk),
       .rst_i          (rst_dbg),
       .debug_in       (dii_out[0]),
@@ -491,76 +491,76 @@ module soc_riscv_tile #(
 
       .id(16'(DEBUG_BASEID)),
 
-      .ahb3_hsel_o     (mam_dm_hsel_o),
-      .ahb3_haddr_o    (mam_dm_haddr_o),
-      .ahb3_hwdata_o   (mam_dm_hwdata_o),
-      .ahb3_hwrite_o   (mam_dm_hwrite_o),
-      .ahb3_hsize_o    (mam_dm_hsize_o),
-      .ahb3_hburst_o   (mam_dm_hburst_o),
-      .ahb3_hprot_o    (mam_dm_hprot_o),
-      .ahb3_htrans_o   (mam_dm_htrans_o),
-      .ahb3_hmastlock_o(mam_dm_hmastlock_o),
+      .ahb4_hsel_o     (mam_dm_hsel_o),
+      .ahb4_haddr_o    (mam_dm_haddr_o),
+      .ahb4_hwdata_o   (mam_dm_hwdata_o),
+      .ahb4_hwrite_o   (mam_dm_hwrite_o),
+      .ahb4_hsize_o    (mam_dm_hsize_o),
+      .ahb4_hburst_o   (mam_dm_hburst_o),
+      .ahb4_hprot_o    (mam_dm_hprot_o),
+      .ahb4_htrans_o   (mam_dm_htrans_o),
+      .ahb4_hmastlock_o(mam_dm_hmastlock_o),
 
-      .ahb3_hrdata_i(mam_dm_hrdata_i),
-      .ahb3_hready_i(mam_dm_hready_i),
-      .ahb3_hresp_i (mam_dm_hresp_i)
+      .ahb4_hrdata_i(mam_dm_hrdata_i),
+      .ahb4_hready_i(mam_dm_hready_i),
+      .ahb4_hresp_i (mam_dm_hresp_i)
     );
   end
 
-  if (CONFIG.ENABLE_DM) begin : gen_mam_adapter_ahb3
-    peripheral_dbg_soc_mam_adapter_ahb3 #(
+  if (CONFIG.ENABLE_DM) begin : gen_mam_adapter_ahb4
+    peripheral_dbg_soc_mam_adapter_ahb4 #(
       .PLEN(PLEN),
       .XLEN(XLEN)
-    ) u_mam_adapter_ahb3_dm (
-      .ahb3_mam_hsel_o     (mam_dm_hsel_o),
-      .ahb3_mam_haddr_o    (mam_dm_haddr_o),
-      .ahb3_mam_hwdata_o   (mam_dm_hwdata_o),
-      .ahb3_mam_hwrite_o   (mam_dm_hwrite_o),
-      .ahb3_mam_hsize_o    (mam_dm_hsize_o),
-      .ahb3_mam_hburst_o   (mam_dm_hburst_o),
-      .ahb3_mam_hprot_o    (mam_dm_hprot_o),
-      .ahb3_mam_htrans_o   (mam_dm_htrans_o),
-      .ahb3_mam_hmastlock_o(mam_dm_hmastlock_o),
+    ) u_mam_adapter_ahb4_dm (
+      .ahb4_mam_hsel_o     (mam_dm_hsel_o),
+      .ahb4_mam_haddr_o    (mam_dm_haddr_o),
+      .ahb4_mam_hwdata_o   (mam_dm_hwdata_o),
+      .ahb4_mam_hwrite_o   (mam_dm_hwrite_o),
+      .ahb4_mam_hsize_o    (mam_dm_hsize_o),
+      .ahb4_mam_hburst_o   (mam_dm_hburst_o),
+      .ahb4_mam_hprot_o    (mam_dm_hprot_o),
+      .ahb4_mam_htrans_o   (mam_dm_htrans_o),
+      .ahb4_mam_hmastlock_o(mam_dm_hmastlock_o),
 
-      .ahb3_mam_hrdata_i(mam_dm_hrdata_i),
-      .ahb3_mam_hready_i(mam_dm_hready_i),
-      .ahb3_mam_hresp_i (mam_dm_hresp_i),
+      .ahb4_mam_hrdata_i(mam_dm_hrdata_i),
+      .ahb4_mam_hready_i(mam_dm_hready_i),
+      .ahb4_mam_hresp_i (mam_dm_hresp_i),
 
       // Out
-      .ahb3_out_hsel_i     (ahb3_mem_hsel_i),
-      .ahb3_out_haddr_i    (ahb3_mem_haddr_i),
-      .ahb3_out_hwdata_i   (ahb3_mem_hwdata_i),
-      .ahb3_out_hwrite_i   (ahb3_mem_hwrite_i),
-      .ahb3_out_hsize_i    (ahb3_mem_hsize_i),
-      .ahb3_out_hburst_i   (ahb3_mem_hburst_i),
-      .ahb3_out_hprot_i    (ahb3_mem_hprot_i),
-      .ahb3_out_htrans_i   (ahb3_mem_htrans_i),
-      .ahb3_out_hmastlock_i(ahb3_mem_hmastlock_i),
+      .ahb4_out_hsel_i     (ahb4_mem_hsel_i),
+      .ahb4_out_haddr_i    (ahb4_mem_haddr_i),
+      .ahb4_out_hwdata_i   (ahb4_mem_hwdata_i),
+      .ahb4_out_hwrite_i   (ahb4_mem_hwrite_i),
+      .ahb4_out_hsize_i    (ahb4_mem_hsize_i),
+      .ahb4_out_hburst_i   (ahb4_mem_hburst_i),
+      .ahb4_out_hprot_i    (ahb4_mem_hprot_i),
+      .ahb4_out_htrans_i   (ahb4_mem_htrans_i),
+      .ahb4_out_hmastlock_i(ahb4_mem_hmastlock_i),
 
-      .ahb3_out_hrdata_o(ahb3_mem_hrdata_o),
-      .ahb3_out_hready_o(ahb3_mem_hready_o),
-      .ahb3_out_hresp_o (ahb3_mem_hresp_o),
+      .ahb4_out_hrdata_o(ahb4_mem_hrdata_o),
+      .ahb4_out_hready_o(ahb4_mem_hready_o),
+      .ahb4_out_hresp_o (ahb4_mem_hresp_o),
 
-      .ahb3_out_clk_i(ahb3_mem_clk_i),
-      .ahb3_out_rst_i(ahb3_mem_rst_i),
+      .ahb4_out_clk_i(ahb4_mem_clk_i),
+      .ahb4_out_rst_i(ahb4_mem_rst_i),
 
       // In
-      .ahb3_in_hsel_i     (bussl_hsel_i[SLAVE_DM]),
-      .ahb3_in_haddr_i    (bussl_haddr_i[SLAVE_DM]),
-      .ahb3_in_hwdata_i   (bussl_hwdata_i[SLAVE_DM]),
-      .ahb3_in_hwrite_i   (bussl_hwrite_i[SLAVE_DM]),
-      .ahb3_in_hsize_i    (bussl_hsize_i[SLAVE_DM]),
-      .ahb3_in_hburst_i   (bussl_hburst_i[SLAVE_DM]),
-      .ahb3_in_hprot_i    (bussl_hprot_i[SLAVE_DM]),
-      .ahb3_in_htrans_i   (bussl_htrans_i[SLAVE_DM]),
-      .ahb3_in_hmastlock_i(bussl_hmastlock_i[SLAVE_DM]),
+      .ahb4_in_hsel_i     (bussl_hsel_i[SLAVE_DM]),
+      .ahb4_in_haddr_i    (bussl_haddr_i[SLAVE_DM]),
+      .ahb4_in_hwdata_i   (bussl_hwdata_i[SLAVE_DM]),
+      .ahb4_in_hwrite_i   (bussl_hwrite_i[SLAVE_DM]),
+      .ahb4_in_hsize_i    (bussl_hsize_i[SLAVE_DM]),
+      .ahb4_in_hburst_i   (bussl_hburst_i[SLAVE_DM]),
+      .ahb4_in_hprot_i    (bussl_hprot_i[SLAVE_DM]),
+      .ahb4_in_htrans_i   (bussl_htrans_i[SLAVE_DM]),
+      .ahb4_in_hmastlock_i(bussl_hmastlock_i[SLAVE_DM]),
 
-      .ahb3_in_hrdata_o(bussl_hrdata_o[SLAVE_DM]),
-      .ahb3_in_hready_o(bussl_hready_o[SLAVE_DM]),
-      .ahb3_in_hresp_o (bussl_hresp_o[SLAVE_DM]),
+      .ahb4_in_hrdata_o(bussl_hrdata_o[SLAVE_DM]),
+      .ahb4_in_hready_o(bussl_hready_o[SLAVE_DM]),
+      .ahb4_in_hresp_o (bussl_hresp_o[SLAVE_DM]),
 
-      .ahb3_in_clk_i(clk),
-      .ahb3_in_rst_i(rst_sys)
+      .ahb4_in_clk_i(clk),
+      .ahb4_in_rst_i(rst_sys)
     );
   end else begin
     assign mam_dm_hrdata_i          = '0;
@@ -580,7 +580,7 @@ module soc_riscv_tile #(
 
   generate
     if ((CONFIG.ENABLE_DM) && (CONFIG.LMEM_STYLE == PLAIN)) begin : gen_sram
-      soc_sram_sp_ahb3 #(
+      soc_sram_sp_ahb4 #(
         .XLEN         (XLEN),
         .PLEN         (clog2_width(CONFIG.LMEM_SIZE)),
         .MEM_SIZE_BYTE(CONFIG.LMEM_SIZE),
@@ -588,37 +588,37 @@ module soc_riscv_tile #(
         .MEM_IMPL_TYPE("PLAIN")
       ) u_ram (
 
-        .ahb3_clk_i(ahb3_mem_clk_i),
-        .ahb3_rst_i(ahb3_mem_rst_i),
+        .ahb4_clk_i(ahb4_mem_clk_i),
+        .ahb4_rst_i(ahb4_mem_rst_i),
 
-        .ahb3_hsel_i     (ahb3_mem_hsel_i),
-        .ahb3_haddr_i    (ahb3_mem_haddr_i[clog2_width(CONFIG.LMEM_SIZE)-1:0]),
-        .ahb3_hwdata_i   (ahb3_mem_hwdata_i),
-        .ahb3_hwrite_i   (ahb3_mem_hwrite_i),
-        .ahb3_hsize_i    (ahb3_mem_hsize_i),
-        .ahb3_hburst_i   (ahb3_mem_hburst_i),
-        .ahb3_hprot_i    (ahb3_mem_hprot_i),
-        .ahb3_htrans_i   (ahb3_mem_htrans_i),
-        .ahb3_hmastlock_i(ahb3_mem_hmastlock_i),
+        .ahb4_hsel_i     (ahb4_mem_hsel_i),
+        .ahb4_haddr_i    (ahb4_mem_haddr_i[clog2_width(CONFIG.LMEM_SIZE)-1:0]),
+        .ahb4_hwdata_i   (ahb4_mem_hwdata_i),
+        .ahb4_hwrite_i   (ahb4_mem_hwrite_i),
+        .ahb4_hsize_i    (ahb4_mem_hsize_i),
+        .ahb4_hburst_i   (ahb4_mem_hburst_i),
+        .ahb4_hprot_i    (ahb4_mem_hprot_i),
+        .ahb4_htrans_i   (ahb4_mem_htrans_i),
+        .ahb4_hmastlock_i(ahb4_mem_hmastlock_i),
 
-        .ahb3_hrdata_o(ahb3_mem_hrdata_o),
-        .ahb3_hready_o(ahb3_mem_hready_o),
-        .ahb3_hresp_o (ahb3_mem_hresp_o)
+        .ahb4_hrdata_o(ahb4_mem_hrdata_o),
+        .ahb4_hready_o(ahb4_mem_hready_o),
+        .ahb4_hresp_o (ahb4_mem_hresp_o)
       );
     end else begin
-      assign ahb3_ext_hsel_i      = ahb3_mem_hsel_i;
-      assign ahb3_ext_haddr_i     = ahb3_mem_haddr_i;
-      assign ahb3_ext_hwdata_i    = ahb3_mem_hwdata_i;
-      assign ahb3_ext_hwrite_i    = ahb3_mem_hwrite_i;
-      assign ahb3_ext_hsize_i     = ahb3_mem_hsize_i;
-      assign ahb3_ext_hburst_i    = ahb3_mem_hburst_i;
-      assign ahb3_ext_hprot_i     = ahb3_mem_hprot_i;
-      assign ahb3_ext_htrans_i    = ahb3_mem_htrans_i;
-      assign ahb3_ext_hmastlock_i = ahb3_mem_hmastlock_i;
+      assign ahb4_ext_hsel_i      = ahb4_mem_hsel_i;
+      assign ahb4_ext_haddr_i     = ahb4_mem_haddr_i;
+      assign ahb4_ext_hwdata_i    = ahb4_mem_hwdata_i;
+      assign ahb4_ext_hwrite_i    = ahb4_mem_hwrite_i;
+      assign ahb4_ext_hsize_i     = ahb4_mem_hsize_i;
+      assign ahb4_ext_hburst_i    = ahb4_mem_hburst_i;
+      assign ahb4_ext_hprot_i     = ahb4_mem_hprot_i;
+      assign ahb4_ext_htrans_i    = ahb4_mem_htrans_i;
+      assign ahb4_ext_hmastlock_i = ahb4_mem_hmastlock_i;
 
-      assign ahb3_mem_hrdata_o    = ahb3_ext_hrdata_o;
-      assign ahb3_mem_hready_o    = ahb3_ext_hready_o;
-      assign ahb3_mem_hresp_o     = ahb3_ext_hresp_o;
+      assign ahb4_mem_hrdata_o    = ahb4_ext_hrdata_o;
+      assign ahb4_mem_hready_o    = ahb4_ext_hready_o;
+      assign ahb4_mem_hresp_o     = ahb4_ext_hresp_o;
     end
   endgenerate
 
@@ -649,34 +649,34 @@ module soc_riscv_tile #(
     .irq(pic_ints_i[0][4:3]),
 
     // Masters
-    .ahb3m_hsel_o     (busms_hsel_o[NR_MASTERS-1]),
-    .ahb3m_haddr_o    (busms_haddr_o[NR_MASTERS-1]),
-    .ahb3m_hwdata_o   (busms_hwdata_o[NR_MASTERS-1]),
-    .ahb3m_hwrite_o   (busms_hwrite_o[NR_MASTERS-1]),
-    .ahb3m_hsize_o    (busms_hsize_o[NR_MASTERS-1]),
-    .ahb3m_hburst_o   (busms_hburst_o[NR_MASTERS-1]),
-    .ahb3m_hprot_o    (busms_hprot_o[NR_MASTERS-1]),
-    .ahb3m_htrans_o   (busms_htrans_o[NR_MASTERS-1]),
-    .ahb3m_hmastlock_o(busms_hmastlock_o[NR_MASTERS-1]),
+    .ahb4m_hsel_o     (busms_hsel_o[NR_MASTERS-1]),
+    .ahb4m_haddr_o    (busms_haddr_o[NR_MASTERS-1]),
+    .ahb4m_hwdata_o   (busms_hwdata_o[NR_MASTERS-1]),
+    .ahb4m_hwrite_o   (busms_hwrite_o[NR_MASTERS-1]),
+    .ahb4m_hsize_o    (busms_hsize_o[NR_MASTERS-1]),
+    .ahb4m_hburst_o   (busms_hburst_o[NR_MASTERS-1]),
+    .ahb4m_hprot_o    (busms_hprot_o[NR_MASTERS-1]),
+    .ahb4m_htrans_o   (busms_htrans_o[NR_MASTERS-1]),
+    .ahb4m_hmastlock_o(busms_hmastlock_o[NR_MASTERS-1]),
 
-    .ahb3m_hrdata_i(busms_hrdata_i[NR_MASTERS-1]),
-    .ahb3m_hready_i(busms_hready_i[NR_MASTERS-1]),
-    .ahb3m_hresp_i (busms_hresp_i[NR_MASTERS-1]),
+    .ahb4m_hrdata_i(busms_hrdata_i[NR_MASTERS-1]),
+    .ahb4m_hready_i(busms_hready_i[NR_MASTERS-1]),
+    .ahb4m_hresp_i (busms_hresp_i[NR_MASTERS-1]),
 
     // Slaves
-    .ahb3s_hsel_i     (bussl_hsel_i[SLAVE_NA]),
-    .ahb3s_haddr_i    (bussl_haddr_i[SLAVE_NA]),
-    .ahb3s_hwdata_i   (bussl_hwdata_i[SLAVE_NA]),
-    .ahb3s_hwrite_i   (bussl_hwrite_i[SLAVE_NA]),
-    .ahb3s_hsize_i    (bussl_hsize_i[SLAVE_NA]),
-    .ahb3s_hburst_i   (bussl_hburst_i[SLAVE_NA]),
-    .ahb3s_hprot_i    (bussl_hprot_i[SLAVE_NA]),
-    .ahb3s_htrans_i   (bussl_htrans_i[SLAVE_NA]),
-    .ahb3s_hmastlock_i(bussl_hmastlock_i[SLAVE_NA]),
+    .ahb4s_hsel_i     (bussl_hsel_i[SLAVE_NA]),
+    .ahb4s_haddr_i    (bussl_haddr_i[SLAVE_NA]),
+    .ahb4s_hwdata_i   (bussl_hwdata_i[SLAVE_NA]),
+    .ahb4s_hwrite_i   (bussl_hwrite_i[SLAVE_NA]),
+    .ahb4s_hsize_i    (bussl_hsize_i[SLAVE_NA]),
+    .ahb4s_hburst_i   (bussl_hburst_i[SLAVE_NA]),
+    .ahb4s_hprot_i    (bussl_hprot_i[SLAVE_NA]),
+    .ahb4s_htrans_i   (bussl_htrans_i[SLAVE_NA]),
+    .ahb4s_hmastlock_i(bussl_hmastlock_i[SLAVE_NA]),
 
-    .ahb3s_hrdata_o(bussl_hrdata_o[SLAVE_NA]),
-    .ahb3s_hready_o(bussl_hready_o[SLAVE_NA]),
-    .ahb3s_hresp_o (bussl_hresp_o[SLAVE_NA])
+    .ahb4s_hrdata_o(bussl_hrdata_o[SLAVE_NA]),
+    .ahb4s_hready_o(bussl_hready_o[SLAVE_NA]),
+    .ahb4s_hresp_o (bussl_hresp_o[SLAVE_NA])
   );
 
   generate
@@ -686,20 +686,20 @@ module soc_riscv_tile #(
         .rst(rst_sys),
 
         // Outputs
-        .ahb3_hrdata_o(bussl_hrdata_o[SLAVE_BOOT]),
-        .ahb3_hready_o(bussl_hready_o[SLAVE_BOOT]),
-        .ahb3_hresp_o (bussl_hresp_o[SLAVE_BOOT]),
+        .ahb4_hrdata_o(bussl_hrdata_o[SLAVE_BOOT]),
+        .ahb4_hready_o(bussl_hready_o[SLAVE_BOOT]),
+        .ahb4_hresp_o (bussl_hresp_o[SLAVE_BOOT]),
 
         // Inputs
-        .ahb3_hsel_i     (bussl_hsel_i[SLAVE_BOOT]),
-        .ahb3_haddr_i    (bussl_haddr_i[SLAVE_BOOT]),
-        .ahb3_hwdata_i   (bussl_hwdata_i[SLAVE_BOOT]),
-        .ahb3_hwrite_i   (bussl_hwrite_i[SLAVE_BOOT]),
-        .ahb3_hsize_i    (bussl_hsize_i[SLAVE_BOOT]),
-        .ahb3_hburst_i   (bussl_hburst_i[SLAVE_BOOT]),
-        .ahb3_hprot_i    (bussl_hprot_i[SLAVE_BOOT]),
-        .ahb3_htrans_i   (bussl_htrans_i[SLAVE_BOOT]),
-        .ahb3_hmastlock_i(bussl_hmastlock_i[SLAVE_BOOT])
+        .ahb4_hsel_i     (bussl_hsel_i[SLAVE_BOOT]),
+        .ahb4_haddr_i    (bussl_haddr_i[SLAVE_BOOT]),
+        .ahb4_hwdata_i   (bussl_hwdata_i[SLAVE_BOOT]),
+        .ahb4_hwrite_i   (bussl_hwrite_i[SLAVE_BOOT]),
+        .ahb4_hsize_i    (bussl_hsize_i[SLAVE_BOOT]),
+        .ahb4_hburst_i   (bussl_hburst_i[SLAVE_BOOT]),
+        .ahb4_hprot_i    (bussl_hprot_i[SLAVE_BOOT]),
+        .ahb4_htrans_i   (bussl_htrans_i[SLAVE_BOOT]),
+        .ahb4_hmastlock_i(bussl_hmastlock_i[SLAVE_BOOT])
       );
     end else begin
       assign bussl_hrdata_o[SLAVE_BOOT] = 'x;

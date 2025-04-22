@@ -262,19 +262,19 @@ module soc_riscv_tile_testbench (
     .noc_out_ready       (noc_out_ready),
 
     // Unused
-    .ahb3_ext_hsel_i     (),
-    .ahb3_ext_haddr_i    (),
-    .ahb3_ext_hwdata_i   (),
-    .ahb3_ext_hwrite_i   (),
-    .ahb3_ext_hsize_i    (),
-    .ahb3_ext_hburst_i   (),
-    .ahb3_ext_hprot_i    (),
-    .ahb3_ext_htrans_i   (),
-    .ahb3_ext_hmastlock_i(),
+    .ahb4_ext_hsel_i     (),
+    .ahb4_ext_haddr_i    (),
+    .ahb4_ext_hwdata_i   (),
+    .ahb4_ext_hwrite_i   (),
+    .ahb4_ext_hsize_i    (),
+    .ahb4_ext_hburst_i   (),
+    .ahb4_ext_hprot_i    (),
+    .ahb4_ext_htrans_i   (),
+    .ahb4_ext_hmastlock_i(),
 
-    .ahb3_ext_hrdata_o('0),
-    .ahb3_ext_hready_o('0),
-    .ahb3_ext_hresp_o ('0)
+    .ahb4_ext_hrdata_o('0),
+    .ahb4_ext_hready_o('0),
+    .ahb4_ext_hresp_o ('0)
   );
 
   // Generate testbench signals.

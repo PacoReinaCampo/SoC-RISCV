@@ -72,33 +72,33 @@ module soc_network_adapter_ct #(
   output [CHANNELS-1:0]                 noc_out_valid,
   input  [CHANNELS-1:0]                 noc_out_ready,
 
-  output            ahb3m_hsel_o,
-  output [PLEN-1:0] ahb3m_haddr_o,
-  output [XLEN-1:0] ahb3m_hwdata_o,
-  output            ahb3m_hwrite_o,
-  output [     2:0] ahb3m_hsize_o,
-  output [     2:0] ahb3m_hburst_o,
-  output [     3:0] ahb3m_hprot_o,
-  output [     1:0] ahb3m_htrans_o,
-  output            ahb3m_hmastlock_o,
+  output            ahb4m_hsel_o,
+  output [PLEN-1:0] ahb4m_haddr_o,
+  output [XLEN-1:0] ahb4m_hwdata_o,
+  output            ahb4m_hwrite_o,
+  output [     2:0] ahb4m_hsize_o,
+  output [     2:0] ahb4m_hburst_o,
+  output [     3:0] ahb4m_hprot_o,
+  output [     1:0] ahb4m_htrans_o,
+  output            ahb4m_hmastlock_o,
 
-  input [XLEN-1:0] ahb3m_hrdata_i,
-  input            ahb3m_hready_i,
-  input            ahb3m_hresp_i,
+  input [XLEN-1:0] ahb4m_hrdata_i,
+  input            ahb4m_hready_i,
+  input            ahb4m_hresp_i,
 
-  input            ahb3s_hsel_i,
-  input [PLEN-1:0] ahb3s_haddr_i,
-  input [XLEN-1:0] ahb3s_hwdata_i,
-  input            ahb3s_hwrite_i,
-  input [     2:0] ahb3s_hsize_i,
-  input [     2:0] ahb3s_hburst_i,
-  input [     3:0] ahb3s_hprot_i,
-  input [     1:0] ahb3s_htrans_i,
-  input            ahb3s_hmastlock_i,
+  input            ahb4s_hsel_i,
+  input [PLEN-1:0] ahb4s_haddr_i,
+  input [XLEN-1:0] ahb4s_hwdata_i,
+  input            ahb4s_hwrite_i,
+  input [     2:0] ahb4s_hsize_i,
+  input [     2:0] ahb4s_hburst_i,
+  input [     3:0] ahb4s_hprot_i,
+  input [     1:0] ahb4s_htrans_i,
+  input            ahb4s_hmastlock_i,
 
-  output [XLEN-1:0] ahb3s_hrdata_o,
-  output            ahb3s_hready_o,
-  output            ahb3s_hresp_o,
+  output [XLEN-1:0] ahb4s_hrdata_o,
+  output            ahb4s_hready_o,
+  output            ahb4s_hresp_o,
 
   output [1:0] irq
 );
@@ -141,25 +141,25 @@ module soc_network_adapter_ct #(
   wire [MODCHANNELS-1:0]                 mod_in_last;
   wire [MODCHANNELS-1:0][FLIT_WIDTH-1:0] mod_in_flit;
 
-  wire [     SLAVES-1:0]                 ahb3if_hsel_i;
-  wire [     SLAVES-1:0][          23:0] ahb3if_haddr_i;
-  wire [     SLAVES-1:0][      XLEN-1:0] ahb3if_hwdata_i;
-  wire [     SLAVES-1:0]                 ahb3if_hwrite_i;
-  wire [     SLAVES-1:0][           2:0] ahb3if_hsize_i;
-  wire [     SLAVES-1:0][           2:0] ahb3if_hburst_i;
-  wire [     SLAVES-1:0][           3:0] ahb3if_hprot_i;
-  wire [     SLAVES-1:0][           1:0] ahb3if_htrans_i;
-  wire [     SLAVES-1:0]                 ahb3if_hmastlock_i;
+  wire [     SLAVES-1:0]                 ahb4if_hsel_i;
+  wire [     SLAVES-1:0][          23:0] ahb4if_haddr_i;
+  wire [     SLAVES-1:0][      XLEN-1:0] ahb4if_hwdata_i;
+  wire [     SLAVES-1:0]                 ahb4if_hwrite_i;
+  wire [     SLAVES-1:0][           2:0] ahb4if_hsize_i;
+  wire [     SLAVES-1:0][           2:0] ahb4if_hburst_i;
+  wire [     SLAVES-1:0][           3:0] ahb4if_hprot_i;
+  wire [     SLAVES-1:0][           1:0] ahb4if_htrans_i;
+  wire [     SLAVES-1:0]                 ahb4if_hmastlock_i;
 
-  wire [     SLAVES-1:0][      XLEN-1:0] ahb3if_hrdata_o;
-  wire [     SLAVES-1:0]                 ahb3if_hready_o;
-  wire [     SLAVES-1:0]                 ahb3if_hresp_o;
+  wire [     SLAVES-1:0][      XLEN-1:0] ahb4if_hrdata_o;
+  wire [     SLAVES-1:0]                 ahb4if_hready_o;
+  wire [     SLAVES-1:0]                 ahb4if_hresp_o;
 
   //////////////////////////////////////////////////////////////////////////////
   // Body
   //////////////////////////////////////////////////////////////////////////////
 
-  soc_decode_ahb3 #(
+  soc_decode_ahb4 #(
     .SLAVES        (3),
     .XLEN          (32),
     .PLEN          (24),
@@ -173,33 +173,33 @@ module soc_network_adapter_ct #(
     .clk_i(clk),
     .rst_i(rst),
 
-    .m_hsel_i     (ahb3s_hsel_i),
-    .m_haddr_i    (ahb3s_haddr_i[23:0]),
-    .m_hwdata_i   (ahb3s_hwdata_i),
-    .m_hwrite_i   (ahb3s_hwrite_i),
-    .m_hsize_i    (ahb3s_hsize_i),
-    .m_hburst_i   (ahb3s_hburst_i),
-    .m_hprot_i    (ahb3s_hprot_i),
-    .m_htrans_i   (ahb3s_htrans_i),
-    .m_hmastlock_i(ahb3s_hmastlock_i),
+    .m_hsel_i     (ahb4s_hsel_i),
+    .m_haddr_i    (ahb4s_haddr_i[23:0]),
+    .m_hwdata_i   (ahb4s_hwdata_i),
+    .m_hwrite_i   (ahb4s_hwrite_i),
+    .m_hsize_i    (ahb4s_hsize_i),
+    .m_hburst_i   (ahb4s_hburst_i),
+    .m_hprot_i    (ahb4s_hprot_i),
+    .m_htrans_i   (ahb4s_htrans_i),
+    .m_hmastlock_i(ahb4s_hmastlock_i),
 
-    .m_hrdata_o(ahb3s_hrdata_o),
-    .m_hready_o(ahb3s_hready_o),
-    .m_hresp_o (ahb3s_hresp_o),
+    .m_hrdata_o(ahb4s_hrdata_o),
+    .m_hready_o(ahb4s_hready_o),
+    .m_hresp_o (ahb4s_hresp_o),
 
-    .s_hsel_o     (ahb3if_hsel_i),
-    .s_haddr_o    (ahb3if_haddr_i),
-    .s_hwdata_o   (ahb3if_hwdata_i),
-    .s_hwrite_o   (ahb3if_hwrite_i),
-    .s_hsize_o    (ahb3if_hsize_i),
-    .s_hburst_o   (ahb3if_hburst_i),
-    .s_hprot_o    (ahb3if_hprot_i),
-    .s_htrans_o   (ahb3if_htrans_i),
-    .s_hmastlock_o(ahb3if_hmastlock_i),
+    .s_hsel_o     (ahb4if_hsel_i),
+    .s_haddr_o    (ahb4if_haddr_i),
+    .s_hwdata_o   (ahb4if_hwdata_i),
+    .s_hwrite_o   (ahb4if_hwrite_i),
+    .s_hsize_o    (ahb4if_hsize_i),
+    .s_hburst_o   (ahb4if_hburst_i),
+    .s_hprot_o    (ahb4if_hprot_i),
+    .s_htrans_o   (ahb4if_htrans_i),
+    .s_hmastlock_o(ahb4if_hmastlock_i),
 
-    .s_hrdata_i(ahb3if_hrdata_o),
-    .s_hready_i(ahb3if_hready_o),
-    .s_hresp_i (ahb3if_hresp_o)
+    .s_hrdata_i(ahb4if_hrdata_o),
+    .s_hready_i(ahb4if_hready_o),
+    .s_hresp_i (ahb4if_hresp_o)
   );
 
   soc_network_adapter_configuration #(
@@ -216,23 +216,23 @@ module soc_network_adapter_ct #(
     .clk       (clk),
     .rst       (rst),
 
-    .hsel     (ahb3s_hsel_i),
-    .haddr    (ahb3s_haddr_i[15:0]),
-    .hwrite   (ahb3s_hwrite_i),
-    .hsize    (ahb3s_hsize_i),
-    .hburst   (ahb3s_hburst_i),
-    .hprot    (ahb3s_hprot_i),
-    .htrans   (ahb3s_htrans_i),
-    .hmastlock(ahb3s_hmastlock_i),
+    .hsel     (ahb4s_hsel_i),
+    .haddr    (ahb4s_haddr_i[15:0]),
+    .hwrite   (ahb4s_hwrite_i),
+    .hsize    (ahb4s_hsize_i),
+    .hburst   (ahb4s_hburst_i),
+    .hprot    (ahb4s_hprot_i),
+    .htrans   (ahb4s_htrans_i),
+    .hmastlock(ahb4s_hmastlock_i),
 
-    .hrdata(ahb3if_hrdata_o[ID_CONF]),
-    .hwdata(ahb3if_hwdata_i[ID_CONF]),
+    .hrdata(ahb4if_hrdata_o[ID_CONF]),
+    .hwdata(ahb4if_hwdata_i[ID_CONF]),
 
-    .hready(ahb3if_hready_o[ID_CONF]),
-    .hresp (ahb3if_hresp_o[ID_CONF])
+    .hready(ahb4if_hready_o[ID_CONF]),
+    .hresp (ahb4if_hresp_o[ID_CONF])
   );
 
-  peripheral_mpi_ahb3 #(
+  peripheral_mpi_ahb4 #(
     .PLEN(PLEN),
     .XLEN(XLEN),
 
@@ -251,19 +251,19 @@ module soc_network_adapter_ct #(
     .noc_in_valid({mod_in_valid[C_MPSIMPLE_RES], mod_in_valid[C_MPSIMPLE_REQ]}),
     .noc_in_ready({mod_in_ready[C_MPSIMPLE_RES], mod_in_ready[C_MPSIMPLE_REQ]}),
 
-    .ahb3_hsel_i     (ahb3if_hsel_i[ID_MPSIMPLE]),
-    .ahb3_haddr_i    ({8'h0, ahb3if_haddr_i[ID_MPSIMPLE]}),
-    .ahb3_hwdata_i   (ahb3if_hwdata_i[ID_MPSIMPLE]),
-    .ahb3_hwrite_i   (ahb3if_hwrite_i[ID_MPSIMPLE]),
-    .ahb3_hsize_i    (ahb3if_hsize_i[ID_MPSIMPLE]),
-    .ahb3_hburst_i   (ahb3if_hburst_i[ID_MPSIMPLE]),
-    .ahb3_hprot_i    (ahb3if_hprot_i[ID_MPSIMPLE]),
-    .ahb3_htrans_i   (ahb3if_htrans_i[ID_MPSIMPLE]),
-    .ahb3_hmastlock_i(ahb3if_hmastlock_i[ID_MPSIMPLE]),
+    .ahb4_hsel_i     (ahb4if_hsel_i[ID_MPSIMPLE]),
+    .ahb4_haddr_i    ({8'h0, ahb4if_haddr_i[ID_MPSIMPLE]}),
+    .ahb4_hwdata_i   (ahb4if_hwdata_i[ID_MPSIMPLE]),
+    .ahb4_hwrite_i   (ahb4if_hwrite_i[ID_MPSIMPLE]),
+    .ahb4_hsize_i    (ahb4if_hsize_i[ID_MPSIMPLE]),
+    .ahb4_hburst_i   (ahb4if_hburst_i[ID_MPSIMPLE]),
+    .ahb4_hprot_i    (ahb4if_hprot_i[ID_MPSIMPLE]),
+    .ahb4_htrans_i   (ahb4if_htrans_i[ID_MPSIMPLE]),
+    .ahb4_hmastlock_i(ahb4if_hmastlock_i[ID_MPSIMPLE]),
 
-    .ahb3_hrdata_o(ahb3if_hrdata_o[ID_MPSIMPLE]),
-    .ahb3_hready_o(ahb3if_hready_o[ID_MPSIMPLE]),
-    .ahb3_hresp_o (ahb3if_hresp_o[ID_MPSIMPLE]),
+    .ahb4_hrdata_o(ahb4if_hrdata_o[ID_MPSIMPLE]),
+    .ahb4_hready_o(ahb4if_hready_o[ID_MPSIMPLE]),
+    .ahb4_hresp_o (ahb4if_hresp_o[ID_MPSIMPLE]),
 
     .irq(irq[0])
   );
@@ -281,7 +281,7 @@ module soc_network_adapter_ct #(
       assign mod_out_last[C_DMA_RES] = dma_out_flit[1][CONFIG.NOC_FLIT_WIDTH+1];
       assign mod_out_flit[C_DMA_RES] = dma_out_flit[1][CONFIG.NOC_FLIT_WIDTH-1:0];
 
-      peripheral_dma_top_ahb3 #(
+      peripheral_dma_top_ahb4 #(
         .TILEID       (TILEID),
         .TABLE_ENTRIES(CONFIG.NA_DMA_ENTRIES)
       ) u_dma (
@@ -304,33 +304,33 @@ module soc_network_adapter_ct #(
         .noc_out_res_valid(mod_out_valid[C_DMA_RES]),
         .noc_out_req_ready(mod_out_ready[C_DMA_REQ]),
 
-        .ahb3_if_hsel     (ahb3if_hsel_i[ID_DMA]),
-        .ahb3_if_haddr    ({8'h0, ahb3if_haddr_i[ID_DMA]}),
-        .ahb3_if_hwdata   (ahb3if_hwdata_i[ID_DMA]),
-        .ahb3_if_hwrite   (ahb3if_hwrite_i[ID_DMA]),
-        .ahb3_if_hsize    (ahb3if_hsize_i[ID_DMA]),
-        .ahb3_if_hburst   (ahb3if_hburst_i[ID_DMA]),
-        .ahb3_if_hprot    (ahb3if_hprot_i[ID_DMA]),
-        .ahb3_if_htrans   (ahb3if_htrans_i[ID_DMA]),
-        .ahb3_if_hmastlock(ahb3if_hmastlock_i[ID_DMA]),
+        .ahb4_if_hsel     (ahb4if_hsel_i[ID_DMA]),
+        .ahb4_if_haddr    ({8'h0, ahb4if_haddr_i[ID_DMA]}),
+        .ahb4_if_hwdata   (ahb4if_hwdata_i[ID_DMA]),
+        .ahb4_if_hwrite   (ahb4if_hwrite_i[ID_DMA]),
+        .ahb4_if_hsize    (ahb4if_hsize_i[ID_DMA]),
+        .ahb4_if_hburst   (ahb4if_hburst_i[ID_DMA]),
+        .ahb4_if_hprot    (ahb4if_hprot_i[ID_DMA]),
+        .ahb4_if_htrans   (ahb4if_htrans_i[ID_DMA]),
+        .ahb4_if_hmastlock(ahb4if_hmastlock_i[ID_DMA]),
 
-        .ahb3_if_hrdata(ahb3if_hrdata_o[ID_DMA]),
-        .ahb3_if_hready(ahb3if_hready_o[ID_DMA]),
-        .ahb3_if_hresp (ahb3if_hresp_o[ID_DMA]),
+        .ahb4_if_hrdata(ahb4if_hrdata_o[ID_DMA]),
+        .ahb4_if_hready(ahb4if_hready_o[ID_DMA]),
+        .ahb4_if_hresp (ahb4if_hresp_o[ID_DMA]),
 
-        .ahb3_hsel     (ahb3m_hsel_o),
-        .ahb3_haddr    (ahb3m_haddr_o),
-        .ahb3_hwdata   (ahb3m_hwdata_o),
-        .ahb3_hwrite   (ahb3m_hwrite_o),
-        .ahb3_hsize    (ahb3m_hsize_o),
-        .ahb3_hburst   (ahb3m_hburst_o),
-        .ahb3_hprot    (ahb3m_hprot_o),
-        .ahb3_htrans   (ahb3m_htrans_o),
-        .ahb3_hmastlock(ahb3m_hmastlock_o),
+        .ahb4_hsel     (ahb4m_hsel_o),
+        .ahb4_haddr    (ahb4m_haddr_o),
+        .ahb4_hwdata   (ahb4m_hwdata_o),
+        .ahb4_hwrite   (ahb4m_hwrite_o),
+        .ahb4_hsize    (ahb4m_hsize_o),
+        .ahb4_hburst   (ahb4m_hburst_o),
+        .ahb4_hprot    (ahb4m_hprot_o),
+        .ahb4_htrans   (ahb4m_htrans_o),
+        .ahb4_hmastlock(ahb4m_hmastlock_o),
 
-        .ahb3_hrdata(ahb3m_hrdata_i),
-        .ahb3_hready(ahb3m_hready_i),
-        .ahb3_hresp (ahb3m_hresp_i),
+        .ahb4_hrdata(ahb4m_hrdata_i),
+        .ahb4_hready(ahb4m_hready_i),
+        .ahb4_hresp (ahb4m_hresp_i),
 
         .irq(irq_dma)
       );
