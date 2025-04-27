@@ -131,7 +131,7 @@ RTL_VLOG += $(RV_SRC_DIR)/pkg/riscv_rv12_pkg.sv								\
 	    $(RV_SRC_DIR)/core/cache/riscv_dcache_fsm.sv						\
 	    $(RV_SRC_DIR)/core/cache/riscv_dcache_core.sv						\
 	    $(RV_SRC_DIR)/core/cache/riscv_nodcache_core.sv						\
-	    $(RV_SRC_DIR)/core/cache/riscv_cache_biu_ctrl.sv						\
+	    $(RV_SRC_DIR)/core/cache/riscv_cache_tl_ctrl.sv						\
 	    $(RV_SRC_DIR)/core/memory/riscv_memmisaligned.sv						\
 	    $(RV_SRC_DIR)/core/memory/riscv_membuf.sv							\
 	    $(RV_SRC_DIR)/core/memory/riscv_pmachk.sv							\
@@ -152,7 +152,7 @@ RTL_VLOG += $(DBG_SRC_DIR)/core/syncreg.v								\
 	    $(DBG_SRC_DIR)/core/adbg_or1k_status_reg.sv							\
 	    $(DBG_SRC_DIR)/core/adbg_or1k_pkg.sv							\
 	    $(DBG_SRC_DIR)/core/adbg_or1k_module.sv							\
-	    $(DBG_SRC_DIR)/core/adbg_or1k_biu.sv							\
+	    $(DBG_SRC_DIR)/core/adbg_or1k_tl.sv							\
 	    $(DBG_SRC_DIR)/core/adbg_jsp_pkg.sv								\
 	    $(DBG_SRC_DIR)/core/adbg_jsp_module_core.sv							\
 	    $(DBG_SRC_DIR)/core/adbg_crc32.v								\
@@ -160,7 +160,7 @@ RTL_VLOG += $(DBG_SRC_DIR)/core/syncreg.v								\
 	    $(DBG_SRC_DIR)/ahb4/adbg_ahb4_pkg.sv							\
 	    $(DBG_SRC_DIR)/ahb4/adbg_top_ahb4.sv							\
 	    $(DBG_SRC_DIR)/ahb4/adbg_jsp_apb_module.sv							\
-	    $(DBG_SRC_DIR)/ahb4/adbg_jsp_apb_biu.sv							\
+	    $(DBG_SRC_DIR)/ahb4/adbg_jsp_apb_tl.sv							\
 	    $(DBG_SRC_DIR)/ahb4/adbg_ahb4_module.sv							\
 	    $(DBG_SRC_DIR)/ahb4/adbg_ahb4_biu.sv
 
