@@ -44,7 +44,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
-use work.mpsoc_spram_ahb4_pkg.all;
+use work.mpsoc_spram_tl_pkg.all;
 
 entity mpsoc_spram_synthesis is
   generic (
@@ -82,7 +82,7 @@ architecture rtl of mpsoc_spram_synthesis is
   ------------------------------------------------------------------------------
   -- Components
   ------------------------------------------------------------------------------
-  component mpsoc_ahb4_spram
+  component mpsoc_tl_spram
     generic (
       MEM_SIZE          : integer := 256;  -- Memory in Bytes
       MEM_DEPTH         : integer := 256;  -- Memory depth
@@ -119,7 +119,7 @@ begin
   ------------------------------------------------------------------------------
 
   -- DUT AHB4
-  ahb4_spram : mpsoc_ahb4_spram
+  tl_spram : mpsoc_tl_spram
     generic map (
       MEM_SIZE          => MEM_SIZE,
       MEM_DEPTH         => MEM_DEPTH,

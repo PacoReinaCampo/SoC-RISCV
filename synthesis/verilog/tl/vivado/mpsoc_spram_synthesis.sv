@@ -69,14 +69,14 @@ module mpsoc_spram_synthesis #(
   //////////////////////////////////////////////////////////////////////////////
 
   // DUT AHB4
-  mpsoc_ahb4_spram #(
+  mpsoc_tl_spram #(
     .MEM_SIZE         (MEM_SIZE),
     .MEM_DEPTH        (MEM_DEPTH),
     .PLEN             (PLEN),
     .XLEN             (XLEN),
     .TECHNOLOGY       (TECHNOLOGY),
     .REGISTERED_OUTPUT(REGISTERED_OUTPUT)
-  ) ahb4_spram (
+  ) tl_spram (
     .HRESETn(HRESETn),
     .HCLK   (HCLK),
 
