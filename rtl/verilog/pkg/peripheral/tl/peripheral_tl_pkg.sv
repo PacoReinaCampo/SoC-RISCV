@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_biu_pkg;
+package peripheral_tl_pkg;
 
   localparam HADDR_SIZE = 64;
   localparam HDATA_SIZE = 64;

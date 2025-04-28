@@ -38,7 +38,7 @@
 // Author(s):
 //   Paco Reina Campo <pacoreinacampo@queenfield.tech>
 
-package peripheral_biu_pkg;
+package peripheral_tl_pkg;
 
   // TILELINK Constants Package
   localparam BYTE = 3'b000;
