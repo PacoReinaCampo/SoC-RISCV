@@ -9,11 +9,24 @@ verilog
 │   │   │   └── soc_optimsoc_constants.sv
 │   │   └── functions
 │   │       └── soc_optimsoc_functions.sv
+│   ├── peripheral
+│   │   ├── ahb4
+│   │   │   └── peripheral_ahb4_pkg.sv
+│   │   ├── apb4
+│   │   │   └── peripheral_apb4_pkg.sv
+│   │   ├── axi4
+│   │   │   └── peripheral_axi4_pkg.sv
+│   │   ├── bb
+│   │   │   └── peripheral_bb_pkg.sv
+│   │   ├── tl
+│   │   │   └── peripheral_tl_pkg.sv
+│   │   └── wb
+│   │       └── peripheral_wb_pkg.sv
 │   └── standard
 │       ├── peripheral_ahb4_pkg.sv
 │       ├── peripheral_apb4_pkg.sv
 │       ├── peripheral_axi4_pkg.sv
-│       ├── peripheral_biu_pkg.sv
+│       ├── peripheral_tl_pkg.sv
 │       ├── peripheral_wb_pkg.sv
 │       └── pu_riscv_pkg.sv
 └── soc
@@ -39,11 +52,13 @@ verilog
     │       ├── soc_sram_sp_impl_plain.sv
     │       └── soc_sram_sp.sv
     └── standard
-        ├── pu
+        ├── peripheral
         │   ├── pu_riscv_slaves_32b_apb4.sv
         │   ├── pu_riscv_slaves_8b_apb4.sv
         │   └── pu_riscv_system_ahb4.sv
+        ├── pu
+        │   └── pu_riscv_ahb4.sv
         └── top
             └── soc_riscv_ahb4.sv
 
-20 directories, 26 files
+28 directories, 33 files
