@@ -23,12 +23,14 @@ verilog
 │   │   └── wb
 │   │       └── peripheral_wb_pkg.sv
 │   └── standard
-│       ├── peripheral_ahb4_pkg.sv
-│       ├── peripheral_apb4_pkg.sv
-│       ├── peripheral_axi4_pkg.sv
-│       ├── peripheral_tl_pkg.sv
-│       ├── peripheral_wb_pkg.sv
-│       └── pu_riscv_pkg.sv
+│       ├── core
+│       │   └── pu_riscv_pkg.sv
+│       └── module
+│           ├── peripheral_ahb4_pkg.sv
+│           ├── peripheral_apb4_pkg.sv
+│           ├── peripheral_axi4_pkg.sv
+│           ├── peripheral_tl_pkg.sv
+│           └── peripheral_wb_pkg.sv
 └── soc
     ├── optimsoc
     │   ├── adapter
@@ -57,8 +59,18 @@ verilog
         │   ├── pu_riscv_slaves_8b_apb4.sv
         │   └── pu_riscv_system_ahb4.sv
         ├── pu
-        │   └── pu_riscv_ahb4.sv
+        │   ├── pu_riscv_ahb4.sv
+        │   ├── pu_riscv_apb4.sv
+        │   ├── pu_riscv_axi4.sv
+        │   ├── pu_riscv_bb.sv
+        │   ├── pu_riscv_tl.sv
+        │   └── pu_riscv_wb.sv
         └── top
-            └── soc_riscv_ahb4.sv
+            ├── soc_riscv_ahb4.sv
+            ├── soc_riscv_apb4.sv
+            ├── soc_riscv_axi4.sv
+            ├── soc_riscv_bb.sv
+            ├── soc_riscv_tl.sv
+            └── soc_riscv_wb.sv
 
-28 directories, 33 files
+31 directories, 43 files
