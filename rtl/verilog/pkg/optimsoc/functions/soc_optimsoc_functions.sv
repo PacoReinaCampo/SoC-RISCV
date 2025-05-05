@@ -11,7 +11,7 @@
 //                                                                            //
 //              MPSoC-RISCV CPU                                               //
 //              Multi Processor System on Chip                                //
-//              AMBA3 AHB-Lite Bus Interface                                  //
+//              AMBA4 AHB-Lite Bus Interface                                  //
 //              WishBone Bus Interface                                        //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////

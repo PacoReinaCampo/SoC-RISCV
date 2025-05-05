@@ -73,4 +73,4 @@ verilog
             ├── soc_riscv_tl.sv
             └── soc_riscv_wb.sv
 
-31 directories, 43 files
+30 directories, 43 files
