@@ -346,36 +346,36 @@ module soc_riscv_ahb4 #(
   logic                              HRESETn;
   logic                              HCLK;
 
-  logic    [$clog2(AHB_MASTERS)-1:0] mstpriority    [AHB_MASTERS];
-  logic                              mstHSEL        [AHB_MASTERS];
-  logic    [HADDR_SIZE         -1:0] mstHADDR       [AHB_MASTERS];
-  logic    [HDATA_SIZE         -1:0] mstHWDATA      [AHB_MASTERS];
-  logic    [HDATA_SIZE         -1:0] mstHRDATA      [AHB_MASTERS];
-  logic                              mstHWRITE      [AHB_MASTERS];
-  logic    [                    2:0] mstHSIZE       [AHB_MASTERS];
-  logic    [                    2:0] mstHBURST      [AHB_MASTERS];
-  logic    [                    3:0] mstHPROT       [AHB_MASTERS];
-  logic    [                    1:0] mstHTRANS      [AHB_MASTERS];
-  logic                              mstHMASTLOCK   [AHB_MASTERS];
-  logic                              mstHREADY      [AHB_MASTERS];
-  logic                              mstHREADYOUT   [AHB_MASTERS];
-  logic                              mstHRESP       [AHB_MASTERS];
+  logic    [$clog2(AHB_MASTERS)-1:0] mstpriority    [2][AHB_MASTERS];
+  logic                              mstHSEL        [2][AHB_MASTERS];
+  logic    [HADDR_SIZE         -1:0] mstHADDR       [2][AHB_MASTERS];
+  logic    [HDATA_SIZE         -1:0] mstHWDATA      [2][AHB_MASTERS];
+  logic    [HDATA_SIZE         -1:0] mstHRDATA      [2][AHB_MASTERS];
+  logic                              mstHWRITE      [2][AHB_MASTERS];
+  logic    [                    2:0] mstHSIZE       [2][AHB_MASTERS];
+  logic    [                    2:0] mstHBURST      [2][AHB_MASTERS];
+  logic    [                    3:0] mstHPROT       [2][AHB_MASTERS];
+  logic    [                    1:0] mstHTRANS      [2][AHB_MASTERS];
+  logic                              mstHMASTLOCK   [2][AHB_MASTERS];
+  logic                              mstHREADY      [2][AHB_MASTERS];
+  logic                              mstHREADYOUT   [2][AHB_MASTERS];
+  logic                              mstHRESP       [2][AHB_MASTERS];
 
-  logic    [HADDR_SIZE         -1:0] slv_adrmask    [ AHB_SLAVES];
-  logic    [HADDR_SIZE         -1:0] slv_adrbase    [ AHB_SLAVES];
-  logic                              slvHSEL        [ AHB_SLAVES];
-  logic    [HADDR_SIZE         -1:0] slvHADDR       [ AHB_SLAVES];
-  logic    [HDATA_SIZE         -1:0] slvHWDATA      [ AHB_SLAVES];
-  logic    [HDATA_SIZE         -1:0] slvHRDATA      [ AHB_SLAVES];
-  logic                              slvHWRITE      [ AHB_SLAVES];
-  logic    [                    2:0] slvHSIZE       [ AHB_SLAVES];
-  logic    [                    2:0] slvHBURST      [ AHB_SLAVES];
-  logic    [                    3:0] slvHPROT       [ AHB_SLAVES];
-  logic    [                    1:0] slvHTRANS      [ AHB_SLAVES];
-  logic                              slvHMASTLOCK   [ AHB_SLAVES];
-  logic                              slvHREADYOUT   [ AHB_SLAVES];
-  logic                              slvHREADY      [ AHB_SLAVES];
-  logic                              slvHRESP       [ AHB_SLAVES];
+  logic    [HADDR_SIZE         -1:0] slv_adrmask    [2][ AHB_SLAVES];
+  logic    [HADDR_SIZE         -1:0] slv_adrbase    [2][ AHB_SLAVES];
+  logic                              slvHSEL        [2][ AHB_SLAVES];
+  logic    [HADDR_SIZE         -1:0] slvHADDR       [2][ AHB_SLAVES];
+  logic    [HDATA_SIZE         -1:0] slvHWDATA      [2][ AHB_SLAVES];
+  logic    [HDATA_SIZE         -1:0] slvHRDATA      [2][ AHB_SLAVES];
+  logic                              slvHWRITE      [2][ AHB_SLAVES];
+  logic    [                    2:0] slvHSIZE       [2][ AHB_SLAVES];
+  logic    [                    2:0] slvHBURST      [2][ AHB_SLAVES];
+  logic    [                    3:0] slvHPROT       [2][ AHB_SLAVES];
+  logic    [                    1:0] slvHTRANS      [2][ AHB_SLAVES];
+  logic                              slvHMASTLOCK   [2][ AHB_SLAVES];
+  logic                              slvHREADYOUT   [2][ AHB_SLAVES];
+  logic                              slvHREADY      [2][ AHB_SLAVES];
+  logic                              slvHRESP       [2][ AHB_SLAVES];
 
   // APB bus
   logic                              PRESETn;
@@ -512,7 +512,7 @@ module soc_riscv_ahb4 #(
 
     .JTAG_USERIDCODE(JTAG_USERIDCODE),  //upper 16-bit
     .JTAG_USERCODE  (JTAG_USERCODE)
-  ) cpu_subsys (
+  ) cpu0_subsys (
     // all 32-bit
     .poweron_rstn(poweron_rst_ni),
     .jtag_trstn  (jtag_trst_ni),
@@ -530,46 +530,164 @@ module soc_riscv_ahb4 #(
     .HCLK   (HCLK),
 
     // CPU Instruction Interface
-    .ins_HSEL     (mstHSEL[CPU_INS]),
-    .ins_HADDR    (mstHADDR[CPU_INS]),
-    .ins_HRDATA   (mstHRDATA[CPU_INS]),
-    .ins_HWDATA   (mstHWDATA[CPU_INS]),
-    .ins_HWRITE   (mstHWRITE[CPU_INS]),
-    .ins_HSIZE    (mstHSIZE[CPU_INS]),
-    .ins_HBURST   (mstHBURST[CPU_INS]),
-    .ins_HPROT    (mstHPROT[CPU_INS]),
-    .ins_HTRANS   (mstHTRANS[CPU_INS]),
-    .ins_HMASTLOCK(mstHMASTLOCK[CPU_INS]),
-    .ins_HREADY   (mstHREADY[CPU_INS]),
-    .ins_HRESP    (mstHRESP[CPU_INS]),
+    .ins_HSEL     (mstHSEL[0][CPU_INS]),
+    .ins_HADDR    (mstHADDR[0][CPU_INS]),
+    .ins_HRDATA   (mstHRDATA[0][CPU_INS]),
+    .ins_HWDATA   (mstHWDATA[0][CPU_INS]),
+    .ins_HWRITE   (mstHWRITE[0][CPU_INS]),
+    .ins_HSIZE    (mstHSIZE[0][CPU_INS]),
+    .ins_HBURST   (mstHBURST[0][CPU_INS]),
+    .ins_HPROT    (mstHPROT[0][CPU_INS]),
+    .ins_HTRANS   (mstHTRANS[0][CPU_INS]),
+    .ins_HMASTLOCK(mstHMASTLOCK[0][CPU_INS]),
+    .ins_HREADY   (mstHREADY[0][CPU_INS]),
+    .ins_HRESP    (mstHRESP[0][CPU_INS]),
 
     // CPU Data Interface
-    .dat_HSEL     (mstHSEL[CPU_DAT]),
-    .dat_HADDR    (mstHADDR[CPU_DAT]),
-    .dat_HWDATA   (mstHWDATA[CPU_DAT]),
-    .dat_HRDATA   (mstHRDATA[CPU_DAT]),
-    .dat_HWRITE   (mstHWRITE[CPU_DAT]),
-    .dat_HSIZE    (mstHSIZE[CPU_DAT]),
-    .dat_HBURST   (mstHBURST[CPU_DAT]),
-    .dat_HPROT    (mstHPROT[CPU_DAT]),
-    .dat_HTRANS   (mstHTRANS[CPU_DAT]),
-    .dat_HMASTLOCK(mstHMASTLOCK[CPU_DAT]),
-    .dat_HREADY   (mstHREADY[CPU_DAT]),
-    .dat_HRESP    (mstHRESP[CPU_DAT]),
+    .dat_HSEL     (mstHSEL[0][CPU_DAT]),
+    .dat_HADDR    (mstHADDR[0][CPU_DAT]),
+    .dat_HWDATA   (mstHWDATA[0][CPU_DAT]),
+    .dat_HRDATA   (mstHRDATA[0][CPU_DAT]),
+    .dat_HWRITE   (mstHWRITE[0][CPU_DAT]),
+    .dat_HSIZE    (mstHSIZE[0][CPU_DAT]),
+    .dat_HBURST   (mstHBURST[0][CPU_DAT]),
+    .dat_HPROT    (mstHPROT[0][CPU_DAT]),
+    .dat_HTRANS   (mstHTRANS[0][CPU_DAT]),
+    .dat_HMASTLOCK(mstHMASTLOCK[0][CPU_DAT]),
+    .dat_HREADY   (mstHREADY[0][CPU_DAT]),
+    .dat_HRESP    (mstHRESP[0][CPU_DAT]),
 
     // Debug Memory Interface
-    .dbg_HSEL     (mstHSEL[CPU_DBG]),
-    .dbg_HADDR    (mstHADDR[CPU_DBG]),
-    .dbg_HWDATA   (mstHWDATA[CPU_DBG]),
-    .dbg_HRDATA   (mstHRDATA[CPU_DBG]),
-    .dbg_HWRITE   (mstHWRITE[CPU_DBG]),
-    .dbg_HSIZE    (mstHSIZE[CPU_DBG]),
-    .dbg_HBURST   (mstHBURST[CPU_DBG]),
-    .dbg_HPROT    (mstHPROT[CPU_DBG]),
-    .dbg_HTRANS   (mstHTRANS[CPU_DBG]),
-    .dbg_HMASTLOCK(mstHMASTLOCK[CPU_DBG]),
-    .dbg_HREADY   (mstHREADY[CPU_DBG]),
-    .dbg_HRESP    (mstHRESP[CPU_DBG]),
+    .dbg_HSEL     (mstHSEL[0][CPU_DBG]),
+    .dbg_HADDR    (mstHADDR[0][CPU_DBG]),
+    .dbg_HWDATA   (mstHWDATA[0][CPU_DBG]),
+    .dbg_HRDATA   (mstHRDATA[0][CPU_DBG]),
+    .dbg_HWRITE   (mstHWRITE[0][CPU_DBG]),
+    .dbg_HSIZE    (mstHSIZE[0][CPU_DBG]),
+    .dbg_HBURST   (mstHBURST[0][CPU_DBG]),
+    .dbg_HPROT    (mstHPROT[0][CPU_DBG]),
+    .dbg_HTRANS   (mstHTRANS[0][CPU_DBG]),
+    .dbg_HMASTLOCK(mstHMASTLOCK[0][CPU_DBG]),
+    .dbg_HREADY   (mstHREADY[0][CPU_DBG]),
+    .dbg_HRESP    (mstHRESP[0][CPU_DBG]),
+
+    .dbg_sysrst(rst_sys_o),
+
+    // Debug JSP Interface
+    .PRESETn    (PRESETn),
+    .PCLK       (PCLK),
+    .jsp_PSEL   (jsp_PSEL_8b),
+    .jsp_PENABLE(jsp_PENABLE_8b),
+    .jsp_PWRITE (jsp_PWRITE_8b),
+    .jsp_PADDR  (jsp_PADDR_8b),
+    .jsp_PWDATA (jsp_PWDATA_8b),
+    .jsp_PRDATA (jsp_PRDATA_8b),
+    .jsp_PREADY (jsp_PREADY_8b),
+    .jsp_PSLVERR(jsp_PSLVERR_8b),
+
+    // Interrupts
+    .ext_nmi (cpu_nmi),
+    .ext_int (cpu_int),
+    .ext_sint(cpu_sint),
+    .ext_tint(cpu_tint),
+
+    .jsp_int(int_jsp)
+  );
+
+  pu_riscv_system_ahb4 #(
+    .XLEN     (XLEN),
+    .PLEN     (PLEN),
+    .PC_INIT  (PC_INIT),
+    .HAS_USER (HAS_USER),
+    .HAS_SUPER(HAS_SUPER),
+    .HAS_HYPER(HAS_HYPER),
+    .HAS_BPU  (HAS_BPU),
+    .HAS_FPU  (HAS_FPU),
+    .HAS_MMU  (HAS_MMU),
+    .HAS_RVM  (HAS_RVM),
+    .HAS_RVA  (HAS_RVA),
+    .HAS_RVC  (HAS_RVC),
+
+    .MULT_LATENCY(MULT_LATENCY),
+
+    .PMA_CNT(PMA_CFG_CNT),
+    .PMP_CNT(0),
+
+    .BP_GLOBAL_BITS(BP_GLOBAL_BITS),
+    .BP_LOCAL_BITS (BP_LOCAL_BITS),
+
+    .ICACHE_SIZE       (ICACHE_SIZE),
+    .ICACHE_BLOCK_SIZE (ICACHE_BLOCK_SIZE),
+    .ICACHE_WAYS       (ICACHE_WAYS),
+    .ICACHE_REPLACE_ALG(ICACHE_REPLACE_ALG),
+
+    .DCACHE_SIZE       (DCACHE_SIZE),
+    .DCACHE_BLOCK_SIZE (DCACHE_BLOCK_SIZE),
+    .DCACHE_WAYS       (DCACHE_WAYS),
+    .DCACHE_REPLACE_ALG(DCACHE_REPLACE_ALG),
+
+    .TECHNOLOGY(TECHNOLOGY),
+
+    .JTAG_USERIDCODE(JTAG_USERIDCODE),  //upper 16-bit
+    .JTAG_USERCODE  (JTAG_USERCODE)
+  ) cpu1_subsys (
+    // all 32-bit
+    .poweron_rstn(poweron_rst_ni),
+    .jtag_trstn  (jtag_trst_ni),
+    .jtag_tck    (jtag_tck_i),
+    .jtag_tms    (jtag_tms_i),
+    .jtag_tdi    (jtag_tdi_i),
+    .jtag_tdo    (jtag_tdo_o),
+    .jtag_tdo_oe (jtag_tdoe_o),
+
+    .pma_cfg_i(pma_cfg),
+    .pma_adr_i(pma_adr),
+
+    // Common signals
+    .HRESETn(HRESETn),
+    .HCLK   (HCLK),
+
+    // CPU Instruction Interface
+    .ins_HSEL     (mstHSEL[1][CPU_INS]),
+    .ins_HADDR    (mstHADDR[1][CPU_INS]),
+    .ins_HRDATA   (mstHRDATA[1][CPU_INS]),
+    .ins_HWDATA   (mstHWDATA[1][CPU_INS]),
+    .ins_HWRITE   (mstHWRITE[1][CPU_INS]),
+    .ins_HSIZE    (mstHSIZE[1][CPU_INS]),
+    .ins_HBURST   (mstHBURST[1][CPU_INS]),
+    .ins_HPROT    (mstHPROT[1][CPU_INS]),
+    .ins_HTRANS   (mstHTRANS[1][CPU_INS]),
+    .ins_HMASTLOCK(mstHMASTLOCK[1][CPU_INS]),
+    .ins_HREADY   (mstHREADY[1][CPU_INS]),
+    .ins_HRESP    (mstHRESP[1][CPU_INS]),
+
+    // CPU Data Interface
+    .dat_HSEL     (mstHSEL[1][CPU_DAT]),
+    .dat_HADDR    (mstHADDR[1][CPU_DAT]),
+    .dat_HWDATA   (mstHWDATA[1][CPU_DAT]),
+    .dat_HRDATA   (mstHRDATA[1][CPU_DAT]),
+    .dat_HWRITE   (mstHWRITE[1][CPU_DAT]),
+    .dat_HSIZE    (mstHSIZE[1][CPU_DAT]),
+    .dat_HBURST   (mstHBURST[1][CPU_DAT]),
+    .dat_HPROT    (mstHPROT[1][CPU_DAT]),
+    .dat_HTRANS   (mstHTRANS[1][CPU_DAT]),
+    .dat_HMASTLOCK(mstHMASTLOCK[1][CPU_DAT]),
+    .dat_HREADY   (mstHREADY[1][CPU_DAT]),
+    .dat_HRESP    (mstHRESP[1][CPU_DAT]),
+
+    // Debug Memory Interface
+    .dbg_HSEL     (mstHSEL[1][CPU_DBG]),
+    .dbg_HADDR    (mstHADDR[1][CPU_DBG]),
+    .dbg_HWDATA   (mstHWDATA[1][CPU_DBG]),
+    .dbg_HRDATA   (mstHRDATA[1][CPU_DBG]),
+    .dbg_HWRITE   (mstHWRITE[1][CPU_DBG]),
+    .dbg_HSIZE    (mstHSIZE[1][CPU_DBG]),
+    .dbg_HBURST   (mstHBURST[1][CPU_DBG]),
+    .dbg_HPROT    (mstHPROT[1][CPU_DBG]),
+    .dbg_HTRANS   (mstHTRANS[1][CPU_DBG]),
+    .dbg_HMASTLOCK(mstHMASTLOCK[1][CPU_DBG]),
+    .dbg_HREADY   (mstHREADY[1][CPU_DBG]),
+    .dbg_HRESP    (mstHRESP[1][CPU_DBG]),
 
     .dbg_sysrst(rst_sys_o),
 
