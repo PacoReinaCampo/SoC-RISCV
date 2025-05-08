@@ -170,7 +170,7 @@
 ../../../../../../../rtl/verilog/soc/optimsoc/interconnection/decode/soc_decode_ahb4.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/interconnection/mux/soc_mux_ahb4.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/main/soc_riscv_tile.sv
-../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_impl_plain.sv
+../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_implemented_plain.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_sram_sp_ahb4.sv
 ../../../../../../../rtl/verilog/soc/optimsoc/spram/soc_ahb42sram.sv

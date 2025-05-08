@@ -105,8 +105,8 @@ module soc_sram_sp #(
   `endif
 
   generate
-    if (MEM_IMPL_TYPE == "PLAIN") begin : gen_soc_sram_sp_impl
-      soc_sram_sp_impl_plain #(
+    if (MEM_IMPL_TYPE == "PLAIN") begin : gen_soc_sram_sp_implemented
+      soc_sram_sp_implemented_plain #(
         .PLEN                     (PLEN),
         .WORD_AW                  (WORD_AW),
         .XLEN                     (XLEN),
@@ -126,8 +126,7 @@ module soc_sram_sp #(
         .din                 (din[XLEN-1:0]),
         .sel                 (sel[SW-1:0])
       );
-    end
-    else begin
+    end else begin
       // $display("Unsupported memory type: ", MEM_IMPL_TYPE);
       // $stop;
     end

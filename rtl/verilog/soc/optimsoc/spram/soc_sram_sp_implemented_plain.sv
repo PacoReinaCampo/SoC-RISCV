@@ -40,7 +40,7 @@
 
 import soc_optimsoc_functions::*;
 
-module soc_sram_sp_impl_plain #(
+module soc_sram_sp_implemented_plain #(
   // byte address width
   parameter PLEN = 32,
   // data width (must be multiple of 8 for byte selects to work)

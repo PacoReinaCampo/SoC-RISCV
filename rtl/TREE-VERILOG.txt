@@ -51,7 +51,7 @@ verilog
     │   └── spram
     │       ├── soc_ahb42sram.sv
     │       ├── soc_sram_sp_ahb4.sv
-    │       ├── soc_sram_sp_impl_plain.sv
+    │       ├── soc_sram_sp_implemented_plain.sv
     │       └── soc_sram_sp.sv
     └── standard
         ├── peripheral
