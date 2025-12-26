@@ -22,10 +22,10 @@ markdown/opcodes/opcodes-structured.md
 markdown/opcodes/opcodes-machine.md
 markdown/opcodes/formats.md
 markdown/opcodes/opcode-majors.md
-markdown/traps/traps.md
-markdown/traps/pseudos.md
-markdown/traps/opcode-pseudocode-c.md
-markdown/traps/opcode-pseudocode-alternative.md
+markdown/exceptions/exceptions.md
+markdown/exceptions/pseudos.md
+markdown/exceptions/opcode-pseudocode-c.md
+markdown/exceptions/opcode-pseudocode-alternative.md
 markdown/verification/verification.md
 markdown/verification/test-32.md
 markdown/verification/test-64.md

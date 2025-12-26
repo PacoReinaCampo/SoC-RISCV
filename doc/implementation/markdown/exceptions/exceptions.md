@@ -1,4 +1,4 @@
-# TRAPS
+# EXCEPTIONS
 
 ## MAIN
 
