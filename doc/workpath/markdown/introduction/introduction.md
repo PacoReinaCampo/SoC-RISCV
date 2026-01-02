@@ -2,7 +2,7 @@
 
 type:
 
-```
+```bash
 sudo apt install -y autoconf
 sudo apt install -y automake
 sudo apt install -y autotools-dev
@@ -26,7 +26,7 @@ sudo apt install -y zlib1g-dev
 
 type:
 
-```
+```bash
 git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
 
 cd riscv-gnu-toolchain
@@ -59,18 +59,20 @@ sudo make linux
 
 Here is the list of configure option for specify source tree:
 
-    --with-binutils-src
-    --with-dejagnu-src
-    --with-gcc-src
-    --with-gdb-src
-    --with-glibc-src
-    --with-llvm-src
-    --with-musl-src
-    --with-newlib-src
-    --with-pk-src
-    --with-qemu-src
-    --with-spike-src
-    --with-uclibc-src
+```bash
+--with-binutils-src
+--with-dejagnu-src
+--with-gcc-src
+--with-gdb-src
+--with-glibc-src
+--with-llvm-src
+--with-musl-src
+--with-newlib-src
+--with-pk-src
+--with-qemu-src
+--with-spike-src
+--with-uclibc-src
+```
 
 | Tool            |
 |-----------------|
