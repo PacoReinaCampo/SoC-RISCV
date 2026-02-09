@@ -1,6 +1,6 @@
-## INSTRUCTION PSEUDO CODE (ALTERNATIVE)
+## INSTRUCTION PSEUDO-CODE (ALTERNATIVE)
 
-Alternative Pseudo Code representations may also be used to describe RISC-V instructions, catering to different programming paradigms or abstraction levels. These representations vary in style and detail but aim to convey the fundamental operations and control flow logic inherent in each instruction type.
+Alternative Pseudo-Code representations may also be used to describe RISC-V instructions, catering to different programming paradigms or abstraction levels. These representations vary in style and detail but aim to convey the fundamental operations and control flow logic inherent in each instruction type.
 
 Format of a line in the table:
 

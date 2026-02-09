@@ -1,6 +1,6 @@
-## PSEUDO INSTRUCTIONS
+## PSEUDO-INSTRUCTIONS
 
-Pseudo instructions in RISC-V are syntactic conveniences that do not directly correspond to machine instructions but are instead translated by the assembler into one or more actual instructions. They provide shortcuts for common operations or complex sequences that are otherwise tedious to express directly in the base ISA. Pseudo instructions aid software development by improving code readability and maintainability, abstracting low-level details while leveraging the underlying simplicity and power of the RISC-V ISA architecture.
+Pseudo-Instructions in RISC-V are syntactic conveniences that do not directly correspond to machine instructions but are instead translated by the assembler into one or more actual instructions. They provide shortcuts for common operations or complex sequences that are otherwise tedious to express directly in the base ISA. Pseudo-Instructions aid software development by improving code readability and maintainability, abstracting low-level details while leveraging the underlying simplicity and power of the RISC-V ISA architecture.
 
 Format of a line in the table:
 

@@ -460,7 +460,6 @@ The RV64SVNAPOT table specifies the RV64SVNAPOT extension, which introduces supe
 
 The RV64I table describes the RV64I extension for machine-level instructions, introducing integer operations and functionalities optimized for the highest privilege execution mode in 64-bit implementations.
 
-
 | test rv64                | status      |
 |--------------------------|:------------|
 | `rv64mzicbo-p-zero`      | `no passed` |

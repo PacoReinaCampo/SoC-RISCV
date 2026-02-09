@@ -37,18 +37,21 @@ Format of a line in the table:
 | `rv`   | `32`      | `h`        | `32`              | `RV32H Standard Extension for Hypervisor-level Instructions`                 |
 | `rv`   | `64`      | `h`        | `32`              | `RV64H Standard Extension for Hypervisor-level Instructions (+ RV32H)`       |
 | `rv`   | `128`     | `h`        | `32`              | `RV128H Standard Extension for Hypervisor-level Instructions (+ RV64H)`      |
-| `rv`   | `32`      | `m`        | `32`              | `RV32M Standard Extension for Machine-level Instructions`                    |
-| `rv`   | `64`      | `m`        | `32`              | `RV64M Standard Extension for Machine-level Instructions (+ RV32M)`          |
-| `rv`   | `128`     | `m`        | `32`              | `RV128M Standard Extension for Machine-level Instructions (+ RV64M)`         |
 | `rv`   | `32`      | `p`        | `32`              | `RV32P Standard Extension for Packed SIMD Instructions`                      |
 | `rv`   | `64`      | `p`        | `32`              | `RV64P Standard Extension for Packed SIMD Instructions (+ RV32P)`            |
 | `rv`   | `128`     | `p`        | `32`              | `RV128P Standard Extension for Packed SIMD Instructions (+ RV64P)`           |
-| `rv`   | `32`      | `v`        | `32`              | `RV32V Standard Extension for Vector Operations`                             |
-| `rv`   | `64`      | `v`        | `32`              | `RV64V Standard Extension for Vector Operations (+ RV32V)`                   |
-| `rv`   | `128`     | `v`        | `32`              | `RV128V Standard Extension for Vector Operations (+ RV64V)`                  |
 | `rv`   | `32`      | `t`        | `32`              | `RV32T Standard Extension for Transactional Memory`                          |
 | `rv`   | `64`      | `t`        | `32`              | `RV64T Standard Extension for Transactional Memory (+ RV32T)`                |
 | `rv`   | `128`     | `t`        | `32`              | `RV128T Standard Extension for Transactional Memory (+ RV64T)`               |
+| `rv`   | `32`      | `v`        | `32`              | `RV32V Standard Extension for Vector Operations`                             |
+| `rv`   | `64`      | `v`        | `32`              | `RV64V Standard Extension for Vector Operations (+ RV32V)`                   |
+| `rv`   | `128`     | `v`        | `32`              | `RV128V Standard Extension for Vector Operations (+ RV64V)`                  |
+| `rv`   | `32`      | `w`        | `32`              | `RV32W Standard Extension for Matrix Operations`                             |
+| `rv`   | `64`      | `w`        | `32`              | `RV64W Standard Extension for Matrix Operations (+ RV32W)`                   |
+| `rv`   | `128`     | `w`        | `32`              | `RV128W Standard Extension for Matrix Operations (+ RV64W)`                  |
+| `rv`   | `32`      | `y`        | `32`              | `RV32Y Standard Extension for Tensor Operations`                             |
+| `rv`   | `64`      | `y`        | `32`              | `RV64Y Standard Extension for Tensor Operations (+ RV32Y)`                   |
+| `rv`   | `128`     | `y`        | `32`              | `RV128Y Standard Extension for Tensor Operations (+ RV64Y)`                  |
 
 :Instruction Set Extensions
 
