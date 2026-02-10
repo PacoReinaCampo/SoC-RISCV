@@ -4,7 +4,7 @@ RISC-V defines several enumerated types that categorize instructions and fields 
 
 - **Opcode (OP)**: Specifies the general operation of an instruction (e.g., arithmetic, load, store).
 - **Funct3 (FUNCT3)**: A 3-bit field within instructions that further specifies the operation or variant.
-- **Funct7 (FUNCT37)**: A 7-bit field used in some instructions to extend the opcode space.
+- **Funct7 (FUNCT7)**: A 7-bit field used in some instructions to extend the opcode space.
 - **Register (REG)**: Specifies a register number or type (e.g., integer register, floating-point register).
 
 Format of a line in the table:

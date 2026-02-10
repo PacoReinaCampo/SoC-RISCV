@@ -4,8 +4,8 @@ markdown/architecture/description.md
 markdown/architecture/enumerated.md
 markdown/architecture/notation.md
 markdown/architecture/operand.md
+markdown/architecture/extension.md
 markdown/instructions/instructions.md
-markdown/instructions/extension.md
 markdown/instructions/class.md
 markdown/instructions/description.md
 markdown/instructions/fullname.md
