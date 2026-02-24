@@ -4,11 +4,11 @@ This directory contains formats for the RISC-V Instruction Set Architecture
 
 | File                           | Description                             |
 |--------------------------------|:----------------------------------------|
-| `codecs`                       | `Instruction Encodings`                 |
 | `compression`                  | `Compressed Instruction`                |
-| `disassembly-formats`          | `Disassembly Formats`                   |
-| `opcode-majors`                | `Major Opcodes`                         |
-| `types`                        | `Instruction Types`                     |
+| `disassembly`                  | `Disassembly Formats`                   |
+| `encoding`                     | `Instruction Encodings`                 |
+| `major`                        | `Major Opcodes`                         |
+| `type`                         | `Instruction Types`                     |
 
 :Format Directory
 

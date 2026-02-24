@@ -4,16 +4,15 @@ The RISC-V ISA features a streamlined design for its instructions, aiming to bal
 
 This directory contains MetaData for the RISC-V Instruction Set Architecture
 
-| File                            | Description                              |
-|---------------------------------|:-----------------------------------------|
-| `extensions`                    | `Instruction Set Extensions`             |
-| `opcode-classes`                | `Instruction Classes`                    |
-| `opcode-descriptions`           | `Instruction Descriptions`               |
-| `opcode-fullnames`              | `Instruction Full Names`                 |
-| `opcode-pseudocode-alternative` | `Instruction Pseudo-Code (Alternative)`  |
-| `opcode-pseudocode-c`           | `Instruction Pseudo-Code (C)`            |
-| `opcodes-machine`               | `Opcode Encoding Machine Information`    |
-| `opcodes-structured`            | `Opcode Encoding Structured Information` |
+| File                     | Description                              |
+|--------------------------|:-----------------------------------------|
+| `class`                  | `Instruction Classes`                    |
+| `description`            | `Instruction Descriptions`               |
+| `fullname`               | `Instruction Full Names`                 |
+| `machine`                | `Opcode Encoding Machine Information`    |
+| `pseudocode-alternative` | `Instruction Pseudo-Code (Alternative)`  |
+| `pseudocode-c`           | `Instruction Pseudo-Code (C)`            |
+| `structured`             | `Opcode Encoding Structured Information` |
 
 :Instruction Directory
 
