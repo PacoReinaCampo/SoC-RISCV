@@ -79,4 +79,3 @@ To build the firmware from source code follow these steps (under Linux):
  * Copy $GLIP/src/backend_cypressfx3/fw/SlaveFifoSync32.patch to $FX3_INSTALL_PATH/firmware/slavefifo_examples/SlaveFifoSync and apply the patch
    (to build the firmware with the 16 bit wide FIFO interface use $GLIP/src/backend_cypressfx3/fw/SlaveFifoSync16.patch instead)
  * Now you can import the project to the EZ-USB FX3 SDK and build the firmware
-

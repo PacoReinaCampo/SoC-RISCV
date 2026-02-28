@@ -28,4 +28,3 @@ configured as IN endpoint, transferring data from the device to the host PC.
 | fx2_flagb_n   | 1        | IN        | FIFOADR selected FIFO full flag   |
 | fx2_flagc_n   | 1        | IN        | EP6 full flag                     |
 | fx2_flagd_n   | 1        | IN        | EP6 almost full flag              |
-

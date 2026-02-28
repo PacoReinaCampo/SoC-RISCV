@@ -97,4 +97,3 @@ board and the corresponding HPC connector pins.
 | fx3_flagd_n   | CTL8    | G31     |
 | fx3_com_rst   | CTL9    | G33     |
 | fx3_logic_rst | CTL10   | G34     |
-

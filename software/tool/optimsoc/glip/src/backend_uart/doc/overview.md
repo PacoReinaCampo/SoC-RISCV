@@ -39,4 +39,3 @@ data stream. With uniformly distributed random data you get
 approximately 298,500 Byte/s at 3 MBaud. Hence you generally get
 nearly full throughput, with the exception that it drops to roughly
 50% if you only send the byte `0xfe`.
-

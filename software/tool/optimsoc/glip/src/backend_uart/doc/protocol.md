@@ -82,4 +82,3 @@ below the threshold of `HOST_BUFFER_SIZE - 0x3fff`.
 The `logic_rst` pin is set on demand by the user application. The
 communications reset pin is used by the communication controller to
 reset itself to a defined state.
-

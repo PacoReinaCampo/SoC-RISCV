@@ -67,4 +67,3 @@ performance.
     $> glip_loopback_measure -b cypressfx2 -ousb_vid=0x221a,usb_pid=0x0100
 
 The performance should be around 20 MByte/s bidirectional.
-
