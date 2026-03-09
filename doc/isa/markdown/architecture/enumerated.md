@@ -127,9 +127,9 @@ The table specifies the format and interpretation of the `misa` register, which 
 | `ext`     | `I`                    | `256`     | `RV32I/64I/128I Base ISA`                            | `1.7-`        |
 | `ext`     | `M`                    | `4096`    | `Integer Multiply/Divide extension`                  | `1.7-`        |
 | `ext`     | `A`                    | `1`       | `Atomic Extension`                                   | `1.7-`        |
-| `ext`     | `F`                    | `32`      | `Single-precision foating-point extension`           | `1.7-`        |
-| `ext`     | `D`                    | `8`       | `Double-precision foating-point extension`           | `1.7-`        |
-| `ext`     | `Q`                    | `2`       | `Quadruple-precision foating-point extension`        | `1.7-`        |
+| `ext`     | `F`                    | `32`      | `Single-precision floating-point extension`          | `1.7-`        |
+| `ext`     | `D`                    | `8`       | `Double-precision floating-point extension`          | `1.7-`        |
+| `ext`     | `Q`                    | `2`       | `Quadruple-precision floating-point extension`       | `1.7-`        |
 | `ext`     | `C`                    | `4`       | `Compressed extension`                               | `1.7-`        |
 
 :ISA Extensions (misa)
