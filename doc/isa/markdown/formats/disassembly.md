@@ -53,4 +53,4 @@ Format of a line in the table:
 
 :Pseudo Opcode Formats
 
- Detailed here are the opcode formats used for pseudo instructions in the RISC-V ISA, providing compatibility and flexibility in software development across different implementations.
+ Detailed here are the opcode formats used for pseudo-instructions in the RISC-V ISA, providing compatibility and flexibility in software development across different implementations.

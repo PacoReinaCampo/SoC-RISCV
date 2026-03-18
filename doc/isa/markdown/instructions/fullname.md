@@ -354,6 +354,6 @@ The RV32F table details the single-precision floating-point extension for the 32
 | `jr`         | `Jump register`                                                     |
 | `ret`        | `Return from subroutine`                                            |
 
-:Pseudo Instructions
+:Pseudo-Instructions
 
-The Pseudo Instructions table documents pseudo instructions in the RISC-V ISA, which are assembler-level constructs that expand into one or more actual instructions during assembly or compilation, providing convenience or abstraction to programmers.
+The Pseudo-Instructions table documents pseudo-instructions in the RISC-V ISA, which are assembler-level constructs that expand into one or more actual instructions during assembly or compilation, providing convenience or abstraction to programmers.

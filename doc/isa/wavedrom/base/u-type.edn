@@ -1,0 +1,5 @@
+{reg: [
+  {bits: 7,  name: 'opcode'},
+  {bits: 5,  name: 'rd'},
+  {bits: 20, name: 'imm[31:12]'}
+], config: {label: {right: 'U-Type'}}}

@@ -44,7 +44,7 @@ Format of a line in the table:
 
 :Machine Status
 
- The status registers available at the machine privilege level, including their configuration and usage details, are outlined in this part.
+The status registers available at the machine privilege level, including their configuration and usage details, are outlined in this part.
  
 | csr         | field     | bitspec   | modes     | field description                         | version          |
 |-------------|:----------|:----------|:----------|:------------------------------------------|:-----------------|

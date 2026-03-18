@@ -1,12 +1,12 @@
-## INSTRUCTION PSEUDO-CODE (ALTERNATIVE)
+## INSTRUCTION PSEUDO-CODE (HDL)
 
 Alternative Pseudo-Code representations may also be used to describe RISC-V instructions, catering to different programming paradigms or abstraction levels. These representations vary in style and detail but aim to convey the fundamental operations and control flow logic inherent in each instruction type.
 
 Format of a line in the table:
 
-`<instruction name> "<instruction pseudo code>"`
+`<instruction name> "<instruction pseudo-code>"`
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `lui`        | `rd = imm`                                                          |
 | `auipc`      | `rd = pc + imm`                                                     |
@@ -53,7 +53,7 @@ Format of a line in the table:
 
 The RV32I table details the base integer instruction set for the 32-bit RISC-V architecture, encompassing essential operations and functionalities supported at the machine level.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `ld`         | `rd = u64[rs1 + imm]`                                               |
 | `sd`         | `u64[rs1 + imm] = rs2`                                              |
@@ -71,7 +71,7 @@ The RV32I table details the base integer instruction set for the 32-bit RISC-V a
 
 Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, maintaining compatibility with RV32I while adding support for larger data and addressing spaces.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `mul`        | `rd = ux(rs1) * ux(rs2)`                                            |
 | `mulh`       | `rd = (sx(rs1) * sx(rs2)) >> xlen`                                  |
@@ -86,7 +86,7 @@ Building upon RV32I, RV64I extends the base integer instruction set to 64-bit, m
 
 This table outlines the standard extension for integer multiplication and division operations in the 32-bit RISC-V architecture, enhancing computational capabilities with dedicated instructions.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `mulw`       | `rd = u32(rs1) * u32(rs2)`                                          |
 | `divw`       | `rd = s32(rs1) / s32(rs2)`                                          |
@@ -98,7 +98,7 @@ This table outlines the standard extension for integer multiplication and divisi
 
 Extending RV32M to 64-bit, RV64M introduces support for integer multiplication and division operations, catering to applications requiring larger data processing capabilities.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `lr.w`       | `lr = rs1 , rd = sx(s32[rs1])`                                      |
 | `sc.w`       | `if lr = rs1 then u32[rs1] = u32(rs2); rd = 0 else rd = 1`          |
@@ -116,7 +116,7 @@ Extending RV32M to 64-bit, RV64M introduces support for integer multiplication a
 
 Detailed here are the atomic instruction set extensions for the 32-bit RISC-V architecture, providing concurrency control primitives essential for synchronization in multi-threaded environments.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `lr.d`       | `lr = rs1 , rd = sx(s64[rs1])`                                      |
 | `sc.d`       | `if lr = rs1 then u64[rs1] = u64(rs2); rd = 0 else rd = 1`          |
@@ -134,7 +134,7 @@ Detailed here are the atomic instruction set extensions for the 32-bit RISC-V ar
 
 Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomic instructions for manipulating memory in a thread-safe manner across larger data sets.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `ecall`      |                                                                     |
 | `ebreak`     |                                                                     |
@@ -162,7 +162,7 @@ Extending atomic operations to 64-bit, RV64A builds upon RV32A by offering atomi
 
 This section covers supervisor-level instructions tailored for the 32-bit RISC-V architecture, including privileged operations and management functions for system-level tasks.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `flw`        | `frd = f32[rs1 + imm]`                                              |
 | `fsw`        | `f32[rs1 + imm] = f32(frs2)`                                        |
@@ -195,7 +195,7 @@ This section covers supervisor-level instructions tailored for the 32-bit RISC-V
 
 The RV32F table details the single-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 32-bit floating-point numbers according to IEEE 754 standards.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `fcvt.l.s`   | `frm = rm ; rd = s64(f32(frs1))`                                    |
 | `fcvt.lu.s`  | `frm = rm ; rd = u64(f32(frs1))`                                    |
@@ -206,7 +206,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
  Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `fld`        | `frd = f64[rs1 + imm]`                                              |
 | `fsd`        | `f64[rs1 + imm] = f64(frs2)`                                        |
@@ -239,7 +239,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
  This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `fcvt.l.d`   | `frm = rm ; rd = s64(f64(frs1))`                                    |
 | `fcvt.lu.d`  | `frm = rm ; if f64(frs1) > 0 then rd = u64(f64(frs1) else rd = 0`   |
@@ -252,7 +252,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
  Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `frcsr`      |                                                                     |
 | `frrm`       |                                                                     |
@@ -267,7 +267,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
  RV32FD documents the common floating-point instructions shared between the RV32F (single-precision) and RV32D (double-precision) floating-point extensions, optimizing instruction set usage.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `flq`        | `frd = f128[rs1 + imm]`                                             |
 | `fsq`        | `f128[rs1 + imm] = f128(frs2)`                                      |
@@ -302,7 +302,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
  This table outlines the quadruple-precision floating-point extension for the 32-bit RISC-V architecture, supporting operations on 128-bit floating-point numbers with extended precision.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `fcvt.l.q`   | `frm = rm ; rd = s64(f128(frs1))`                                   |
 | `fcvt.lu.q`  | `frm = rm ; if f128(frs1) > 0 then rd = u64(f128(frs1) else rd = 0` |
@@ -313,7 +313,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
  Extending RV32Q to 64-bit, RV64Q introduces support for quadruple-precision floating-point operations in the RISC-V architecture, catering to applications requiring ultra-high precision.
 
-| instruction  | instruction pseudo code                                             |
+| instruction  | instruction pseudo-code                                             |
 |--------------|:--------------------------------------------------------------------|
 | `fmv.x.q`    | `rd = s64(frs1)`                                                    |
 | `fmv.q.x`    | `frd = u64(rs1)`                                                    |

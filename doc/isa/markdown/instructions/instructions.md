@@ -10,8 +10,8 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 | `description`            | `Instruction Descriptions`               |
 | `fullname`               | `Instruction Full Names`                 |
 | `machine`                | `Opcode Encoding Machine Information`    |
-| `pseudocode-alternative` | `Instruction Pseudo-Code (Alternative)`  |
-| `pseudocode-c`           | `Instruction Pseudo-Code (C)`            |
+| `pseudocode-hdl`         | `Instruction Pseudo-Code (HDL)`          |
+| `pseudocode-pl`          | `Instruction Pseudo-Code (PL)`           |
 | `structured`             | `Opcode Encoding Structured Information` |
 
 :Instruction Directory

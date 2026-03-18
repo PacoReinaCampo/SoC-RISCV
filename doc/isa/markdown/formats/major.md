@@ -39,4 +39,4 @@ Major opcodes in RISC-V encompass essential instruction categories such as arith
 
 :Major Opcodes
 
- The major opcodes table categorizes and lists the primary opcodes utilized in the RISC-V instruction set architecture, essential for navigating and comprehending the instruction set's core functionalities.
+The major opcodes table categorizes and lists the primary opcodes utilized in the RISC-V instruction set architecture, essential for navigating and comprehending the instruction set's core functionalities.

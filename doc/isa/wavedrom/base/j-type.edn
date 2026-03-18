@@ -1,0 +1,8 @@
+{reg: [
+  {bits: 7,  name: 'opcode'},
+  {bits: 5,  name: 'rd'},
+  {bits: 8,  name: 'imm[19:12]'},
+  {bits: 1,  name: '[11]'},
+  {bits: 10, name: 'imm[10:1]'},
+  {bits: 1,  name: '[20]'}
+], config: {label: {right: 'J-Type'}}}
