@@ -11,7 +11,7 @@ markdown/instructions/description.md
 markdown/instructions/fullname.md
 markdown/instructions/pseudocode-hdl.md
 markdown/instructions/pseudocode-pl.md
-markdown/instructions/structured.md
+markdown/instructions/opcode.md
 markdown/formats/formats.md
 markdown/formats/encoding.md
 markdown/formats/compression.md
