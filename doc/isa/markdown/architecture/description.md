@@ -20,7 +20,7 @@ RISC-V supports floating-point data formats to enable precise numerical computat
 
 - **Double-precision (64-bit)**: Provides extended precision using the same IEEE 754 format but with increased range and precision.
 
-Floating-point formats are essential for applications requiring high accuracy in mathematical calculations, such as scientific simulations, graphics rendering, and financial modeling.
+Floating-Point formats are essential for applications requiring high accuracy in mathematical calculations, such as scientific simulations, graphics rendering, and financial modeling.
 
 Vector data formats in RISC-V facilitate SIMD (Single Instruction, Multiple Data) operations for parallel processing:
 
@@ -65,18 +65,18 @@ This table categorizes and defines the different data types supported by the RIS
 
 | symbol        | description                                             |
 |---------------|:--------------------------------------------------------|
-| `f32,s`       | `Single Precision Floating-point`                       |
-| `f64,d`       | `Double Precision Floating-point`                       |
-| `f128,q`      | `Quadruple Precision Floating-point`                    |
+| `f32,s`       | `Single Precision Floating-Point`                       |
+| `f64,d`       | `Double Precision Floating-Point`                       |
+| `f128,q`      | `Quadruple Precision Floating-Point`                    |
 
-:Precision Floating-point
+:Precision Floating-Point
 
-Precision Floating-point describes the various levels of precision available for floating-point operations in the RISC-V ISA. It details the standards and formats supported, such as single-precision, double-precision, and quadruple-precision, crucial for applications requiring precise numerical computations.
+Precision Floating-Point describes the various levels of precision available for floating-point operations in the RISC-V ISA. It details the standards and formats supported, such as single-precision, double-precision, and quadruple-precision, crucial for applications requiring precise numerical computations.
 
 | symbol        | description                                             |
 |---------------|:--------------------------------------------------------|
 | `XLEN`        | `Integer Register Width in Bits (32, 64 or 128)`        |
-| `FLEN`        | `Floating-point Register Width in Bits (32, 64 or 128)` |
+| `FLEN`        | `Floating-Point Register Width in Bits (32, 64 or 128)` |
 
 :Register Width in Bits
 

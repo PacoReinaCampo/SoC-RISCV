@@ -49,6 +49,11 @@ Format of a line in the table:
 | `c.fswsp`    | `fsw    imm_8  imm_x4`         | `rs1_eq_sp`                     |
 | `c.ld`       | `ld     imm_8  imm_x8`         | `rd_b3 rs1_b3`                  |
 | `c.sd`       | `sd     imm_8  imm_x8`         | `rs1_b3 rs2_b3`                 |
+
+:RV32C - "Compressed Instruction"
+
+| c-opcode     | d-opcode                       | constraint name                 |
+|--------------|:-------------------------------|:--------------------------------|
 | `c.lq`       | `lq     imm_9  imm_x16`        |                                 |
 | `c.sq`       | `sq     imm_9  imm_x16`        |                                 |
 | `c.addiw`    | `addiw  simm_6`                | `rd_ne_x0 rd_eq_rs1`            |
@@ -57,6 +62,6 @@ Format of a line in the table:
 | `c.lqsp`     | `lq     imm_10 imm_x16`        | `rs1_eq_sp`                     |
 | `c.sqsp`     | `sq     imm_10 imm_x16`        | `rs1_eq_sp`                     |
 
-:Compressed Instruction
+:RV64C - "Compressed Instruction"
 
 The compressed instruction table lists specific examples and encodings of instructions that are available in compressed form, demonstrating how these instructions are encoded and decoded within the RISC-V architecture.
