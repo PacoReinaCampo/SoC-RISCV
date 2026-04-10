@@ -118,7 +118,7 @@
 | `SYSTEM`  | `15'b???????_000_11100` | `excludes RDxxx instructions` |
 | `MISCMEM` | `15'b???????_???_00011` |                               |
 
-:Pseudo Instructions
+:Pseudo-Instructions
 
 | `Name`      | `Value`                                    |
 | :---------- | :----------------------------------------- |

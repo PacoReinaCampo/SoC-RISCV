@@ -1,4 +1,4 @@
-# DATA FORMATS
+# FORMATS
 
 ## MAIN
 

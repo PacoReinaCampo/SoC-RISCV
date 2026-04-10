@@ -187,8 +187,8 @@ The RV32F table details the single-precision floating-point extension for the 32
 
 :RV64F - Standard Extension for Single-Precision Floating-Point (64 bit)
 
- Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
- 
+Expanding on RV32F, RV64F introduces support for single-precision floating-point operations in the 64-bit RISC-V architecture, maintaining compatibility with RV32F for seamless transition.
+
 | `RV32D`                          | `31:25`     | `24:20`  | `19:15`  | `14:12` | `11:7`   | `6:0`     |
 |  --------------------------------|  :-------:  |  :----:  |  :----:  |  :---:  |  :----:  |  :------: |
 | `FLW FRD,RS1`                    | `IIIIIII`   | `IIIII`  | `FRS1`   | `011`   | `FRD`    | `0000111` |
@@ -222,7 +222,7 @@ The RV32F table details the single-precision floating-point extension for the 32
 
 :RV32D - Standard Extension for Double-Precision Floating-Point (32 bit)
 
- This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
+This table describes the double-precision floating-point extension for the 32-bit RISC-V architecture, enabling operations on 64-bit floating-point numbers conforming to IEEE 754 standards.
 
 | `RV64D`                          | `31:25`     | `24:20`  | `19:15`  | `14:12` | `11:7`   | `6:0`     |
 |  --------------------------------|  :-------:  |  :----:  |  :----:  |  :---:  |  :----:  |  :------: |
@@ -235,4 +235,4 @@ The RV32F table details the single-precision floating-point extension for the 32
 
 :RV64D - Standard Extension for Double-Precision Floating-Point (64 bit)
 
- Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.
+Building upon RV32D, RV64D extends support for double-precision floating-point operations to the 64-bit RISC-V architecture, facilitating higher precision computations.
