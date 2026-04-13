@@ -6,8 +6,8 @@ This directory contains MetaData for the RISC-V Instruction Set Architecture
 
 | File                           | Description                             |
 |--------------------------------|:----------------------------------------|
-| `csrs`                         | `Control and Status Registers`          |
-| `csr-fields`                   | `Control and Status Register Fields`    |
+| `csr-description`              | `Control and Status Register Descripts` |
+| `csr-field`                    | `Control and Status Register Fields`    |
 | `definition`                   | `Registers ABI Definitions`             |
 
 :Register Directory

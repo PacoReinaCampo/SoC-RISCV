@@ -20,7 +20,7 @@ markdown/formats/major.md
 markdown/formats/type.md
 markdown/registers/registers.md
 markdown/registers/csr-field.md
-markdown/registers/csr.md
+markdown/registers/csr-description.md
 markdown/registers/definition.md
 markdown/exceptions/exceptions.md
 markdown/exceptions/pseudo-instruction.md

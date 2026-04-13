@@ -1,4 +1,4 @@
-## CONTROL AND STATUS REGISTERS
+## CONTROL AND STATUS REGISTER DESCRIPTIONS
 
 Control and Status Registers (CSRs) in RISC-V provide mechanisms for managing processor state and control. These registers typically include machine-level and supervisor-level CSRs, which control privileged operations and system-level functions. CSRs are accessed through dedicated instructions, allowing software to read and modify processor state safely and efficiently. They play a critical role in system management, exception handling, and performance monitoring.
 
@@ -9,7 +9,7 @@ Format of a line in the table:
 
 `<version> is [introduced]-[deprecated]`
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x000`  | `urw`  | `ustatus`         | `User status register`                            | `1.9-`           |
 | `0x004`  | `urw`  | `uie`             | `User interrupt-enable register`                  | `1.9-`           |
@@ -19,7 +19,7 @@ Format of a line in the table:
 
 The configuration and setup details for traps and exceptions at the user level in the RISC-V architecture.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x040`  | `urw`  | `uscratch`        | `Scratch handler for user trap handlers`          | `1.9-`           |
 | `0x041`  | `urw`  | `uepc`            | `User exception program counter`                  | `1.9-`           |
@@ -32,7 +32,7 @@ The configuration and setup details for traps and exceptions at the user level i
 
 Details in this table cover how traps and exceptions are handled specifically within the user privilege level of the RISC-V ISA.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x001`  | `urw`  | `fflags`          | `Floating-Point Accrued Exceptions`               | `1.7-`           |
 | `0x002`  | `urw`  | `frm`             | `Floating-Point Dynamic Rounding Mode`            | `1.7-`           |
@@ -42,7 +42,7 @@ Details in this table cover how traps and exceptions are handled specifically wi
 
 This section lists the Control and Status Registers (CSRs) related to floating-point operations that are accessible at the user level.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0xC00`  | `uro`  | `cycle`           | `Cycle counter (for RDCYCLE)`                     | `1.7-`           |
 | `0xC01`  | `uro`  | `time`            | `Wall-clock time (for RDTIME)`                    | `1.7-`           |
@@ -55,7 +55,7 @@ This section lists the Control and Status Registers (CSRs) related to floating-p
 
 The timers and counters available to user-level programs are outlined and described in this table of the RISC-V ISA.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x100`  | `srw`  | `sstatus`         | `Supervisor status register`                      | `1.7-`           |
 | `0x102`  | `srw`  | `sedeleg`         | `Supervisor exception delegation register`        | `1.9-`           |
@@ -68,7 +68,7 @@ The timers and counters available to user-level programs are outlined and descri
 
 Configuration specifics for traps and exceptions at the supervisor privilege level are detailed in this part of the RISC-V ISA documentation.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x140`  | `srw`  | `sscratch`        | `Scratch register for supervisor trap handlers`   | `1.7-`           |
 | `0x141`  | `srw`  | `sepc`            | `Supervisor exception program counter`            | `1.7-`           |
@@ -81,7 +81,7 @@ Configuration specifics for traps and exceptions at the supervisor privilege lev
 
 The procedures and mechanisms for handling traps and exceptions at the supervisor privilege level are documented comprehensively.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x180`  | `srw`  | `sptbr`           | `Page-table base register`                        | `1.7-1.9.1`      |
 | `0x180`  | `srw`  | `satp`            | `Supervisor address translation and protection`   | `1.10-`          |
@@ -90,7 +90,7 @@ The procedures and mechanisms for handling traps and exceptions at the superviso
 
 This table covers the protection and translation mechanisms available to the supervisor mode in the RISC-V ISA.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0xD00`  | `sro`  | `scycle`          | `Supervisor cycle counter`                        | `1.9-`           |
 | `0xD01`  | `sro`  | `stime`           | `Supervisor wall-clock time`                      | `1.7-1.9`        |
@@ -103,7 +103,7 @@ This table covers the protection and translation mechanisms available to the sup
 
 Detailed descriptions of timers and counters accessible to supervisor-level software are provided in this section of the RISC-V ISA specification.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x200`  | `hrw`  | `hstatus`         | `Hypervisor status register`                      | `1.7-1.9.1`      |
 | `0x202`  | `mrw`  | `hedeleg`         | `Hypervisor exception delegation register`        | `1.9-1.9.1`      |
@@ -115,7 +115,7 @@ Detailed descriptions of timers and counters accessible to supervisor-level soft
 
 Configuration details for traps and exceptions in the context of hypervisor mode are detailed in this part of the RISC-V ISA documentation.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x240`  | `hrw`  | `hscratch`        | `Scratch register for hypervisor trap handlers`   | `1.7-1.9.1`      |
 | `0x241`  | `hrw`  | `hepc`            | `Hypervisor exception program counter`            | `1.7-1.9.1`      |
@@ -127,7 +127,7 @@ Configuration details for traps and exceptions in the context of hypervisor mode
 
 The procedures and methods for handling traps and exceptions in hypervisor mode are outlined and explained in this section.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0xE00`  | `sro`  | `hcycle`          | `Hypervisor cycle counter`                        | `1.7-1.9.1`      |
 | `0xE01`  | `sro`  | `htime`           | `Hypervisor wall-clock time`                      | `1.7-1.9`        |
@@ -140,7 +140,7 @@ The procedures and methods for handling traps and exceptions in hypervisor mode 
 
 This section provides information on timers and counters available for use within the hypervisor mode of the RISC-V architecture.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0xF11`  | `mro`  | `mvendorid`       | `Vendor ID`                                       | `1.9-`           |
 | `0xF12`  | `mro`  | `marchid`         | `Architecture ID`                                 | `1.9-`           |
@@ -151,7 +151,7 @@ This section provides information on timers and counters available for use withi
 
 Registers containing essential machine information are listed and described in this table of the RISC-V ISA.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x300`  | `mrw`  | `mstatus`         | `Machine status register`                         | `1.7-`           |
 | `0x301`  | `mrw`  | `misa`            | `ISA and extensions supported`                    | `1.7-`           |
@@ -165,7 +165,7 @@ Registers containing essential machine information are listed and described in t
 
 Configuration specifics for setting up traps and exceptions at the machine privilege level are detailed in this part of the RISC-V ISA documentation.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x340`  | `mrw`  | `mscratch`        | `Scratch register for machine trap handlers`      | `1.7-`           |
 | `0x341`  | `mrw`  | `mepc`            | `Machine exception program counter`               | `1.7-`           |
@@ -198,7 +198,7 @@ Configuration specifics for setting up traps and exceptions at the machine privi
 
 This section covers the handling mechanisms and procedures for traps and exceptions at the machine privilege level of the RISC-V ISA.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x380`  | `mrw`  | `mbase`           | `Base register`                                   | `1.7-`           |
 | `0x381`  | `mrw`  | `mbound`          | `Bound register`                                  | `1.7-`           |
@@ -211,7 +211,7 @@ This section covers the handling mechanisms and procedures for traps and excepti
 
 Details on the protection and translation mechanisms available to the machine mode are documented comprehensively in this table.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0xB00`  | `mrw`  | `mcycle`          | `Machine cycle counter`                           | `1.7-`           |
 | `0xB01`  | `mrw`  | `mtime`           | `Machine wall-clock time`                         | `1.7-1.9`        |
@@ -282,7 +282,7 @@ Details on the protection and translation mechanisms available to the machine mo
 
 The RISC-V ISA provides various counters and timers that are accessible at the machine privilege level, detailed here for reference.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x320`  | `mrw`  | `mucounteren`     | `Machine interrupt-enable register`               | `1.9-1.9.1`      |
 | `0x321`  | `mrw`  | `mscounteren`     | `Supervisor-mode counter enable`                  | `1.9-1.9.1`      |
@@ -321,7 +321,7 @@ The RISC-V ISA provides various counters and timers that are accessible at the m
 
 Setup and configuration details for the counters in the RISC-V ISA, applicable at the machine privilege level, are provided in this section.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x7A0`  | `mrw`  | `tselect`         | `Debug/Trace trigger register select`             | `1.9.1-`         |
 | `0x7A1`  | `mrw`  | `tdata1`          | `First Debug/Trace trigger data register`         | `1.9.1-`         |
@@ -332,7 +332,7 @@ Setup and configuration details for the counters in the RISC-V ISA, applicable a
 
 Registers used for debugging and tracing purposes, which are shared with the Debug Mode of the RISC-V ISA, are detailed in this table.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x7B0`  | `mrw`  | `dcsr`            | `Debug control and status register`               | `1.9.1-`         |
 | `0x7B1`  | `mrw`  | `dpc`             | `Debug program counter`                           | `1.9.1-`         |
@@ -342,7 +342,7 @@ Registers used for debugging and tracing purposes, which are shared with the Deb
 
 This section details the registers specific to the Debug Mode of the RISC-V ISA, outlining their functionalities and usage.
 
-| csr      | num    | access            | description                                       | version          |
+| number   | access | name              | description                                       | version          |
 |----------|:-------|:------------------|:--------------------------------------------------|:-----------------|
 | `0x780`  | `mrw`  | `mtohost`         | `IO to Host`                                      | `1.7-`           |
 | `0x781`  | `mrw`  | `mfromhost`       | `IO from Host`                                    | `1.7-`           |
