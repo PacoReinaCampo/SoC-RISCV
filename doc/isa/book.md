@@ -24,6 +24,7 @@ markdown/registers/csr-description.md
 markdown/registers/definition.md
 markdown/exceptions/exceptions.md
 markdown/exceptions/pseudo-instruction.md
+markdown/exceptions/traps.md
 markdown/verification/verification.md
 markdown/verification/test-32.md
 markdown/verification/test-64.md
