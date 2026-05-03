@@ -1,5 +1,74 @@
 # EXCEPTIONS
 
+```sv
+// Interrupts
+typedef struct packed {
+  logic [1:0] external,
+              timer,
+              software;
+} interrupts_t;
+
+// Exceptions
+typedef struct packed {
+  logic hardware_error,                // 19 (corrupted/uncorrectable data)
+        software_check,                // 18
+        reserved17,                    // 17
+        reserved16,                    // 16
+        store_page_fault,              // 15
+        res14,                         // 14
+        load_page_fault,               // 13
+        instruction_page_fault,        // 12
+        mmode_ecall,                   // 11
+        reserved10,                    // 10
+        smode_ecall,                   // 9
+        umode_ecall,                   // 8
+        store_access_fault,            // 7
+        misaligned_store,              // 6
+        load_access_fault,             // 5
+        misaligned_load,               // 4
+        breakpoint,                    // 3
+        illegal_instruction,           // 2
+        instruction_access_fault,      // 1
+        misaligned_instruction;        // 0
+} exceptions_t;
+
+typedef struct packed {
+  logic any;                 // OR of all interrupts and exceptions
+  logic nmi;                 // Non-Maskable interrupt
+  interrupts_t interrupts;   // Interrupts
+  exceptions_t exceptions;   // Exceptions
+} interrupts_exceptions_t;
+```
+
+```sv
+localparam EXCEPTION_SIZE                 = $bits(exceptions_t);
+
+localparam CAUSE_MISALIGNED_INSTRUCTION   = 0;
+localparam CAUSE_INSTRUCTION_ACCESS_FAULT = 1;
+localparam CAUSE_ILLEGAL_INSTRUCTION      = 2;
+localparam CAUSE_BREAKPOINT               = 3;
+localparam CAUSE_MISALIGNED_LOAD          = 4;
+localparam CAUSE_LOAD_ACCESS_FAULT        = 5;
+localparam CAUSE_MISALIGNED_STORE         = 6;
+localparam CAUSE_STORE_ACCESS_FAULT       = 7;
+localparam CAUSE_UMODE_ECALL              = 8;
+localparam CAUSE_SMODE_ECALL              = 9;
+localparam CAUSE_MMODE_ECALL              = 11;
+localparam CAUSE_INSTRUCTION_PAGE_FAULT   = 12;
+localparam CAUSE_LOAD_PAGE_FAULT          = 13;
+localparam CAUSE_STORE_PAGE_FAULT         = 15;
+localparam CAUSE_SOFTWARE_CHECK           = 18;
+localparam CAUSE_HARDWARE_ERROR           = 19;
+
+localparam CAUSE_SSINT                    = 1;
+localparam CAUSE_MSINT                    = 3;
+localparam CAUSE_STINT                    = 5;
+localparam CAUSE_MTINT                    = 7;
+localparam CAUSE_SEINT                    = 9;
+localparam CAUSE_MEINT                    = 11;
+localparam CAUSE_COUNTER_OVERFLOW         = 13;
+```
+
 ## MAIN
 
 ### PU RISCV CORE
@@ -108,8 +177,8 @@
 | :-------- | :------------------- |
 | `DBG_GPR` | `12'b0000_0000_0000` |
 | `DBG_FPR` | `12'b0001_0000_0000` |
-| `DBG_NPC` | `12'h200`            |
-| `DBG_PPC` | `12'h201`            |
+| `DBG_NPC` | `12'h0000_0000_0200` |
+| `DBG_PPC` | `12'h0000_0000_0201` |
 
 Bank2 - CSRs
 
