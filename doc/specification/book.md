@@ -28,4 +28,4 @@ markdown/exceptions/traps.md
 markdown/verification/verification.md
 markdown/verification/test-32.md
 markdown/verification/test-64.md
-markdown/greencard/machine.md
+markdown/card/machine.md
